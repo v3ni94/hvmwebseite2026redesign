@@ -7,6 +7,7 @@
 
 {% import 'components/eyebrow.html.twig' as e %}
 {% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
 {% import 'components/timeline.html.twig' as tl %}
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
@@ -68,6 +69,23 @@
 </section>
 
 {% include 'partials/immobilienangebote.html.twig' with {typ: 'miete', id: 'angebote-titel'} only %}
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge für Vermieter und Investoren', url: '/wissen/?zielgruppe=vermieter-investoren'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Mieterauswahl: sorgfältig, fair und datensparsam', url: '/wissen/mieterauswahl/', fuss: 'Beitrag lesen', text: 'Kriterien für eine sorgfältige und faire Auswahl.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Leerstand: Ursachen erkennen, Vermietung planen', url: '/wissen/leerstand-vermeiden/', fuss: 'Beitrag lesen', text: 'Ursachen erkennen und die Vermietung frühzeitig planen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Wohnungsübergabe und Übergabeprotokoll', url: '/wissen/wohnungsuebergabe/', fuss: 'Beitrag lesen', text: 'Inhalt des Protokolls und worauf zu achten ist.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Mietkaution', url: '/wissen/mietkaution/', fuss: 'Beitrag lesen', text: 'Zulässige Höhe, Anlage und Abrechnung nach Auszug.'}) }}
+        </div>
+    </div>
+</section>
 
 <section class="l-section" aria-labelledby="faq-titel">
     <div class="l-container">

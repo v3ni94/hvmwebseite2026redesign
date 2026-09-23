@@ -7,6 +7,7 @@
 
 {% import 'components/eyebrow.html.twig' as e %}
 {% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
 {% import 'components/timeline.html.twig' as tl %}
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
@@ -69,6 +70,24 @@
 </section>
 
 {% include 'partials/immobilienangebote.html.twig' with {typ: 'kauf', id: 'angebote-titel'} only %}
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge zu Verkauf und Bewertung', url: '/wissen/?zielgruppe=verkauf-bewertung'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eine Immobilie verkaufen: der Ablauf', url: '/wissen/immobilie-verkaufen-ablauf/', fuss: 'Beitrag lesen', text: 'Vorbereitung, Vermarktung und Notartermin im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Unterlagen für den Immobilienverkauf', url: '/wissen/unterlagen-immobilienverkauf/', fuss: 'Beitrag lesen', text: 'Welche Unterlagen für den Verkauf benötigt werden.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Der Energieausweis bei Verkauf und Vermietung', url: '/wissen/energieausweis/', fuss: 'Beitrag lesen', text: 'Vorlagepflicht und Pflichtangaben in Anzeigen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eine vermietete Wohnung verkaufen', url: '/wissen/vermietete-wohnung-verkaufen/', fuss: 'Beitrag lesen', text: 'Was beim Verkauf einer vermieteten Wohnung gilt.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentumswohnung kaufen: Unterlagen der WEG prüfen', url: '/wissen/eigentumswohnung-kaufen-pruefen/', fuss: 'Beitrag lesen', text: 'Welche Unterlagen Käufer prüfen sollten.'}) }}
+        </div>
+    </div>
+</section>
 
 <section class="l-section" aria-labelledby="faq-titel">
     <div class="l-container">

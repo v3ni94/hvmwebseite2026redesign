@@ -80,14 +80,14 @@ final class PageControllerTest extends TestCase
         foreach ($m[1] as $json) {
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
             $types[] = is_array($data['@type']) ? implode('+', $data['@type']) : $data['@type'];
-            if (($data['@type'] ?? null) === ['Organization', 'LocalBusiness']) {
+            if (($data['@type'] ?? null) === ['Organization', 'RealEstateAgent']) {
                 self::assertSame('Hausverwaltung Müller GmbH', $data['name']);
                 self::assertSame('Rheinpromenade 13', $data['address']['streetAddress']);
                 self::assertSame('+49 2431 9550300', $data['telephone'] ?? null);
                 self::assertArrayNotHasKey('vatID', $data);
             }
         }
-        self::assertContains('Organization+LocalBusiness', $types);
+        self::assertContains('Organization+RealEstateAgent', $types);
     }
 
     public function testServicePageHasBreadcrumbAndServiceSchema(): void

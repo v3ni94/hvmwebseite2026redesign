@@ -10,6 +10,7 @@
 {% import 'components/section-head.html.twig' as sh %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/button.html.twig' as b %}
+{% import 'components/card.html.twig' as c %}
 {% import 'components/cta-band.html.twig' as cta %}
 
 {% block hero %}
@@ -74,8 +75,14 @@
             eyebrow: 'Wissen',
             titel: 'Notfall im *Haus*: mehr erfahren',
             id: 'wissen-titel',
-            aktion: {label: 'Beitrag lesen', url: '/wissen/notfall-was-tun/'},
+            aktion: {label: 'Alle Beiträge für Mieter', url: '/wissen/?zielgruppe=mieter'},
         }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Notfall im Haus: Was ist ein Notfall und was ist zu tun', url: '/wissen/notfall-was-tun/', fuss: 'Beitrag lesen', text: 'Was ein Notfall ist und was zu tun ist.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Einen Schaden melden', url: '/wissen/schadensmeldung/', fuss: 'Beitrag lesen', text: 'Wege der Schadensmeldung und was Sie angeben sollten.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rauchwarnmelder in der Wohnung', url: '/wissen/rauchwarnmelder/', fuss: 'Beitrag lesen', text: 'Zuständigkeit für Einbau und Wartung im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verkehrssicherungspflichten in Wohnanlagen', url: '/wissen/verkehrssicherungspflicht/', fuss: 'Beitrag lesen', text: 'Wer für die Sicherheit verantwortlich ist.'}) }}
+        </div>
     </div>
 </section>
 

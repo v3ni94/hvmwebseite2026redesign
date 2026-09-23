@@ -8,7 +8,12 @@ use Hvm\Support\Config;
 
 /**
  * Strukturierte Daten (schema.org) aus den Stammdaten. Nur belegte Angaben:
- * Felder mit null in config/unternehmen.php (z. B. telefon) werden weggelassen.
+ * Felder mit null in config/unternehmen.php (z. B. ust_id) werden weggelassen, nie geraten.
+ *
+ * Aufbau je indexierbarer Seite (docs/seo-geo.md Abschnitt 3): Organisation und WebSite mit festen @id,
+ * dazu die Seitenentität (WebPage, AboutPage, ContactPage, CollectionPage oder Service) und die
+ * BreadcrumbList. Die Entitäten verweisen per @id aufeinander, damit Suchmaschinen und
+ * Antwortmaschinen sie auf jeder Seite eindeutig einer Organisation zuordnen können.
  */
 final class SchemaBuilder
 {
@@ -32,13 +37,17 @@ final class SchemaBuilder
     }
 
     /**
-     * @param array{slug: string, title: string, description: string, canonical: string, breadcrumbs: list<array{label: string, url: string}>} $page
+     * @param array{slug: string, title: string, description: string, canonical: string, breadcrumbs: list<array{label: string, url: string}>, heading?: string} $page
      * @return list<array<string, mixed>>
      */
     public function forPage(array $page, string $type): array
     {
         $schemas = [];
-        if ($page['slug'] === 'start') {
+        $indexierbar = $type !== '' && $type !== 'none';
+        $hatKrumen = count($page['breadcrumbs']) > 1;
+        $name = (string) ($page['heading'] ?? ($page['breadcrumbs'] !== [] ? end($page['breadcrumbs'])['label'] : $page['title']));
+
+        if ($indexierbar) {
             $schemas[] = $this->organization();
             $schemas[] = $this->website();
         }
@@ -47,35 +56,45 @@ final class SchemaBuilder
             $schemas[] = self::withoutNulls([
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
-                'name' => $page['breadcrumbs'] !== [] ? end($page['breadcrumbs'])['label'] : $page['title'],
+                '@id' => $page['canonical'] . '#leistung',
+                'name' => $name,
+                'serviceType' => $name,
                 'description' => $page['description'],
                 'url' => $page['canonical'],
+                'inLanguage' => 'de-DE',
                 'provider' => ['@id' => $this->organizationId()],
-                // areaServed nur mit bestätigten Regionen (config/standorte.php, status 'eigene_praesenz' oder
-                // 'partner', verifiziert true). Aktuell ist nur der Hauptsitz bestätigt, keine Servicegebiete.
+                // areaServed nur mit bestätigten Orten (config/standorte.php, verifiziert true): Hauptsitz
+                // Monheim am Rhein sowie weitere Regionen erst nach Bestätigung durch die Geschäftsführung.
                 'areaServed' => $this->confirmedAreaServed(),
+                'mainEntityOfPage' => $page['canonical'],
             ]);
-        } elseif ($type !== '' && $type !== 'none') {
-            $schemas[] = [
+        } elseif ($indexierbar) {
+            $ueberOrganisation = in_array($type, ['AboutPage', 'ContactPage'], true);
+            $schemas[] = self::withoutNulls([
                 '@context' => 'https://schema.org',
                 '@type' => $type,
+                '@id' => $page['canonical'] . '#webseite',
                 'name' => $page['title'],
                 'description' => $page['description'],
                 'url' => $page['canonical'],
                 'inLanguage' => 'de-DE',
-                'isPartOf' => ['@type' => 'WebSite', 'url' => $this->baseUrl() . '/'],
-            ];
+                'isPartOf' => ['@id' => $this->websiteId()],
+                'about' => $ueberOrganisation || $page['slug'] === 'start' ? ['@id' => $this->organizationId()] : null,
+                'publisher' => ['@id' => $this->organizationId()],
+                'breadcrumb' => $hatKrumen ? ['@id' => $page['canonical'] . '#brotkrumen'] : null,
+            ]);
         }
 
-        if (count($page['breadcrumbs']) > 1) {
-            $schemas[] = $this->breadcrumbList($page['breadcrumbs']);
+        if ($hatKrumen) {
+            $schemas[] = $this->breadcrumbList($page['breadcrumbs'], $page['canonical']);
         }
 
         return $schemas;
     }
 
     /**
-     * Organisation und LocalBusiness für den Hauptsitz.
+     * Organisation für den Hauptsitz. RealEstateAgent ist in schema.org ein LocalBusiness und der
+     * nächstliegende Typ für eine Hausverwaltung mit Vermietung und Verkauf.
      *
      * @return array<string, mixed>
      */
@@ -83,14 +102,24 @@ final class SchemaBuilder
     {
         $firma = $this->config->array('unternehmen');
         $anschrift = (array) ($firma['anschrift'] ?? []);
+        $telefon = self::internationaleNummer($firma['telefon'] ?? null);
+        $logo = null;
+        if (is_file((string) $this->config->get('app.base_path') . '/public/assets/img/logo/hvm-logo.svg')) {
+            $logo = $this->baseUrl() . '/assets/img/logo/hvm-logo.svg';
+        }
 
         $schema = [
             '@context' => 'https://schema.org',
-            '@type' => ['Organization', 'LocalBusiness'],
+            '@type' => ['Organization', 'RealEstateAgent'],
             '@id' => $this->organizationId(),
             'name' => $firma['name'] ?? '',
+            'legalName' => $firma['name'] ?? null,
+            'alternateName' => $firma['kurzname'] ?? null,
             'url' => $this->baseUrl() . '/',
+            'logo' => $logo,
+            'image' => $logo,
             'email' => $firma['email'] ?? null,
+            'telephone' => $telefon,
             'foundingDate' => $firma['gruendung'] ?? null,
             'address' => [
                 '@type' => 'PostalAddress',
@@ -99,24 +128,38 @@ final class SchemaBuilder
                 'addressLocality' => $anschrift['ort'] ?? null,
                 'addressCountry' => $anschrift['land'] ?? 'DE',
             ],
-            'telephone' => isset($firma['telefon']) ? preg_replace('/^0/', '+49 ', (string) $firma['telefon']) : null,
+            'contactPoint' => $telefon !== null || isset($firma['email']) ? [
+                '@type' => 'ContactPoint',
+                'contactType' => 'customer service',
+                'telephone' => $telefon,
+                'email' => $firma['email'] ?? null,
+                'availableLanguage' => 'de',
+            ] : null,
             'vatID' => $firma['ust_id'] ?? null,
+            'identifier' => isset($firma['hrb'], $firma['registergericht']) ? [
+                '@type' => 'PropertyValue',
+                'propertyID' => 'Handelsregister',
+                'value' => $firma['hrb'] . ', ' . $firma['registergericht'],
+            ] : null,
             'memberOf' => array_map(
-                static fn (array $m): array => ['@type' => 'Organization', 'name' => (string) ($m['name'] ?? $m['kurz'] ?? '')],
+                static fn (array $m): array => ['@type' => 'Organization', 'name' => (string) ($m['name'] ?? $m['kurz'] ?? '')]
+                    + (isset($m['kurz']) && ($m['kurz'] !== ($m['name'] ?? null)) ? ['alternateName' => (string) $m['kurz']] : []),
                 array_values((array) ($firma['mitgliedschaften'] ?? []))
             ),
+            'knowsAbout' => array_values(array_map(
+                static fn (array $l): string => (string) $l['name'],
+                array_filter((array) ($firma['leistungen'] ?? []), static fn ($l): bool => is_array($l) && isset($l['name']))
+            )),
+            'areaServed' => $this->confirmedAreaServed(),
+            // sameAs nur mit bekannten, eigenen Profilen (optional config/unternehmen.php 'same_as'), sonst weggelassen
+            'sameAs' => array_values(array_filter((array) ($firma['same_as'] ?? []), 'is_string')),
         ];
-        if (is_file((string) $this->config->get('app.base_path') . '/public/assets/img/logo/hvm-logo.svg')) {
-            $schema['logo'] = $this->baseUrl() . '/assets/img/logo/hvm-logo.svg';
-        }
 
         return self::withoutNulls($schema);
     }
 
     /**
-     * WebSite-Entität, referenziert von den übrigen Seiten über isPartOf.
-     * Ohne SearchAction: die Suche ist rein clientseitig (Architektur Abschnitt 1) und liefert keine
-     * eigene Ergebnis-URL, die Google als Sitelinks-Suchbox anzeigen könnte.
+     * WebSite-Entität mit SearchAction auf die serverseitige Suche der Wissensseite (/wissen/?q=).
      *
      * @return array<string, mixed>
      */
@@ -130,13 +173,20 @@ final class SchemaBuilder
             'url' => $this->baseUrl() . '/',
             'inLanguage' => 'de-DE',
             'publisher' => ['@id' => $this->organizationId()],
+            'potentialAction' => [
+                '@type' => 'SearchAction',
+                'target' => [
+                    '@type' => 'EntryPoint',
+                    'urlTemplate' => $this->baseUrl() . '/wissen/?q={search_term_string}',
+                ],
+                'query-input' => 'required name=search_term_string',
+            ],
         ]);
     }
 
     /**
-     * Bestätigte Servicegebiete aus config/standorte.php (status 'eigene_praesenz' oder 'partner',
-     * verifiziert true), ohne den Hauptsitz selbst (der steht bereits in der Anschrift). Leere Liste,
-     * solange keine weitere Region bestätigt ist: dann wird areaServed weggelassen, nie geraten.
+     * Bestätigte Orte aus config/standorte.php: Hauptsitz sowie Regionen mit status 'eigene_praesenz'
+     * oder 'partner' und verifiziert true. Nicht bestätigte Regionen werden nie aufgenommen.
      *
      * @return list<array<string, mixed>>
      */
@@ -146,8 +196,7 @@ final class SchemaBuilder
         foreach ($this->config->array('standorte') as $standort) {
             $status = $standort['status'] ?? null;
             $verifiziert = $standort['verifiziert'] ?? false;
-            $hauptsitz = $standort['hauptsitz'] ?? false;
-            if ($hauptsitz || $verifiziert !== true || !in_array($status, ['eigene_praesenz', 'partner'], true)) {
+            if ($verifiziert !== true || !in_array($status, ['eigene_praesenz', 'partner'], true)) {
                 continue;
             }
             $orte[] = ['@type' => 'City', 'name' => (string) ($standort['name'] ?? '')];
@@ -157,8 +206,8 @@ final class SchemaBuilder
     }
 
     /**
-     * FAQPage aus einer Liste von Fragen und Antworten. Wiederverwendbar für Wissensartikel und die
-     * FAQ-Seite (`/wissen/`); Antworttext als reiner Text ohne HTML.
+     * FAQPage aus einer Liste von Fragen und Antworten. Nur freigegebene Fragen übergeben
+     * (Aufrufer filtert). Antworttext als reiner Text ohne HTML.
      *
      * @param list<array{frage: string, antwort: string}> $fragen
      * @return array<string, mixed>
@@ -169,6 +218,7 @@ final class SchemaBuilder
             '@context' => 'https://schema.org',
             '@type' => 'FAQPage',
             'url' => $url,
+            'inLanguage' => 'de-DE',
             'mainEntity' => array_map(
                 static fn (array $f): array => [
                     '@type' => 'Question',
@@ -181,8 +231,8 @@ final class SchemaBuilder
     }
 
     /**
-     * Article aus den Frontmatter-Feldern eines Wissensartikels. Nur belegte Angaben: fehlt ein Datum
-     * oder ein Autor, bleibt das Feld weg statt geraten zu werden.
+     * Article aus den Frontmatter-Feldern eines Wissensartikels. Nur belegte Angaben: fehlt ein Datum,
+     * bleibt das Feld weg. Autor ist die Organisation, sofern das Frontmatter den Firmennamen nennt.
      *
      * @param array{titel: string, beschreibung?: string, url: string, stand?: string, autor?: string, bild?: string} $artikel
      * @return array<string, mixed>
@@ -190,34 +240,53 @@ final class SchemaBuilder
     public function article(array $artikel): array
     {
         $bild = $artikel['bild'] ?? null;
+        $stand = isset($artikel['stand']) ? self::isoDate($artikel['stand']) : null;
+        $firma = (string) $this->config->get('unternehmen.name', '');
+        $autor = $artikel['autor'] ?? null;
+        if ($autor === null || $autor === $firma) {
+            $autorSchema = ['@type' => 'Organization', '@id' => $this->organizationId(), 'name' => $firma, 'url' => $this->baseUrl() . '/'];
+        } else {
+            $autorSchema = ['@type' => 'Organization', 'name' => $autor];
+        }
 
         return self::withoutNulls([
             '@context' => 'https://schema.org',
             '@type' => 'Article',
+            '@id' => $artikel['url'] . '#artikel',
             'headline' => $artikel['titel'],
             'description' => $artikel['beschreibung'] ?? null,
             'url' => $artikel['url'],
             'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $artikel['url']],
             'inLanguage' => 'de-DE',
-            'dateModified' => isset($artikel['stand']) ? self::isoDate($artikel['stand']) : null,
-            'datePublished' => isset($artikel['stand']) ? self::isoDate($artikel['stand']) : null,
-            'author' => isset($artikel['autor']) ? ['@type' => 'Organization', 'name' => $artikel['autor']] : ['@id' => $this->organizationId()],
+            'dateModified' => $stand,
+            'datePublished' => $stand,
+            'author' => $autorSchema,
             'publisher' => ['@id' => $this->organizationId()],
-            'image' => $bild !== null ? $this->baseUrl() . $bild : null,
-            'isPartOf' => ['@type' => 'WebSite', '@id' => $this->websiteId()],
+            'image' => $bild !== null ? (str_starts_with($bild, 'http') ? $bild : $this->baseUrl() . $bild) : null,
+            'isPartOf' => ['@id' => $this->websiteId()],
         ]);
     }
 
     private static function isoDate(string $value): ?string
     {
-        return preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) ? $value . 'T00:00:00+01:00' : null;
+        return preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) ? $value : null;
+    }
+
+    /** Nationale Rufnummer (0...) in internationale Schreibweise (+49 ...) umwandeln. */
+    private static function internationaleNummer(mixed $nummer): ?string
+    {
+        if (!is_string($nummer) || trim($nummer) === '') {
+            return null;
+        }
+
+        return (string) preg_replace('/^0/', '+49 ', trim($nummer));
     }
 
     /**
      * @param list<array{label: string, url: string}> $breadcrumbs
      * @return array<string, mixed>
      */
-    public function breadcrumbList(array $breadcrumbs): array
+    public function breadcrumbList(array $breadcrumbs, ?string $canonical = null): array
     {
         $items = [];
         foreach (array_values($breadcrumbs) as $i => $crumb) {
@@ -229,7 +298,12 @@ final class SchemaBuilder
             ];
         }
 
-        return ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $items];
+        return self::withoutNulls([
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            '@id' => $canonical !== null ? $canonical . '#brotkrumen' : null,
+            'itemListElement' => $items,
+        ]);
     }
 
     /**

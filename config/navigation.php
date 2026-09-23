@@ -50,6 +50,7 @@ return [
             'titel' => 'Unternehmen',
             'links' => [
                 ['label' => 'Über uns', 'url' => '/ueber-uns/'],
+                ['label' => 'Zahlen und Fakten', 'url' => '/fakten/'],
                 ['label' => 'Betreuungsgebiete', 'url' => '/betreuungsgebiete/'],
                 ['label' => 'Referenzen', 'url' => '/referenzen/'],
                 ['label' => 'Karriere', 'url' => '/karriere/'],

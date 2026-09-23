@@ -8,6 +8,12 @@ autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /angebot/
 cta: angebot
+kurzfassung:
+  - "Verbreitet ist ein zweistufiges Modell aus Grundvergütung je Einheit und Sondervergütung für darüber hinausgehende Leistungen."
+  - "Der Preis hängt vor allem von Art der Verwaltung, Größe, Zustand und technischer Ausstattung des Objekts sowie der Ausgangslage ab."
+  - "Angebote sind erst vergleichbar, wenn Grundleistungen und gesondert vergütete Leistungen klar beschrieben sind."
+  - "In der WEG-Verwaltung trägt die Gemeinschaft die Vergütung über das Hausgeld, in der Miet- und SE-Verwaltung der beauftragende Eigentümer."
+  - "Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr."
 faq:
   - frage: "Wie wird eine Hausverwaltung üblicherweise vergütet?"
     antwort: "Verbreitet ist eine monatliche Grundvergütung je Einheit, etwa je Wohnung, Gewerbeeinheit oder Stellplatz. Daneben werden für klar beschriebene Sonderleistungen gesonderte Vergütungen vereinbart. Maßgeblich ist immer der Verwaltervertrag."

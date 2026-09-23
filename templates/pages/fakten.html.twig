@@ -1,0 +1,118 @@
+{#
+  Faktenseite „Die HVM in Zahlen und Fakten“ (/fakten/, docs/seo-geo.md Abschnitt 4).
+  Zitierfähige Angaben ausschließlich aus firma (config/unternehmen.php), kennzahlen (config/kennzahlen.php)
+  und fakten (config/fakten.php, Angaben der Geschäftsführung laut docs/auftraggeber-angaben.md).
+  Jede Angabe mit Stand-Datum. Keine neuen Fakten im Template ergänzen.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% set stand = datum(fakten.stand_stammdaten) %}
+{% set stichtag = datum(kennzahlen.stichtag) %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Unternehmen') }}
+        <h1>{{ page.heading|trennen }}</h1>
+        <p class="c-seitenkopf__text">Die wichtigsten Angaben zur {{ firma.name }} ({{ firma.kurzname }}) kompakt und mit Stand-Datum: Stammdaten Stand {{ stand }}, Bestand Stand {{ stichtag }}.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="l-section l-section--kompakt" aria-labelledby="ueberblick-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Überblick',
+            titel: 'Die HVM auf einen *Blick*',
+            text: 'Firmen- und Registerangaben, Gründung, Bestand und Mitgliedschaften der ' ~ firma.name ~ '.',
+            id: 'ueberblick-titel',
+        }) }}
+        <div class="c-tabelle-rahmen" tabindex="0" role="region" aria-label="Zahlen und Fakten zur {{ firma.name }}">
+            <table class="c-tabelle">
+                <caption>{{ firma.name }} in Zahlen und Fakten</caption>
+                <thead><tr><th scope="col">Angabe</th><th scope="col">Wert</th><th scope="col">Stand</th></tr></thead>
+                <tbody>
+                    <tr><th scope="row">Firma</th><td>{{ firma.name }}, Kurzname {{ firma.kurzname }}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Sitz</th><td>{{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Registergericht und Nummer</th><td>{{ firma.registergericht }}, {{ firma.hrb }}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Geschäftsführer</th><td>{{ firma.geschaeftsfuehrer }}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Gründung</th><td>{{ datum(firma.gruendung) }}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Bestand</th><td>{{ kennzahlen.einheiten }} Verwaltungseinheiten in {{ kennzahlen.objekte }} Objekten</td><td>{{ stichtag }}</td></tr>
+                    <tr><th scope="row">Mitgliedschaften</th><td>{% for m in firma.mitgliedschaften %}{{ m.name == m.kurz ? m.kurz : m.kurz ~ ' (' ~ m.name ~ ')' }}{% if not loop.last %} und {% endif %}{% endfor %}</td><td>{{ stand }}</td></tr>
+                    <tr><th scope="row">Leistungen</th><td>{% for l in firma.leistungen %}<a href="{{ l.url }}">{{ l.name }}</a>, {% endfor %}<a href="/asset-management/">Asset Management</a></td><td>{{ stand }}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p><small>Quelle Bestand: {{ kennzahlen.quelle }}.</small></p>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="begriffe-titel">
+    <div class="l-container c-prosa">
+        {{ sh.section_head({
+            eyebrow: 'Begriffe',
+            titel: 'Leistungsbegriffe in einem *Satz*',
+            id: 'begriffe-titel',
+        }) }}
+        <dl class="c-angaben">
+            {% for d in fakten.definitionen %}
+            <dt><a href="{{ d.url }}">{{ d.begriff }}</a></dt>
+            <dd>{{ d.definition }} <small>(Stand {{ datum(d.stand) }})</small></dd>
+            {% endfor %}
+        </dl>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="merkmale-titel">
+    <div class="l-container c-prosa">
+        {{ sh.section_head({
+            eyebrow: 'Merkmale',
+            titel: 'Bestätigte *Merkmale*',
+            text: 'Angaben der Geschäftsführung, Stand ' ~ stand ~ '.',
+            id: 'merkmale-titel',
+        }) }}
+        <dl class="c-angaben">
+            {% for m in fakten.merkmale %}
+            <dt>{{ m.merkmal }}</dt>
+            <dd>{% if m.url %}<a href="{{ m.url }}">{{ m.angabe }}</a>{% else %}{{ m.angabe }}{% endif %} <small>(Stand {{ datum(m.stand) }})</small></dd>
+            {% endfor %}
+        </dl>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="kontakt-titel">
+    <div class="l-container c-prosa">
+        {{ sh.section_head({
+            eyebrow: 'Kontakt',
+            titel: 'Kontakt zur *HVM*',
+            id: 'kontakt-titel',
+        }) }}
+        <dl class="c-angaben">
+            <dt>Anschrift</dt>
+            <dd>{{ firma.name }}, {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}</dd>
+            <dt>Telefon</dt>
+            <dd>{% if firma.telefon %}<a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a>{% else %}{{ placeholder(firma.telefon_platzhalter) }}{% endif %}</dd>
+            <dt>E-Mail</dt>
+            <dd><a href="mailto:{{ firma.email }}">{{ firma.email }}</a></dd>
+            <dt>Online</dt>
+            <dd><a href="/kontakt/">Kontaktformular</a> und <a href="/angebot/">Angebot anfordern</a></dd>
+        </dl>
+        {{ n.hinweis('Zitierhinweis', 'Bitte zitieren als: ' ~ firma.name ~ ', Die HVM in Zahlen und Fakten, ' ~ page.canonical ~ ', jeweils mit dem angegebenen Stand.') }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für *Ihre Immobilie* anfordern',
+    text: 'Unverbindlich, mit dem Entwurf des Verwaltervertrags.',
+    primaer: {label: 'Angebot anfordern', url: '/angebot/'},
+    sekundaer: {label: 'Über uns', url: '/ueber-uns/'},
+    id: 'cta-titel',
+}) }}
+{% endblock %}

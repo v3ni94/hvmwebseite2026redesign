@@ -32,6 +32,7 @@
             titel: 'Die Hausverwaltung Müller GmbH auf einen *Blick*',
             text: 'Gegründet am ' ~ datum(firma.gruendung) ~ ' (' ~ firma.gruendung_text ~ '), Hauptsitz ' ~ firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Geschäftsführer ist ' ~ firma.geschaeftsfuehrer ~ '.',
             id: 'unternehmen-titel',
+            aktion: {label: 'Die HVM in Zahlen und Fakten', url: '/fakten/'},
         }) }}
     </div>
 </section>
@@ -90,6 +91,23 @@
         }) }}
         <p class="c-prosa">Geschäftsführer der Hausverwaltung Müller GmbH ist {{ firma.geschaeftsfuehrer }}.</p>
         {{ ph.block('Team und Ansprechpartner', 'Team und Ansprechpartner ergänzen', {erklaerung: 'Weitere Mitarbeiterinnen und Mitarbeiter mit Zuständigkeit werden nach Freigabe durch die Geschäftsführung ergänzt.'}) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Zum Wissensbereich', url: '/wissen/'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Der zertifizierte Verwalter', url: '/wissen/zertifizierter-verwalter/', fuss: 'Beitrag lesen', text: 'Voraussetzungen und Nutzen der Zertifizierung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Was kostet eine Hausverwaltung?', url: '/wissen/kosten-hausverwaltung/', fuss: 'Beitrag lesen', text: 'Faktoren für die Vergütung der Verwaltung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Property, Asset und Facility Management', url: '/wissen/property-asset-facility-management/', fuss: 'Beitrag lesen', text: 'Die Unterschiede der drei Begriffe erklärt.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Was ist in der Verwaltung enthalten?', url: '/wissen/leistungsumfang-verwaltervertrag/', fuss: 'Beitrag lesen', text: 'Leistungsumfang des Verwaltervertrags.'}) }}
+        </div>
     </div>
 </section>
 

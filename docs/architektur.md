@@ -96,7 +96,8 @@ DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
 MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_ENCRYPTION=tls, MAIL_FROM, MAIL_FROM_NAME
 LEAD_NOTIFY_TO=               # [Empfängeradresse Leads festlegen]
 N8N_WEBHOOK_URL=, N8N_WEBHOOK_SECRET=
-TRUSTED_PROXIES=172.16.0.0/12
+TRUSTED_PROXIES=172.30.90.0/24  # nur Subnetz des Traefik-Netzes, siehe docs/betrieb.md 1.4
+N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=false  # Produktion: nur https, true erlaubt http an interne Hosts
 ADMIN_IP_ALLOWLIST=           # leer = keine IP-Beschränkung, sonst CIDR-Liste
 SESSION_IDLE_TIMEOUT=1800
 LEAD_RETENTION_DAYS=          # [Aufbewahrungsfrist festlegen], leer = Löschlauf deaktiviert

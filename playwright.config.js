@@ -4,7 +4,8 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ||= '/opt/pw-browsers';
 
 const { defineConfig, devices } = require('@playwright/test');
 
-const PORT = 8090;
+// E2E_PORT erlaubt parallele Läufe (z. B. mehrere Arbeitskopien), Standard 8090
+const PORT = Number(process.env.E2E_PORT || 8090);
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 
 module.exports = defineConfig({
@@ -41,6 +42,9 @@ module.exports = defineConfig({
       APP_ENV: 'development',
       APP_URL: BASE_URL,
       SHOW_DRAFTS: 'true',
+      // Formular-Tests setzen je Test eine fiktive X-Forwarded-For-Adresse, damit das Rate Limit
+      // (5 Anfragen je IP in 10 Minuten) wiederholte Läufe nicht blockiert (tests/e2e/helpers/formular.js).
+      TRUSTED_PROXIES: '127.0.0.1/32',
     },
   },
 });

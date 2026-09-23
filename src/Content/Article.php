@@ -13,6 +13,7 @@ final class Article
     /**
      * @param list<array{frage: string, antwort: string}> $faq Höchstens fünf Einträge (Inhaltsplan)
      * @param list<array{id: string, text: string}>        $ueberschriften H2-Überschriften für das Inhaltsverzeichnis
+     * @param list<string>                                  $kurzfassung Optional: Kernaussagen für „Das Wichtigste in Kürze“ (Frontmatter kurzfassung)
      */
     public function __construct(
         public readonly string $slug,
@@ -28,6 +29,7 @@ final class Article
         public readonly string $html,
         public readonly array $ueberschriften,
         public readonly bool $istEntwurf,
+        public readonly array $kurzfassung = [],
     ) {
     }
 

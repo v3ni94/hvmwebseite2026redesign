@@ -8,6 +8,11 @@ autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /se-verwaltung/
 cta: angebot
+kurzfassung:
+  - "Die Sondereigentumsverwaltung betreut die vermietete Eigentumswohnung und das Mietverhältnis im Auftrag des einzelnen Eigentümers."
+  - "Der WEG-Verwalter ist dagegen für das gemeinschaftliche Eigentum zuständig, Vertragspartner ist die Gemeinschaft der Wohnungseigentümer."
+  - "Eine Kernaufgabe ist die Übertragung der WEG-Jahresabrechnung in die Betriebskostenabrechnung für den Mieter."
+  - "Schäden am Gemeinschaftseigentum meldet die SE-Verwaltung dem WEG-Verwalter und verfolgt die Behebung."
 faq:
   - frage: "Brauche ich eine Sondereigentumsverwaltung, wenn es schon einen WEG-Verwalter gibt?"
     antwort: "Der WEG-Verwalter ist für das gemeinschaftliche Eigentum und die Gemeinschaft zuständig, nicht für Ihr Mietverhältnis. Mieteinzug, Betriebskostenabrechnung gegenüber dem Mieter und die Betreuung der Wohnung gehören nicht zu seinen Aufgaben als WEG-Verwalter. Dafür gibt es die Sondereigentumsverwaltung, sofern Sie diese Aufgaben nicht selbst erledigen."

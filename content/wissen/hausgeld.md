@@ -8,6 +8,12 @@ autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /weg-verwaltung/
 cta: angebot
+kurzfassung:
+  - "Das Hausgeld ist der regelmäßige Vorschuss jedes Wohnungseigentümers auf die Kosten der Gemeinschaft, einschließlich der Zuführung zur Erhaltungsrücklage."
+  - "Grundlage ist der Wirtschaftsplan; die Zahlungspflicht entsteht erst mit dem Beschluss der Wohnungseigentümer (§ 28 Abs. 1 WEG)."
+  - "Verteilt wird nach dem Gesetz nach Miteigentumsanteilen, sofern Gemeinschaftsordnung oder Beschluss nichts anderes vorsehen."
+  - "Nach Jahresende stellt die Jahresabrechnung die tatsächlichen Kosten den gezahlten Vorschüssen gegenüber."
+  - "Bei Wohnraum sind Verwaltervergütung, Erhaltungsrücklage und Instandhaltung nicht auf Mieter umlegbar."
 faq:
   - frage: "Was ist im Hausgeld enthalten?"
     antwort: "Das Hausgeld deckt die laufenden Kosten der Gemeinschaft, etwa Versicherungen, Wasser, Heizung, Hausmeister, Reinigung und die Verwaltervergütung. Hinzu kommt in der Regel die Zuführung zur Erhaltungsrücklage. Die Höhe ergibt sich aus dem beschlossenen Wirtschaftsplan."

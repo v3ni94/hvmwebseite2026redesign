@@ -8,6 +8,12 @@ autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /asset-management/
 cta: kontakt
+kurzfassung:
+  - "Asset Management steuert eine Immobilie als Vermögenswert, ausgerichtet an den Zielen des Eigentümers."
+  - "Es ist strategisch und kaufmännisch ausgerichtet, die operative Umsetzung liegt in der Regel bei der Hausverwaltung (Property Management)."
+  - "Kernaufgaben sind Objektanalyse, Objektstrategie, Steuerung und Überwachung sowie ein regelmäßiges Berichtswesen."
+  - "Typische Kennzahlen sind Leerstandsquote, Mietentwicklung, Instandhaltungsstau, nicht umlegbare Kosten, laufender Überschuss und Forderungsquote."
+  - "Asset Management ersetzt keine Rechts- oder Steuerberatung."
 faq:
   - frage: "Was ist der Unterschied zwischen Asset Management und Hausverwaltung?"
     antwort: "Die Hausverwaltung organisiert den laufenden Betrieb einer Immobilie, also Mieten, Abrechnungen, Instandsetzungen und Mieterbetreuung. Das Asset Management betrachtet die Immobilie aus Sicht des Eigentümers als Vermögenswert und entwickelt eine Strategie für Ertrag, Wert und Risiko. Beide Aufgaben greifen ineinander, verfolgen aber unterschiedliche Fragestellungen."

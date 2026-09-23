@@ -102,6 +102,11 @@ final class WissenController
         $page = $this->meta->build('wissen-artikel', $request->path(), [
             'heading' => $artikel->titel,
             'description' => $artikel->beschreibung,
+            // Artikel ohne eigenes Bild: Open-Graph-Bild der Wissensseite (docs/seo-geo.md)
+            'og_image' => rtrim((string) $this->config->get('app.url', ''), '/') . '/og/wissen.png',
+            'og_type' => 'article',
+            'article_modified' => $artikel->stand,
+            'robots' => $artikel->freigegeben ? PageMeta::ROBOTS_INDEX : 'noindex, follow',
         ]);
         $page['schema'] = $this->artikelSchema($artikel, $page);
 
@@ -141,20 +146,17 @@ final class WissenController
      */
     private function artikelSchema(Article $artikel, array $page): array
     {
-        $schemas = $page['schema'];
-        $schemas[] = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Article',
-            'headline' => $artikel->titel,
-            'description' => $artikel->beschreibung,
-            'datePublished' => $artikel->stand,
-            'dateModified' => $artikel->stand,
-            'inLanguage' => 'de',
-            'author' => ['@type' => 'Organization', 'name' => $artikel->autor],
-            'publisher' => ['@id' => $this->schemaBuilder->organizationId()],
-            'mainEntityOfPage' => $page['canonical'],
-        ];
-        if ($artikel->faq !== []) {
+        $schemas = [$this->schemaBuilder->organization(), $this->schemaBuilder->website(), ...$page['schema']];
+        $schemas[] = $this->schemaBuilder->article([
+            'titel' => $artikel->titel,
+            'beschreibung' => $artikel->beschreibung,
+            'url' => $page['canonical'],
+            'stand' => $artikel->stand,
+            'autor' => $artikel->autor,
+            'bild' => $page['og_image'] ?? null,
+        ]);
+        // FAQPage nur für freigegebene Artikel (Fragen und Antworten sind Teil der Freigabe)
+        if ($artikel->faq !== [] && $artikel->freigegeben) {
             $schemas[] = [
                 '@context' => 'https://schema.org',
                 '@type' => 'FAQPage',

@@ -63,7 +63,12 @@ final class SchemaBuilderTest extends TestCase
         $builder = new SchemaBuilder($this->config());
         $organisation = $builder->organization();
 
-        self::assertSame(['Organization', 'LocalBusiness'], $organisation['@type']);
+        self::assertSame(['Organization', 'RealEstateAgent'], $organisation['@type']);
+        self::assertSame('2020-03-04', $organisation['foundingDate']);
+        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein']], $organisation['areaServed'], 'nur bestätigte Orte');
+        self::assertSame('Verein Zertifizierter ImmobilienVerwalter e. V.', $organisation['memberOf'][0]['name']);
+        self::assertSame('VZIV', $organisation['memberOf'][0]['alternateName']);
+        self::assertArrayNotHasKey('sameAs', $organisation, 'keine bekannten Profile, sameAs muss fehlen');
         self::assertSame('https://www.muellerhv.de/#organisation', $organisation['@id']);
         self::assertSame('info@muellerhv.de', $organisation['email']);
         self::assertSame('+49 2431 9550300', $organisation['telephone']);
@@ -83,7 +88,7 @@ final class SchemaBuilderTest extends TestCase
         self::assertArrayNotHasKey('telephone', $organisation);
     }
 
-    public function testServiceVerweistPerIdAufOrganisationUndOhneAreaServed(): void
+    public function testServiceVerweistPerIdAufOrganisationUndNurBestaetigteOrte(): void
     {
         $builder = new SchemaBuilder($this->config());
         $schemas = $builder->forPage($this->seite(), 'Service');
@@ -91,7 +96,25 @@ final class SchemaBuilderTest extends TestCase
         $service = self::finde($schemas, 'Service');
         self::assertNotNull($service);
         self::assertSame(['@id' => 'https://www.muellerhv.de/#organisation'], $service['provider']);
-        self::assertArrayNotHasKey('areaServed', $service, 'keine bestätigte Region vorhanden, areaServed muss fehlen');
+        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein']], $service['areaServed'], 'nur der bestätigte Hauptsitz');
+        self::assertNotNull(self::finde($schemas, ['Organization', 'RealEstateAgent']), 'Organisation auf jeder indexierbaren Seite');
+    }
+
+    public function testNichtIndexierbareSeiteOhneOrganisation(): void
+    {
+        $schemas = (new SchemaBuilder($this->config()))->forPage($this->seite(), 'none');
+
+        self::assertNull(self::finde($schemas, ['Organization', 'RealEstateAgent']));
+        self::assertNotNull(self::finde($schemas, 'BreadcrumbList'));
+    }
+
+    public function testWebsiteMitSearchActionAufWissenssuche(): void
+    {
+        $website = (new SchemaBuilder($this->config()))->website();
+
+        self::assertSame('SearchAction', $website['potentialAction']['@type']);
+        self::assertSame('https://www.muellerhv.de/wissen/?q={search_term_string}', $website['potentialAction']['target']['urlTemplate']);
+        self::assertSame('required name=search_term_string', $website['potentialAction']['query-input']);
     }
 
     public function testServiceMitBestaetigterRegionSetztAreaServed(): void
@@ -105,7 +128,7 @@ final class SchemaBuilderTest extends TestCase
         $service = self::finde((new SchemaBuilder($config))->forPage($this->seite(), 'Service'), 'Service');
 
         self::assertNotNull($service);
-        self::assertSame([['@type' => 'City', 'name' => 'Berlin']], $service['areaServed']);
+        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein'], ['@type' => 'City', 'name' => 'Berlin']], $service['areaServed']);
     }
 
     public function testStartseiteEnthaeltOrganisationUndWebsite(): void
@@ -113,7 +136,7 @@ final class SchemaBuilderTest extends TestCase
         $builder = new SchemaBuilder($this->config());
         $schemas = $builder->forPage($this->seite(['slug' => 'start', 'breadcrumbs' => []]), 'WebPage');
 
-        self::assertNotNull(self::finde($schemas, ['Organization', 'LocalBusiness']));
+        self::assertNotNull(self::finde($schemas, ['Organization', 'RealEstateAgent']));
         self::assertNotNull(self::finde($schemas, 'WebSite'));
     }
 
@@ -150,7 +173,9 @@ final class SchemaBuilderTest extends TestCase
 
         self::assertSame('Article', $artikel['@type']);
         self::assertArrayNotHasKey('dateModified', $artikel);
-        self::assertSame(['@id' => 'https://www.muellerhv.de/#organisation'], $artikel['author']);
+        self::assertSame('https://www.muellerhv.de/#organisation', $artikel['author']['@id']);
+        self::assertSame('Hausverwaltung Müller GmbH', $artikel['author']['name']);
+        self::assertSame(['@id' => 'https://www.muellerhv.de/#organisation'], $artikel['publisher']);
     }
 
     public function testArticleMitStandSetztIsoDatum(): void
@@ -161,7 +186,8 @@ final class SchemaBuilderTest extends TestCase
             'stand' => '2026-05-01',
         ]);
 
-        self::assertSame('2026-05-01T00:00:00+01:00', $artikel['dateModified']);
+        self::assertSame('2026-05-01', $artikel['dateModified']);
+        self::assertSame('2026-05-01', $artikel['datePublished']);
     }
 
     /**

@@ -8,6 +8,12 @@ autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /verwalterwechsel/
 cta: angebot
+kurzfassung:
+  - "Seit der WEG-Reform kann die Gemeinschaft ihren Verwalter jederzeit abberufen, ein wichtiger Grund ist nicht mehr erforderlich."
+  - "Der Verwaltervertrag endet spätestens sechs Monate nach der Abberufung."
+  - "Abberufung und Bestellung werden in der Eigentümerversammlung mit einfacher Mehrheit beschlossen, üblich sind getrennte Tagesordnungspunkte auch für den Verwaltervertrag."
+  - "Der Stichtag des Wechsels und die Zuständigkeit für die Jahresabrechnung sollten eindeutig im Beschluss stehen."
+  - "Der bisherige Verwalter muss die Verwaltungsunterlagen herausgeben, die Übergabe wird mit einem Protokoll dokumentiert."
 faq:
   - frage: "Kann eine Gemeinschaft den Verwalter vor Ablauf der Bestellungszeit wechseln?"
     antwort: "Ja. Seit der WEG-Reform kann der Verwalter jederzeit durch Beschluss abberufen werden, ein wichtiger Grund ist nicht mehr erforderlich. Der Verwaltervertrag endet dann spätestens sechs Monate nach der Abberufung. Ob und in welcher Höhe bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab."

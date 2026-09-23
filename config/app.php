@@ -71,6 +71,10 @@ return [
     // Pfadpräfixe ohne CSRF-Prüfung, nur für signierte Maschinenschnittstellen
     'csrf_exempt' => [],
 
+    // KI-Crawler (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended) in robots.txt der Produktion
+    // ausdrücklich zulassen. false sperrt sie (Entscheidung der Geschäftsführung, docs/seo-geo.md).
+    'ai_crawlers' => Env::bool('AI_CRAWLERS', true),
+
     // Klassen, die Hvm\Support\SitemapProvider implementieren (z. B. Wissensartikel)
     'sitemap_providers' => [\Hvm\Content\WissenSitemapProvider::class],
 ];

@@ -1,0 +1,18 @@
+{#
+  „Das Wichtigste in Kürze“ (GEO, docs/seo-geo.md): Kernaussagen aus dem optionalen Frontmatter-Feld
+  kurzfassung eines Wissensartikels. Ohne Feld wird nichts ausgegeben. Inhalte nur aus dem Artikeltext ableiten.
+#}
+{% if kurzfassung|default([])|length > 0 %}
+<aside class="c-hinweis c-hinweis--info c-kurzfassung" aria-labelledby="kurzfassung-titel">
+    {% include 'partials/icon.html.twig' with {name: 'info', klasse: 'c-hinweis__icon'} only %}
+    <h2 class="c-hinweis__titel" id="kurzfassung-titel">Das Wichtigste in Kürze</h2>
+    <div class="c-hinweis__text">
+        <ul>
+            {% for punkt in kurzfassung %}
+            <li>{{ punkt }}</li>
+            {% endfor %}
+        </ul>
+        <p><small>Stand <time datetime="{{ stand }}">{{ datum(stand) }}</time></small></p>
+    </div>
+</aside>
+{% endif %}

@@ -2,7 +2,7 @@
 titel: "Indexmiete und Staffelmiete"
 slug: index-staffelmiete
 zielgruppe: vermieter-investoren
-beschreibung: "Indexmiete und Staffelmiete im Vergleich: Voraussetzungen, Anpassung, Ausschluss anderer Mieterhöhungen und Punkte, die Vermieter vor Vertragsschluss prüfen sollten."
+beschreibung: "Indexmiete und Staffelmiete im Vergleich: Voraussetzungen, Anpassung, Ausschluss anderer Mieterhöhungen und Punkte, die Vermieter vor Vertragsschluss prüfen."
 stand: 2026-09-23
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein

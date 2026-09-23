@@ -1,0 +1,179 @@
+# CI für muellerhv.de (docs/architektur.md, docs/betrieb.md Abschnitt 1.3).
+# Keine Secrets: Datenbankpasswörter und APP_KEY sind fiktive Werte nur für diese Läufe.
+# APP_KEY = base64 von "ci-testschluessel-nur-fuer-ci-00" (32 Byte), nie produktiv verwenden.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_KEY: "base64:Y2ktdGVzdHNjaGx1ZXNzZWwtbnVyLWZ1ZXItY2ktMDA="
+  DB_HOST: 127.0.0.1
+  DB_PORT: "3306"
+  DB_USER: hvm
+  DB_PASSWORD: ci-nur-test
+  DB_TEST_NAME: hvm_test
+  PHP_EXTENSIONS: pdo_mysql, mbstring, sodium, intl, gd, zip
+
+jobs:
+  php:
+    name: PHP 8.3 (Lint, PHPUnit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: ci-root-nur-test
+          MARIADB_DATABASE: hvm_test
+          MARIADB_USER: hvm
+          MARIADB_PASSWORD: ci-nur-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      APP_ENV: development
+      DB_NAME: hvm_test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Composer-Cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/composer
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHP-Syntaxprüfung
+        run: find src bin config tests public -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+
+      - name: Gedankenstrich-Linter
+        run: php bin/lint-dashes.php
+
+      - name: Assets bauen
+        run: composer build
+
+      - name: Migrationen hvm_test
+        run: php bin/migrate.php --database=test
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit
+
+  e2e:
+    name: Playwright (Node 22, Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: ci-root-nur-test
+          MARIADB_DATABASE: hvm_dev
+          MARIADB_USER: hvm
+          MARIADB_PASSWORD: ci-nur-test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      DB_NAME: hvm_dev
+      # Browser in node_modules installieren (playwright.config.js nutzt sonst /opt/pw-browsers)
+      PLAYWRIGHT_BROWSERS_PATH: "0"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer build
+      - name: Migrationen hvm_dev
+        run: php bin/migrate.php
+
+      - run: npm ci
+      - name: Chromium installieren
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright gegen php -S
+        run: npx playwright test
+
+      - name: Playwright-Report hochladen
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            tests/e2e/results/
+          retention-days: 7
+
+  pruefungen:
+    name: Platzhalter und PII
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP_ENV: development
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: composer build
+
+      - name: Platzhalter-Bericht (nicht blockierend)
+        continue-on-error: true
+        run: php bin/check-placeholders.php --report
+
+      - name: Lokalen Server starten
+        run: |
+          php -S 127.0.0.1:8081 -t public public/index.php > /tmp/php-server.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fsS -o /dev/null http://127.0.0.1:8081/robots.txt && exit 0
+            sleep 1
+          done
+          cat /tmp/php-server.log
+          exit 1
+
+      - name: PII-Prüfung (blockierend)
+        run: php bin/check-pii.php --base-url=http://127.0.0.1:8081

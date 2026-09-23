@@ -2,7 +2,7 @@
 titel: "Mietverwaltung oder SE-Verwaltung: was passt?"
 slug: mietverwaltung-oder-se-verwaltung
 zielgruppe: vermieter-investoren
-beschreibung: "Mietverwaltung und Sondereigentumsverwaltung im Vergleich: für welche Immobilie welche Verwaltungsform passt und worauf Eigentümer bei der Auswahl achten sollten."
+beschreibung: "Mietverwaltung und Sondereigentumsverwaltung im Vergleich: für welche Immobilie welche Verwaltungsform passt und worauf Eigentümer bei der Auswahl achten."
 stand: 2026-09-23
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein

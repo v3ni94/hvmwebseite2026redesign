@@ -18,7 +18,7 @@ return [
     'start' => [
         'pfad' => '/',
         'titel' => 'Start',
-        'seitentitel' => 'Hausverwaltung Müller GmbH | WEG-, Miet- und SE-Verwaltung aus Monheim am Rhein',
+        'seitentitel' => 'Hausverwaltung Müller GmbH | WEG- und Mietverwaltung Monheim',
         'beschreibung' => 'Hausverwaltung Müller GmbH aus Monheim am Rhein: WEG-Verwaltung, Mietverwaltung und Sondereigentumsverwaltung seit 2020. Angebot unverbindlich anfordern.',
         'eltern' => null,
         'schema' => 'WebPage',
@@ -45,7 +45,7 @@ return [
     'se-verwaltung' => [
         'pfad' => '/se-verwaltung/',
         'titel' => 'SE-Verwaltung',
-        'seitentitel' => 'Sondereigentumsverwaltung (SE-Verwaltung) | Hausverwaltung Müller GmbH',
+        'seitentitel' => 'Sondereigentumsverwaltung | Hausverwaltung Müller GmbH',
         'beschreibung' => 'Sondereigentumsverwaltung für Kapitalanleger: Betreuung vermieteter Eigentumswohnungen durch die Hausverwaltung Müller GmbH.',
         'eltern' => null,
         'schema' => 'Service',
@@ -55,7 +55,7 @@ return [
         // Entwurf: Leistung durch die Geschäftsführung zu bestätigen (docs/wissen-inhaltsplan.md Abschnitt 4).
         'pfad' => '/asset-management/',
         'titel' => 'Asset Management',
-        'seitentitel' => 'Asset Management für Wohnimmobilien | Hausverwaltung Müller GmbH',
+        'seitentitel' => 'Asset Management | Hausverwaltung Müller GmbH',
         'beschreibung' => 'Asset Management für Wohnimmobilien: Bestandsanalyse, Objektstrategie, Investitionsplanung und Berichtswesen für Kapitalanleger und Eigentümer mehrerer Objekte.',
         'eltern' => null,
         'schema' => 'Service',
@@ -100,7 +100,7 @@ return [
     'wissen' => [
         'pfad' => '/wissen/',
         'titel' => 'Wissen und FAQ',
-        'seitentitel' => 'Wissen und FAQ zur Immobilienverwaltung | Hausverwaltung Müller GmbH',
+        'seitentitel' => 'Wissen und FAQ | Hausverwaltung Müller GmbH',
         'beschreibung' => 'Wissen und FAQ zur Immobilienverwaltung für Wohnungseigentümer, Beiräte, Vermieter und Mieter. Allgemeine Informationen, keine Rechtsberatung.',
         'eltern' => null,
         'schema' => 'CollectionPage',
@@ -143,6 +143,17 @@ return [
         'schema' => 'AboutPage',
         'sitemap' => true,
     ],
+    'fakten' => [
+        // Zitierfähige Faktenseite (GEO, docs/seo-geo.md). Inhalte ausschließlich aus config/unternehmen.php,
+        // config/kennzahlen.php, config/fakten.php und docs/auftraggeber-angaben.md.
+        'pfad' => '/fakten/',
+        'titel' => 'Die HVM in Zahlen und Fakten',
+        'seitentitel' => 'Die HVM in Zahlen und Fakten | Hausverwaltung Müller GmbH',
+        'beschreibung' => 'Hausverwaltung Müller GmbH in Zahlen: Sitz, Register, Gründung 2020, Bestand mit Stichtag, Mitgliedschaften, Leistungen und bestätigte Merkmale.',
+        'eltern' => 'ueber-uns',
+        'schema' => 'AboutPage',
+        'sitemap' => true,
+    ],
     'karriere' => [
         'pfad' => '/karriere/',
         'titel' => 'Karriere',
@@ -174,7 +185,7 @@ return [
     'service' => [
         'pfad' => '/service/',
         'titel' => 'Service für Mieter und Eigentümer',
-        'seitentitel' => 'Service für Mieter und Eigentümer | Hausverwaltung Müller GmbH',
+        'seitentitel' => 'Service für Mieter und Eigentümer | Hausverwaltung Müller',
         'beschreibung' => 'Service für Mieter und Eigentümer: Portal, Schadensmeldung, Notfall, Formulare und Erreichbarkeit der Hausverwaltung Müller GmbH.',
         'eltern' => null,
         'schema' => 'WebPage',

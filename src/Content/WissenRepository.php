@@ -21,6 +21,8 @@ final class WissenRepository
 {
     private const MAX_FAQ = 5;
 
+    private const MAX_KURZFASSUNG = 5;
+
     private readonly string $verzeichnis;
 
     private readonly MarkdownRenderer $renderer;
@@ -185,6 +187,7 @@ final class WissenRepository
             html: $ergebnis['html'],
             ueberschriften: $ergebnis['ueberschriften'],
             istEntwurf: !$freigabe,
+            kurzfassung: self::kurzfassung($frontmatter['kurzfassung'] ?? null),
         );
     }
 
@@ -223,6 +226,12 @@ final class WissenRepository
         if (!str_starts_with((string) $frontmatter['leistung'], '/')) {
             $fehler[] = 'Feld "leistung" muss ein interner Pfad sein.';
         }
+        $kurz = $frontmatter['kurzfassung'] ?? null;
+        if ($kurz !== null && !is_string($kurz) && !(is_array($kurz) && array_is_list($kurz))) {
+            $fehler[] = 'Feld "kurzfassung" muss ein Text oder eine Liste sein.';
+        } elseif (is_array($kurz) && count($kurz) > self::MAX_KURZFASSUNG) {
+            $fehler[] = sprintf('Feld "kurzfassung" hat mehr als %d Einträge.', self::MAX_KURZFASSUNG);
+        }
         $faq = $frontmatter['faq'] ?? [];
         if (!is_array($faq)) {
             $fehler[] = 'Feld "faq" muss eine Liste sein.';
@@ -237,6 +246,21 @@ final class WissenRepository
         }
 
         return $fehler;
+    }
+
+    /**
+     * Optionales Frontmatter-Feld "kurzfassung": Liste kurzer Kernaussagen oder ein einzelner Satz.
+     *
+     * @return list<string>
+     */
+    private static function kurzfassung(mixed $wert): array
+    {
+        $eintraege = is_string($wert) ? [$wert] : (is_array($wert) ? $wert : []);
+
+        return array_slice(array_values(array_filter(
+            array_map(static fn ($e): string => is_scalar($e) ? trim((string) $e) : '', $eintraege),
+            static fn (string $e): bool => $e !== ''
+        )), 0, self::MAX_KURZFASSUNG);
     }
 
     /**

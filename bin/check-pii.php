@@ -149,6 +149,17 @@ function normalisiereTelefon(string $nummer): string
 }
 
 /**
+ * Für Dokumentation reservierte Domains (RFC 2606, RFC 6761) können keiner Person gehören,
+ * etwa das Beispiel name@example.org in Hilfetexten der Formulare.
+ */
+function istBeispielDomain(string $email): bool
+{
+    $domain = strtolower((string) substr((string) strrchr($email, '@'), 1));
+
+    return (bool) preg_match('/(^|\.)(example\.(org|com|net)|[a-z0-9-]+\.(example|test|invalid))$/', $domain);
+}
+
+/**
  * @return list<string> gefundene E-Mail-Adressen (Rohtext)
  */
 function findeEmails(string $body): array
@@ -233,7 +244,7 @@ foreach ($adressen as $url) {
     }
 
     foreach (findeEmails($body) as $email) {
-        if (isset($liste['email:' . strtolower($email)])) {
+        if (isset($liste['email:' . strtolower($email)]) || istBeispielDomain($email)) {
             continue;
         }
         $befunde++;

@@ -17,9 +17,9 @@
         {{ e.eyebrow(zielgruppeLabel) }}
         <h1>{{ artikel.titel|trennen }}</h1>
         <p class="c-artikel-meta">
-            <span>Stand {{ datum(artikel.stand) }}</span>
+            <span>Stand <time datetime="{{ artikel.stand }}">{{ datum(artikel.stand) }}</time></span>
             <span aria-hidden="true">·</span>
-            <span>{{ artikel.autor }}</span>
+            <span>Autor: {{ artikel.autor }}</span>
         </p>
         {% if artikel.istEntwurf %}
         <p>{{ placeholder('Entwurf, nicht freigegeben') }}</p>
@@ -35,6 +35,8 @@
             <h2 class="u-visually-hidden" id="artikel-titel">{{ artikel.titel }}</h2>
 
             <div class="c-fortschritt c-fortschritt--lesen" data-lesefortschritt="#artikel-inhalt" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Lesefortschritt"><span class="c-fortschritt__balken"></span></div>
+
+            {% include 'partials/wissen/kurzfassung.html.twig' with {kurzfassung: artikel.kurzfassung, stand: artikel.stand} only %}
 
             {% include 'partials/wissen/inhaltsverzeichnis.html.twig' with {ueberschriften: artikel.ueberschriften} only %}
 

@@ -132,8 +132,16 @@ services:
       - backend
 
 networks:
+  # Internes Netz mit festem Subnetz (docs/betrieb.md Abschnitt 1.4). Staging und Produktion laufen als
+  # getrennte Compose-Projekte auf demselben Host und brauchen daher unterschiedliche BACKEND_SUBNET-Werte.
   backend:
     driver: bridge
+    ipam:
+      config:
+        - subnet: ${BACKEND_SUBNET:-172.30.80.0/24}
+  # Traefik-Netz: extern angelegt, mit festem Subnetz (docker network create --subnet ...).
+  # TRUSTED_PROXIES in .env nennt genau dieses Subnetz, da Nginx die Anfragen von Traefik
+  # über dieses Netz erhält und REMOTE_ADDR an PHP-FPM die Traefik-Adresse ist.
   traefik:
     external: true
     name: ${TRAEFIK_NETWORK:-traefik}

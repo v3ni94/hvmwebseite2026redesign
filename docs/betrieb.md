@@ -68,6 +68,41 @@ Abschnitt 14).
 - auf Staging zusätzlich: `php bin/check-pii.php --base-url=https://<staging-host>` und
   `php bin/check-headers.php --base-url=https://<staging-host>` ohne Befunde
 
+### 1.4 Netzwerk und TRUSTED_PROXIES
+
+Anfragen laufen Traefik → Nginx (Netz `traefik`) → PHP-FPM (Netz `backend`). Nginx reicht die
+Adresse seines Gegenübers, also die Traefik-Adresse im Netz `traefik`, als `REMOTE_ADDR` an
+PHP-FPM weiter, `X-Forwarded-For` setzt Traefik. Die Anwendung wertet `X-Forwarded-For` nur aus,
+wenn `REMOTE_ADDR` in `TRUSTED_PROXIES` liegt (`docs/architektur.md` Abschnitt 4). Daher gilt:
+
+1. Das Traefik-Netz erhält ein festes Subnetz. Wird es neu angelegt:
+   ```sh
+   docker network create --subnet 172.30.90.0/24 traefik
+   ```
+   Besteht es bereits, Subnetz ablesen und unverändert übernehmen:
+   ```sh
+   docker network inspect traefik -f '{{range .IPAM.Config}}{{.Subnet}}{{end}}'
+   ```
+2. `TRUSTED_PROXIES` nennt genau dieses Subnetz, zum Beispiel `TRUSTED_PROXIES=172.30.90.0/24`.
+   Nicht mehr `172.16.0.0/12`: Dieser Bereich umfasst alle Docker-Standardnetze, jeder Container
+   auf dem Host könnte dann eine beliebige Client-IP vortäuschen und damit Rate-Limits sowie
+   `ADMIN_IP_ALLOWLIST` umgehen.
+3. Das interne Netz `backend` hat ein festes Subnetz (`BACKEND_SUBNET`, Standard
+   `172.30.80.0/24`). Staging und Produktion laufen auf demselben Host und brauchen
+   unterschiedliche Werte (etwa Staging `172.30.81.0/24`), sonst startet das zweite Projekt
+   nicht. Das Backend-Subnetz gehört nicht in `TRUSTED_PROXIES`.
+4. Die Subnetze dürfen sich weder untereinander noch mit Netzen des Hosts oder des
+   Rechenzentrums überschneiden. Vor dem ersten Start mit `docker network ls` und
+   `docker network inspect` prüfen.
+5. Kontrolle nach dem Deployment: Ein Login-Fehlversuch im Admin muss im Log mit der
+   tatsächlichen Client-IP gezählt werden, nicht mit einer Adresse aus `172.30.90.0/24`.
+
+Webhook an n8n: In Produktion ist nur `https://` zulässig. Liegt n8n im selben Docker-Host und
+wird über einen Dienstnamen ohne Punkt (etwa `http://n8n:5678/...`) oder eine private IP-Adresse
+angesprochen, erlaubt `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true` dort auch `http://`. Eine unzulässige
+Adresse versendet nichts, der Outbox-Eintrag bleibt mit dem Hinweis „Wartet auf Konfiguration:
+N8N_WEBHOOK_URL muss in Produktion https verwenden“ zurückgestellt (ohne URL und ohne Leaddaten).
+
 ## 2. Rollback
 
 1. Images sind über `HVM_TAG` versioniert. Der vorherige Tag muss lokal oder in einer Registry

@@ -12,6 +12,10 @@ use Hvm\Support\Config;
  */
 final class PageMeta
 {
+    public const MAX_TITEL = 60;
+
+    public const ROBOTS_INDEX = 'index, follow, max-snippet:-1, max-image-preview:large';
+
     public function __construct(private readonly Config $config)
     {
     }
@@ -28,7 +32,7 @@ final class PageMeta
         $firma = (string) $this->config->get('unternehmen.name', '');
 
         $label = (string) ($overrides['heading'] ?? $meta['titel'] ?? $slug);
-        $title = (string) ($overrides['title'] ?? $meta['seitentitel'] ?? ($label . ' | ' . $firma));
+        $title = (string) ($overrides['title'] ?? $meta['seitentitel'] ?? self::seitentitel($label, $firma));
         $description = (string) ($overrides['description'] ?? $meta['beschreibung'] ?? '');
         $canonical = $baseUrl . $path;
         $breadcrumbs = $this->breadcrumbs($slug, $label, $path);
@@ -42,11 +46,40 @@ final class PageMeta
             'breadcrumbs' => $breadcrumbs,
             'freigabe' => $this->freigabe($slug),
             'og_image' => ($meta['og'] ?? true) === false ? null : $baseUrl . '/og/' . $slug . '.png',
+            // Nur Seiten aus der Sitemap sind indexierbar, übrige (Danke-Seiten, Fehlerseiten) noindex, follow
+            'robots' => ($meta['sitemap'] ?? false) === true ? self::ROBOTS_INDEX : 'noindex, follow',
             'schema' => [],
         ];
         $page['schema'] = (new SchemaBuilder($this->config))->forPage($page, (string) ($meta['schema'] ?? 'WebPage'));
 
-        return array_merge($page, array_intersect_key($overrides, ['schema' => true, 'og_image' => true, 'canonical' => true]));
+        return array_merge($page, array_intersect_key($overrides, ['schema' => true, 'og_image' => true, 'canonical' => true, 'robots' => true, 'og_type' => true, 'article_modified' => true]));
+    }
+
+    /**
+     * Seitentitel aus Überschrift und Firmenname mit höchstens MAX_TITEL Zeichen (docs/seo-geo.md).
+     * Reihenfolge: vollständiger Firmenname, Firmenname ohne Rechtsform, Überschrift allein,
+     * Teil vor dem Doppelpunkt mit Firmenname, zuletzt an einer Wortgrenze gekürzt.
+     */
+    public static function seitentitel(string $label, string $firma): string
+    {
+        $ohneRechtsform = trim((string) preg_replace('/\s+(GmbH|AG|e\. ?V\.)$/u', '', $firma));
+        $kopf = str_contains($label, ':') ? trim(strstr($label, ':', true)) : null;
+        $kandidaten = [$label . ' | ' . $firma, $label . ' | ' . $ohneRechtsform, $label];
+        if ($kopf !== null && $kopf !== '') {
+            $kandidaten[] = $kopf . ' | ' . $firma;
+            $kandidaten[] = $kopf . ' | ' . $ohneRechtsform;
+        }
+        foreach ($kandidaten as $kandidat) {
+            if ($firma !== '' && mb_strlen($kandidat) <= self::MAX_TITEL) {
+                return $kandidat;
+            }
+        }
+        if (mb_strlen($label) <= self::MAX_TITEL) {
+            return $label;
+        }
+        $gekuerzt = mb_substr($label, 0, self::MAX_TITEL);
+
+        return rtrim((string) preg_replace('/\s+\S*$/u', '', $gekuerzt), ' ,;:');
     }
 
     /**
