@@ -12,9 +12,12 @@ final class WebhookServiceTest extends TestCase
 {
     private const SECRET = 'test-geheimnis';
 
-    private function config(?string $url = 'https://n8n.example.org/webhook/lead', ?string $secret = self::SECRET): Config
+    private function config(?string $url = 'https://n8n.example.org/webhook/lead', ?string $secret = self::SECRET, string $env = 'production', bool $allowHttpInternal = false): Config
     {
-        return new Config(['app' => ['n8n' => ['webhook_url' => $url, 'webhook_secret' => $secret]]]);
+        return new Config(['app' => [
+            'env' => $env,
+            'n8n' => ['webhook_url' => $url, 'webhook_secret' => $secret, 'allow_http_internal' => $allowHttpInternal],
+        ]]);
     }
 
     public function testSignatureIsHmacOverTimestampAndBody(): void
@@ -79,5 +82,57 @@ final class WebhookServiceTest extends TestCase
         }
         self::assertFalse($called);
         self::assertTrue((new WebhookService($this->config(), $client))->isConfigured());
+    }
+
+    public function testProductionRequiresHttps(): void
+    {
+        $called = false;
+        $client = static function () use (&$called): int {
+            $called = true;
+
+            return 200;
+        };
+        $service = new WebhookService($this->config('http://n8n.example.org/webhook/lead'), $client);
+        $missing = (string) $service->missingConfiguration();
+        self::assertStringContainsString('https', $missing);
+        self::assertStringContainsString('N8N_WEBHOOK_ALLOW_HTTP_INTERNAL', $missing);
+        self::assertStringNotContainsString('n8n.example.org', $missing, 'Meldung ohne URL oder Host');
+        try {
+            $service->send('{}');
+            self::fail('Ausnahme erwartet');
+        } catch (\RuntimeException $e) {
+            self::assertStringNotContainsString('example.org', $e->getMessage());
+        }
+        self::assertFalse($called);
+
+        // https in Produktion, http außerhalb der Produktion bleiben erlaubt
+        self::assertTrue((new WebhookService($this->config('HTTPS://n8n.example.org/x'), $client))->isConfigured());
+        self::assertTrue((new WebhookService($this->config('http://n8n.example.org/x', self::SECRET, 'staging'), $client))->isConfigured());
+        self::assertTrue((new WebhookService($this->config('http://127.0.0.1:5678/x', self::SECRET, 'development'), $client))->isConfigured());
+    }
+
+    public function testHttpForInternalHostsOnlyWithFlag(): void
+    {
+        $client = static fn (): int => 200;
+        foreach (['http://n8n:5678/webhook/lead', 'http://10.0.0.5/x', 'http://172.30.80.10:5678/x', 'http://192.168.1.20/x', 'http://[fd00::5]/x'] as $url) {
+            self::assertFalse((new WebhookService($this->config($url), $client))->isConfigured(), $url . ' ohne Freigabe');
+            self::assertTrue((new WebhookService($this->config($url, self::SECRET, 'production', true), $client))->isConfigured(), $url . ' mit Freigabe');
+        }
+        foreach (['http://n8n.example.org/x', 'http://203.0.113.10/x', 'http://[2001:db8::1]/x', 'http://n8n.intern/x'] as $url) {
+            $service = new WebhookService($this->config($url, self::SECRET, 'production', true), $client);
+            self::assertFalse($service->isConfigured(), $url . ' ist kein interner Host');
+            self::assertStringContainsString('https', (string) $service->missingConfiguration());
+        }
+    }
+
+    public function testInternalHostDetection(): void
+    {
+        self::assertTrue(WebhookService::isInternalHost('n8n'));
+        self::assertTrue(WebhookService::isInternalHost('hvm_n8n-1'));
+        self::assertTrue(WebhookService::isInternalHost('127.0.0.1'));
+        self::assertTrue(WebhookService::isInternalHost('[::1]'));
+        self::assertFalse(WebhookService::isInternalHost(''));
+        self::assertFalse(WebhookService::isInternalHost('example.org'));
+        self::assertFalse(WebhookService::isInternalHost('198.51.100.1'));
     }
 }

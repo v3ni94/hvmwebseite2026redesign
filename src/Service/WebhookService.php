@@ -17,6 +17,9 @@ use Hvm\Support\Config;
  *
  * Prüfung in n8n: Signatur neu berechnen, mit hash_equals vergleichen, Zeitstempel höchstens 5 Minuten alt.
  * Ohne URL oder ohne Geheimnis wird nie gesendet (keine unsignierten Webhooks).
+ * In APP_ENV=production nur https. Ausnahme mit N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true: http an Hosts in
+ * privaten oder reservierten Netzen (IP-Literal) und an Docker-interne Hostnamen ohne Punkt (z. B. http://n8n:5678).
+ * Sonst gilt der Webhook als nicht konfiguriert, der Outbox-Eintrag wartet mit einer Fehlermeldung ohne URL.
  *
  * Der HTTP-Client ist austauschbar (Tests): callable(string $url, array<string, string> $headers, string $body, int $timeout): int
  * liefert den HTTP-Status und wirft bei Netzwerkfehlern eine Ausnahme.
@@ -58,14 +61,68 @@ final class WebhookService
     {
         $missing = [];
         $url = trim((string) $this->config->get('app.n8n.webhook_url', ''));
+        $insecure = null;
         if ($url === '' || !preg_match('#^https?://#i', $url) || filter_var($url, FILTER_VALIDATE_URL) === false) {
             $missing[] = 'N8N_WEBHOOK_URL';
+        } else {
+            $insecure = $this->insecureTransport($url);
         }
         if (trim((string) $this->config->get('app.n8n.webhook_secret', '')) === '') {
             $missing[] = 'N8N_WEBHOOK_SECRET';
         }
 
-        return $missing === [] ? null : implode(', ', $missing) . ' nicht gesetzt oder ungültig';
+        $messages = [];
+        if ($missing !== []) {
+            $messages[] = implode(', ', $missing) . ' nicht gesetzt oder ungültig';
+        }
+        if ($insecure !== null) {
+            $messages[] = $insecure;
+        }
+
+        return $messages === [] ? null : implode('; ', $messages);
+    }
+
+    /**
+     * Meldung, wenn die URL in Produktion unverschlüsselt wäre. Enthält bewusst weder URL noch Host.
+     */
+    private function insecureTransport(string $url): ?string
+    {
+        if ($this->config->get('app.env', 'production') !== 'production') {
+            return null;
+        }
+        if (strtolower((string) parse_url($url, PHP_URL_SCHEME)) === 'https') {
+            return null;
+        }
+        $host = (string) parse_url($url, PHP_URL_HOST);
+        if ($this->allowHttpInternal() && self::isInternalHost($host)) {
+            return null;
+        }
+
+        return $this->allowHttpInternal()
+            ? 'N8N_WEBHOOK_URL muss in Produktion https verwenden (http nur für interne Hosts ohne Punkt oder private IP-Adressen)'
+            : 'N8N_WEBHOOK_URL muss in Produktion https verwenden (http für interne Hosts nur mit N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true)';
+    }
+
+    private function allowHttpInternal(): bool
+    {
+        return $this->config->get('app.n8n.allow_http_internal', false) === true;
+    }
+
+    /**
+     * Interner Host: IP-Literal aus privatem oder reserviertem Bereich (10/8, 172.16/12, 192.168/16, 127/8,
+     * fc00::/7, ::1 usw.) oder Hostname ohne Punkt (Docker-Dienstname).
+     */
+    public static function isInternalHost(string $host): bool
+    {
+        $host = strtolower(trim($host, '[]'));
+        if ($host === '') {
+            return false;
+        }
+        if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+            return filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+        }
+
+        return !str_contains($host, '.') && preg_match('/^[a-z0-9]([a-z0-9_-]*[a-z0-9])?$/', $host) === 1;
     }
 
     public function isConfigured(): bool

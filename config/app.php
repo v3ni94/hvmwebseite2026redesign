@@ -50,6 +50,8 @@ return [
     'n8n' => [
         'webhook_url' => Env::get('N8N_WEBHOOK_URL'),
         'webhook_secret' => Env::get('N8N_WEBHOOK_SECRET'),
+        // Nur Produktion: http an interne Hosts (Docker-Dienstname ohne Punkt, private IP) erlauben, sonst ausschließlich https
+        'allow_http_internal' => Env::bool('N8N_WEBHOOK_ALLOW_HTTP_INTERNAL', false),
     ],
 
     'trusted_proxies' => Env::list('TRUSTED_PROXIES'),

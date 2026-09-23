@@ -152,6 +152,33 @@ final class OutboxWorkerTest extends IntegrationTestCase
         self::assertSame([], $this->hooks);
     }
 
+    public function testProductionRejectsPlainHttpWebhookWithoutPersonalData(): void
+    {
+        Clock::freeze('2026-09-23 10:00:00');
+        $id = $this->outbox()->enqueue('webhook', ['event' => 'lead.created', 'lead_uuid' => 'u1', 'body' => '{"lead":{"email":"kunde@example.org"}}']);
+        $config = new Config(['app' => [
+            'env' => 'production',
+            'mail' => ['host' => 'smtp.example.org', 'from' => 'website@example.org'],
+            'n8n' => ['webhook_url' => 'http://n8n.example.org/webhook/lead', 'webhook_secret' => self::SECRET],
+        ]]);
+        $webhook = new WebhookService($config, function (string $url, array $headers, string $body): int {
+            $this->hooks[] = compact('url', 'headers', 'body');
+
+            return 200;
+        });
+        $worker = new OutboxWorker(new OutboxRepository($this->db()), new MailService($config, static function (): void {
+        }), $webhook, new Log(sys_get_temp_dir() . '/hvm-test-logs'));
+
+        self::assertSame(1, $worker->runOnce()['postponed']);
+        $row = $this->outbox()->find($id);
+        self::assertSame('pending', $row['status']);
+        self::assertSame(0, (int) $row['attempts']);
+        $error = (string) $row['last_error'];
+        self::assertStringContainsString('N8N_WEBHOOK_URL muss in Produktion https verwenden', $error);
+        self::assertStringNotContainsString('example.org', $error, 'weder URL noch Adressdaten in der Meldung');
+        self::assertSame([], $this->hooks);
+    }
+
     public function testClaimPreventsDoubleProcessing(): void
     {
         Clock::freeze('2026-09-23 10:00:00');

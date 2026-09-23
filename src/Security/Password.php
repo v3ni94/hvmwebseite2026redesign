@@ -21,6 +21,14 @@ final class Password
         'geheim', 'letmein', 'willkommen', 'welcome', 'abc123', 'iloveyou', 'sommer', 'winter',
     ];
 
+    /**
+     * Vorberechnete Hashes eines zufälligen, verworfenen Passworts mit den Standardparametern von PHP 8.3
+     * (Argon2id m=65536, t=4, p=1 bzw. bcrypt Kosten 10). Damit kostet schon die erste Prüfung eines
+     * unbekannten Kontos so viel wie eine echte Prüfung, ohne vorher einmalig einen Hash zu erzeugen.
+     */
+    public const DUMMY_HASH_ARGON2ID = '$argon2id$v=19$m=65536,t=4,p=1$cWR4dS50NWwxdzhJYXFpRA$WZSDTVzHrhe3kEUrv1Zq2FaIrChFbnMgvCdQxQO2cWE';
+    public const DUMMY_HASH_BCRYPT = '$2y$10$/wyQCAa/yEhSWZySG92y.e45nu1xitEmgrax80ro4jUNk0cEDcTqS';
+
     private static ?string $dummyHash = null;
 
     public static function algorithm(): string|int|null
@@ -52,8 +60,28 @@ final class Password
      */
     public static function verifyDummy(string $password): void
     {
-        self::$dummyHash ??= self::hash(bin2hex(random_bytes(16)));
-        password_verify($password, self::$dummyHash);
+        if (strlen($password) > self::MAX_LENGTH * 4) {
+            return;
+        }
+        password_verify($password, self::dummyHash());
+    }
+
+    /**
+     * Hash für verifyDummy() mit denselben Parametern wie hash(). Die Konstante passt zum aktuellen
+     * Algorithmus; nur wenn PHP andere Standardparameter verwendet (etwa bcrypt Kosten 12 ab PHP 8.4
+     * ohne Argon2id), wird einmalig ein passender Hash erzeugt, damit die Laufzeit übereinstimmt.
+     */
+    public static function dummyHash(): string
+    {
+        if (self::$dummyHash !== null) {
+            return self::$dummyHash;
+        }
+        $hash = self::algorithm() === PASSWORD_BCRYPT ? self::DUMMY_HASH_BCRYPT : self::DUMMY_HASH_ARGON2ID;
+        if (self::needsRehash($hash)) {
+            $hash = self::hash(bin2hex(random_bytes(16)));
+        }
+
+        return self::$dummyHash = $hash;
     }
 
     /**

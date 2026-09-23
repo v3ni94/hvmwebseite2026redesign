@@ -52,4 +52,38 @@ final class PasswordTest extends TestCase
         Password::verifyDummy('irgendetwas');
         self::assertGreaterThan(0, hrtime(true) - $start);
     }
+
+    public function testDummyHashIsPrecomputedAndMatchesCurrentParameters(): void
+    {
+        $dummy = Password::dummyHash();
+        // Gleiche Parameter wie ein echter Hash, sonst unterscheidet sich die Laufzeit
+        self::assertFalse(Password::needsRehash($dummy));
+        self::assertSame($dummy, Password::dummyHash());
+        if (defined('PASSWORD_ARGON2ID')) {
+            // Konstante statt Erzeugung beim ersten unbekannten Konto
+            self::assertSame(Password::DUMMY_HASH_ARGON2ID, $dummy);
+        }
+        self::assertFalse(password_verify('', $dummy));
+    }
+
+    public function testFirstDummyVerificationCostsLikeRealVerification(): void
+    {
+        if (!defined('PASSWORD_ARGON2ID')) {
+            self::markTestSkipped('Zeitvergleich nur mit Argon2id-Konstante aussagekräftig.');
+        }
+        $real = Password::hash('Lange-Passphrase-fuer-Tests-2026');
+        // Zustand wie beim ersten Aufruf nach dem Laden der Klasse
+        (new \ReflectionProperty(Password::class, 'dummyHash'))->setValue(null, null);
+        $measure = static function (callable $fn): int {
+            $start = hrtime(true);
+            $fn();
+
+            return hrtime(true) - $start;
+        };
+        $dummy = $measure(static fn () => Password::verifyDummy('Falsche-Passphrase-2026'));
+        $verify = $measure(static fn () => Password::verify('Falsche-Passphrase-2026', $real));
+        // Großzügige Grenze gegen Schwankungen: kein zusätzlicher Hash-Aufbau (Faktor 2) beim ersten Aufruf
+        self::assertLessThan($verify * 1.8, $dummy);
+        self::assertGreaterThan($verify * 0.4, $dummy);
+    }
 }
