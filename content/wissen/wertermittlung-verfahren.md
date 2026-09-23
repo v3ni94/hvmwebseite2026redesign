@@ -39,7 +39,7 @@ Das Verfahren eignet sich besonders für Objekte, für die ausreichend Vergleich
 
 ## Das Ertragswertverfahren
 
-Beim Ertragswertverfahren steht der nachhaltig erzielbare Ertrag im Vordergrund. Ausgangspunkt ist der Rohertrag, also die marktüblich erzielbare Miete. Davon werden die Bewirtschaftungskosten abgezogen, die der Eigentümer trägt. Der verbleibende Reinertrag wird unter Berücksichtigung des Liegenschaftszinssatzes und der Restnutzungsdauer kapitalisiert. Hinzu kommt der Bodenwert.
+Beim Ertragswertverfahren steht der nachhaltig erzielbare Ertrag im Vordergrund. Ausgangspunkt ist der Rohertrag, also die marktüblich erzielbare Miete. Davon werden die Bewirtschaftungskosten abgezogen, die der Eigentümer trägt. Im allgemeinen Ertragswertverfahren wird vom verbleibenden Reinertrag die Verzinsung des Bodenwerts abgezogen. Der Rest wird unter Berücksichtigung des Liegenschaftszinssatzes und der Restnutzungsdauer kapitalisiert, anschließend wird der Bodenwert hinzugerechnet.
 
 Das Verfahren eignet sich für Objekte, die üblicherweise zur Erzielung von Erträgen gehalten werden, etwa Mehrfamilienhäuser, vermietete Eigentumswohnungen oder Gewerbeimmobilien. Maßgeblich ist die nachhaltig erzielbare Miete. Weicht die vertraglich vereinbarte Miete davon ab, wird dies gesondert berücksichtigt. Hinweise zum Verkauf vermieteter Objekte gibt der Beitrag [Eine vermietete Wohnung verkaufen](/wissen/vermietete-wohnung-verkaufen/).
 
@@ -64,4 +64,4 @@ Welche Anforderungen im Einzelfall gelten, etwa gegenüber dem Finanzamt, sollte
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH gibt eine kaufmännische Marktwerteinschätzung ab. Sie ersetzt kein Verkehrswertgutachten. Wird ein Gutachten benötigt, verweisen wir an qualifizierte Sachverständige [Leistungsumfang Wertermittlung und Qualifikation Gutachter bestätigen]. Informationen finden Sie auf der Seite [Wertgutachten](/wertgutachten/).
+Die Hausverwaltung Müller GmbH gibt eine kaufmännische Marktwerteinschätzung ab [Leistungsumfang Wertermittlung bestätigen]. Eine solche Einschätzung ersetzt kein Verkehrswertgutachten. Wird ein Gutachten benötigt, verweisen wir an qualifizierte Sachverständige [Qualifikation Gutachter bestätigen]. Informationen finden Sie auf der Seite [Wertgutachten](/wertgutachten/).

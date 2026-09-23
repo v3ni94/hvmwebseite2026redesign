@@ -29,7 +29,7 @@ Bei der Staffelmiete wird die Miete für bestimmte Zeiträume in unterschiedlich
 
 Die Erhöhungen treten zu den vereinbarten Zeitpunkten ein, ohne dass es einer weiteren Erklärung bedarf. Während der Laufzeit der Staffelmiete sind Erhöhungen bis zur ortsüblichen Vergleichsmiete und Mieterhöhungen wegen Modernisierung ausgeschlossen. Nach der letzten Staffel gilt wieder das allgemeine Recht, also insbesondere die Erhöhung nach § 558 BGB.
 
-Das Kündigungsrecht des Mieters kann bei einer Staffelmiete nur für einen gesetzlich begrenzten Zeitraum ausgeschlossen werden. Eine weitergehende Vereinbarung ist insoweit unwirksam.
+Das Kündigungsrecht des Mieters kann bei einer Staffelmiete höchstens für vier Jahre seit Abschluss der Staffelmietvereinbarung ausgeschlossen werden. Eine weitergehende Vereinbarung ist insoweit unwirksam.
 
 ### Mietpreisbremse
 
@@ -76,4 +76,4 @@ Für Mietverträge ohne Staffel- oder Indexvereinbarung gilt die Erhöhung nach 
 
 ## Hinweis
 
-Die Gestaltung von Mietverträgen ist Rechtsberatung und sollte in Zweifelsfällen mit einem Rechtsanwalt abgestimmt werden. Die Berechnung von Indexanpassungen und die Überwachung von Mietstaffeln gehören zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Gestaltung von Staffel- und Indexvereinbarungen sollte in Zweifelsfällen mit einem Rechtsanwalt abgestimmt werden. Die Berechnung von Indexanpassungen und die Überwachung von Mietstaffeln gehören zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

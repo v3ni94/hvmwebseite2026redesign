@@ -53,7 +53,7 @@ Vor Aufnahme konkreter Vertragsverhandlungen sollte die Finanzierung des Kaufint
 
 Ein Vertrag, durch den sich jemand zur Übertragung des Eigentums an einem Grundstück verpflichtet, bedarf der notariellen Beurkundung (§ 311b BGB). Das gilt auch für Eigentumswohnungen. Mündliche oder privatschriftliche Zusagen sind insoweit nicht bindend.
 
-Der Notar erstellt den Vertragsentwurf und übersendet ihn den Beteiligten. Ist der Käufer Verbraucher, soll er den beabsichtigten Text in der Regel zwei Wochen vor der Beurkundung erhalten, damit er sich mit dem Inhalt auseinandersetzen kann (§ 17 Abs. 2a BeurkG). Typische Regelungen betreffen Kaufpreis und Fälligkeit, Übergabe, Haftung für Sachmängel, Lastenfreistellung und Kostentragung. Rechtliche Fragen zum Vertrag klären Sie mit dem Notar oder einem Rechtsanwalt.
+Der Notar erstellt den Vertragsentwurf und übersendet ihn den Beteiligten. Bei einem Verbrauchervertrag, etwa wenn ein Unternehmer an einen Verbraucher verkauft, soll der Notar dem Verbraucher den beabsichtigten Text im Regelfall zwei Wochen vor der Beurkundung zur Verfügung stellen, damit er sich mit dem Inhalt auseinandersetzen kann (§ 17 Abs. 2a BeurkG). Auch unter Privatleuten ist ausreichend Zeit zur Prüfung des Entwurfs sinnvoll. Typische Regelungen betreffen Kaufpreis und Fälligkeit, Übergabe, Haftung für Sachmängel, Lastenfreistellung und Kostentragung. Rechtliche Fragen zum Vertrag klären Sie mit dem Notar oder einem Rechtsanwalt.
 
 ## Schritt 7: Vollzug und Übergabe
 

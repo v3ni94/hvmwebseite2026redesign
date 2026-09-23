@@ -12,7 +12,7 @@ faq:
   - frage: "Muss ich als Vermieter eine Rücklage für Instandhaltung bilden?"
     antwort: "Für das Mietshaus eines einzelnen Eigentümers gibt es keine gesetzliche Pflicht zur Rücklage. Aus kaufmännischer Sicht ist eine regelmäßige Vorsorge dennoch sinnvoll, weil größere Maßnahmen sonst die Liquidität belasten. In einer Eigentümergemeinschaft ist dagegen eine angemessene Erhaltungsrücklage Teil der ordnungsmäßigen Verwaltung."
   - frage: "Kann ich Instandhaltungskosten auf den Mieter umlegen?"
-    antwort: "Nein. Kosten für Instandhaltung und Instandsetzung sind keine Betriebskosten und bei Wohnraum nicht umlegbar. Anders ist es bei Modernisierungen, für die unter bestimmten Voraussetzungen eine Mieterhöhung möglich ist. Die Abgrenzung sollte vor Beginn einer Maßnahme geklärt werden."
+    antwort: "Grundsätzlich nein. Kosten für Instandhaltung und Instandsetzung sind keine Betriebskosten und bei Wohnraum nicht umlegbar. Eine Ausnahme ist eine wirksam vereinbarte Kleinreparaturklausel, die nur in engen Grenzen zulässig ist. Anders ist es bei Modernisierungen, für die unter bestimmten Voraussetzungen eine Mieterhöhung möglich ist. Die Abgrenzung sollte vor Beginn einer Maßnahme geklärt werden."
   - frage: "Wie oft sollte eine Immobilie begangen werden?"
     antwort: "Ein fester gesetzlicher Rhythmus besteht für die allgemeine Begehung nicht. Üblich sind regelmäßige Begehungen, deren Abstand sich nach Alter, Zustand und Ausstattung des Gebäudes richtet. Für bestimmte Anlagen und Prüfungen gelten eigene Vorgaben, etwa aus Wartungsverträgen oder technischen Regelwerken."
 ---
@@ -23,7 +23,7 @@ Instandhaltung ist die Voraussetzung dafür, dass eine Immobilie vermietbar blei
 
 Der Vermieter hat die Mietsache während der Mietzeit in einem zum vertragsgemäßen Gebrauch geeigneten Zustand zu erhalten (§ 535 Abs. 1 BGB). Diese Erhaltungspflicht umfasst Instandhaltung und Instandsetzung. Der Mieter hat Erhaltungsmaßnahmen zu dulden (§ 555a BGB), sie sind ihm rechtzeitig anzukündigen, soweit es sich nicht um geringfügige oder sofort erforderliche Maßnahmen handelt.
 
-Kosten der Instandhaltung und Instandsetzung sind keine Betriebskosten und bei Wohnraum nicht auf den Mieter umlegbar. Das unterscheidet sie von Modernisierungen, die unter bestimmten Voraussetzungen eine Mieterhöhung rechtfertigen können. Einzelheiten im Beitrag [Modernisierung im vermieteten Bestand](/wissen/modernisierung-vermieter/).
+Kosten der Instandhaltung und Instandsetzung sind keine Betriebskosten und bei Wohnraum grundsätzlich nicht auf den Mieter umlegbar. Davon zu unterscheiden sind laufende Wartungskosten bestimmter Anlagen, die bei entsprechender Vereinbarung als Betriebskosten umlagefähig sein können, sowie Kleinreparaturklauseln, die nur in engen Grenzen wirksam sind. Das unterscheidet sie von Modernisierungen, die unter bestimmten Voraussetzungen eine Mieterhöhung rechtfertigen können. Einzelheiten im Beitrag [Modernisierung im vermieteten Bestand](/wissen/modernisierung-vermieter/).
 
 Hinzu kommen Pflichten aus anderen Vorschriften, etwa die Verkehrssicherungspflicht für Wege, Treppen und Außenanlagen, Prüf- und Wartungspflichten für bestimmte technische Anlagen sowie Nachrüstpflichten nach dem Gebäudeenergiegesetz.
 

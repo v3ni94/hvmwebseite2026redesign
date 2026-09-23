@@ -33,7 +33,7 @@ Ist eine Geldsumme als Sicherheit vereinbart, darf der Mieter sie in drei gleich
 
 Der Vermieter hat eine Geldkaution getrennt von seinem Vermögen bei einem Kreditinstitut anzulegen, grundsätzlich zu dem für Spareinlagen mit dreimonatiger Kündigungsfrist üblichen Zinssatz. Die Parteien können eine andere Anlageform vereinbaren. Die Erträge stehen dem Mieter zu und erhöhen die Sicherheit.
 
-Die getrennte Anlage schützt den Mieter, etwa im Fall einer Insolvenz des Vermieters. Für den Vermieter bedeutet sie vor allem Ordnung in der Buchhaltung. Üblich ist ein Kautionskonto je Mietverhältnis, das als Treuhandkonto erkennbar ist. Eine Vermischung mit dem Mietkonto oder dem Privatkonto ist zu vermeiden.
+Die getrennte Anlage schützt den Mieter, etwa im Fall einer Insolvenz des Vermieters. Für den Vermieter bedeutet sie vor allem Ordnung in der Buchhaltung. Üblich ist ein als Treuhandkonto erkennbares Kautionskonto, entweder je Mietverhältnis oder als Sammeltreuhandkonto mit Zuordnung der einzelnen Kautionen. Eine Vermischung mit dem Mietkonto oder dem Privatkonto ist zu vermeiden.
 
 ## Formen der Sicherheit
 
@@ -48,7 +48,7 @@ Welche Form akzeptiert wird, sollte im Mietvertrag klar geregelt sein. Bei Bürg
 
 ## Während des Mietverhältnisses
 
-Der Vermieter darf die Kaution während des laufenden Mietverhältnisses nur eingeschränkt in Anspruch nehmen, grundsätzlich nur wegen unstreitiger oder rechtskräftig festgestellter Forderungen. Hat er auf die Kaution zugegriffen, kann er je nach Vertragsgestaltung eine Wiederauffüllung verlangen. Eine Verrechnung durch den Mieter mit den letzten Mieten ist dagegen grundsätzlich nicht zulässig.
+Der Vermieter darf die Kaution während des laufenden Mietverhältnisses nur eingeschränkt in Anspruch nehmen, grundsätzlich nur wegen unstreitiger oder rechtskräftig festgestellter Forderungen. Hat er berechtigt auf die Kaution zugegriffen, kann er in der Regel verlangen, dass der Mieter sie wieder auffüllt. Eine Verrechnung durch den Mieter mit den letzten Mieten ist dagegen grundsätzlich nicht zulässig.
 
 ## Abrechnung nach dem Auszug
 

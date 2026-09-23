@@ -12,7 +12,7 @@ faq:
   - frage: "Muss ich beim Auszug renovieren?"
     antwort: "Das hängt von Ihrem Mietvertrag ab. Ob eine Klausel zu Schönheitsreparaturen wirksam ist, hängt von ihrem genauen Wortlaut und vom Zustand der Wohnung bei Einzug ab. Die Rechtsprechung hat zahlreiche Formularklauseln für unwirksam erklärt. Lassen Sie Ihre Klausel im Zweifel von einem Mieterverein oder Rechtsanwalt prüfen."
   - frage: "Wie muss ich meine Kündigung einreichen?"
-    antwort: "Die Kündigung eines Mietvertrags über Wohnraum bedarf der Schriftform, also eines unterschriebenen Schreibens. Eine E-Mail genügt dafür nicht. Sind mehrere Personen Mieter, sollten alle unterschreiben. Welche Frist gilt, ergibt sich aus Gesetz und Mietvertrag."
+    antwort: "Die Kündigung eines Mietvertrags über Wohnraum bedarf der Schriftform, also eines unterschriebenen Schreibens. Eine E-Mail genügt dafür nicht. Sind mehrere Personen Mieter, muss die Kündigung von allen erklärt und unterschrieben werden. Welche Frist gilt, ergibt sich aus Gesetz und Mietvertrag."
   - frage: "Wann erhalte ich meine Kaution zurück?"
     antwort: "Nach dem Ende des Mietverhältnisses darf der Vermieter prüfen, ob ihm noch Ansprüche zustehen, etwa aus einer ausstehenden Betriebskostenabrechnung. Wie lange diese Prüfung dauern darf, hängt vom Einzelfall ab. Danach rechnet der Vermieter über die Kaution ab."
 ---
@@ -21,9 +21,9 @@ Ein Auszug ist mit vielen Aufgaben verbunden. Wer rechtzeitig plant und die Rüc
 
 ## Die Kündigung
 
-Die Kündigung eines Mietvertrags über Wohnraum bedarf der Schriftform. Das bedeutet ein Schreiben mit eigenhändiger Unterschrift, eine E-Mail oder eine Nachricht über ein Portal genügt dafür nicht. Sind mehrere Personen Mieter, sollten alle unterschreiben. Senden Sie die Kündigung so, dass Sie den Zugang nachweisen können.
+Die Kündigung eines Mietvertrags über Wohnraum bedarf der Schriftform. Das bedeutet ein Schreiben mit eigenhändiger Unterschrift, eine E-Mail oder eine Nachricht über ein Portal genügt dafür nicht. Sind mehrere Personen Mieter, muss die Kündigung von allen erklärt und unterschrieben werden. Senden Sie die Kündigung so, dass Sie den Zugang nachweisen können.
 
-Die gesetzliche Kündigungsfrist für Mieter beträgt bei unbefristeten Mietverträgen in der Regel drei Monate. Ihr Mietvertrag kann Besonderheiten enthalten, etwa einen befristeten Kündigungsverzicht oder eine Befristung. Prüfen Sie daher vor der Kündigung, was in Ihrem Vertrag vereinbart ist. Möchten Sie früher ausziehen, können Sie mit Ihrem Vermieter über eine einvernehmliche Lösung sprechen, einen Anspruch darauf gibt es jedoch grundsätzlich nicht.
+Bei unbefristeten Mietverträgen kann der Mieter nach dem Gesetz spätestens am dritten Werktag eines Kalendermonats zum Ablauf des übernächsten Monats kündigen, die Frist beträgt also knapp drei Monate. Eine längere Frist zulasten des Mieters kann nicht wirksam vereinbart werden. Ihr Mietvertrag kann aber Besonderheiten enthalten, etwa einen befristeten Kündigungsverzicht oder eine Befristung. Prüfen Sie daher vor der Kündigung, was in Ihrem Vertrag vereinbart ist. Möchten Sie früher ausziehen, können Sie mit Ihrem Vermieter über eine einvernehmliche Lösung sprechen, einen Anspruch darauf gibt es jedoch grundsätzlich nicht.
 
 ## Schönheitsreparaturen und Renovierung
 

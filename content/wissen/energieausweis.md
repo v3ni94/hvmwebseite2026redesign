@@ -10,7 +10,7 @@ leistung: /verkauf/
 cta: kontakt
 faq:
   - frage: "Wann muss ich den Energieausweis vorlegen?"
-    antwort: "Bei Verkauf oder Vermietung ist der Energieausweis spätestens bei der Besichtigung vorzulegen, etwa durch Aushang oder Auslegen. Findet keine Besichtigung statt, ist er unverzüglich vorzulegen, sobald der Interessent dies verlangt. Nach Abschluss des Vertrags ist der Ausweis dem Käufer oder Mieter unverzüglich zu übergeben, im Original oder als Kopie."
+    antwort: "Bei Verkauf oder Vermietung ist der Energieausweis spätestens bei der Besichtigung vorzulegen, etwa durch Aushang oder Auslegen. Findet keine Besichtigung statt, ist er unverzüglich vorzulegen, spätestens aber, wenn der Interessent dies verlangt. Nach Abschluss des Vertrags ist der Ausweis dem Käufer oder Mieter unverzüglich zu übergeben, im Original oder als Kopie."
   - frage: "Wie lange ist ein Energieausweis gültig?"
     antwort: "Energieausweise sind für eine Gültigkeitsdauer von zehn Jahren ab Ausstellung auszustellen. Nach Ablauf muss für einen Verkauf oder eine Neuvermietung ein neuer Ausweis erstellt werden. Das Ausstellungsdatum steht auf dem Ausweis."
   - frage: "Brauche ich für eine Eigentumswohnung einen eigenen Energieausweis?"
@@ -33,10 +33,10 @@ Nicht immer besteht eine Wahlfreiheit. Für Wohngebäude mit weniger als fünf W
 Soll ein Gebäude oder eine Wohnung verkauft, vermietet, verpachtet oder verleast werden, gelten nach § 80 GEG folgende Pflichten:
 
 - Der Verkäufer oder Vermieter hat dem potenziellen Käufer oder Mieter spätestens bei der Besichtigung einen Energieausweis oder eine Kopie vorzulegen. Das kann durch Aushang oder deutlich sichtbares Auslegen geschehen.
-- Findet keine Besichtigung statt, ist der Ausweis unverzüglich vorzulegen, sobald der Interessent dies verlangt.
+- Findet keine Besichtigung statt, ist der Ausweis unverzüglich vorzulegen, spätestens aber, wenn der Interessent dies verlangt.
 - Nach Abschluss des Kauf- oder Mietvertrags ist der Energieausweis oder eine Kopie unverzüglich zu übergeben.
 
-Beim Verkauf eines Ein- oder Zweifamilienhauses sieht das Gesetz zusätzlich vor, dass der Käufer ein informatorisches Beratungsgespräch zum Energieausweis mit einer ausstellungsberechtigten Person führen soll, wenn ein solches Gespräch unentgeltlich angeboten wird.
+Beim Verkauf eines Ein- oder Zweifamilienhauses sieht das Gesetz zusätzlich vor, dass der Käufer nach Übergabe des Ausweises ein informatorisches Beratungsgespräch zum Energieausweis mit einer ausstellungsberechtigten Person führt, wenn ein solches Gespräch unentgeltlich angeboten wird.
 
 ## Pflichtangaben in Immobilienanzeigen
 

@@ -23,11 +23,12 @@ Modernisierungen verbessern den Wohnwert, senken den Energieverbrauch oder schaf
 
 Zuerst ist zu klären, ob es sich um eine Erhaltungsmaßnahme oder um eine Modernisierung handelt. Erhaltungsmaßnahmen dienen der Instandhaltung oder Instandsetzung (§ 555a BGB). Ihre Kosten trägt der Vermieter, eine Mieterhöhung ist ausgeschlossen.
 
-Modernisierungsmaßnahmen sind in § 555b BGB abschließend beschrieben. Dazu gehören insbesondere:
+Was als Modernisierungsmaßnahme gilt, zählt § 555b BGB auf. Dazu gehören:
 
 - energetische Modernisierungen, durch die Endenergie nachhaltig eingespart wird,
 - Maßnahmen zur nachhaltigen Einsparung nicht erneuerbarer Primärenergie oder zum Klimaschutz,
 - die nachhaltige Reduzierung des Wasserverbrauchs,
+- unter bestimmten Voraussetzungen der erstmalige Anschluss an ein Netz mit sehr hoher Kapazität (Glasfaser),
 - die nachhaltige Erhöhung des Gebrauchswerts der Mietsache,
 - die dauerhafte Verbesserung der allgemeinen Wohnverhältnisse,
 - Maßnahmen aufgrund von Umständen, die der Vermieter nicht zu vertreten hat,

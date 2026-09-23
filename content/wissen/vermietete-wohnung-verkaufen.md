@@ -14,16 +14,16 @@ faq:
   - frage: "Muss der Mieter Besichtigungen zulassen?"
     antwort: "Bei einem beabsichtigten Verkauf muss der Mieter Besichtigungen durch Kaufinteressenten in angemessenem Umfang und nach rechtzeitiger Ankündigung grundsätzlich dulden. Termine sollten mit dem Mieter abgestimmt und auf das erforderliche Maß beschränkt werden. Einzelheiten können sich aus dem Mietvertrag ergeben."
   - frage: "Hat mein Mieter ein Vorkaufsrecht?"
-    antwort: "Ein gesetzliches Vorkaufsrecht besteht, wenn an der vermieteten Wohnung nach der Überlassung an den Mieter Wohnungseigentum begründet wurde oder begründet werden soll und die Wohnung an einen Dritten verkauft wird. In anderen Fällen besteht grundsätzlich kein gesetzliches Vorkaufsrecht. Ob es im Einzelfall greift, prüft der Notar."
+    antwort: "Ein gesetzliches Vorkaufsrecht besteht, wenn an der vermieteten Wohnung nach der Überlassung an den Mieter Wohnungseigentum begründet wurde oder begründet werden soll und die Wohnung an einen Dritten verkauft wird. Ausgenommen ist der Verkauf an Familien- oder Haushaltsangehörige. In anderen Fällen besteht grundsätzlich kein gesetzliches Vorkaufsrecht. Ob es im Einzelfall greift, prüft der Notar."
 ---
 
 Viele Eigentumswohnungen werden vermietet verkauft, etwa weil ein Kapitalanleger sein Portfolio umschichtet oder eine geerbte Wohnung veräußert werden soll. Der Verkauf einer vermieteten Wohnung unterscheidet sich in wesentlichen Punkten vom Verkauf einer leeren Wohnung. Dieser Beitrag erläutert die rechtlichen Grundlagen und praktische Fragen.
 
 ## Kauf bricht nicht Miete
 
-Wird vermieteter Wohnraum veräußert, tritt der Erwerber anstelle des Vermieters in die Rechte und Pflichten aus dem Mietverhältnis ein (§ 566 BGB). Maßgeblich ist der Eigentumsübergang im Grundbuch. Der Mietvertrag bleibt mit allen Vereinbarungen unverändert bestehen. Der Verkauf ist kein Kündigungsgrund.
+Wird vermieteter Wohnraum nach der Überlassung an den Mieter veräußert, tritt der Erwerber anstelle des Vermieters in die Rechte und Pflichten aus dem Mietverhältnis ein (§ 566 BGB). Maßgeblich ist der Eigentumsübergang im Grundbuch. Der Mietvertrag bleibt mit allen Vereinbarungen unverändert bestehen. Der Verkauf ist kein Kündigungsgrund.
 
-Für Käufer, die die Wohnung selbst nutzen möchten, bedeutet das: Eine Kündigung wegen Eigenbedarfs ist nur unter den allgemeinen Voraussetzungen möglich. Wurde an der Wohnung nach Überlassung an den Mieter Wohnungseigentum begründet, gilt zusätzlich eine Sperrfrist für Eigenbedarfskündigungen (§ 577a BGB). Sie beträgt mindestens drei Jahre ab der ersten Veräußerung und kann in Gebieten mit angespanntem Wohnungsmarkt durch Landesverordnung verlängert werden [örtliche Regelung prüfen].
+Für Käufer, die die Wohnung selbst nutzen möchten, bedeutet das: Eine Kündigung wegen Eigenbedarfs ist nur unter den allgemeinen Voraussetzungen möglich. Wurde an der Wohnung nach Überlassung an den Mieter Wohnungseigentum begründet, gilt zusätzlich eine Sperrfrist für Kündigungen wegen Eigenbedarfs oder wirtschaftlicher Verwertung (§ 577a BGB). Sie beträgt mindestens drei Jahre ab der ersten Veräußerung nach Begründung des Wohnungseigentums und kann in Gebieten mit angespanntem Wohnungsmarkt durch Landesverordnung verlängert werden [örtliche Regelung prüfen].
 
 ## Käuferkreis und Preis
 
@@ -44,7 +44,7 @@ Ein gutes Verhältnis zum Mieter wirkt sich positiv auf den Verkaufsprozess aus.
 
 ## Vorkaufsrecht des Mieters
 
-Wurde an der vermieteten Wohnung nach der Überlassung an den Mieter Wohnungseigentum begründet oder soll es begründet werden, steht dem Mieter beim ersten Verkauf an einen Dritten ein gesetzliches Vorkaufsrecht zu (§ 577 BGB). Der Mieter kann dann zu den Bedingungen des mit dem Dritten geschlossenen Vertrags in den Kauf eintreten. Über den Inhalt des Kaufvertrags und sein Vorkaufsrecht ist er zu unterrichten. Die Ausübungsfrist ergibt sich aus dem Gesetz und beginnt mit dieser Mitteilung. Den Ablauf koordiniert in der Regel der Notar.
+Wurde an der vermieteten Wohnung nach der Überlassung an den Mieter Wohnungseigentum begründet oder soll es begründet werden, steht dem Mieter beim ersten Verkauf an einen Dritten ein gesetzliches Vorkaufsrecht zu (§ 577 BGB). Das gilt nicht beim Verkauf an Familien- oder Haushaltsangehörige des Vermieters. Der Mieter kann dann zu den Bedingungen des mit dem Dritten geschlossenen Vertrags in den Kauf eintreten. Über den Inhalt des Kaufvertrags und sein Vorkaufsrecht ist er zu unterrichten. Die Ausübungsfrist ergibt sich aus dem Gesetz und beginnt mit dieser Mitteilung. Den Ablauf koordiniert in der Regel der Notar.
 
 ## Unterlagen und Datenschutz
 

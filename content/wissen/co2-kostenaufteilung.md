@@ -33,7 +33,7 @@ Der Gedanke dahinter: Der Vermieter entscheidet über die energetische Qualität
 
 ## Nichtwohngebäude
 
-Für Nichtwohngebäude gilt nach derzeitigem Stand eine hälftige Teilung, soweit vertraglich nichts anderes vereinbart ist. Das Gesetz sieht vor, auch hier später ein Stufenmodell einzuführen. Der jeweils aktuelle Stand sollte vor der Abrechnung geprüft werden.
+Für Nichtwohngebäude sieht das Gesetz grundsätzlich eine hälftige Teilung der CO2-Kosten vor. Ein Stufenmodell auch für Nichtwohngebäude hat der Gesetzgeber in Aussicht gestellt. Ob sich daran etwas geändert hat, sollte vor der Abrechnung geprüft werden [juristisch prüfen: aktueller Stand Nichtwohngebäude].
 
 ## Ablauf bei zentraler Heizung
 

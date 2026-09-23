@@ -56,7 +56,7 @@ Einzelheiten im Beitrag [Sondereigentumsverwaltung für Kapitalanleger](/wissen/
 
 ### Zuständigkeit für das Gebäude
 
-Bei der Mietverwaltung liegt die Verantwortung für das gesamte Gebäude beim Eigentümer und damit bei der von ihm beauftragten Verwaltung. Bei der SE-Verwaltung entscheidet über das gemeinschaftliche Eigentum die Gemeinschaft durch Beschluss. Die SE-Verwaltung kann hier nur informieren, weiterleiten und nachhalten.
+Bei der Mietverwaltung liegt die Verantwortung für das gesamte Gebäude beim Eigentümer. Die von ihm beauftragte Verwaltung übernimmt Aufgaben im vertraglich vereinbarten Umfang. Bei der SE-Verwaltung entscheidet über das gemeinschaftliche Eigentum die Gemeinschaft durch Beschluss. Die SE-Verwaltung kann hier nur informieren, weiterleiten und nachhalten.
 
 ### Abrechnung
 

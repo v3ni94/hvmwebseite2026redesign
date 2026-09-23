@@ -33,7 +33,7 @@ Die Miete muss in dem Zeitpunkt, zu dem die Erhöhung eintreten soll, seit 15 Mo
 
 ### Ortsübliche Vergleichsmiete
 
-Die neue Miete darf die ortsübliche Vergleichsmiete nicht übersteigen. Sie wird aus den üblichen Entgelten gebildet, die in der Gemeinde oder einer vergleichbaren Gemeinde für Wohnraum vergleichbarer Art, Größe, Ausstattung, Beschaffenheit und Lage einschließlich der energetischen Ausstattung und Beschaffenheit in den letzten Jahren vereinbart oder geändert worden sind. Den genauen Betrachtungszeitraum legt das Gesetz fest.
+Die neue Miete darf die ortsübliche Vergleichsmiete nicht übersteigen. Sie wird aus den üblichen Entgelten gebildet, die in der Gemeinde oder einer vergleichbaren Gemeinde für Wohnraum vergleichbarer Art, Größe, Ausstattung, Beschaffenheit und Lage einschließlich der energetischen Ausstattung und Beschaffenheit in den letzten sechs Jahren vereinbart oder, von Betriebskostenanpassungen abgesehen, geändert worden sind.
 
 ### Kappungsgrenze
 

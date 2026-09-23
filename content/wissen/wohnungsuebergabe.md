@@ -46,6 +46,8 @@ Ein Protokoll sollte mindestens enthalten:
 - Vereinbarungen, etwa zur Beseitigung einzelner Mängel oder zur Übernahme von Einbauten,
 - Unterschriften beider Seiten.
 
+Für den Vermieter ist Vorsicht geboten: Ein von beiden Seiten unterschriebenes Auszugsprotokoll kann dazu führen, dass Ansprüche wegen erkennbarer, aber nicht aufgeführter Mängel später nicht mehr durchsetzbar sind. Alle festgestellten Mängel gehören deshalb vollständig ins Protokoll.
+
 Allgemeine Formulierungen wie „Wohnung in gutem Zustand“ sind wenig hilfreich. Besser sind konkrete Angaben, etwa „Kratzer im Parkett vor dem Fenster, ca. 20 cm“. Datierte Fotos ergänzen das Protokoll und sollten ihm zugeordnet werden können.
 
 ## Besonderheiten beim Einzug
