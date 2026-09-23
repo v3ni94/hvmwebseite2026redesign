@@ -1,0 +1,26 @@
+{#
+  Mobile Bottom-Bar (MP 3.5) mit drei Aktionen: Angebot, Anrufen, Notfall.
+  Anrufen ist nur dann ein tel-Link, wenn firma.telefon gesetzt ist. Sonst führt die Aktion zur Kontaktseite
+  und heißt ehrlicherweise "Kontakt".
+#}
+<nav class="c-mobilbar" aria-label="Schnellzugriff">
+    <a class="c-mobilbar__aktion c-mobilbar__aktion--primaer" href="{{ nav.cta.url }}">
+        {% include 'partials/icon.html.twig' with {name: 'dokument'} only %}
+        Angebot
+    </a>
+    {% if firma.telefon %}
+    <a class="c-mobilbar__aktion" href="{{ tel_href(firma.telefon) }}">
+        {% include 'partials/icon.html.twig' with {name: 'telefon'} only %}
+        Anrufen
+    </a>
+    {% else %}
+    <a class="c-mobilbar__aktion" href="/kontakt/">
+        {% include 'partials/icon.html.twig' with {name: 'kontakt'} only %}
+        Kontakt
+    </a>
+    {% endif %}
+    <a class="c-mobilbar__aktion" href="/notfall/">
+        {% include 'partials/icon.html.twig' with {name: 'notfall'} only %}
+        Notfall
+    </a>
+</nav>

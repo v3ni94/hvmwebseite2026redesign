@@ -1,0 +1,5 @@
+{#
+  HVM-Kennlinie (MP 3.4.1), rein dekorativ. Parameter: variante ('', '8', '24', '48'), klasse.
+  {% include 'partials/kennlinie.html.twig' with {variante: '8'} only %}
+#}
+<div class="c-kennlinie{% if variante|default('') %} c-kennlinie--{{ variante }}{% endif %} {{ klasse|default('') }}" aria-hidden="true"></div>

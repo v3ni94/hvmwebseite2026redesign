@@ -1,0 +1,66 @@
+/*
+ * Basis-Typografie. Leitmotiv aus der Wortmarke: Überschriften leicht oder regulär,
+ * ein Schlüsselwort in <strong> fett. Fließtext in --hvm-ink, nie in Grau auf Weiß.
+ */
+@layer base {
+    html {
+        color-scheme: light;
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--header-h-kompakt) + var(--abstand-4));
+    }
+
+    body {
+        background: var(--farbe-grund);
+        color: var(--farbe-text);
+        font-family: var(--schrift);
+        font-size: var(--fs-text);
+        line-height: var(--lh-text);
+        font-weight: var(--fw-normal);
+        font-kerning: normal;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        padding-top: var(--header-h);
+    }
+
+    h1, h2, h3, h4 {
+        line-height: var(--lh-titel);
+        font-weight: var(--fw-leicht);
+        letter-spacing: -0.01em;
+        text-wrap: balance;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphenate-limit-chars: 10 4 4;
+    }
+
+    h1 { font-size: var(--fs-h1); letter-spacing: var(--tracking-display); line-height: var(--lh-display); }
+    h2 { font-size: var(--fs-h2); letter-spacing: var(--tracking-display); }
+    h3 { font-size: var(--fs-h3); font-weight: var(--fw-normal); }
+    h4 { font-size: var(--fs-h4); font-weight: var(--fw-halbfett); letter-spacing: 0; }
+
+    h1 strong, h2 strong, h3 strong, .c-display strong { font-weight: var(--fw-fett); }
+
+    p, ul, ol, dl { max-width: var(--zeilenlaenge); }
+    p { text-wrap: pretty; }
+
+    a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+    a:hover { text-decoration-thickness: 2px; }
+
+    strong, b { font-weight: var(--fw-fett); }
+    small { font-size: var(--fs-klein); }
+
+    ::selection { background: var(--hvm-orange); color: var(--hvm-ink); }
+
+    /*
+     * Fokus: Orange außen, innen eine dunkle Kontur. Auf Weiß erreicht die Kontur 17,4 : 1,
+     * auf --hvm-ink übernimmt Orange (8,31 : 1). In dunklen Sektionen wird --fokus-innen weiß.
+     */
+    :focus-visible {
+        outline: 3px solid var(--fokus-aussen);
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--fokus-innen);
+        border-radius: var(--radius-1);
+    }
+    :focus:not(:focus-visible) { outline: none; }
+
+    hr { border: 0; border-top: 1px solid var(--farbe-linie); margin-block: var(--abstand-7); }
+}

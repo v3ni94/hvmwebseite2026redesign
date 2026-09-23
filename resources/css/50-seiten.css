@@ -1,0 +1,116 @@
+/* Seitenbezogene Muster: Hero, Startseite, 404, Styleguide */
+@layer components {
+    /* Hero: dunkel, große Headline, Hausumriss angeschnitten */
+    .c-hero {
+        position: relative;
+        overflow: hidden;
+        padding-block: clamp(4rem, 2rem + 7vw, 9rem) clamp(3rem, 2rem + 4vw, 6rem);
+    }
+    .c-hero--mit-keil { overflow: visible; }
+    .c-hero__umriss-rahmen {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    .c-hero__umriss {
+        position: absolute;
+        width: clamp(34rem, 72vw, 72rem);
+        right: -24%;
+        bottom: -22%;
+        height: auto;
+    }
+    @media (max-width: 47.99em) {
+        .c-hero__umriss { width: 150vw; right: -70vw; bottom: -10%; }
+    }
+    .c-hero__inhalt { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--abstand-6); justify-items: start; }
+    .c-hero__inhalt > * { max-width: 100%; }
+    .c-hero .c-eyebrow { color: var(--hvm-hellgrau); }
+    /* Headline als ein Satzfluss: h1 leicht, anschließend das fette Schlüsselwort (hgroup mit p) */
+    .c-hero__titel { max-width: min(12.5em, 100%); }
+    .c-hero__titel > h1,
+    .c-hero__titel > p { display: inline; }
+    .c-hero__lead {
+        font-size: var(--fs-lead);
+        font-weight: var(--fw-leicht);
+        line-height: 1.5;
+        color: var(--hvm-umriss);
+        max-width: 38rem;
+    }
+    .c-hero .c-aktionen { margin-top: var(--abstand-3); }
+    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(4rem, 2rem + 6vw, 8rem); }
+
+    /* Seitenkopf für Inhaltsseiten (hell) */
+    .c-seitenkopf { position: relative; overflow: hidden; padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(2.5rem, 2rem + 2vw, 4rem); }
+    .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; gap: var(--abstand-5); justify-items: start; }
+    .c-seitenkopf__umriss { position: absolute; width: clamp(22rem, 46vw, 44rem); right: -8%; top: 18%; height: auto; }
+    .c-seitenkopf .c-suche { width: 100%; }
+    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; }
+
+    /* Startseite */
+    .c-start-faq { display: grid; gap: var(--abstand-7) var(--spalten-abstand); }
+    @media (min-width: 64em) {
+        .c-start-faq { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+        .c-start-faq .c-section-head { position: sticky; top: calc(var(--header-h-kompakt) + var(--abstand-6)); align-self: start; }
+    }
+    .c-service-icon { width: 2.25rem; height: 2.25rem; }
+
+    /* 404 */
+    .c-fehlerseite__code {
+        font-size: clamp(6rem, 3rem + 14vw, 16rem);
+        font-weight: var(--fw-leicht);
+        line-height: 0.85;
+        letter-spacing: -0.05em;
+        color: var(--hvm-anthrazit);
+    }
+    .c-fehlerseite__wege { list-style: none; padding: 0; display: grid; gap: 0; max-width: 40rem; border-top: 1px solid var(--hvm-hellgrau); }
+    .c-fehlerseite__wege a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: var(--abstand-4);
+        padding-block: var(--abstand-4);
+        border-bottom: 1px solid var(--hvm-hellgrau);
+        font-size: var(--fs-h4);
+        text-decoration: none;
+    }
+    .c-fehlerseite__wege a:hover { text-decoration: underline; text-decoration-color: var(--hvm-orange); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+
+    /* Styleguide */
+    .c-sg-abschnitt { padding-block: var(--sektion-y-kompakt); border-top: 1px solid var(--hvm-hellgrau); }
+    .c-sg-abschnitt > .l-container > * + * { margin-top: var(--abstand-6); }
+    .c-sg-titel { font-size: var(--fs-h2); }
+    .c-sg-farben { display: grid; gap: var(--spalten-abstand); grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); }
+    .c-sg-farbe { display: grid; gap: var(--abstand-2); font-size: var(--fs-klein); }
+    .c-sg-farbe__flaeche { height: 7rem; box-shadow: inset 0 0 0 1px var(--hvm-hellgrau); }
+    .c-sg-farbe__name { font-weight: var(--fw-halbfett); }
+    .c-sg-farbe--orange .c-sg-farbe__flaeche { background: var(--hvm-orange); }
+    .c-sg-farbe--ink .c-sg-farbe__flaeche { background: var(--hvm-ink); }
+    .c-sg-farbe--anthrazit .c-sg-farbe__flaeche { background: var(--hvm-anthrazit); }
+    .c-sg-farbe--mittelgrau .c-sg-farbe__flaeche { background: var(--hvm-mittelgrau); }
+    .c-sg-farbe--hellgrau .c-sg-farbe__flaeche { background: var(--hvm-hellgrau); }
+    .c-sg-farbe--umriss .c-sg-farbe__flaeche { background: var(--hvm-umriss); }
+    .c-sg-farbe--weiss .c-sg-farbe__flaeche { background: var(--hvm-weiss); }
+    .c-sg-typo { display: grid; gap: var(--abstand-6); }
+    .c-sg-typo__zeile { display: grid; gap: var(--abstand-2); padding-bottom: var(--abstand-5); border-bottom: 1px solid var(--hvm-hellgrau); }
+    .c-sg-typo__meta { font-size: var(--fs-klein); font-weight: var(--fw-halbfett); }
+    .c-sg-muster { display: grid; gap: var(--spalten-abstand); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); align-items: start; }
+    .c-sg-buehne { position: relative; padding: var(--abstand-6); border: 1px solid var(--hvm-hellgrau); overflow: hidden; }
+    .c-sg-buehne.is-dunkel { border-color: var(--hvm-ink); }
+    .c-sg-buehne--umriss { min-height: 18rem; }
+    .c-sg-buehne--umriss .c-hausumriss { position: absolute; width: 26rem; right: -4rem; bottom: -3rem; }
+    .c-sg-raster { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--spalten-abstand); }
+    .c-sg-raster span { height: 4rem; background: color-mix(in srgb, var(--hvm-orange) 28%, transparent); }
+    .c-sg-hinweis { font-size: var(--fs-klein); }
+    .c-sg-kennlinien { display: grid; gap: var(--abstand-5); }
+    .c-sg-kennlinien figure { display: grid; gap: var(--abstand-2); }
+    .c-sg-kennlinien figcaption { font-size: var(--fs-klein); }
+    .c-sg-keile { display: flex; gap: var(--abstand-7); align-items: flex-start; flex-wrap: wrap; }
+
+    /* Demonstration des Fokuszustands im Styleguide */
+    .is-fokus-demo {
+        outline: 3px solid var(--fokus-aussen) !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 2px var(--fokus-innen) !important;
+    }
+}

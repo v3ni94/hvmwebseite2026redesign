@@ -1,0 +1,170 @@
+/*
+ * Formularelemente. Feldränder in --hvm-anthrazit (3,55 : 1 auf Weiß, erfüllt 3 : 1 für Bedienelemente).
+ * Fehler werden nie nur über Farbe vermittelt: Text mit Symbol, verknüpft über aria-describedby.
+ */
+@layer components {
+    .c-formular { display: grid; gap: var(--abstand-6); max-width: 44rem; }
+    .c-formular__reihe { display: grid; gap: var(--abstand-5); }
+    @media (min-width: 48em) {
+        .c-formular__reihe--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .c-formular__reihe--plz { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+    }
+
+    .c-feld { display: grid; gap: var(--abstand-2); align-content: start; }
+    .c-feld__label, .c-auswahl__legende {
+        font-size: 1rem;
+        font-weight: var(--fw-halbfett);
+        line-height: 1.35;
+    }
+    .c-feld__zusatz { font-weight: var(--fw-normal); font-size: var(--fs-klein); margin-left: 0.35em; }
+    .c-feld__hinweis { font-size: var(--fs-klein); line-height: 1.45; }
+    .c-feld__fehler {
+        display: flex;
+        gap: var(--abstand-2);
+        align-items: flex-start;
+        font-size: var(--fs-klein);
+        font-weight: var(--fw-halbfett);
+        line-height: 1.45;
+    }
+    .c-feld__fehler .c-icon { color: var(--hvm-ink); }
+    .c-feld__fehler .c-icon .c-icon__flaeche { fill: var(--hvm-orange); }
+
+    .c-eingabe {
+        display: block;
+        width: 100%;
+        min-height: 3.25rem;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        line-height: 1.4;
+        color: var(--hvm-ink);
+        background: var(--hvm-weiss);
+        border: 1.5px solid var(--hvm-anthrazit);
+        border-radius: var(--radius-1);
+        transition: border-color var(--dauer-kurz) var(--ease), box-shadow var(--dauer-kurz) var(--ease);
+    }
+    .c-eingabe:hover { border-color: var(--hvm-ink); }
+    .c-eingabe:focus-visible { border-color: var(--hvm-ink); }
+    .c-eingabe::placeholder { color: var(--hvm-ink); opacity: 0.62; }
+    textarea.c-eingabe { min-height: 9rem; resize: vertical; }
+    select.c-eingabe {
+        appearance: none;
+        padding-right: 3rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 1.25rem;
+    }
+    .c-eingabe[aria-invalid="true"] {
+        border-color: var(--hvm-ink);
+        border-width: 2px;
+        box-shadow: inset 4px 0 0 var(--hvm-orange);
+    }
+    .c-eingabe:disabled,
+    .c-auswahlkarte:has(input:disabled),
+    .c-checkbox:has(input:disabled) {
+        background-color: var(--hvm-umriss);
+        border-color: var(--hvm-hellgrau);
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+
+    /* Auswahlkarten (Radio) */
+    .c-auswahl { display: grid; gap: var(--abstand-3); }
+    .c-auswahl__legende { margin-bottom: var(--abstand-2); }
+    .c-auswahlkarten { display: grid; gap: var(--abstand-3); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 40em) {
+        .c-auswahlkarten--spalten { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+    }
+    .c-auswahlkarte {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--abstand-1) var(--abstand-3);
+        align-items: start;
+        padding: var(--abstand-4) var(--abstand-5);
+        background: var(--hvm-weiss);
+        border: 1.5px solid var(--hvm-anthrazit);
+        border-radius: var(--radius-1);
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color var(--dauer-kurz) var(--ease), background-color var(--dauer-kurz) var(--ease);
+    }
+    .c-auswahlkarte:hover { border-color: var(--hvm-ink); }
+    .c-auswahlkarte input {
+        grid-row: span 2;
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.1rem;
+        accent-color: var(--hvm-ink);
+    }
+    .c-auswahlkarte__titel { font-weight: var(--fw-halbfett); line-height: 1.35; hyphens: auto; overflow-wrap: break-word; }
+    .c-auswahlkarte__text { font-size: var(--fs-klein); line-height: 1.45; }
+    .c-auswahlkarte:has(input:checked) {
+        border-color: var(--hvm-ink);
+        box-shadow: inset 0 0 0 1px var(--hvm-ink);
+        background: var(--hvm-umriss);
+    }
+    .c-auswahlkarte:has(input:checked)::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: var(--abstand-5);
+        width: calc(1.5rem * var(--hvm-keil-verhaeltnis));
+        height: 1.5rem;
+        background: var(--hvm-orange);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+    .c-auswahlkarte:has(input:focus-visible) { outline: 3px solid var(--fokus-aussen); outline-offset: 2px; box-shadow: 0 0 0 2px var(--fokus-innen); }
+    .c-auswahlkarte input:focus-visible { outline: none; box-shadow: none; }
+    .c-auswahl[aria-invalid="true"] .c-auswahlkarte,
+    .c-auswahl.is-fehler .c-auswahlkarte { border-color: var(--hvm-ink); box-shadow: inset 4px 0 0 var(--hvm-orange); }
+
+    /* Checkbox */
+    .c-checkbox {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: var(--abstand-3);
+        align-items: start;
+        font-size: var(--fs-klein);
+        line-height: 1.5;
+        cursor: pointer;
+    }
+    .c-checkbox input {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-top: 0.1rem;
+        accent-color: var(--hvm-ink);
+    }
+
+    /* Stepper mit Kennlinie als Fortschritt */
+    .c-stepper { display: grid; gap: var(--abstand-4); }
+    .c-stepper__status { font-size: var(--fs-klein); font-weight: var(--fw-halbfett); }
+    .c-stepper__liste {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(var(--schritte, 5), minmax(0, 1fr));
+        gap: var(--abstand-2);
+        max-width: none;
+        font-size: var(--fs-klein);
+        counter-reset: stepper;
+    }
+    .c-stepper__schritt { display: flex; gap: var(--abstand-2); align-items: baseline; line-height: 1.3; counter-increment: stepper; }
+    .c-stepper__schritt::before {
+        content: counter(stepper);
+        flex: none;
+        display: inline-grid;
+        place-items: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        font-size: 0.75rem;
+        font-weight: var(--fw-fett);
+        border: 1.5px solid var(--hvm-ink);
+    }
+    .c-stepper__schritt.is-erledigt::before { background: var(--hvm-ink); color: var(--hvm-weiss); }
+    .c-stepper__schritt[aria-current="step"] { font-weight: var(--fw-fett); }
+    .c-stepper__schritt[aria-current="step"]::before { background: var(--hvm-orange); border-color: var(--hvm-orange); color: var(--hvm-ink); }
+    @media (max-width: 47.99em) {
+        .c-stepper__schritt:not([aria-current="step"]) .c-stepper__text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    }
+}

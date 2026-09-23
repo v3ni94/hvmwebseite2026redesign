@@ -1,0 +1,32 @@
+{#
+  Kennzahlenband, immer mit Stichtag (MP 8). Werte stehen serverseitig im HTML, der Zähler (JS) animiert
+  nur einmal und nur ohne prefers-reduced-motion. Ohne JavaScript ist die Zahl unverändert sichtbar.
+  {% import 'components/kennzahlen.html.twig' as kz %}
+  {{ kz.kennzahlen([{wert: 869, label: 'Verwaltungseinheiten', zaehler: true}, {wert: '2020', vorsatz: 'seit', label: '...'}, {wert: 'VZIV und IVD', text: true, label: '...'}], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}
+#}
+{% macro kennzahlen(eintraege, optionen) %}
+{%- set o = optionen|default({}) -%}
+<div class="c-kennzahlen-band{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    <dl class="c-kennzahlen">
+        {% for e in eintraege %}
+        <div class="c-kennzahl" data-einblenden>
+            <dt class="c-kennzahl__label">{{ e.label }}</dt>
+            <dd class="c-kennzahl__wert{{ e.text|default(false) ? ' c-kennzahl__wert--text' }}">
+                {%- if e.vorsatz|default('') %}<span class="c-kennzahl__vorsatz">{{ e.vorsatz }}</span>{% endif -%}
+                {%- if e.zaehler|default(false) -%}
+                <span data-zaehler="{{ e.wert }}">{{ e.wert|number_format(0, ',', '.') }}</span>
+                {%- else -%}
+                {{ e.wert }}
+                {%- endif -%}
+            </dd>
+        </div>
+        {% endfor %}
+    </dl>
+    {% if o.stichtag|default('') %}
+    <p class="c-kennzahlen__stichtag">
+        <span class="c-keil c-keil--klein" aria-hidden="true"></span>
+        <span>Stand {{ datum(o.stichtag) }}{% if o.quelle|default('') %}, Quelle: {{ o.quelle|split(',')|first }}{% endif %}</span>
+    </p>
+    {% endif %}
+</div>
+{% endmacro %}

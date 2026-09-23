@@ -1,0 +1,17 @@
+{#
+  Bento-Grid mit Graustufen aus dem Logo (H dunkel, V mittel, M hell).
+  {% import 'components/bento.html.twig' as bento %}
+  {{ bento.bento([{titel, text, url, ton: 'h', breite: 7, hoch: true, gross: true}, ...], {label: 'Leistungen'}) }}
+  breite: 4 bis 8 von 12 Spalten (Desktop); Tablet halbe, mobil volle Breite.
+#}
+{% macro bento(eintraege, optionen) %}
+{%- import 'components/card.html.twig' as c -%}
+{%- set o = optionen|default({}) -%}
+<div class="c-bento{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {% for e in eintraege %}
+    <div class="c-bento__b{{ e.breite|default(4) }}{{ e.hoch|default(false) ? ' c-bento__hoch' }}">
+        {{ c.card(e|merge({nummer: e.nummer|default('%02d'|format(loop.index)), ebene: o.ebene|default(3)})) }}
+    </div>
+    {% endfor %}
+</div>
+{% endmacro %}

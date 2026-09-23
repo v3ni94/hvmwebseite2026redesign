@@ -1,0 +1,219 @@
+/* Grundkomponenten: Display, Eyebrow, Section-Head, Buttons, Textlink, Icons */
+@layer components {
+    .c-icon {
+        display: inline-block;
+        width: 1.25em;
+        height: 1.25em;
+        flex: none;
+        vertical-align: middle;
+    }
+
+    /* Display-Headline 48 bis 96 px */
+    .c-display {
+        font-size: var(--fs-display);
+        line-height: var(--lh-display);
+        letter-spacing: var(--tracking-display);
+        font-weight: var(--fw-leicht);
+        text-wrap: balance;
+        max-width: none;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphenate-limit-chars: 10 4 4;
+        overflow-wrap: break-word;
+    }
+    .c-display > h1,
+    .c-display > p {
+        font-size: inherit;
+        line-height: inherit;
+        letter-spacing: inherit;
+        font-weight: inherit;
+        max-width: none;
+    }
+
+    /* Eyebrow: Versalien, erweitertes Tracking, Orangekeil als Marker */
+    .c-eyebrow {
+        display: inline-flex;
+        align-items: flex-start;
+        gap: 0.75em;
+        font-size: var(--fs-label);
+        font-weight: var(--fw-halbfett);
+        letter-spacing: var(--tracking-label);
+        text-transform: uppercase;
+        line-height: 1.4;
+        max-width: none;
+    }
+    .c-eyebrow::before {
+        content: "";
+        flex: none;
+        width: calc(1.6em * var(--hvm-keil-verhaeltnis));
+        height: 1.6em;
+        margin-top: -0.1em;
+        background: var(--hvm-orange);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+
+    /* Section-Head */
+    .c-section-head {
+        display: grid;
+        gap: var(--abstand-5);
+        max-width: 56rem;
+        margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 5rem);
+    }
+    .c-section-head__kopf { display: grid; gap: var(--abstand-5); justify-items: start; }
+    .c-section-head__titel { font-size: var(--fs-h2); }
+    .c-section-head__text {
+        font-size: var(--fs-lead);
+        line-height: 1.45;
+        font-weight: var(--fw-leicht);
+        max-width: 38rem;
+    }
+    .c-section-head__aktion { margin-top: var(--abstand-2); }
+    @media (min-width: 64em) {
+        .c-section-head--geteilt {
+            max-width: none;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            column-gap: var(--spalten-abstand);
+            align-items: end;
+        }
+        .c-section-head--geteilt .c-section-head__text { justify-self: start; }
+    }
+
+    /* Buttons: primär (Orange, Text --hvm-ink), sekundär, auf dunkel, Textlink */
+    .c-button {
+        --btn-bg: transparent;
+        --btn-fg: var(--hvm-ink);
+        --btn-rand: var(--hvm-ink);
+        --btn-bg-hover: var(--hvm-ink);
+        --btn-fg-hover: var(--hvm-weiss);
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75em;
+        min-height: 3.25rem;
+        padding: 0.8125rem 1.5rem;
+        font-size: 1rem;
+        font-weight: var(--fw-halbfett);
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        white-space: nowrap;
+        color: var(--btn-fg);
+        background: var(--btn-bg);
+        border: 1.5px solid var(--btn-rand);
+        border-radius: var(--radius-1);
+        transition: color var(--dauer) var(--ease), border-color var(--dauer) var(--ease);
+    }
+    /* Hover: Wischeffekt in der Keil-Schräge */
+    .c-button::before {
+        content: "";
+        position: absolute;
+        inset: 0 -1.5rem;
+        z-index: -1;
+        background: var(--btn-bg-hover);
+        transform: translateX(-101%) skewX(calc(-1 * var(--hvm-keil-winkel)));
+        transition: transform var(--dauer) var(--ease);
+    }
+    .c-button:hover { color: var(--btn-fg-hover); text-decoration: none; }
+    .c-button:hover::before { transform: translateX(0) skewX(calc(-1 * var(--hvm-keil-winkel))); }
+    .c-button .c-icon { transition: transform var(--dauer) var(--ease); }
+    .c-button:hover .c-icon--pfeil { transform: translateX(0.25em); }
+
+    .c-button--primaer,
+    .c-button--primary {
+        --btn-bg: var(--hvm-orange);
+        --btn-fg: var(--hvm-ink);
+        --btn-rand: var(--hvm-orange);
+    }
+    .c-button--sekundaer,
+    .c-button--secondary { --btn-bg: transparent; }
+    .c-button--dunkel {
+        --btn-fg: var(--hvm-weiss);
+        --btn-rand: var(--hvm-weiss);
+        --btn-bg-hover: var(--hvm-weiss);
+        --btn-fg-hover: var(--hvm-ink);
+    }
+    .c-button--klein { min-height: 2.75rem; padding: 0.5625rem 1.125rem; font-size: 0.9375rem; }
+    .c-button--breit { width: 100%; }
+
+    .c-button:disabled,
+    .c-button[aria-disabled="true"],
+    .c-button.is-deaktiviert {
+        --btn-bg: var(--hvm-umriss);
+        --btn-fg: var(--hvm-ink);
+        --btn-rand: var(--hvm-hellgrau);
+        cursor: not-allowed;
+        opacity: 0.72;
+    }
+    .c-button:disabled::before,
+    .c-button[aria-disabled="true"]::before,
+    .c-button.is-deaktiviert::before { display: none; }
+    .c-button:disabled:hover,
+    .c-button.is-deaktiviert:hover { color: var(--btn-fg); }
+
+    .c-textlink {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        font-weight: var(--fw-halbfett);
+        text-decoration: underline;
+        text-decoration-color: var(--hvm-orange);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 0.35em;
+        transition: text-underline-offset var(--dauer-kurz) var(--ease);
+    }
+    .c-textlink:hover { text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
+    .c-textlink .c-icon { transition: transform var(--dauer) var(--ease); }
+    .c-textlink:hover .c-icon { transform: translateX(0.25em); }
+
+    .c-aktionen {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--abstand-4);
+        align-items: center;
+    }
+
+    /* Sichtbarer Platzhalter für fehlende Angaben (Twig-Funktion placeholder()) */
+    .placeholder {
+        display: inline;
+        padding: 0.05em 0.4em;
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        font-weight: var(--fw-halbfett);
+        font-style: normal;
+        letter-spacing: 0;
+        text-transform: none;
+        border-radius: var(--radius-1);
+        outline: 1px dashed var(--hvm-ink);
+        outline-offset: -1px;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+    }
+    .c-display .placeholder,
+    h1 .placeholder,
+    h2 .placeholder { font-size: 0.5em; vertical-align: middle; }
+
+    /* Entwurfsband (nur außerhalb der Produktion bei nicht freigegebenen Seiten) */
+    .c-entwurf {
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        font-size: var(--fs-klein);
+        line-height: 1.4;
+    }
+    .c-entwurf__inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: var(--abstand-2) var(--abstand-4);
+        padding-block: var(--abstand-3);
+    }
+    .c-entwurf__label {
+        font-size: var(--fs-label);
+        font-weight: var(--fw-fett);
+        letter-spacing: var(--tracking-label);
+        text-transform: uppercase;
+    }
+    .c-entwurf p { max-width: none; }
+}

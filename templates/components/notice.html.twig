@@ -1,0 +1,13 @@
+{#
+  Hinweisbox. typ: info (Standard) oder warnung. text: Text oder Markup.
+  {% import 'components/notice.html.twig' as n %} {{ n.hinweis('Titel', 'Text', {typ: 'warnung'}) }}
+#}
+{% macro hinweis(titel, text, optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set typ = o.typ|default('info') -%}
+<div class="c-hinweis c-hinweis--{{ typ }}" role="note">
+    {% include 'partials/icon.html.twig' with {name: typ == 'warnung' ? 'notfall' : 'info', klasse: 'c-hinweis__icon'} only %}
+    <p class="c-hinweis__titel">{{ titel }}</p>
+    <div class="c-hinweis__text"><p>{{ text }}</p></div>
+</div>
+{% endmacro %}

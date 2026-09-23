@@ -1,0 +1,30 @@
+{#
+  Buttons und Textlinks.
+  {% import 'components/button.html.twig' as b %}
+  {{ b.button('Angebot anfordern', '/angebot/', {variante: 'primaer', icon: 'pfeil'}) }}
+  Varianten: primaer (Orange, Text --hvm-ink), sekundaer (Kontur), dunkel (auf dunklem Grund).
+  Optionen: variante, icon, klein, breit, typ (für <button>: submit|button), deaktiviert, klasse, attribute (Liste von [name, wert]).
+  Ohne url entsteht ein <button>.
+#}
+{% macro button(label, url, optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set klassen = 'c-button c-button--' ~ o.variante|default('primaer') ~ (o.klein|default(false) ? ' c-button--klein') ~ (o.breit|default(false) ? ' c-button--breit') ~ (o.klasse|default('') ? ' ' ~ o.klasse) -%}
+{%- if url -%}
+<a class="{{ klassen }}" href="{{ url }}"{% if o.deaktiviert|default(false) %} aria-disabled="true"{% endif %}{% for a in o.attribute|default([]) %} {{ a[0] }}="{{ a[1] }}"{% endfor %}>
+    {{- label -}}
+    {%- if o.icon|default('') %} {% include 'partials/icon.html.twig' with {name: o.icon} only %}{% endif -%}
+</a>
+{%- else -%}
+<button class="{{ klassen }}" type="{{ o.typ|default('button') }}"{% if o.deaktiviert|default(false) %} disabled{% endif %}{% for a in o.attribute|default([]) %} {{ a[0] }}="{{ a[1] }}"{% endfor %}>
+    {{- label -}}
+    {%- if o.icon|default('') %} {% include 'partials/icon.html.twig' with {name: o.icon} only %}{% endif -%}
+</button>
+{%- endif -%}
+{% endmacro %}
+
+{% macro textlink(label, url, optionen) %}
+{%- set o = optionen|default({}) -%}
+<a class="c-textlink{{ o.klasse|default('') ? ' ' ~ o.klasse }}" href="{{ url }}">
+    {{- label }} {% include 'partials/icon.html.twig' with {name: o.icon|default('pfeil')} only -%}
+</a>
+{% endmacro %}

@@ -1,0 +1,131 @@
+/*
+ * Signaturelemente aus dem Logo (MP 3.4).
+ *
+ * 1. Kennlinie: vier Segmente mit diagonalen Übergängen, Schräge = 0,9 x Bandhöhe.
+ *    Umsetzung als ein linear-gradient mit harten Stopps. Der Verlaufswinkel steht senkrecht
+ *    auf den Schrägen: 90deg + atan(0,9) = 131.99deg. Damit die Segmentgrenzen an der Oberkante
+ *    exakt bei 40 %, 60 % und 67,5 % der Breite liegen, wird jeder Stopp um p x 0,669 x Bandhöhe
+ *    korrigiert (0,669 = |cos 131.99deg|, Anteil der Bandhöhe an der Verlaufslänge).
+ *    Ergebnis: jede Grenze läuft von x an der Oberkante nach x minus 0,9 x Höhe an der Unterkante,
+ *    identisch mit der Briefbogen-Kennlinie des CI-Skills. Keine Bilder, kein clip-path nötig.
+ */
+@layer components {
+    .c-kennlinie,
+    .c-fortschritt__balken,
+    .c-zeitleiste__linie {
+        --kl-h: var(--hvm-kennlinie-hoehe);
+        background-image: linear-gradient(131.99deg,
+            var(--hvm-anthrazit) 0 calc(40% - var(--kl-h) * 0.2676),
+            var(--hvm-mittelgrau) 0 calc(60% - var(--kl-h) * 0.4014),
+            var(--hvm-orange) 0 calc(67.5% - var(--kl-h) * 0.4516),
+            var(--hvm-hellgrau) 0);
+    }
+
+    .c-kennlinie {
+        display: block;
+        width: 100%;
+        height: var(--kl-h);
+    }
+    .c-kennlinie--8 { --kl-h: 8px; }
+    .c-kennlinie--24 { --kl-h: 24px; }
+    .c-kennlinie--48 { --kl-h: 48px; }
+
+    /*
+     * Fortschrittsbalken (Formular-Stepper, Lesefortschritt). Wert über --fortschritt (0% bis 100%).
+     * Die Kennlinie läuft immer über die volle Spurbreite, sichtbar ist nur der Anteil bis zum Wert.
+     * Ohne JavaScript: data-wert in 5er-Schritten, mit JavaScript beliebig per style.setProperty.
+     */
+    .c-fortschritt {
+        --kl-h: 6px;
+        position: relative;
+        height: var(--kl-h);
+        background: var(--hvm-umriss);
+        overflow: hidden;
+    }
+    .c-fortschritt__balken {
+        position: absolute;
+        inset: 0;
+        clip-path: inset(0 calc(100% - var(--fortschritt, 0%)) 0 0);
+        transition: clip-path var(--dauer) var(--ease);
+    }
+    .c-fortschritt--lesen {
+        --kl-h: var(--hvm-kennlinie-hoehe);
+        position: fixed;
+        inset: auto 0 0 0;
+        z-index: var(--z-header);
+        background: transparent;
+    }
+    .c-fortschritt__balken { --kl-h: inherit; }
+
+    .c-fortschritt[data-wert="0"] { --fortschritt: 0%; }
+    .c-fortschritt[data-wert="5"] { --fortschritt: 5%; }
+    .c-fortschritt[data-wert="10"] { --fortschritt: 10%; }
+    .c-fortschritt[data-wert="15"] { --fortschritt: 15%; }
+    .c-fortschritt[data-wert="20"] { --fortschritt: 20%; }
+    .c-fortschritt[data-wert="25"] { --fortschritt: 25%; }
+    .c-fortschritt[data-wert="30"] { --fortschritt: 30%; }
+    .c-fortschritt[data-wert="35"] { --fortschritt: 35%; }
+    .c-fortschritt[data-wert="40"] { --fortschritt: 40%; }
+    .c-fortschritt[data-wert="45"] { --fortschritt: 45%; }
+    .c-fortschritt[data-wert="50"] { --fortschritt: 50%; }
+    .c-fortschritt[data-wert="55"] { --fortschritt: 55%; }
+    .c-fortschritt[data-wert="60"] { --fortschritt: 60%; }
+    .c-fortschritt[data-wert="65"] { --fortschritt: 65%; }
+    .c-fortschritt[data-wert="70"] { --fortschritt: 70%; }
+    .c-fortschritt[data-wert="75"] { --fortschritt: 75%; }
+    .c-fortschritt[data-wert="80"] { --fortschritt: 80%; }
+    .c-fortschritt[data-wert="85"] { --fortschritt: 85%; }
+    .c-fortschritt[data-wert="90"] { --fortschritt: 90%; }
+    .c-fortschritt[data-wert="95"] { --fortschritt: 95%; }
+    .c-fortschritt[data-wert="100"] { --fortschritt: 100%; }
+
+    /*
+     * 2. Orangekeil: rechtwinkliges Dreieck wie im Logo. Obere Kante waagrecht, linke Kante senkrecht,
+     *    Diagonale im Winkel --hvm-keil-winkel gegen die Vertikale. Breite = Höhe x tan(20,4 Grad).
+     */
+    .c-keil {
+        --keil-b: 3rem;
+        display: block;
+        width: var(--keil-b);
+        height: calc(var(--keil-b) / var(--hvm-keil-verhaeltnis));
+        background: var(--hvm-orange);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+    .c-keil--klein { --keil-b: 1rem; }
+    .c-keil--gross { --keil-b: clamp(3rem, 1.5rem + 5vw, 6rem); }
+
+    /* Keil als Sektionsübergang: hängt an der Unterkante einer dunklen Sektion in die folgende hinein */
+    .c-keil-uebergang {
+        --keil-b: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
+        position: absolute;
+        top: 100%;
+        left: max(var(--rand), 60%);
+        z-index: 2;
+        pointer-events: none;
+    }
+    @media (max-width: 47.99em) {
+        .c-keil-uebergang { left: auto; right: var(--rand); }
+    }
+
+    /*
+     * 3. Hausumriss: offene Kontur (unten offen), Breite 115, Wandhöhe 62, Dachhöhe 42 (relative Einheiten),
+     *    runde Linienenden und Verbindungen. Farbe --hvm-umriss. Zeichnet sich einmal nach (stroke-dashoffset).
+     */
+    .c-hausumriss {
+        --umriss-farbe: var(--hvm-umriss);
+        color: var(--umriss-farbe);
+        overflow: visible;
+        pointer-events: none;
+    }
+    .c-hausumriss path { stroke: currentColor; }
+    .c-hausumriss--auf-dunkel { --umriss-farbe: color-mix(in srgb, var(--hvm-umriss) 11%, transparent); }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .c-hausumriss--zeichnen path {
+            stroke-dasharray: 1 1.01;
+            stroke-dashoffset: 1;
+            animation: hvm-zeichnen 1600ms var(--ease) 150ms forwards;
+        }
+    }
+    @keyframes hvm-zeichnen { to { stroke-dashoffset: 0; } }
+}

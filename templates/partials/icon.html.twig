@@ -1,0 +1,26 @@
+{#
+  Linien-Icons, 24er Raster, Farbe aus currentColor. Aufruf:
+  {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}
+  Optional: klasse. Icons sind dekorativ (aria-hidden), die Bedeutung trägt immer der Text daneben.
+#}
+{%- set pfade = {
+    pfeil: 'M4 12h15M13 6l6 6-6 6',
+    chevron: 'm6 9 6 6 6-6',
+    menue: 'M4 7h16M4 12h16M4 17h16',
+    schliessen: 'M6 6l12 12M18 6 6 18',
+    telefon: 'M6.5 3h3l1.8 4.6-2.4 1.6a11 11 0 0 0 5.9 5.9l1.6-2.4L21 14.5v3A2.5 2.5 0 0 1 18.5 20 15.5 15.5 0 0 1 4 5.5 2.5 2.5 0 0 1 6.5 3Z',
+    dokument: 'M7 3h7l5 5v13H7ZM14 3v5h5M10 13h6M10 17h6',
+    notfall: 'M12 3 2 20h20ZM12 10v4.5M12 17.2v.3',
+    portal: 'M3 4h18v13H3ZM3 8.5h18M8 21h8M12 17v4',
+    schaden: 'M3 11.5 12 4l9 7.5M5.5 9.5V20h13V9.5M12 12v4M12 18.2v.3',
+    kontakt: 'M3 5h18v14H3ZM3 6.5l9 6.5 9-6.5',
+    suche: 'M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM20 20l-4.8-4.8',
+    info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 11v5.5M12 7.8v.3',
+    haus: 'M4 21V10.5L12 4l8 6.5V21',
+} -%}
+{%- set name = name|default('pfeil') -%}
+{%- if name == 'fehler' -%}
+<svg class="c-icon c-icon--fehler {{ klasse|default('') }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="c-icon__flaeche" d="M12 3 2 20h20Z" fill="#E6A83C" stroke="#1A1A1A" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9.5v5M12 17.2v.3" fill="none" stroke="#1A1A1A" stroke-width="2" stroke-linecap="round"/></svg>
+{%- else -%}
+<svg class="c-icon c-icon--{{ name }} {{ klasse|default('') }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="{{ pfade[name] }}"/></svg>
+{%- endif -%}

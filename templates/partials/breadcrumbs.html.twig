@@ -1,0 +1,11 @@
+{# Breadcrumbs aus page.breadcrumbs (Liste {label, url}). Auf der Startseite leer und nicht angezeigt. #}
+{% set krumen = page.breadcrumbs|default([]) %}
+{% if krumen|length > 1 %}
+<nav class="c-breadcrumbs l-container" aria-label="Brotkrumennavigation">
+    <ol>
+        {% for krume in krumen %}
+        <li>{% if loop.last %}<a href="{{ krume.url }}" aria-current="page">{{ krume.label }}</a>{% else %}<a href="{{ krume.url }}">{{ krume.label }}</a>{% endif %}</li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endif %}

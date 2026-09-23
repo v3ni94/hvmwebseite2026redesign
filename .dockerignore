@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+!.env.example
+vendor
+node_modules
+legacy
+storage/*
+!storage/.gitkeep
+public/assets/build
+public/og
+tests/e2e/results
+playwright-report
+test-results
+.phpunit.cache
+docs/Logo_HVM.jpg
+docs/quellen

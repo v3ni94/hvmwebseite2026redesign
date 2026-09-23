@@ -1,0 +1,58 @@
+/*
+ * Bewegung (MP 3.6). Einblenden mit 12 px Versatz, ein Easing-Token, alles aus bei prefers-reduced-motion.
+ * Scroll-getrieben über animation-timeline: view(). Fallback ohne Unterstützung: IntersectionObserver
+ * in resources/js/modules/einblenden.js setzt .is-sichtbar (nur wenn JavaScript läuft, Klasse .js-einblenden).
+ */
+@layer components {
+    @keyframes hvm-einblenden {
+        from { opacity: 0; transform: translateY(var(--versatz)); }
+        to { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        ::view-transition-old(root),
+        ::view-transition-new(root) { animation-duration: var(--dauer); animation-timing-function: var(--ease); }
+
+        /* Einmaliges Einblenden beim Laden (Hero) */
+        .u-auftritt { animation: hvm-einblenden var(--dauer-lang) var(--ease) both; }
+        .u-auftritt--2 { animation-delay: 80ms; }
+        .u-auftritt--3 { animation-delay: 160ms; }
+        .u-auftritt--4 { animation-delay: 240ms; }
+
+        @supports (animation-timeline: view()) {
+            [data-einblenden] {
+                animation: hvm-einblenden linear both;
+                animation-timeline: view();
+                animation-range: entry 0% entry 55%;
+                animation-timing-function: var(--ease);
+            }
+        }
+        @supports not (animation-timeline: view()) {
+            :root.js-einblenden [data-einblenden] {
+                opacity: 0;
+                transform: translateY(var(--versatz));
+                transition: opacity var(--dauer) var(--ease), transform var(--dauer) var(--ease);
+            }
+            :root.js-einblenden [data-einblenden].is-sichtbar { opacity: 1; transform: none; }
+        }
+    }
+
+    @media print {
+        [data-einblenden], .u-auftritt { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+        html { scroll-behavior: auto; }
+    }
+}
+
+/* View Transitions für Seitenwechsel (außerhalb der Layer, da at-rule auf Dokumentebene) */
+@media (prefers-reduced-motion: no-preference) {
+    @view-transition { navigation: auto; }
+}

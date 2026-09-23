@@ -1,0 +1,15 @@
+{#
+  Platzhalter-Block für fehlende Inhalte (Ergänzung zur Twig-Funktion placeholder() für Inline-Text).
+  Außerhalb der Produktion sichtbar, in der Produktion nur wenn ausdrücklich gewünscht (immer: true).
+  {% import 'components/placeholder.html.twig' as ph %} {{ ph.block('Kundenstimmen', 'Kundenstimmen mit belegbarer Herkunft ergänzen') }}
+#}
+{% macro block(titel, text, optionen) %}
+{%- set o = optionen|default({}) -%}
+{% if not app.is_production or o.immer|default(false) %}
+<div class="c-hinweis c-hinweis--entwurf" role="note">
+    {% include 'partials/icon.html.twig' with {name: 'info', klasse: 'c-hinweis__icon'} only %}
+    <p class="c-hinweis__titel">{{ titel }}</p>
+    <div class="c-hinweis__text"><p>{{ placeholder(text) }}</p>{% if o.erklaerung|default('') %}<p>{{ o.erklaerung }}</p>{% endif %}</div>
+</div>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,8 @@
+{#
+  Eyebrow: kurzes Label in Versalien mit Orangekeil als Marker.
+  {% import 'components/eyebrow.html.twig' as e %} {{ e.eyebrow('Leistungen') }}
+#}
+{% macro eyebrow(text, optionen) %}
+{%- set o = optionen|default({}) -%}
+<p class="c-eyebrow{{ o.klasse|default('') ? ' ' ~ o.klasse }}">{{ text }}</p>
+{% endmacro %}

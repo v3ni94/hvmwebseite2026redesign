@@ -1,0 +1,11 @@
+{#
+  Entwurfsband: nur außerhalb der Produktion und nur bei Seiten, die nicht freigegeben sind (config/freigaben.php).
+#}
+{% if not app.is_production and (page.freigabe.status|default('entwurf')) != 'freigegeben' %}
+<aside class="c-entwurf" aria-label="Entwurfshinweis">
+    <div class="l-container c-entwurf__inner">
+        <span class="c-entwurf__label">Entwurf</span>
+        <p>Diese Seite ist noch nicht durch die Geschäftsführung freigegeben. Angaben in eckigen Klammern sind offene Punkte.</p>
+    </div>
+</aside>
+{% endif %}

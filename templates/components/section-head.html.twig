@@ -1,0 +1,23 @@
+{#
+  Section-Head: Eyebrow, Titel (Schlüsselwort in *Sternchen* wird fett), Text, optionale Aktion.
+  {% import 'components/section-head.html.twig' as sh %}
+  {{ sh.section_head({eyebrow: 'Leistungen', titel: 'Verwaltung für *Eigentümer*', text: '...', ebene: 2, geteilt: true, id: 'leistungen-titel', aktion: {label: '...', url: '...'}}) }}
+#}
+{% macro section_head(o) %}
+{%- import 'components/eyebrow.html.twig' as e -%}
+{%- import 'components/titel.html.twig' as t -%}
+{%- import 'components/button.html.twig' as b -%}
+{%- set ebene = o.ebene|default(2) -%}
+<header class="c-section-head{{ o.geteilt|default(false) ? ' c-section-head--geteilt' }}{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    <div class="c-section-head__kopf">
+        {% if o.eyebrow|default('') %}{{ e.eyebrow(o.eyebrow) }}{% endif %}
+        <h{{ ebene }} class="c-section-head__titel"{% if o.id|default('') %} id="{{ o.id }}"{% endif %}>{{ t.text(o.titel) }}</h{{ ebene }}>
+    </div>
+    {% if o.text|default('') or o.aktion|default(null) %}
+    <div class="c-section-head__text">
+        {% if o.text|default('') %}<p>{{ o.text }}</p>{% endif %}
+        {% if o.aktion|default(null) %}<p class="c-section-head__aktion">{{ b.textlink(o.aktion.label, o.aktion.url) }}</p>{% endif %}
+    </div>
+    {% endif %}
+</header>
+{% endmacro %}

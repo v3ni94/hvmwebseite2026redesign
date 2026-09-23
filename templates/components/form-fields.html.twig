@@ -1,0 +1,147 @@
+{#
+  Formularelemente. Fehler und Hinweise sind über aria-describedby mit dem Feld verknüpft.
+  {% import 'components/form-fields.html.twig' as f %}
+  {{ f.eingabe({name: 'email', label: 'E-Mail', typ: 'email', pflicht: true, autocomplete: 'email', hinweis: '...', fehler: '...'}) }}
+  {{ f.auswahl({name: 'rolle', label: 'Rolle', optionen: [{wert: 'eigentuemer', label: 'Eigentümer'}], leer: 'Bitte wählen'}) }}
+  {{ f.textfeld({name: 'nachricht', label: 'Nachricht'}) }}
+  {{ f.auswahlkarten({name: 'art', legende: 'Verwaltungsart', optionen: [{wert: 'weg', label: 'WEG', text: '...'}], wert: 'weg'}) }}
+  {{ f.checkbox({name: 'datenschutz', label: 'Ich habe ...', pflicht: true}) }}
+  {{ f.suche({name: 'q', label: 'Wissen durchsuchen', aktion: '/wissen/'}) }}
+  {{ f.stepper(['Art', 'Objekt', 'Zeitpunkt', 'Kontakt', 'Absenden'], 2) }}
+  {{ f.fortschritt(40, {label: 'Fortschritt'}) }}
+  Gemeinsame Optionen: id (Standard: feld-{name}), wert, pflicht, deaktiviert, hinweis, fehler, zusatz, klasse.
+#}
+
+{% macro _beschreibung(id, o, mit_invalid = true) %}
+{%- set teile = [] -%}
+{%- if o.hinweis|default('') %}{% set teile = teile|merge([id ~ '-hinweis']) %}{% endif -%}
+{%- if o.fehler|default('') %}{% set teile = teile|merge([id ~ '-fehler']) %}{% endif -%}
+{%- if teile|length > 0 %} aria-describedby="{{ teile|join(' ') }}"{% endif -%}
+{%- if mit_invalid and o.fehler|default('') %} aria-invalid="true"{% endif -%}
+{% endmacro %}
+
+{% macro _label(id, o) %}
+<label class="c-feld__label" for="{{ id }}">{{ o.label }}{% if o.pflicht|default(false) %}<span class="c-feld__zusatz">(Pflichtfeld)</span>{% elseif o.optional|default(false) %}<span class="c-feld__zusatz">(optional)</span>{% endif %}</label>
+{% endmacro %}
+
+{% macro _meldungen(id, o) %}
+{% if o.hinweis|default('') %}<p class="c-feld__hinweis" id="{{ id }}-hinweis">{{ o.hinweis }}</p>{% endif %}
+{% if o.fehler|default('') %}<p class="c-feld__fehler" id="{{ id }}-fehler">{% include 'partials/icon.html.twig' with {name: 'fehler'} only %}<span><span class="u-visually-hidden">Fehler: </span>{{ o.fehler }}</span></p>{% endif %}
+{% endmacro %}
+
+{% macro eingabe(o) %}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<div class="c-feld{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {{ _self._label(id, o) }}
+    <input class="c-eingabe" id="{{ id }}" name="{{ o.name }}" type="{{ o.typ|default('text') }}"
+        {%- if o.wert|default('') is not same as('') %} value="{{ o.wert }}"{% endif -%}
+        {%- if o.autocomplete|default('') %} autocomplete="{{ o.autocomplete }}"{% endif -%}
+        {%- if o.inputmode|default('') %} inputmode="{{ o.inputmode }}"{% endif -%}
+        {%- if o.muster|default('') %} pattern="{{ o.muster }}"{% endif -%}
+        {%- if o.platzhalter|default('') %} placeholder="{{ o.platzhalter }}"{% endif -%}
+        {%- if o.pflicht|default(false) %} required{% endif -%}
+        {%- if o.deaktiviert|default(false) %} disabled{% endif -%}
+        {{- _self._beschreibung(id, o) }}>
+    {{ _self._meldungen(id, o) }}
+</div>
+{% endmacro %}
+
+{% macro textfeld(o) %}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<div class="c-feld{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {{ _self._label(id, o) }}
+    <textarea class="c-eingabe" id="{{ id }}" name="{{ o.name }}" rows="{{ o.zeilen|default(5) }}"
+        {%- if o.pflicht|default(false) %} required{% endif -%}
+        {%- if o.deaktiviert|default(false) %} disabled{% endif -%}
+        {%- if o.maxlaenge|default(0) %} maxlength="{{ o.maxlaenge }}"{% endif -%}
+        {{- _self._beschreibung(id, o) }}>{{ o.wert|default('') }}</textarea>
+    {{ _self._meldungen(id, o) }}
+</div>
+{% endmacro %}
+
+{% macro auswahl(o) %}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<div class="c-feld{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {{ _self._label(id, o) }}
+    <select class="c-eingabe" id="{{ id }}" name="{{ o.name }}"
+        {%- if o.pflicht|default(false) %} required{% endif -%}
+        {%- if o.deaktiviert|default(false) %} disabled{% endif -%}
+        {{- _self._beschreibung(id, o) }}>
+        {% if o.leer|default('') %}<option value="">{{ o.leer }}</option>{% endif %}
+        {% for opt in o.optionen|default([]) %}
+        <option value="{{ opt.wert }}"{% if o.wert|default(null) is same as(opt.wert) %} selected{% endif %}>{{ opt.label }}</option>
+        {% endfor %}
+    </select>
+    {{ _self._meldungen(id, o) }}
+</div>
+{% endmacro %}
+
+{% macro auswahlkarten(o) %}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<fieldset class="c-auswahl{{ o.fehler|default('') ? ' is-fehler' }}{{ o.klasse|default('') ? ' ' ~ o.klasse }}"{{ _self._beschreibung(id, o, false) }}>
+    <legend class="c-auswahl__legende">{{ o.legende }}{% if o.pflicht|default(false) %}<span class="c-feld__zusatz">(Pflichtfeld)</span>{% endif %}</legend>
+    <div class="c-auswahlkarten{{ o.spalten|default(false) ? ' c-auswahlkarten--spalten' }}">
+        {% for opt in o.optionen %}
+        <label class="c-auswahlkarte" for="{{ id }}-{{ opt.wert }}">
+            <input type="radio" id="{{ id }}-{{ opt.wert }}" name="{{ o.name }}" value="{{ opt.wert }}"
+                {%- if o.wert|default(null) is same as(opt.wert) %} checked{% endif -%}
+                {%- if o.pflicht|default(false) %} required{% endif -%}
+                {%- if o.deaktiviert|default(false) or opt.deaktiviert|default(false) %} disabled{% endif %}>
+            <span class="c-auswahlkarte__titel">{{ opt.label }}</span>
+            {% if opt.text|default('') %}<span class="c-auswahlkarte__text">{{ opt.text }}</span>{% endif %}
+        </label>
+        {% endfor %}
+    </div>
+    {{ _self._meldungen(id, o) }}
+</fieldset>
+{% endmacro %}
+
+{% macro checkbox(o) %}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<div class="c-feld{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    <label class="c-checkbox" for="{{ id }}">
+        <input type="checkbox" id="{{ id }}" name="{{ o.name }}" value="{{ o.wert|default('1') }}"
+            {%- if o.aktiv|default(false) %} checked{% endif -%}
+            {%- if o.pflicht|default(false) %} required{% endif -%}
+            {%- if o.deaktiviert|default(false) %} disabled{% endif -%}
+            {{- _self._beschreibung(id, o) }}>
+        <span>{{ o.label }}{% if o.pflicht|default(false) %} <span class="c-feld__zusatz">(Pflichtfeld)</span>{% endif %}</span>
+    </label>
+    {{ _self._meldungen(id, o) }}
+</div>
+{% endmacro %}
+
+{% macro suche(o) %}
+{%- set id = o.id|default('suche-' ~ o.name|default('q')) -%}
+<form class="c-suche" action="{{ o.aktion|default('/wissen/') }}" method="get" role="search"{% if o.label|default('') %} aria-label="{{ o.label }}"{% endif %}>
+    <label class="u-visually-hidden" for="{{ id }}">{{ o.label|default('Suchen') }}</label>
+    <div class="c-suche__feld">
+        {% include 'partials/icon.html.twig' with {name: 'suche'} only %}
+        <input class="c-eingabe" id="{{ id }}" type="search" name="{{ o.name|default('q') }}"{% if o.platzhalter|default('') %} placeholder="{{ o.platzhalter }}"{% endif %}{% if o.wert|default('') %} value="{{ o.wert }}"{% endif %}>
+    </div>
+    <button class="c-button c-button--primaer" type="submit">{{ o.knopf|default('Suchen') }}</button>
+</form>
+{% endmacro %}
+
+{% macro fortschritt(wert, optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set gerundet = ((wert / 5)|round * 5)|number_format(0, '', '') -%}
+<div class="c-fortschritt{{ o.klasse|default('') ? ' ' ~ o.klasse }}" data-wert="{{ gerundet }}" data-fortschritt="{{ wert }}" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ wert }}" aria-label="{{ o.label|default('Fortschritt') }}"{% if o.werttext|default('') %} aria-valuetext="{{ o.werttext }}"{% endif %}>
+    <span class="c-fortschritt__balken"></span>
+</div>
+{% endmacro %}
+
+{% macro stepper(schritte, aktuell, optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set anzahl = schritte|length -%}
+{%- set wert = ((aktuell - 1) / (anzahl - 1) * 100)|round -%}
+<div class="c-stepper c-stepper--n{{ anzahl }}" role="group" aria-label="{{ o.label|default('Fortschritt im Formular') }}">
+    <p class="c-stepper__status">Schritt {{ aktuell }} von {{ anzahl }}: {{ schritte[aktuell - 1] }}</p>
+    {{ _self.fortschritt(wert, {label: 'Fortschritt', werttext: 'Schritt ' ~ aktuell ~ ' von ' ~ anzahl}) }}
+    <ol class="c-stepper__liste" role="list">
+        {% for s in schritte %}
+        <li class="c-stepper__schritt{{ loop.index < aktuell ? ' is-erledigt' }}"{% if loop.index == aktuell %} aria-current="step"{% endif %}><span class="c-stepper__text">{{ s }}{% if loop.index < aktuell %}<span class="u-visually-hidden"> (erledigt)</span>{% endif %}</span></li>
+        {% endfor %}
+    </ol>
+</div>
+{% endmacro %}

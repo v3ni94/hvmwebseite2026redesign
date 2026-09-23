@@ -1,0 +1,10 @@
+{#
+  Titel mit Leitmotiv leicht und fett: Text in Sternchen wird als <strong> gesetzt.
+  {% import 'components/titel.html.twig' as t %} {{ t.text('Leistungen für *Eigentümer*') }}
+  Der Text wird escaped, nur die Sternchen werden umgewandelt.
+#}
+{% macro text(wert) %}
+{%- for teil in wert|split('*') -%}
+{%- if loop.index is even %}<strong>{{ teil }}</strong>{% else %}{{ teil }}{% endif -%}
+{%- endfor -%}
+{% endmacro %}

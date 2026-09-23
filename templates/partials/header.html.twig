@@ -1,0 +1,69 @@
+{#
+  Kopfzeile: fest positioniert, beim Scrollen kompakt (resources/js/modules/kopfzeile.js).
+  Vollversion des Logos im Grundzustand, Kurzform im kompakten Zustand. Beide mit width/height gegen Layoutsprung.
+  Untermenü als Disclosure-Button (aria-expanded), ohne JavaScript über :focus-within erreichbar.
+  Mobile Navigation: Button mit aria-expanded; ohne JavaScript Sprunglink zur Footer-Navigation.
+#}
+{% set pfad = request.path|default('/') %}
+<header class="c-header" data-kopfzeile>
+    {% include 'partials/kennlinie.html.twig' with {klasse: 'c-header__kennlinie'} only %}
+    <div class="l-container c-header__inner">
+        <a class="c-header__marke" href="/" aria-label="{{ firma.name }}, zur Startseite">
+            <img class="c-header__logo c-header__logo--voll" src="/assets/img/logo/hvm-logo.svg" width="144" height="125" alt="" fetchpriority="high">
+            <img class="c-header__logo c-header__logo--kurz" src="/assets/img/logo/hvm-kurzform.svg" width="74" height="36" alt="" loading="lazy">
+        </a>
+
+        <nav class="c-nav" id="hauptnavigation" aria-label="Hauptnavigation" data-nav>
+            <ul class="c-nav__liste" role="list">
+                {% for eintrag in nav.haupt %}
+                {% set kinder = eintrag.kinder|default([]) %}
+                {% set label_kurz = eintrag.kurzlabel|default('') %}
+                {% if kinder|length > 0 %}
+                {% set aktiv = kinder|filter(k => pfad starts with k.url)|length > 0 %}
+                <li class="c-nav__item c-nav__item--sub">
+                    <button type="button" class="c-nav__toggle{{ aktiv ? ' is-aktiv' }}" aria-expanded="false" aria-controls="nav-sub-{{ loop.index }}" data-nav-toggle>
+                        {{ eintrag.label }}
+                        {% include 'partials/icon.html.twig' with {name: 'chevron'} only %}
+                    </button>
+                    <div class="c-nav__sub" id="nav-sub-{{ loop.index }}">
+                        <ul class="c-nav__sub-liste" role="list">
+                            {% for kind in kinder %}
+                            <li>
+                                <a class="c-nav__sub-link" href="{{ kind.url }}"{% if pfad == kind.url %} aria-current="page"{% endif %}>
+                                    <span class="c-nav__sub-titel">{{ kind.label }}</span>
+                                    {% if kind.beschreibung|default('') %}<span class="c-nav__sub-text">{{ kind.beschreibung }}</span>{% endif %}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </li>
+                {% else %}
+                <li class="c-nav__item">
+                    <a class="c-nav__link" href="{{ eintrag.url }}"{% if eintrag.url and pfad starts with eintrag.url %} aria-current="page"{% endif %}>
+                        {%- if label_kurz -%}
+                        <span class="c-nav__label-lang">{{ eintrag.label }}</span><span class="c-nav__label-kurz">{{ label_kurz }}</span>
+                        {%- else -%}
+                        {{ eintrag.label }}
+                        {%- endif -%}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <a class="c-button c-button--primaer c-button--klein c-nav__cta" href="{{ nav.cta.url }}">
+                {{ nav.cta.label }}
+                {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}
+            </a>
+        </nav>
+
+        <button type="button" class="c-header__menue" aria-expanded="false" aria-controls="hauptnavigation" data-menue hidden>
+            <span data-menue-label>Menü</span>
+            {% include 'partials/icon.html.twig' with {name: 'menue', klasse: 'c-header__menue-icon'} only %}
+        </button>
+        <a class="c-header__menue-link" href="#fussnavigation">
+            Menü
+            {% include 'partials/icon.html.twig' with {name: 'menue'} only %}
+        </a>
+    </div>
+</header>

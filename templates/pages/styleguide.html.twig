@@ -1,0 +1,309 @@
+{#
+  Styleguide (nur außerhalb der Produktion, Route mit nicht_in production).
+  Zeigt Tokens mit Kontrastwerten, Typoskala, Signaturelemente und alle Komponenten mit Zuständen.
+  Kontrastwerte berechnet nach WCAG 2.2 (relative Luminanz), Herleitung in docs/designsystem.md.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/button.html.twig' as b %}
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/bento.html.twig' as bento %}
+{% import 'components/kennzahlen.html.twig' as kz %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'components/cta-band.html.twig' as cta %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/placeholder.html.twig' as ph %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Designsystem, Phase 2') }}
+        <h1>Styleguide</h1>
+        <p class="c-seitenkopf__text">Tokens, Typografie, Signaturelemente und Komponenten der Website der {{ firma.name }}. Grundlage: Masterprompt Abschnitt 3 und docs/designsystem.md. Nur außerhalb der Produktion erreichbar.</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+{# Farben #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-farben">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-farben">Farben</h2>
+        <p>Ausschließlich die sieben CI-Farben aus MP 3.2. Kontrast jeweils gegen Weiß und gegen <code>--hvm-ink</code>. Grenzwerte: 4,5 : 1 für Text, 3 : 1 für große Schrift ab 24 px und Bedienelemente.</p>
+        {% set farben = [
+            {k: 'orange', name: '--hvm-orange', hex: '#E6A83C', weiss: '2,09', ink: '8,31', einsatz: 'Fläche, Primärbutton, Fokus, Keil. Nie Text auf Weiß.'},
+            {k: 'ink', name: '--hvm-ink', hex: '#1A1A1A', weiss: '17,40', ink: '1,00', einsatz: 'Fließtext, dunkle Sektionen.'},
+            {k: 'anthrazit', name: '--hvm-anthrazit', hex: '#87888A', weiss: '3,55', ink: '4,91', einsatz: 'Auf Weiß nur ab 24 px oder dekorativ, Feldränder.'},
+            {k: 'mittelgrau', name: '--hvm-mittelgrau', hex: '#9C9D9F', weiss: '2,71', ink: '6,41', einsatz: 'Trennlinien, Bento-Fläche V.'},
+            {k: 'hellgrau', name: '--hvm-hellgrau', hex: '#D7D8DA', weiss: '1,43', ink: '12,20', einsatz: 'Kartenränder, Bento-Fläche M, Text auf Dunkel.'},
+            {k: 'umriss', name: '--hvm-umriss', hex: '#ECECEC', weiss: '1,18', ink: '14,73', einsatz: 'Hausumriss, Flächen.'},
+            {k: 'weiss', name: '--hvm-weiss', hex: '#FFFFFF', weiss: '1,00', ink: '17,40', einsatz: 'Grundfläche.'},
+        ] %}
+        <div class="c-sg-farben">
+            {% for farbe in farben %}
+            <div class="c-sg-farbe c-sg-farbe--{{ farbe.k }}">
+                <div class="c-sg-farbe__flaeche" aria-hidden="true"></div>
+                <p class="c-sg-farbe__name"><code>{{ farbe.name }}</code></p>
+                <p>{{ farbe.hex }}<br>auf Weiß {{ farbe.weiss }} : 1<br>auf Ink {{ farbe.ink }} : 1</p>
+                <p>{{ farbe.einsatz }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h3>Eingesetzte Text- und Flächenpaare</h3>
+        <div class="c-tabelle-rahmen" tabindex="0" role="region" aria-label="Kontrasttabelle">
+            <table class="c-tabelle">
+                <caption>Kontraste nach WCAG 2.2, alle eingesetzten Paare</caption>
+                <thead><tr><th scope="col">Text oder Element</th><th scope="col">Hintergrund</th><th scope="col" class="is-zahl">Kontrast</th><th scope="col">Einsatz</th><th scope="col">Ergebnis</th></tr></thead>
+                <tbody>
+                    <tr><td>--hvm-ink</td><td>--hvm-weiss</td><td class="is-zahl">17,40 : 1</td><td>Fließtext, Überschriften, Navigation</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-ink</td><td>--hvm-umriss</td><td class="is-zahl">14,73 : 1</td><td>Flächensektionen, Tabellenzeilen, Hinweise</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-ink</td><td>--hvm-hellgrau</td><td class="is-zahl">12,20 : 1</td><td>Bento M</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-ink</td><td>--hvm-mittelgrau</td><td class="is-zahl">6,41 : 1</td><td>Bento V</td><td>AA</td></tr>
+                    <tr><td>--hvm-ink</td><td>--hvm-anthrazit</td><td class="is-zahl">4,91 : 1</td><td>Bento H</td><td>AA</td></tr>
+                    <tr><td>--hvm-ink</td><td>--hvm-orange</td><td class="is-zahl">8,31 : 1</td><td>Primärbutton, Platzhalter, Entwurfsband, Karten-Hover</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-weiss</td><td>--hvm-ink</td><td class="is-zahl">17,40 : 1</td><td>Text in dunklen Sektionen</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-umriss</td><td>--hvm-ink</td><td class="is-zahl">14,73 : 1</td><td>Einleitungstext auf Dunkel</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-hellgrau</td><td>--hvm-ink</td><td class="is-zahl">12,20 : 1</td><td>Labels und Metatext auf Dunkel</td><td>AA und AAA</td></tr>
+                    <tr><td>--hvm-anthrazit</td><td>--hvm-weiss</td><td class="is-zahl">3,55 : 1</td><td>nur Schrift ab 24 px (Zahl 404), Feldränder</td><td>AA groß, 3 : 1 Bedienelement</td></tr>
+                    <tr><td>Fokus innen --hvm-ink</td><td>--hvm-weiss</td><td class="is-zahl">17,40 : 1</td><td>Fokusring auf hellem Grund</td><td>3 : 1 erfüllt</td></tr>
+                    <tr><td>Fokus außen --hvm-orange</td><td>--hvm-ink</td><td class="is-zahl">8,31 : 1</td><td>Fokusring auf dunklem Grund</td><td>3 : 1 erfüllt</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{# Typografie #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-typo">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-typo">Typografie</h2>
+        <p>Systemschrift <code>system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif</code>, keine Webfonts. Leitmotiv aus der Wortmarke: leicht gesetzte Überschriften mit einem fetten Schlüsselwort.</p>
+        <div class="c-sg-typo">
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">Display, 36 bis 96 px, Zeilenhöhe 1,05, Tracking minus 0,02 em</p><p class="c-display">Verwaltung mit <strong>Übersicht</strong></p></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">H2, 32 bis 56 px</p><h2>Leistungen für <strong>Eigentümer</strong></h2></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">H3, 22 bis 28 px</p><h3>Jahresabrechnung und Wirtschaftsplan</h3></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">H4, 20 px, halbfett</p><h4>Unterlagen zur Übergabe</h4></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">Lead, 20 bis 24 px, leicht</p><p class="c-section-head__text">Einleitungen und Zusammenfassungen stehen in größerer, leichter Schrift.</p></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">Fließtext, 17 bis 18 px, Zeilenhöhe 1,6, höchstens 70 Zeichen</p><p>Die Verwaltung des gemeinschaftlichen Eigentums umfasst die Vorbereitung der Eigentümerversammlung, den Wirtschaftsplan und die Jahresabrechnung. Sekundärtext auf Weiß steht in --hvm-ink mit geringerer Schriftstärke, nie in Grau.</p></div>
+            <div class="c-sg-typo__zeile"><p class="c-sg-typo__meta">Eyebrow, 13 px, Versalien, Tracking 0,14 em, Orangekeil als Marker</p>{{ e.eyebrow('Verwalterwechsel') }}</div>
+        </div>
+    </div>
+</section>
+
+{# Raster #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-raster">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-raster">Raster und Abstände</h2>
+        <p>12 Spalten, Container höchstens 1280 px, Seitenrand 16 bis 40 px, Sektionsabstand 64 px mobil und 96 bis 160 px auf dem Desktop.</p>
+        <div class="c-sg-raster" aria-hidden="true">{% for i in 1..12 %}<span></span>{% endfor %}</div>
+    </div>
+</section>
+
+{# Signaturelemente #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-signatur">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-signatur">Signaturelemente</h2>
+        <h3>Kennlinie</h3>
+        <p>Anthrazit 0 bis 40 %, Mittelgrau 40 bis 60 %, Orange 60 bis 67,5 %, Hellgrau 67,5 bis 100 %. Schräge 0,9 × Bandhöhe, reines CSS.</p>
+        <div class="c-sg-kennlinien">
+            <figure>{% include 'partials/kennlinie.html.twig' only %}<figcaption>4 px, oberer Seitenrand und Footer-Oberkante</figcaption></figure>
+            <figure>{% include 'partials/kennlinie.html.twig' with {variante: '8'} only %}<figcaption>8 px</figcaption></figure>
+            <figure>{% include 'partials/kennlinie.html.twig' with {variante: '24'} only %}<figcaption>24 px, Schräge gut sichtbar</figcaption></figure>
+            <figure>{% include 'partials/kennlinie.html.twig' with {variante: '48'} only %}<figcaption>48 px</figcaption></figure>
+            <figure>{{ f.fortschritt(60, {label: 'Beispiel Fortschritt 60 Prozent'}) }}<figcaption>Fortschrittsbalken mit Kennlinie, Wert 60 %</figcaption></figure>
+        </div>
+
+        <h3>Orangekeil</h3>
+        <p>Winkel aus dem Logo: <code>--hvm-keil-winkel: 20.4deg</code> gegen die Vertikale. Einsatz als Marker, Sektionsübergang, Hover-Wischeffekt.</p>
+        <div class="c-sg-keile">
+            <span class="c-keil c-keil--klein" aria-hidden="true"></span>
+            <span class="c-keil" aria-hidden="true"></span>
+            <span class="c-keil c-keil--gross" aria-hidden="true"></span>
+        </div>
+
+        <h3>Hausumriss</h3>
+        <div class="c-sg-muster">
+            <div class="c-sg-buehne c-sg-buehne--umriss">
+                {% include 'partials/hausumriss.html.twig' only %}
+                <p>Auf hellem Grund in <code>--hvm-umriss</code></p>
+            </div>
+            <div class="c-sg-buehne c-sg-buehne--umriss is-dunkel">
+                {% include 'partials/hausumriss.html.twig' with {dunkel: true} only %}
+                <p>Auf dunklem Grund mit 11 % Deckkraft</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Buttons #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-buttons">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-buttons">Buttons und Links</h2>
+        <div class="c-sg-muster">
+            <div class="c-sg-buehne l-stack">
+                <p class="c-sg-hinweis">Auf hellem Grund: normal, Fokus, deaktiviert</p>
+                <div class="c-aktionen">
+                    {{ b.button('Angebot anfordern', '#', {variante: 'primaer', icon: 'pfeil'}) }}
+                    {{ b.button('Verwalter wechseln', '#', {variante: 'sekundaer'}) }}
+                </div>
+                <div class="c-aktionen">
+                    {{ b.button('Fokus primär', '#', {variante: 'primaer', klasse: 'is-fokus-demo'}) }}
+                    {{ b.button('Fokus sekundär', '#', {variante: 'sekundaer', klasse: 'is-fokus-demo'}) }}
+                </div>
+                <div class="c-aktionen">
+                    {{ b.button('Deaktiviert', null, {variante: 'primaer', deaktiviert: true}) }}
+                    {{ b.button('Deaktiviert', null, {variante: 'sekundaer', deaktiviert: true}) }}
+                </div>
+                <p>{{ b.textlink('Textlink mit Pfeil', '#') }}</p>
+                <p>Ein <a href="#">Link im Fließtext</a> ist unterstrichen.</p>
+            </div>
+            <div class="c-sg-buehne is-dunkel l-stack">
+                <p class="c-sg-hinweis">Auf dunklem Grund: normal und Fokus</p>
+                <div class="c-aktionen">
+                    {{ b.button('Angebot anfordern', '#', {variante: 'primaer', icon: 'pfeil'}) }}
+                    {{ b.button('Verwalter wechseln', '#', {variante: 'dunkel'}) }}
+                </div>
+                <div class="c-aktionen">
+                    {{ b.button('Fokus primär', '#', {variante: 'primaer', klasse: 'is-fokus-demo'}) }}
+                    {{ b.button('Fokus auf dunkel', '#', {variante: 'dunkel', klasse: 'is-fokus-demo'}) }}
+                </div>
+                <p>{{ b.textlink('Textlink auf dunkel', '#') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Section-Head, Karten, Bento #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-karten">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-karten">Section-Head, Karten und Bento</h2>
+        {{ sh.section_head({eyebrow: 'Eyebrow', titel: 'Überschrift mit *Schlüsselwort*', text: 'Einleitender Text zum Abschnitt in leichter Schrift.', ebene: 3, geteilt: true, aktion: {label: 'Aktion', url: '#'}}) }}
+        <div class="c-karten">
+            {{ c.card({titel: 'Karte mit Link', text: 'Die ganze Fläche ist klickbar. Hover zeigt den Orangekeil-Wischeffekt.', url: '#', einblenden: false}) }}
+            {{ c.card({titel: 'Karte ohne Link', text: 'Reine Informationskarte ohne Interaktion.', einblenden: false}) }}
+            {{ c.card({titel: 'Karte mit Icon', icon: 'notfall', text: 'Icons sind dekorativ, der Text trägt die Bedeutung.', url: '#', klasse: 'c-karte--kompakt', einblenden: false}) }}
+        </div>
+        {{ bento.bento([
+            {titel: 'H, Anthrazit', text: 'Text --hvm-ink, Kontrast 4,91 : 1', ton: 'h', breite: 4, url: '#', einblenden: false},
+            {titel: 'V, Mittelgrau', text: 'Text --hvm-ink, Kontrast 6,41 : 1', ton: 'v', breite: 4, url: '#', einblenden: false},
+            {titel: 'M, Hellgrau', text: 'Text --hvm-ink, Kontrast 12,20 : 1', ton: 'm', breite: 4, url: '#', einblenden: false},
+        ], {klasse: 'u-mt-6'}) }}
+    </div>
+</section>
+
+{# Kennzahlen #}
+<section class="c-sg-abschnitt is-dunkel" aria-labelledby="sg-kennzahlen">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-kennzahlen">Kennzahlenband</h2>
+        {{ kz.kennzahlen([
+            {wert: kennzahlen.einheiten, zaehler: true, label: 'Verwaltungseinheiten'},
+            {wert: kennzahlen.objekte, zaehler: true, label: 'Objekte'},
+            {wert: kennzahlen.gruendungsjahr, vorsatz: 'seit', label: 'Gründungsjahr'},
+            {wert: 'VZIV und IVD', text: true, label: 'Mitgliedschaften'},
+        ], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}
+    </div>
+</section>
+
+{# Zeitleiste und FAQ #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-zeitleiste">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-zeitleiste">Zeitleiste und FAQ</h2>
+        {{ tl.timeline([
+            {titel: 'Erster Schritt', text: 'Kurze Beschreibung des Schritts.'},
+            {titel: 'Zweiter Schritt', text: 'Kurze Beschreibung des Schritts.'},
+            {titel: 'Dritter Schritt', text: 'Kurze Beschreibung des Schritts.'},
+            {titel: 'Vierter Schritt', text: 'Kurze Beschreibung des Schritts.'},
+        ]) }}
+        {{ faq.faq([
+            {frage: 'Geöffneter Eintrag', antwort: 'Antworttext im geöffneten Zustand.'},
+            {frage: 'Geschlossener Eintrag', antwort: 'Antworttext.'},
+        ], {offen: 1, klasse: 'u-mt-7'}) }}
+    </div>
+</section>
+
+{# Formulare #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-formulare">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-formulare">Formularelemente</h2>
+        <p class="c-sg-hinweis">Muster ohne Absendefunktion. Testdaten sind fiktiv.</p>
+        <div class="c-sg-muster">
+            <div class="c-formular">
+                {{ f.stepper(['Art', 'Objekt', 'Zeitpunkt', 'Kontakt', 'Absenden'], 2) }}
+                {{ f.auswahlkarten({name: 'sg-art', legende: 'Verwaltungsart', pflicht: true, wert: 'weg', optionen: [
+                    {wert: 'weg', label: 'WEG-Verwaltung', text: 'für Eigentümergemeinschaften'},
+                    {wert: 'miet', label: 'Mietverwaltung', text: 'für Vermieter'},
+                    {wert: 'se', label: 'SE-Verwaltung', text: 'für Kapitalanleger'},
+                ]}) }}
+                <div class="c-formular__reihe c-formular__reihe--2">
+                    {{ f.eingabe({name: 'sg-vorname', label: 'Vorname', autocomplete: 'given-name', wert: 'Max', pflicht: true}) }}
+                    {{ f.eingabe({name: 'sg-nachname', label: 'Nachname', autocomplete: 'family-name', wert: 'Mustermann', pflicht: true}) }}
+                </div>
+                {{ f.eingabe({name: 'sg-email', label: 'E-Mail', typ: 'email', autocomplete: 'email', wert: 'max.mustermann@example', pflicht: true, fehler: 'Bitte geben Sie eine vollständige E-Mail-Adresse an, zum Beispiel max.mustermann@example.org.'}) }}
+                {{ f.eingabe({name: 'sg-telefon', label: 'Telefon', typ: 'tel', autocomplete: 'tel', optional: true, hinweis: 'Für Rückfragen zum Angebot.'}) }}
+                {{ f.auswahl({name: 'sg-rolle', label: 'Rolle', leer: 'Bitte wählen', optionen: [{wert: 'eigentuemer', label: 'Eigentümer'}, {wert: 'beirat', label: 'Beirat'}, {wert: 'investor', label: 'Investor'}, {wert: 'sonstige', label: 'Sonstige'}]}) }}
+                {{ f.eingabe({name: 'sg-deaktiviert', label: 'Deaktiviertes Feld', wert: 'nicht änderbar', deaktiviert: true}) }}
+                {{ f.textfeld({name: 'sg-nachricht', label: 'Nachricht', optional: true, zeilen: 4}) }}
+                {{ f.checkbox({name: 'sg-datenschutz', label: 'Ich habe die Datenschutzhinweise zur Kenntnis genommen.', pflicht: true}) }}
+                <div class="c-aktionen">
+                    {{ b.button('Weiter', null, {variante: 'primaer', icon: 'pfeil'}) }}
+                    {{ b.button('Zurück', null, {variante: 'sekundaer'}) }}
+                </div>
+            </div>
+            <div class="l-stack">
+                <h3>Suchfeld</h3>
+                {{ f.suche({name: 'q', id: 'sg-suche', label: 'Wissen und FAQ durchsuchen', platzhalter: 'Suchbegriff, zum Beispiel Jahresabrechnung'}) }}
+                <h3>Hinweise</h3>
+                {{ n.hinweis('Hinweis', 'Allgemeine Information mit Symbol und Text.') }}
+                {{ n.hinweis('Wichtig', 'Warnhinweis, zum Beispiel für Notfälle.', {typ: 'warnung'}) }}
+                {{ ph.block('Platzhalter-Block', 'Angabe ergänzen') }}
+                <h3>Platzhalter im Text</h3>
+                <p>Telefon {{ placeholder('zentrale Telefonnummer bestätigen') }}, sichtbar hervorgehoben.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Breadcrumbs, Tabelle, Prosa #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-prosa">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-prosa">Breadcrumbs, Tabelle und Prosa</h2>
+        <nav class="c-breadcrumbs" aria-label="Beispiel Brotkrumen">
+            <ol><li><a href="#">Start</a></li><li><a href="#">Wissen</a></li><li><a href="#" aria-current="page">Verwalterwechsel</a></li></ol>
+        </nav>
+        <div class="c-tabelle-rahmen" tabindex="0" role="region" aria-label="Beispieltabelle">
+            <table class="c-tabelle">
+                <caption>Beispieltabelle</caption>
+                <thead><tr><th scope="col">Unterlage</th><th scope="col">Zweck</th><th scope="col" class="is-zahl">Anzahl</th></tr></thead>
+                <tbody>
+                    <tr><td>Beschlusssammlung</td><td>Nachweis der Beschlüsse</td><td class="is-zahl">1</td></tr>
+                    <tr><td>Jahresabrechnungen</td><td>Abrechnung der Vorjahre</td><td class="is-zahl">3</td></tr>
+                    <tr><td>Verträge</td><td>Dienstleister und Versorger</td><td class="is-zahl">12</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <article class="c-prosa">
+            <p class="c-prosa__lead">Prosa-Stil für Wissensartikel: ruhige Zeilenlänge, klare Hierarchie.</p>
+            <h2>Zwischenüberschrift</h2>
+            <p>Fließtext mit einem <a href="#">internen Link</a>. Absätze haben großzügigen Abstand.</p>
+            <ul><li>Aufzählung mit kurzen Punkten</li><li>Zweiter Punkt</li></ul>
+            <blockquote><p>Hervorgehobener Absatz mit Orangekeil-Linie.</p></blockquote>
+            <p><small>Stand {{ datum('2026-09-23') }}. Dieser Beitrag ersetzt keine Beratung im Einzelfall.</small></p>
+        </article>
+    </div>
+</section>
+
+{# Entwurfsband und CTA #}
+<section class="c-sg-abschnitt" aria-labelledby="sg-cta">
+    <div class="l-container">
+        <h2 class="c-sg-titel" id="sg-cta">Entwurfsband und CTA-Band</h2>
+        <p>Das Entwurfsband erscheint oben auf jeder nicht freigegebenen Seite außerhalb der Produktion (siehe Seitenanfang).</p>
+    </div>
+</section>
+{{ cta.cta_band({titel: 'CTA-Band mit *Schlüsselwort*', text: 'Kurzer Text zur Handlungsaufforderung.', primaer: {label: 'Primäre Aktion', url: '#'}, sekundaer: {label: 'Sekundäre Aktion', url: '#'}, id: 'sg-cta-band'}) }}
+{% endblock %}

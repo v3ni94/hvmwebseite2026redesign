@@ -1,0 +1,22 @@
+{#
+  Zeitleiste: horizontal mit Kennlinie als Verbindungsstrich, mobil vertikal.
+  {% import 'components/timeline.html.twig' as tl %}
+  {{ tl.timeline([{titel: '...', text: '...'}, ...], {ebene: 3}) }}
+  Die Anzahl der Spalten folgt der Anzahl der Schritte (Klasse c-zeitleiste--n3 bis --n6).
+#}
+{% macro timeline(schritte, optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set ebene = o.ebene|default(3) -%}
+<div class="c-zeitleiste c-zeitleiste--n{{ schritte|length }}">
+    <span class="c-zeitleiste__linie" aria-hidden="true"></span>
+    <ol class="c-zeitleiste__liste" role="list">
+        {% for s in schritte %}
+        <li class="c-zeitleiste__schritt" data-einblenden>
+            <span class="c-zeitleiste__nummer" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+            <h{{ ebene }} class="c-zeitleiste__titel"><span class="u-visually-hidden">Schritt {{ loop.index }}: </span>{{ s.titel }}</h{{ ebene }}>
+            <p class="c-zeitleiste__text">{{ s.text }}</p>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+{% endmacro %}

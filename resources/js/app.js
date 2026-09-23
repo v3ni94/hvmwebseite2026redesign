@@ -1,0 +1,15 @@
+/*
+ * Einstieg für alle Seiten. Progressive Enhancement: jede Seite funktioniert ohne JavaScript.
+ * Keine Inline-Styles im Markup; dynamische Werte nur über element.style.setProperty (CSP-konform).
+ */
+import { initKopfzeile } from './modules/kopfzeile.js';
+import { initEinblenden } from './modules/einblenden.js';
+import { initZaehler } from './modules/zaehler.js';
+import { initFortschritt } from './modules/fortschritt.js';
+
+document.documentElement.classList.add('js');
+
+initKopfzeile();
+initEinblenden();
+initZaehler();
+initFortschritt();

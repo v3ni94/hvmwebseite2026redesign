@@ -1,0 +1,63 @@
+{#
+  Basislayout (docs/architektur.md Abschnitt 6, Designsystem docs/designsystem.md).
+  CSP: keine style-Attribute, keine on*-Handler, Skripte nur extern oder als JSON-LD mit Nonce.
+  Blöcke: title, meta, head_extra, body_class, breadcrumbs, hero, content, scripts.
+#}
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ page.title }}{% endblock %}</title>
+    {% block meta %}
+    <meta name="description" content="{{ page.description }}">
+    {% if not app.is_production %}
+    <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+    {% if page.canonical %}
+    <link rel="canonical" href="{{ page.canonical }}">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="{{ firma.name }}">
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    {% if page.canonical %}
+    <meta property="og:url" content="{{ page.canonical }}">
+    {% endif %}
+    {% if page.og_image %}
+    <meta property="og:image" content="{{ page.og_image }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    {% endif %}
+    {% endblock %}
+    <meta name="theme-color" content="#FFFFFF">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/img/icons/site.webmanifest">
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+    <link rel="modulepreload" href="{{ asset('app.js') }}">
+    {% for schema in page.schema %}
+    <script type="application/ld+json" nonce="{{ csp_nonce() }}">{{ json_ld(schema) }}</script>
+    {% endfor %}
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="{% block body_class %}page-{{ page.slug }}{% endblock %}">
+    <a class="u-skip-link" href="#inhalt">Zum Inhalt springen</a>
+    {% include 'partials/header.html.twig' %}
+    {% include 'partials/draft-banner.html.twig' %}
+    <main id="inhalt" tabindex="-1">
+        {% block breadcrumbs %}{% include 'partials/breadcrumbs.html.twig' %}{% endblock %}
+        {% block hero %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
+    {% include 'partials/footer.html.twig' %}
+    {% include 'partials/mobile-bar.html.twig' %}
+    {% block scripts %}
+    <script type="module" src="{{ asset('app.js') }}" nonce="{{ csp_nonce() }}"></script>
+    {% endblock %}
+</body>
+</html>

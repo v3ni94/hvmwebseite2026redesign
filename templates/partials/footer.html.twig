@@ -1,0 +1,52 @@
+{#
+  Footer: dunkel, Kennlinie an der Oberkante, Pflichtangaben aus firma (config/unternehmen.php),
+  Navigationsgruppen aus nav.footer, Mitgliedschaften als Text.
+  Logo auf dunklem Grund ausschließlich auf heller Schutzfläche (keine Negativvariante ohne Freigabe).
+#}
+<footer class="c-footer">
+    {% include 'partials/kennlinie.html.twig' with {klasse: 'c-footer__kennlinie'} only %}
+    <div class="l-container c-footer__inner">
+        <div class="c-footer__raster">
+            <div class="c-footer__marke">
+                <a class="c-footer__logo-flaeche" href="/" aria-label="{{ firma.name }}, zur Startseite">
+                    <img src="/assets/img/logo/hvm-logo.svg" width="120" height="104" alt="" loading="lazy">
+                </a>
+                <address class="c-footer__adresse">
+                    <strong>{{ firma.name }}</strong><br>
+                    {{ firma.anschrift.strasse }}<br>
+                    {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}<br>
+                    <a href="mailto:{{ firma.email }}">{{ firma.email }}</a><br>
+                    {% if firma.telefon %}
+                    <a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a>
+                    {% else %}
+                    Telefon {{ placeholder(firma.telefon_platzhalter) }}
+                    {% endif %}
+                </address>
+            </div>
+
+            <nav class="c-footer__nav" id="fussnavigation" aria-label="Fußnavigation">
+                {% for gruppe in nav.footer %}
+                <div class="c-footer__gruppe">
+                    <h2 class="c-footer__titel">{{ gruppe.titel }}</h2>
+                    <ul class="c-footer__liste" role="list">
+                        {% for link in gruppe.links %}
+                        <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </nav>
+        </div>
+
+        <div class="c-footer__meta">
+            <p class="c-footer__mitglied">
+                Mitglied im
+                {% for mitglied in firma.mitgliedschaften %}
+                {{- mitglied.kurz }}{% if mitglied.name != mitglied.kurz %} ({{ mitglied.name }}){% endif %}{% if not loop.last %} und im {% endif %}
+                {%- endfor %}
+            </p>
+            <p>{{ firma.name }} · {{ firma.registergericht }}, {{ firma.hrb }} · Geschäftsführer: {{ firma.geschaeftsfuehrer }}</p>
+            <p>© {{ 'now'|date('Y') }} {{ firma.name }}</p>
+        </div>
+    </div>
+</footer>

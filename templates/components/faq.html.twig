@@ -1,0 +1,17 @@
+{#
+  FAQ-Akkordeon mit details und summary (ohne JavaScript bedienbar).
+  {% import 'components/faq.html.twig' as faq %}
+  {{ faq.faq([{frage: '...', antwort: '...'}, ...], {offen: 1}) }}
+  antwort: Text oder Markup (z. B. über {% set %}...{% endset %} erzeugt).
+#}
+{% macro faq(eintraege, optionen) %}
+{%- set o = optionen|default({}) -%}
+<div class="c-faq{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {% for e in eintraege %}
+    <details class="c-faq__eintrag"{% if o.offen|default(0) == loop.index %} open{% endif %}>
+        <summary class="c-faq__frage"><span>{{ e.frage }}</span><span class="c-faq__zeichen" aria-hidden="true"></span></summary>
+        <div class="c-faq__antwort"><p>{{ e.antwort }}</p></div>
+    </details>
+    {% endfor %}
+</div>
+{% endmacro %}
