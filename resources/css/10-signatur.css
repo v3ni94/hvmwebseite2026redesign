@@ -96,7 +96,7 @@
 
     /* Keil als Sektionsübergang: hängt an der Unterkante einer dunklen Sektion in die folgende hinein */
     .c-keil-uebergang {
-        --keil-b: clamp(2rem, 1.2rem + 2.4vw, 3.25rem);
+        --keil-b: var(--keil-uebergang-b);
         position: absolute;
         top: 100%;
         left: max(var(--rand), 60%);

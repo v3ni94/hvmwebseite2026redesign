@@ -15,13 +15,15 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Rechtliches') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Die {{ firma.name }} möchte, dass diese Webseite für alle Menschen nutzbar ist, unabhängig von Einschränkungen oder eingesetzten Hilfsmitteln.</p>
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+{#- Weiche Trennzeichen in langen Komposita der Zwischenüberschriften (Filter trennen_html) -#}
+{% apply trennen_html %}
 <section class="l-section l-section--kompakt" aria-label="Erklärung zur Barrierefreiheit">
     <div class="l-container c-recht">
         {% if not app.is_production %}
@@ -83,4 +85,5 @@
         </div>
     </div>
 </section>
+{% endapply %}
 {% endblock %}

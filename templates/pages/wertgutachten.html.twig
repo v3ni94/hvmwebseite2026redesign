@@ -19,7 +19,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Wertermittlung für Immobilien: eine kaufmännische Einschätzung durch die Hausverwaltung Müller GmbH oder, je nach Anlass, ein Gutachten durch qualifizierte Sachverständige.</p>
     </div>
 </section>

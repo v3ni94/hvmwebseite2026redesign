@@ -18,7 +18,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Verwaltung des gemeinschaftlichen Eigentums als <strong>Organ der Gemeinschaft der Wohnungseigentümer</strong>: Beschlüsse umsetzen, Wirtschaftsplan und Jahresabrechnung erstellen, Eigentümerversammlungen durchführen und Erhaltungsmaßnahmen steuern.</p>
     </div>
 </section>

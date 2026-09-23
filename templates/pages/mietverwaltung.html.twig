@@ -18,7 +18,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten für <strong>Vermieter und Investoren</strong>: Mietvertragsmanagement, Mietinkasso, Betriebskostenabrechnung und Instandhaltung.</p>
     </div>
 </section>

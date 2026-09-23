@@ -57,6 +57,8 @@ final class TwigExtension extends AbstractExtension
             new TwigFilter('betrag', self::betrag(...)),
             new TwigFilter('tel_href', self::telHref(...)),
             new TwigFilter('json_ld', self::jsonLd(...), ['is_safe' => ['html']]),
+            new TwigFilter('trennen', self::trennen(...)),
+            new TwigFilter('trennen_html', self::trennenHtml(...), ['is_safe' => ['html']]),
         ];
     }
 
@@ -208,5 +210,87 @@ final class TwigExtension extends AbstractExtension
         $html = trim((string) $converter->convert($markdown));
 
         return (string) preg_replace('#^<p>(.*)</p>$#s', '$1', $html);
+    }
+
+    /**
+     * Wortbestandteile, vor denen in langen Komposita ein weiches Trennzeichen (U+00AD) stehen darf.
+     * Ein senkrechter Strich legt die Trennstelle innerhalb des Bestandteils fest (mitglied|schaft).
+     * Hintergrund: hyphens: auto hängt vom Trennwörterbuch des Browsers ab und fehlt in manchen
+     * Umgebungen. Große Überschriften brechen dann mitten im Wort. Das weiche Trennzeichen ist
+     * unsichtbar und erscheint nur als Trennstrich, wenn die Zeile tatsächlich dort umbricht.
+     */
+    private const FUGEN = [
+        'gemeinschaft', 'eigentümer', 'eigentum', 'verwaltung', 'verwalter', 'versammlung', 'abrechnung',
+        'aufnahme', 'versicherung', 'haftpflicht', 'beilegung', 'streit', 'beauftragte', 'schutz',
+        'erklärung', 'verfahren', 'setzung', 'kosten', 'einheiten', 'wechsel', 'vertrag', 'laufzeit',
+        'gebiete', 'rücklage', 'beschluss', 'sammlung', 'meldung', 'umfang', 'bestellung', 'abberufung',
+        'übergabe', 'portal', 'objekte', 'wohnung', 'gutachten', 'vorbereitung', 'fassung', 'information',
+        'aufstellung', 'auseinander', 'übersicht', 'mitglied|schaft', 'fach|verbänd',
+    ];
+
+    /** Mindestlänge eines Wortes, ab der getrennt wird, und Mindestlänge jedes Teils. */
+    private const TRENN_MIN_WORT = 13;
+    private const TRENN_MIN_TEIL = 4;
+
+    /**
+     * Setzt weiche Trennzeichen an Fugen langer deutscher Komposita (Klartext, Ausgabe wird escaped).
+     * Beispiel: Eigentümergemeinschaft => Eigentümer\u{AD}gemeinschaft.
+     */
+    public static function trennen(?string $text): string
+    {
+        $text = (string) $text;
+        if ($text === '') {
+            return '';
+        }
+
+        return (string) preg_replace_callback('/\p{L}{' . self::TRENN_MIN_WORT . ',}/u', static function (array $m): string {
+            $wort = $m[0];
+            $klein = mb_strtolower($wort);
+            $laenge = mb_strlen($wort);
+            $stellen = [];
+            foreach (self::FUGEN as $fuge) {
+                $marke = mb_strpos($fuge, '|');
+                $versatz = $marke === false ? 0 : $marke;
+                $suche = str_replace('|', '', $fuge);
+                $offset = 0;
+                while (($pos = mb_strpos($klein, $suche, $offset)) !== false) {
+                    $stelle = $pos + $versatz;
+                    if ($stelle >= self::TRENN_MIN_TEIL && $laenge - $stelle >= self::TRENN_MIN_TEIL) {
+                        $stellen[$stelle] = true;
+                    }
+                    $offset = $pos + 1;
+                }
+            }
+            if ($stellen === []) {
+                return $wort;
+            }
+            ksort($stellen);
+            $ergebnis = '';
+            $letzte = 0;
+            foreach (array_keys($stellen) as $pos) {
+                if ($pos - $letzte < self::TRENN_MIN_TEIL) {
+                    continue;
+                }
+                $ergebnis .= mb_substr($wort, $letzte, $pos - $letzte) . "\u{AD}";
+                $letzte = $pos;
+            }
+
+            return $ergebnis . mb_substr($wort, $letzte);
+        }, $text);
+    }
+
+    /**
+     * Wie trennen(), aber für fertiges HTML: nur der Text in Überschriften (h1 bis h4) wird bearbeitet,
+     * Tags und Attribute bleiben unverändert.
+     */
+    public static function trennenHtml(?string $html): string
+    {
+        $html = (string) $html;
+
+        return (string) preg_replace_callback('#(<h[1-4]\b[^>]*>)(.*?)(</h[1-4]>)#su', static function (array $m): string {
+            $inhalt = preg_replace_callback('/>([^<]+)</u', static fn (array $t): string => '>' . self::trennen($t[1]) . '<', '>' . $m[2] . '<');
+
+            return $m[1] . substr((string) $inhalt, 1, -1) . $m[3];
+        }, $html);
     }
 }

@@ -22,7 +22,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Karriere') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH verwaltet Wohnungseigentum und Mietobjekte mit Hauptsitz in {{ firma.anschrift.ort }}. Bewerbungen nehmen wir auch ohne ausgeschriebene Stelle entgegen.</p>
         <div class="c-aktionen">
             {{ b.button('Jetzt bewerben', '/karriere/bewerbung/', {variante: 'primaer', icon: 'pfeil'}) }}

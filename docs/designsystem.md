@@ -1,6 +1,6 @@
 # Designsystem muellerhv.de
 
-Stand: 23.09.2026. Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
+Stand: 23.09.2026 (Nachschliff und Modernisierung, siehe Abschnitt 11). Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
 Grundlage: `docs/architektur.md` Abschnitt 4, 6 und 7, Masterprompt (MP) Abschnitt 3, 5 und 8, CI-Skill hvm-ci, `docs/logo/geometrie.md`.
 Ansicht aller Bausteine: `/styleguide/` (nur außerhalb der Produktion).
 
@@ -61,36 +61,42 @@ Die im Logo gemessene Überlagerungsfarbe #B0B1B3 (siehe `docs/logo/nachzeichnun
 
 | Gruppe | Tokens | Werte |
 |---|---|---|
-| Keil | `--hvm-keil-winkel`, `--hvm-keil-verhaeltnis` | 20.4deg gegen die Vertikale (gemessen am Logo), Breite zu Höhe 0,372 = tan(20,4 Grad) |
+| Keil | `--hvm-keil-winkel`, `--hvm-keil-verhaeltnis`, `--keil-uebergang-b` | 20.4deg gegen die Vertikale (gemessen am Logo), Breite zu Höhe 0,372 = tan(20,4 Grad); einheitliche Keilbreite für Sektionsübergänge 24 bis 36 px |
 | Kennlinie | `--hvm-kennlinie-hoehe`, `--hvm-kennlinie-schraege` | 4 px, Schräge 0,9 × Bandhöhe (CI-Skill) |
 | Schrift | `--schrift`, `--fw-leicht` bis `--fw-fett` | `system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif`, 300 bis 700 |
 | Schriftgrößen | `--fs-display`, `--fs-h1` bis `--fs-h4`, `--fs-lead`, `--fs-text`, `--fs-klein`, `--fs-label`, `--fs-kennzahl` | siehe 3.3 |
 | Zeilen | `--lh-display` 1,05, `--lh-titel` 1,12, `--lh-text` 1,6, `--zeilenlaenge` 70ch | |
-| Tracking | `--tracking-display` minus 0,02 em, `--tracking-label` 0,14 em | |
+| Tracking | `--tracking-display` minus 0,02 em, `--tracking-label` 0,16 em | |
 | Abstände | `--abstand-1` bis `--abstand-10` | 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px |
-| Sektionen | `--sektion-y`, `--sektion-y-kompakt` | 64 px mobil, 96 bis 160 px Desktop (fluid) |
+| Sektionen | `--sektion-y`, `--sektion-y-kompakt`, `--block-y` | 64 px mobil, 96 bis 144 px Desktop (fluid); `--block-y` 40 bis 72 px zwischen Section-Head und Inhalt |
 | Raster | `--container-max` 1280 px, `--rand` 16 bis 40 px, `--spalten-abstand` 16 bis 32 px | |
-| Radien | `--radius-0` 0, `--radius-1` 2 px, `--radius-2` 4 px | bewusst fast rechtwinklig |
-| Schatten | `--schatten-1`, `--schatten-2` | aus `--hvm-ink` mit 8 % bzw. 22 % |
-| Bewegung | `--ease` cubic-bezier(0.2, 0.7, 0.2, 1), `--dauer-kurz` 200 ms, `--dauer` 400 ms, `--dauer-lang` 500 ms, `--versatz` 12 px | ein Easing-Token |
-| Kopfzeile | `--header-h`, `--header-h-kompakt`, `--logo-voll-b`, `--logo-kurz-h` | Desktop 156/76 px, mobil 112/64 px |
+| Radien | `--radius-0` 0, `--radius-1` 2 px, `--radius-2` 4 px, `--radius` (= 4 px) | `--radius` ist das eine Token für Karten, Bento, Buttons, Felder, Auswahlkarten, Untermenü, Hinweise und Kästen |
+| Linien | `--haarlinie` | 1 px Hellgrau als Strukturelement (Kartenränder, Section-Head, Footer-Spalten, Kennzahlen); auf dunklem Grund `--linie-auf-dunkel` |
+| Schatten | `--schatten-1`, `--schatten-2`, `--schatten-3` | aus `--hvm-ink` mit 8 %, 22 % bzw. 28 % (Untermenü) |
+| Bewegung | `--ease` cubic-bezier(0.2, 0.7, 0.2, 1), `--dauer-kurz` 200 ms, `--dauer` 400 ms, `--dauer-lang` 500 ms, `--dauer-wisch` 650 ms, `--versatz` 12 px | ein Easing-Token; `--dauer-wisch` für den ruhigeren Kartenwisch |
+| Kopfzeile | `--header-h`, `--header-h-kompakt`, `--logo-voll-b`, `--logo-kurz-h` | Desktop 148/64 px, mobil 112/60 px; Kurzform kompakt 32 px (mobil 28 px) hoch |
 
 ### 3.3 Typoskala (fluid zwischen 360 und 1440 px Viewport)
 
 | Stufe | Größe | Gewicht | Zeilenhöhe |
 |---|---|---|---|
-| Display | 36 bis 96 px (48 px ab 576 px Viewport) | 300, Schlüsselwort 700 | 1,05, Tracking minus 0,02 em |
-| H1 | 40 bis 72 px | 300 | 1,05 |
-| H2 | 32 bis 56 px | 300 | 1,12 |
+| Display | 36 bis 76 px, zusätzlich höchstens 8,4 cqi der Containerbreite | 300, Schlüsselwort 700 | 1,05, Tracking minus 0,02 em |
+| H1 | 36 bis 64 px | 300 | 1,05 |
+| H2 | 30 bis 50 px | 300 | 1,12 |
 | H3 | 22 bis 28 px | 400 | 1,12 |
 | H4 | 20 px | 600 | 1,12 |
 | Lead | 20 bis 24 px | 300 | 1,45 bis 1,5 |
 | Fließtext | 17 bis 18 px | 400 | 1,6, höchstens 70 Zeichen |
 | Klein | 15 px | 400 bis 600 | |
-| Eyebrow | 13 px, Versalien | 600 | Tracking 0,14 em |
-| Kennzahl | 48 bis 88 px | 300 | 0,95, tabellarische Ziffern |
+| Eyebrow | 12 px, Versalien | 600 | Tracking 0,16 em |
+| Kennzahl | 48 bis 92 px | 200 (fällt ohne Schnitt auf 300 zurück), Label 12 px Versalien 700 | 0,95, tabellarische Ziffern |
 
-Überschriften nutzen `text-wrap: balance` und `hyphens: auto` (die Seite hat `lang="de"`).
+Umbruchregeln:
+
+- Überschriften: `text-wrap: balance`, `hyphens: auto` mit `hyphenate-limit-chars: 14 6 6` (nur sehr lange Wörter). Display-Headlines (`.c-display`) und Zeitleisten-Titel mit `hyphens: manual`: Trennung nur an weichen Trennzeichen.
+- Fließtext (`p`, `li`, `dd`, `blockquote`): `text-wrap: pretty`, `hyphens: auto` mit `hyphenate-limit-chars: 12 5 5`.
+- Weiche Trennzeichen serverseitig: Twig-Filter `trennen` (Klartext) und `trennen_html` (nur Text in h1 bis h4 fertigen HTMLs, z. B. Wissensartikel und Rechtsseiten). Sie setzen U+00AD an Fugen langer Komposita ab 13 Zeichen aus einer festen Liste von Wortbestandteilen (`TwigExtension::FUGEN`, z. B. Eigentümer|gemeinschaft, Sonder|eigentums|verwaltung, Mitglied|schaften). Angewendet in `titel.html.twig` (alle Section-Heads und CTA-Titel), Kartentitel und Kartentext, Zeitleiste, Kennzahl-Labels und in allen `<h1>{{ page.heading|trennen }}</h1>`. Das `h1` bleibt ohne Attribute und Kindelemente. Grund: `hyphens: auto` hängt vom Trennwörterbuch des Browsers ab; ohne Wörterbuch (z. B. Chromium unter Linux) brachen große Headlines bisher mitten im Wort ohne Trennstrich.
+- Prüfung: Skript im Scratch-Ordner der Nachschliff-Aufgabe prüft alle öffentlichen Seiten und 40 Wissensartikel in 1440, 1280, 1024, 768, 390 und 360 px Breite auf Wörter, die ohne Trennzeichen über zwei Zeilen laufen. Ergebnis: 0 Treffer.
 
 ## 4. Signaturelemente
 
@@ -108,6 +114,8 @@ Rechenweg: Die Verlaufslänge beträgt L = 0,7431 × Breite + 0,6691 × Höhe. E
 
 Einsatz: oberer Seitenrand (4 px, im Header, damit sie auch im kompakten Zustand sichtbar bleibt), Footer-Oberkante, Oberkante des Leistungen-Untermenüs, Verbindungsstrich der Zeitleiste, Fortschrittsbalken.
 
+Zeitleiste horizontal: Jeder Schritt zeichnet sein Stück der Kennlinie selbst (`::after`). Alle Stücke teilen sich einen Verlauf in voller Containerbreite (`background-size: 100cqi`), verschoben um die Spaltenposition `Index × (Spaltenbreite + Abstand)`. Dadurch entsteht je Zeile eine durchgehende Kennlinie mit exakten Schrägen, auch bei zwei Zeilen.
+
 Fortschrittsbalken `.c-fortschritt`: Die Kennlinie läuft immer über die volle Spurbreite, sichtbar ist der Anteil bis `--fortschritt` (per `clip-path: inset()`). Ohne JavaScript setzt `data-wert` den Wert in 5er-Schritten, mit JavaScript setzt `setzeFortschritt(element, wert)` beliebige Werte und `aria-valuenow`. Lesefortschritt: `<div class="c-fortschritt c-fortschritt--lesen" data-lesefortschritt="#artikel" role="progressbar" ...><span class="c-fortschritt__balken"></span></div>`.
 
 In der vertikalen Zeitleiste (mobil) läuft die Kennlinie senkrecht ohne Schräge, da die Schräge bei 4 px Breite nicht wahrnehmbar wäre.
@@ -116,7 +124,7 @@ In der vertikalen Zeitleiste (mobil) läuft die Kennlinie senkrecht ohne Schräg
 
 Rechtwinkliges Dreieck wie im Logo (obere Kante waagrecht, linke Kante senkrecht, Diagonale im Winkel `--hvm-keil-winkel`). Klasse `.c-keil` mit Breite `--keil-b`, Höhe = Breite / 0,372.
 
-Einsatz: Marker vor Eyebrows, Sektionsübergang (`.c-keil-uebergang`, hängt an der Unterkante des dunklen Hero bei 60 % der Breite, also an der Position des Orange-Segments der Kennlinie), Akzent im CTA-Band und auf der Verwalterwechsel-Karte, Markierung gewählter Auswahlkarten, Stichtag der Kennzahlen. Hover-Wischeffekt auf Karten und Buttons: eine Fläche mit `skewX(-20.4deg)` fährt von links ein.
+Einsatz: Marker vor Eyebrows (1,5 em hoch, obere Kante bündig mit den Versalien), Sektionsübergang (`.c-keil-uebergang`, hängt an der Unterkante des dunklen Hero bei 60 % der Breite, also an der Position des Orange-Segments der Kennlinie), CTA-Band (gleiche Breite `--keil-uebergang-b` und gleiche Position 60 %, hängt von der Oberkante), Akzent auf der Verwalterwechsel-Karte (20 px), Markierung gewählter Auswahlkarten, Stichtag der Kennzahlen (8 px). Hover-Wischeffekt auf Karten und Buttons: eine Fläche mit `skewX(-20.4deg)` fährt von links ein; auf Karten ruhiger mit `--dauer-wisch` 650 ms.
 
 ### 4.3 Hausumriss
 
@@ -180,8 +188,8 @@ Aufruf jeweils mit `{% import 'components/<datei>.html.twig' as x %}`. Alle Opti
 | Section-Head | `section-head.html.twig` | `sh.section_head({eyebrow, titel, text, ebene: 2, id, geteilt: true, aktion: {label, url}})` |
 | Karte | `card.html.twig` | `c.card({titel, text, url, ton, nummer, icon, eyebrow, fuss, zusatz, keil, gross, ebene, klasse: 'c-karte--kompakt', einblenden})`. `zusatz` nimmt Markup aus `{% set %}...{% endset %}` auf, z. B. Platzhalter |
 | Bento | `bento.html.twig` | `bento.bento([{titel, text, url, ton, breite: 4 bis 8, hoch, gross, keil}], {ebene, klasse})` |
-| Kennzahlen | `kennzahlen.html.twig` | `kz.kennzahlen([{wert, label, zaehler, vorsatz, text}], {stichtag, quelle})`. Stichtag wird immer angezeigt, wenn übergeben |
-| Zeitleiste | `timeline.html.twig` | `tl.timeline([{titel, text}], {ebene})`, 3 bis 6 Schritte |
+| Kennzahlen | `kennzahlen.html.twig` | `kz.kennzahlen([{wert, label, zaehler, vorsatz, text}], {stichtag, quelle})`. Stichtag wird immer angezeigt, wenn übergeben. Leitmotiv leicht/fett: Ziffer 200, Label und Vorsatz („seit“) fett in Versalien. Haarlinie über dem Band, senkrechte Haarlinien zwischen den Spalten |
+| Zeitleiste | `timeline.html.twig` | `tl.timeline([{titel, text}], {ebene})`, 3 bis 6 Schritte. Container Query auf `.c-zeitleiste`: vertikal bis 40 rem (3 Schritte) bzw. 52 rem (4 bis 6 Schritte) Containerbreite, darüber horizontal. 5 Schritte einzeilig erst ab 62 rem, darunter 3 + 2; 6 Schritte immer 3 × 2. Titel 19 px halbfett, Nummer als kleines Label |
 | FAQ | `faq.html.twig` | `faq.faq([{frage, antwort}], {offen: 1})`, `details` und `summary` |
 | Formular | `form-fields.html.twig` | `f.eingabe`, `f.textfeld`, `f.auswahl`, `f.auswahlkarten({..., spalten: true})`, `f.checkbox`, `f.suche`, `f.fortschritt(wert)`, `f.stepper(schritte, aktuell)`. Gemeinsam: `name` (Pflicht), `label`, `id`, `wert`, `pflicht`, `optional`, `deaktiviert`, `hinweis`, `fehler`, `autocomplete`. Hinweis und Fehler sind über `aria-describedby` verknüpft, Fehler setzen `aria-invalid="true"` und haben Symbol und Textpräfix |
 | CTA-Band | `cta-band.html.twig` | `cta.cta_band({titel, text, primaer: {label, url}, sekundaer: {label, url}, id})` |
@@ -198,7 +206,8 @@ Layout-Blöcke: `title`, `meta`, `head_extra`, `body_class`, `breadcrumbs` (zus�
 
 ## 7. Header, Navigation, Footer, mobile Bar
 
-- Header fest positioniert (`position: fixed`), der Body hält die volle Headerhöhe frei. Der Wechsel in den kompakten Zustand ab 48 px Scrollweg verschiebt dadurch keinen Inhalt. Im kompakten Zustand Glas-Effekt mit 92 % deckendem Weiß und `backdrop-filter`, ohne Unterstützung reines Weiß.
+- Header fest positioniert (`position: fixed`), der Body hält die volle Headerhöhe frei. Der Wechsel in den kompakten Zustand ab 48 px Scrollweg verschiebt dadurch keinen Inhalt. Im kompakten Zustand 64 px hoch, Glas-Effekt mit 92 % deckendem Weiß und `backdrop-filter`, ohne Unterstützung reines Weiß, Haarlinie und sehr weicher Schatten.
+- Menüpunkte regulär (400), aktiver Punkt fett mit 3 px orangem Unterstrich als Fläche (nie orange Schrift). Untermenü mit Radius, Haarlinie, Kennlinie oben, zweispaltig; Einträge mit oranger Kante links (Fläche) bei Hover und für die aktive Seite, kurzes Einblenden (nicht bei reduzierter Bewegung).
 - Logo: Vollversion `hvm-logo.svg` mit `width="144" height="125"` (Desktop 144 px, mobil 104 px breit), kompakt die Kurzform `hvm-kurzform.svg` mit `width="74" height="36"`. Das Logo wird nicht eingefärbt, nicht verzerrt und nur dezent eingeblendet. Der Linkname kommt aus `aria-label`, die Bilder haben `alt=""`.
 - Hauptnavigation ab 1152 px: Untermenü Leistungen als Disclosure-Button (`aria-expanded`, `aria-controls`), Klick oder Enter öffnet, Escape schließt und setzt den Fokus zurück, Fokusverlust und Klick außerhalb schließen. Ohne JavaScript öffnet das Untermenü per `:focus-within` und Hover. Aktive Seite mit `aria-current="page"` und fetter Schrift, nicht nur über die Unterstreichung.
 - Mobil und Tablet: Menü-Button mit `aria-expanded`, die Navigation öffnet als Vollfläche unter dem kompakten Header, Escape schließt. Ohne JavaScript ersetzt ein Sprunglink zur Footer-Navigation den Button.
@@ -218,7 +227,7 @@ Layout-Blöcke: `title`, `meta`, `head_extra`, `body_class`, `breadcrumbs` (zus�
 
 1. **Kein Dark Mode in dieser Phase.** MP 3.2 stellt ihn frei. Auf dunklem Grund dürfte das Logo nur auf heller Schutzfläche erscheinen, weil die Negativvariante nicht freigegeben ist (MP 3.8). Ein dunkles Farbschema würde den Header mit einer weißen Logofläche unterbrechen oder eine nicht freigegebene Logovariante erfordern. Dazu verdoppelt sich der Prüfaufwand aller Kontrastpaare. Dunkle Sektionen (Hero, Kennzahlen, CTA, Footer) liefern den Kontrast bereits im hellen Schema. `color-scheme: light` ist gesetzt.
 2. **Kennlinie ohne clip-path:** der gewinkelte Verlauf mit korrigierten Stopps erzeugt die Schrägen exakt (Rechenweg 4.1). Das ist einfacher und in jeder Breite pixelgenau.
-3. **Display-Mindestgröße 36 px unter 576 px Viewport** statt 48 px. Grund: deutsche Komposita wie „Hausverwaltung“ passen bei 48 px nicht in 358 px Satzbreite (390 px Gerät) und brechen ohne Silbentrennung mitten im Wort. Ab 576 px gilt die Spanne 48 bis 96 px aus MP 3.3. Bitte freigeben oder verwerfen.
+3. **Display 36 bis 76 px** statt 48 bis 96 px aus MP 3.3. Untergrenze: deutsche Komposita wie „Hausverwaltung“ passen bei 48 px nicht in 358 px Satzbreite (390 px Gerät). Obergrenze (Nachschliff): „Eigentümergemeinschaft“ fett passt bei 96 px nicht in die 1280 px Satzbreite, und der Hero wurde auf 1440 × 900 höher als der Bildschirm. Bei 76 px stehen Headline, Einleitung, beide CTAs und der Beginn des Kennzahlenbands über der Falz. Bitte freigeben oder verwerfen.
 4. **Hero-Headline als `hgroup`:** `<h1>Hausverwaltung für Eigentümer und Investoren</h1><p>, <strong>strukturiert</strong> und nachvollziehbar.</p>`, beide Teile fließen inline als eine Headline. Grund: Der bestehende Test `PageControllerTest` verlangt ein `<h1>` ohne Attribute und ohne Kindelemente (Regex `<h1>[^<]+</h1>`). Ein `<strong>` direkt im `<h1>` wäre semantisch einfacher. Empfehlung an die Test-Verantwortlichen: Regex auf `#<h1[^>]*>.+?</h1>#s` lockern, dann kann das Schlüsselwort in das `<h1>` wandern.
 5. **Header fest statt sticky:** verhindert Layoutsprünge beim Kompaktwechsel und Scroll-Anchoring-Schleifen.
 6. **Logogröße im Header:** Vollversion 144 px breit auf dem Desktop (über der Lesbarkeitsgrenze von rund 140 px aus `docs/logo/geometrie.md`), mobil 104 px. Mobil ist die Wortmarke damit kleiner als empfohlen. Eine freigegebene horizontale Logovariante würde das lösen (offener Punkt).
@@ -233,4 +242,25 @@ Layout-Blöcke: `title`, `meta`, `head_extra`, `body_class`, `breadcrumbs` (zus�
 - Entscheidung 3 (Display-Mindestgröße) und 4 (Test-Regex) bestätigen.
 - Horizontale Logovariante oder Freigabe der Negativvariante (für Header mobil, Footer und einen späteren Dark Mode).
 - Aussagen mit Kennzeichnung auf der Startseite: `[Portal-Adresse bestätigen]`, `[24/7-Notdienst bestätigen]`, `[zentrale Telefonnummer bestätigen]` im Footer, `[Kundenstimmen mit belegbarer Herkunft ergänzen]`.
-- Echte Silbentrennung hängt vom Browser ab (`hyphens: auto` mit `lang="de"`). In Umgebungen ohne deutsches Trennwörterbuch bricht `overflow-wrap` lange Wörter ohne Trennstrich um.
+- Echte Silbentrennung hängt vom Browser ab (`hyphens: auto` mit `lang="de"`). Für Überschriften, Karten, Zeitleiste und Kennzahlen gleicht der Filter `trennen` das aus. Neue lange Komposita, deren Fugen nicht in `TwigExtension::FUGEN` stehen, brechen in Browsern ohne Wörterbuch weiterhin per `overflow-wrap`; die Liste bei neuen Inhalten ergänzen.
+
+## 11. Nachschliff und Modernisierung (23.09.2026)
+
+Befunde und Lösung:
+
+1. Headlines brachen mitten im Wort („Eigentümergemeinsch/aft“): Display-Obergrenze 76 px plus 8,4 cqi, weiche Trennzeichen über den Filter `trennen` (Abschnitt 3.3), `&shy;` im Hero der Seite Verwalterwechsel. H1 und H2 moderater (64 bzw. 50 px).
+2. Zeitleisten-Titel brachen auf dem Desktop im Wort („Bestandsaufna/hme“): Container Query mit breiteren Spalten, 6 Schritte als 3 × 2, 5 Schritte einzeilig erst ab 62 rem, Titel 19 px; Kennlinie je Zeile als durchgehende Verbindung (Abschnitt 4.1).
+3. Hero höher als ein Bildschirm: kompaktere Innenabstände, Einleitung und CTAs ab 64 em nebeneinander, Kopfzeile 148 px. Auf 1440 × 900 (mit Entwurfsband) beginnt das Kennzahlenband bei rund 820 px.
+
+Modernisierung:
+
+- Einheitlicher Radius `--radius` 4 px, Haarlinien 1 px Hellgrau als Strukturelement (Section-Head geteilt mit Linie unten, Kartenränder, Footer-Spalten, Kennzahlen), Sektionsrhythmus über `--sektion-y` und `--block-y`.
+- Karten: feine Ränder, Radius, Nummer als Kopfzeile mit Haarlinie (Bento), Pfeil im 40-px-Kreis mit 1 px Kontur, Mikrobewegung des Pfeils bei Hover und Fokus, ruhigerer Orangekeil-Wisch.
+- Buttons: 1 px Rand, 15 px Schrift, Radius, klarer Fokus mit 3 px Abstand, Pfeil-Mikroanimation auch bei Tastaturfokus.
+- Kennzahlenband: Ziffern bis 92 px in 200, Labels fett in Versalien, feine Trenner.
+- FAQ: Plus und Minus im Kreis, geöffnet invertiert.
+- Footer: Spalten mit Haarlinie oben, klarere Titel, Metazeile kleiner.
+- Formular: eigene Radio-Kreise (Ink-Rand, Punkt bei Auswahl, native Semantik, in `forced-colors` native Darstellung), ruhige Auswahlkarten mit 1 px Rand, gewählt mit Umriss-Fläche, fettem Titel und Keil. Stepper als Reiter mit Haarlinie, Ziffern im Kreis über dem Titel, aktueller Schritt orange Linie und Ziffer; Spalten mindestens so breit wie der Titel, mobil nur Ziffern (Status darüber nennt den Schritt).
+- Keil-Übergänge einheitlich 24 bis 36 px an der 60-%-Position (Hero und CTA-Band).
+- Korrektur: FAQ-Antworten im Wissensbereich zeigten Markdown-Links als maskiertes HTML. Das FAQ-Makro nimmt jetzt `antwort_md` entgegen und wandelt selbst um.
+

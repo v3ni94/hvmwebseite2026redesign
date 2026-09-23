@@ -15,7 +15,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow(zielgruppeLabel) }}
-        <h1>{{ artikel.titel }}</h1>
+        <h1>{{ artikel.titel|trennen }}</h1>
         <p class="c-artikel-meta">
             <span>Stand {{ datum(artikel.stand) }}</span>
             <span aria-hidden="true">·</span>
@@ -39,7 +39,7 @@
             {% include 'partials/wissen/inhaltsverzeichnis.html.twig' with {ueberschriften: artikel.ueberschriften} only %}
 
             <div class="c-prosa" id="artikel-inhalt">
-                {{ artikel.html|raw }}
+                {{ artikel.html|trennen_html }}
             </div>
 
             {{ n.hinweis('Hinweis', 'Dieser Beitrag dient der allgemeinen Information und ersetzt keine Beratung im Einzelfall. Stand: ' ~ datum(artikel.stand) ~ '.') }}

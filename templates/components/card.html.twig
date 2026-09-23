@@ -12,9 +12,9 @@
     {% if o.icon|default('') %}{% include 'partials/icon.html.twig' with {name: o.icon, klasse: 'c-service-icon'} only %}{% endif %}
     {% if o.eyebrow|default('') %}<p class="c-karte__eyebrow">{{ o.eyebrow }}</p>{% endif %}
     <h{{ ebene }} class="c-karte__titel">
-        {%- if o.url|default('') %}<a href="{{ o.url }}">{{ o.titel }}</a>{% else %}{{ o.titel }}{% endif -%}
+        {%- if o.url|default('') %}<a href="{{ o.url }}">{{ o.titel|trennen }}</a>{% else %}{{ o.titel|trennen }}{% endif -%}
     </h{{ ebene }}>
-    {% if o.text|default('') %}<p class="c-karte__text">{{ o.text }}</p>{% endif %}
+    {% if o.text|default('') %}<p class="c-karte__text">{{ o.text|trennen }}</p>{% endif %}
     {% if o.zusatz|default('') %}<p class="c-karte__text">{{ o.zusatz }}</p>{% endif %}
     {% if o.url|default('') %}
     <p class="c-karte__fuss" aria-hidden="true">

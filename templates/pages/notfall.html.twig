@@ -17,7 +17,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Notfall') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">24 Stunden am Tag, an sieben Tagen in der Woche erreichbar bei einem Notfall im Objekt.</p>
         <div class="c-notfall-anruf" data-einblenden>
             {% if firma.notfall_telefon %}

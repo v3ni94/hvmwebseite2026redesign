@@ -8,17 +8,20 @@
         vertical-align: middle;
     }
 
-    /* Display-Headline 48 bis 96 px */
+    /*
+     * Display-Headline 36 bis 76 px. Zusätzlich an die Breite des umgebenden Containers gebunden
+     * (8,4 cqi, Container siehe .c-hero__inhalt), damit lange Komposita auch in schmalen Spalten
+     * nicht mitten im Wort brechen. Trennung nur an weichen Trennzeichen (Filter trennen, &shy;).
+     */
     .c-display {
-        font-size: var(--fs-display);
+        font-size: min(var(--fs-display), 8.4cqi);
         line-height: var(--lh-display);
         letter-spacing: var(--tracking-display);
         font-weight: var(--fw-leicht);
         text-wrap: balance;
         max-width: none;
-        hyphens: auto;
-        -webkit-hyphens: auto;
-        hyphenate-limit-chars: 10 4 4;
+        hyphens: manual;
+        -webkit-hyphens: manual;
         overflow-wrap: break-word;
     }
     .c-display > h1,
@@ -34,20 +37,21 @@
     .c-eyebrow {
         display: inline-flex;
         align-items: flex-start;
-        gap: 0.75em;
+        gap: 0.875em;
         font-size: var(--fs-label);
         font-weight: var(--fw-halbfett);
         letter-spacing: var(--tracking-label);
         text-transform: uppercase;
-        line-height: 1.4;
+        line-height: 1.5;
         max-width: none;
+        hyphens: manual;
     }
+    /* Marker: schmaler Orangekeil in Zeilenhöhe, obere Kante bündig mit den Versalien */
     .c-eyebrow::before {
         content: "";
         flex: none;
-        width: calc(1.6em * var(--hvm-keil-verhaeltnis));
-        height: 1.6em;
-        margin-top: -0.1em;
+        width: calc(1.5em * var(--hvm-keil-verhaeltnis));
+        height: 1.5em;
         background: var(--hvm-orange);
         clip-path: polygon(0 0, 100% 0, 0 100%);
     }
@@ -57,13 +61,13 @@
         display: grid;
         gap: var(--abstand-5);
         max-width: 56rem;
-        margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 5rem);
+        margin-bottom: var(--block-y);
     }
-    .c-section-head__kopf { display: grid; gap: var(--abstand-5); justify-items: start; }
+    .c-section-head__kopf { display: grid; gap: var(--abstand-4); justify-items: start; }
     .c-section-head__titel { font-size: var(--fs-h2); }
     .c-section-head__text {
         font-size: var(--fs-lead);
-        line-height: 1.45;
+        line-height: 1.5;
         font-weight: var(--fw-leicht);
         max-width: 38rem;
     }
@@ -74,7 +78,10 @@
             grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
             column-gap: var(--spalten-abstand);
             align-items: end;
+            padding-bottom: var(--abstand-6);
+            border-bottom: var(--haarlinie);
         }
+        .is-dunkel .c-section-head--geteilt { border-bottom-color: var(--linie-auf-dunkel); }
         .c-section-head--geteilt .c-section-head__text { justify-self: start; }
     }
 
@@ -91,21 +98,22 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.75em;
+        gap: 0.625em;
         min-height: 3.25rem;
-        padding: 0.8125rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.75rem 1.5rem 0.75rem 1.625rem;
+        font-size: 0.9375rem;
         font-weight: var(--fw-halbfett);
         line-height: 1.2;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.005em;
         text-decoration: none;
         white-space: nowrap;
         color: var(--btn-fg);
         background: var(--btn-bg);
-        border: 1.5px solid var(--btn-rand);
-        border-radius: var(--radius-1);
+        border: 1px solid var(--btn-rand);
+        border-radius: var(--radius);
         transition: color var(--dauer) var(--ease), border-color var(--dauer) var(--ease);
     }
+    .c-button:focus-visible { outline-offset: 3px; }
     /* Hover: Wischeffekt in der Keil-Schräge */
     .c-button::before {
         content: "";
@@ -118,8 +126,9 @@
     }
     .c-button:hover { color: var(--btn-fg-hover); text-decoration: none; }
     .c-button:hover::before { transform: translateX(0) skewX(calc(-1 * var(--hvm-keil-winkel))); }
-    .c-button .c-icon { transition: transform var(--dauer) var(--ease); }
-    .c-button:hover .c-icon--pfeil { transform: translateX(0.25em); }
+    /* Pfeil-Mikroanimation: kurzer Versatz nach rechts bei Hover und Tastaturfokus */
+    .c-button .c-icon { width: 1.125em; height: 1.125em; margin-right: -0.125em; transition: transform var(--dauer) var(--ease); }
+    .c-button:is(:hover, :focus-visible) .c-icon--pfeil { transform: translateX(0.3em); }
 
     .c-button--primaer,
     .c-button--primary {
@@ -135,7 +144,7 @@
         --btn-bg-hover: var(--hvm-weiss);
         --btn-fg-hover: var(--hvm-ink);
     }
-    .c-button--klein { min-height: 2.75rem; padding: 0.5625rem 1.125rem; font-size: 0.9375rem; }
+    .c-button--klein { min-height: 2.75rem; padding: 0.5rem 1.125rem 0.5rem 1.25rem; font-size: 0.875rem; }
     .c-button--breit { width: 100%; }
 
     .c-button:disabled,
@@ -161,17 +170,17 @@
         text-decoration: underline;
         text-decoration-color: var(--hvm-orange);
         text-decoration-thickness: 2px;
-        text-underline-offset: 0.35em;
+        text-underline-offset: 0.4em;
         transition: text-underline-offset var(--dauer-kurz) var(--ease);
     }
-    .c-textlink:hover { text-underline-offset: 0.2em; text-decoration-thickness: 2px; }
-    .c-textlink .c-icon { transition: transform var(--dauer) var(--ease); }
-    .c-textlink:hover .c-icon { transform: translateX(0.25em); }
+    .c-textlink:hover { text-underline-offset: 0.25em; text-decoration-thickness: 2px; }
+    .c-textlink .c-icon { width: 1.125em; height: 1.125em; transition: transform var(--dauer) var(--ease); }
+    .c-textlink:is(:hover, :focus-visible) .c-icon { transform: translateX(0.3em); }
 
     .c-aktionen {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--abstand-4);
+        gap: var(--abstand-3);
         align-items: center;
     }
 

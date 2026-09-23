@@ -37,7 +37,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Regionen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.ort }}. Die Übersicht nennt weitere Regionen, jeweils mit Angabe, ob die Betreuung über eine eigene Präsenz oder über Partner erfolgt. {{ placeholder('Regionen und Betreuungsform bestätigen') }}</p>
     </div>
 </section>

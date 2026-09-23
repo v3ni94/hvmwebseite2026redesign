@@ -4,7 +4,7 @@
     .c-hero {
         position: relative;
         overflow: hidden;
-        padding-block: clamp(4rem, 2rem + 7vw, 9rem) clamp(3rem, 2rem + 4vw, 6rem);
+        padding-block: clamp(3rem, 2.25rem + 3.333vw, 5.25rem) clamp(3rem, 2.25rem + 3.333vw, 5.25rem);
     }
     .c-hero--mit-keil { overflow: visible; }
     .c-hero__umriss-rahmen {
@@ -23,11 +23,32 @@
     @media (max-width: 47.99em) {
         .c-hero__umriss { width: 150vw; right: -70vw; bottom: -10%; }
     }
-    .c-hero__inhalt { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--abstand-6); justify-items: start; }
+    /*
+     * Hero-Inhalt als Container (Einheit cqi für die Display-Größe). Ab 64 em zweispaltig:
+     * Eyebrow und Headline über die volle Breite, darunter Einleitung links und Aktionen rechts
+     * auf gemeinsamer Grundlinie. Das spart eine Zeile Höhe, auf 1440 x 900 bleibt der Beginn
+     * des Kennzahlenbands sichtbar.
+     */
+    .c-hero__inhalt {
+        position: relative;
+        z-index: 1;
+        container-type: inline-size;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--abstand-6);
+        justify-items: start;
+    }
     .c-hero__inhalt > * { max-width: 100%; }
     .c-hero .c-eyebrow { color: var(--hvm-hellgrau); }
     /* Headline als ein Satzfluss: h1 leicht, anschließend das fette Schlüsselwort (hgroup mit p) */
-    .c-hero__titel { max-width: min(12.5em, 100%); }
+    .c-hero__titel { max-width: min(15.5em, 100%); }
+    @media (min-width: 64em) {
+        .c-hero__inhalt { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--spalten-abstand); row-gap: var(--abstand-6); }
+        .c-hero__inhalt > .c-eyebrow,
+        .c-hero__inhalt > .c-hero__titel { grid-column: 1 / -1; }
+        .c-hero__inhalt > .c-eyebrow { margin-bottom: calc(-1 * var(--abstand-2)); }
+        .c-hero .c-hero__inhalt > .c-aktionen { justify-self: end; align-self: end; margin-top: 0; }
+    }
     .c-hero__titel > h1,
     .c-hero__titel > p { display: inline; }
     .c-hero__lead {
@@ -35,14 +56,15 @@
         font-weight: var(--fw-leicht);
         line-height: 1.5;
         color: var(--hvm-umriss);
-        max-width: 38rem;
+        max-width: 40rem;
     }
-    .c-hero .c-aktionen { margin-top: var(--abstand-3); }
-    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(4rem, 2rem + 6vw, 8rem); }
+    .c-hero .c-aktionen { margin-top: var(--abstand-2); }
+    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(3rem, 2.25rem + 3.333vw, 5.25rem); }
 
     /* Seitenkopf für Inhaltsseiten (hell) */
-    .c-seitenkopf { position: relative; overflow: hidden; padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(2.5rem, 2rem + 2vw, 4rem); }
+    .c-seitenkopf { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem) clamp(2.5rem, 2rem + 2vw, 4rem); }
     .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; gap: var(--abstand-5); justify-items: start; }
+    .c-seitenkopf h1 { max-width: 20ch; }
     .c-seitenkopf__umriss { position: absolute; width: clamp(22rem, 46vw, 44rem); right: -8%; top: 18%; height: auto; }
     .c-seitenkopf .c-suche { width: 100%; }
     .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; }

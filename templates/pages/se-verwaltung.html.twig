@@ -19,7 +19,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Betreuung der einzelnen vermieteten Eigentumswohnung für <strong>Kapitalanleger</strong>: Mietverhältnis, Betriebskostenabrechnung und die Schnittstelle zur WEG-Verwaltung des Objekts.</p>
     </div>
 </section>

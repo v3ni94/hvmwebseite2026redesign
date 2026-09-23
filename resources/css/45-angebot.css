@@ -34,6 +34,7 @@
         font-weight: var(--fw-fett);
         background: var(--hvm-orange);
         color: var(--hvm-ink);
+        border-radius: 50%;
     }
     .c-angebot__gruppe { display: grid; gap: var(--abstand-3); min-width: 0; margin: 0; padding: 0; border: 0; }
     .c-angebot__anrede { max-width: 16rem; }
@@ -65,7 +66,8 @@
         gap: var(--abstand-3);
         padding: var(--abstand-5);
         background: var(--hvm-weiss);
-        border: 2px solid var(--hvm-ink);
+        border: 1px solid var(--hvm-ink);
+        border-radius: var(--radius);
         box-shadow: inset 6px 0 0 var(--hvm-orange);
         padding-left: calc(var(--abstand-5) + 6px);
         scroll-margin-top: calc(var(--header-h-kompakt) + var(--abstand-5));
@@ -112,7 +114,7 @@
     }
 
     /* Datenschutzhinweis */
-    .c-angebot__datenschutz { display: grid; gap: var(--abstand-4); padding: var(--abstand-5); background: var(--hvm-umriss); }
+    .c-angebot__datenschutz { display: grid; gap: var(--abstand-4); padding: var(--abstand-5); background: var(--hvm-umriss); border-radius: var(--radius); }
     .c-angebot__datenschutz-text { margin: 0; font-size: var(--fs-klein); line-height: 1.55; }
     .c-angebot__datenschutz-text a { color: var(--hvm-ink); }
 
@@ -128,8 +130,8 @@
     @media (min-width: 64em) {
         .c-angebot__seite { position: sticky; top: calc(var(--header-h-kompakt) + var(--abstand-5)); }
     }
-    .c-angebot__kasten { display: grid; gap: var(--abstand-4); padding: var(--abstand-5); background: var(--hvm-umriss); }
-    .c-angebot__kasten--kontakt { background: var(--hvm-weiss); box-shadow: inset 0 0 0 1px var(--hvm-hellgrau); }
+    .c-angebot__kasten { display: grid; gap: var(--abstand-4); padding: var(--abstand-6); background: var(--hvm-umriss); border-radius: var(--radius); }
+    .c-angebot__kasten--kontakt { background: var(--hvm-weiss); border: var(--haarlinie); }
     .c-angebot__kasten p { margin: 0; }
     .c-angebot__kasten a { color: var(--hvm-ink); }
     .c-angebot__kasten-titel { margin: 0; font-size: var(--fs-h4); font-weight: var(--fw-halbfett); line-height: var(--lh-titel); }
@@ -150,7 +152,9 @@
         width: 1.75rem;
         height: 1.75rem;
         font-weight: var(--fw-fett);
-        border: 1.5px solid var(--hvm-ink);
+        font-size: 0.8125rem;
+        border: 1px solid var(--hvm-ink);
+        border-radius: 50%;
     }
     .c-angebot__ablauf strong { font-weight: var(--fw-halbfett); }
 

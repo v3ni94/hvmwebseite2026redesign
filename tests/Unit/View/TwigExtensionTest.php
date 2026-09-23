@@ -111,4 +111,25 @@ final class TwigExtensionTest extends TestCase
         self::assertMatchesRegularExpression('/^[a-f0-9]{64}$/', $token);
         self::assertNotSame('', $nonce);
     }
+
+    public function testTrennenSetztWeicheTrennzeichenAnFugen(): void
+    {
+        $shy = "\u{AD}";
+        self::assertSame('Eigentümer' . $shy . 'gemeinschaft', TwigExtension::trennen('Eigentümergemeinschaft'));
+        self::assertSame('Wohnungs' . $shy . 'eigentümer' . $shy . 'gemeinschaften:', TwigExtension::trennen('Wohnungseigentümergemeinschaften:'));
+        self::assertSame('Mitglied' . $shy . 'schaften', TwigExtension::trennen('Mitgliedschaften'));
+        // kurze Wörter und Wörter ohne bekannte Fuge bleiben unverändert
+        self::assertSame('Verwalter und Beiräte', TwigExtension::trennen('Verwalter und Beiräte'));
+        self::assertSame('', TwigExtension::trennen(null));
+    }
+
+    public function testTrennenWirdEscapedUndTrennenHtmlNurInUeberschriften(): void
+    {
+        $shy = "\u{AD}";
+        self::assertSame('&lt;b&gt;Eigentümer' . $shy . 'versammlung', $this->render('{{ t|trennen }}', ['t' => '<b>Eigentümerversammlung']));
+        self::assertSame(
+            '<h2 id="a">Die Eigentümer' . $shy . 'versammlung</h2><p>Eigentümerversammlung</p>',
+            $this->render('{{ h|trennen_html }}', ['h' => '<h2 id="a">Die Eigentümerversammlung</h2><p>Eigentümerversammlung</p>'])
+        );
+    }
 }

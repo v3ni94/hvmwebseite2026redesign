@@ -17,7 +17,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Referenzen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Ein Überblick über die Objekttypen im Verwaltungsbestand der Hausverwaltung Müller GmbH. Einzelne Objekte zeigen wir nur mit ausdrücklicher Freigabe der jeweiligen Eigentümer.</p>
     </div>
 </section>

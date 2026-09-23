@@ -17,7 +17,7 @@
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
-        <h1>{{ page.heading }}</h1>
+        <h1>{{ page.heading|trennen }}</h1>
         <p class="c-seitenkopf__text">Vermietung Ihrer Immobilie in Ihrem Auftrag: von der Vermarktung bis zur Übergabe an die neuen Mieterinnen und Mieter. Die Hausverwaltung Müller GmbH übernimmt die einzelnen Schritte in Abstimmung mit Ihnen.</p>
     </div>
 </section>

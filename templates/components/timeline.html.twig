@@ -13,8 +13,8 @@
         {% for s in schritte %}
         <li class="c-zeitleiste__schritt" data-einblenden>
             <span class="c-zeitleiste__nummer" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
-            <h{{ ebene }} class="c-zeitleiste__titel"><span class="u-visually-hidden">Schritt {{ loop.index }}: </span>{{ s.titel }}</h{{ ebene }}>
-            <p class="c-zeitleiste__text">{{ s.text }}</p>
+            <h{{ ebene }} class="c-zeitleiste__titel"><span class="u-visually-hidden">Schritt {{ loop.index }}: </span>{{ s.titel|trennen }}</h{{ ebene }}>
+            <p class="c-zeitleiste__text">{{ s.text|trennen }}</p>
         </li>
         {% endfor %}
     </ol>

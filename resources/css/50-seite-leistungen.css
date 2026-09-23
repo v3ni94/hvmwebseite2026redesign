@@ -47,27 +47,4 @@
 
     /* Abstand vor einer zweiten Kartenreihe innerhalb derselben Sektion */
     .c-karten--abstand { margin-top: var(--abstand-6); }
-
-    /*
-      Korrektur nur für diese vier Seiten: Grid-Kinder der Zeitleiste (components/timeline.html.twig)
-      haben ohne min-width: 0 eine implizite Mindestbreite über dem längsten zusammenhängenden Wort
-      (z. B. "Eigentümerversammlung", "Wohnungseigentümergemeinschaften") und laufen bei 5 oder 6
-      Schritten in die Nachbarspalte über. overflow-wrap: break-word aus 01-reset.css verhindert das
-      nicht, weil es die Mindestgröße im Grid nicht verändert. Betrifft die geteilte Datei
-      21-inhalte.css (.c-zeitleiste__schritt), die hier bewusst nicht geändert wird, siehe Bericht.
-    */
-    .page-weg-verwaltung .c-zeitleiste__schritt,
-    .page-mietverwaltung .c-zeitleiste__schritt,
-    .page-se-verwaltung .c-zeitleiste__schritt,
-    .page-verwalterwechsel .c-zeitleiste__schritt,
-    .page-weg-verwaltung .c-zeitleiste__titel,
-    .page-mietverwaltung .c-zeitleiste__titel,
-    .page-se-verwaltung .c-zeitleiste__titel,
-    .page-verwalterwechsel .c-zeitleiste__titel,
-    .page-weg-verwaltung .c-zeitleiste__text,
-    .page-mietverwaltung .c-zeitleiste__text,
-    .page-se-verwaltung .c-zeitleiste__text,
-    .page-verwalterwechsel .c-zeitleiste__text {
-        min-width: 0;
-    }
 }

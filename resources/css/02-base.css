@@ -27,9 +27,12 @@
         font-weight: var(--fw-leicht);
         letter-spacing: -0.01em;
         text-wrap: balance;
+        /* Silbentrennung nur für sehr lange Wörter (ab 14 Zeichen, Teile ab 6 Zeichen). Komposita erhalten
+           zusätzlich weiche Trennzeichen aus dem Twig-Filter trennen, unabhängig vom Trennwörterbuch des Browsers. */
         hyphens: auto;
         -webkit-hyphens: auto;
-        hyphenate-limit-chars: 10 4 4;
+        hyphenate-limit-chars: 14 6 6;
+        overflow-wrap: break-word;
     }
 
     h1 { font-size: var(--fs-h1); letter-spacing: var(--tracking-display); line-height: var(--lh-display); }
@@ -40,7 +43,12 @@
     h1 strong, h2 strong, h3 strong, .c-display strong { font-weight: var(--fw-fett); }
 
     p, ul, ol, dl { max-width: var(--zeilenlaenge); }
-    p { text-wrap: pretty; }
+    p, li, dd, blockquote {
+        text-wrap: pretty;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphenate-limit-chars: 12 5 5;
+    }
 
     a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
     a:hover { text-decoration-thickness: 2px; }

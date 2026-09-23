@@ -24,6 +24,8 @@
         /* Kennlinie: Schräge = 0,9 x Bandhöhe (CI-Skill hvm-ci) */
         --hvm-kennlinie-schraege: 0.9;
         --hvm-kennlinie-hoehe: 4px;
+        /* Einheitliche Keilbreite für Sektionsübergänge (Hero, CTA-Band): 24 bis 36 px */
+        --keil-uebergang-b: clamp(1.5rem, 1.25rem + 0.833vw, 2.25rem);
 
         /* Rollen, ausschließlich Verweise auf CI-Farben */
         --farbe-grund: var(--hvm-weiss);
@@ -46,22 +48,25 @@
         --fw-fett: 700;
 
         /* Fluid Type, linear zwischen 360 px und 1440 px Viewport */
-        --fs-display: clamp(2.25rem, 1rem + 5.556vw, 6rem);         /* 36 bis 96 px, 48 px ab 576 px Viewport (siehe docs/designsystem.md) */
-        --fs-h1: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem);          /* 40 bis 72 px */
-        --fs-h2: clamp(2rem, 1.5rem + 2.222vw, 3.5rem);              /* 32 bis 56 px */
+        /* 36 bis 76 px. Obergrenze bewusst unter 96 px: lange Komposita (z. B. „Eigentümergemeinschaft“)
+           passen fett gesetzt in eine Zeile, und der Hero bleibt auf 1440 x 900 innerhalb des Bildschirms.
+           .c-display begrenzt zusätzlich über Container-Einheiten (cqi), siehe 20-komponenten.css. */
+        --fs-display: clamp(2.25rem, 1.1rem + 4.2vw, 4.75rem);
+        --fs-h1: clamp(2.25rem, 1.667rem + 2.593vw, 4rem);           /* 36 bis 64 px */
+        --fs-h2: clamp(1.875rem, 1.458rem + 1.852vw, 3.125rem);      /* 30 bis 50 px */
         --fs-h3: clamp(1.375rem, 1.25rem + 0.556vw, 1.75rem);        /* 22 bis 28 px */
         --fs-h4: 1.25rem;                                            /* 20 px */
         --fs-lead: clamp(1.25rem, 1.167rem + 0.37vw, 1.5rem);        /* 20 bis 24 px */
         --fs-text: clamp(1.0625rem, 1.042rem + 0.093vw, 1.125rem);   /* 17 bis 18 px */
         --fs-klein: 0.9375rem;                                       /* 15 px */
-        --fs-label: 0.8125rem;                                       /* 13 px, Eyebrow */
-        --fs-kennzahl: clamp(3rem, 2.167rem + 3.704vw, 5.5rem);      /* 48 bis 88 px */
+        --fs-label: 0.75rem;                                         /* 12 px, Eyebrow */
+        --fs-kennzahl: clamp(3rem, 2.083rem + 4.074vw, 5.75rem);     /* 48 bis 92 px */
 
         --lh-display: 1.05;
         --lh-titel: 1.12;
         --lh-text: 1.6;
         --tracking-display: -0.02em;
-        --tracking-label: 0.14em;
+        --tracking-label: 0.16em;
         --zeilenlaenge: 70ch;
 
         /* Abstände */
@@ -75,8 +80,10 @@
         --abstand-8: 4rem;
         --abstand-9: 6rem;
         --abstand-10: 8rem;
-        --sektion-y: clamp(4rem, 2rem + 8.889vw, 10rem);             /* 64 px mobil, 96 bis 160 px Desktop */
+        --sektion-y: clamp(4rem, 2.333rem + 7.407vw, 9rem);          /* 64 px mobil, 96 bis 144 px Desktop */
         --sektion-y-kompakt: clamp(3rem, 2rem + 4.444vw, 6rem);
+        /* Abstand Section-Head zu Inhalt und zwischen Blöcken einer Sektion (einheitlicher Rhythmus) */
+        --block-y: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem);        /* 40 bis 72 px */
 
         /* Raster */
         --container-max: 80rem;                                      /* 1280 px */
@@ -84,27 +91,34 @@
         --rand: clamp(1rem, 0.5rem + 2.222vw, 2.5rem);               /* 16 bis 40 px */
         --spalten-abstand: clamp(1rem, 0.667rem + 1.481vw, 2rem);
 
-        /* Radien: architektonisch, fast rechtwinklig */
+        /* Radien: architektonisch, fast rechtwinklig. --radius ist das eine Token für Karten, Buttons,
+           Felder, Auswahlkarten, Untermenü und Hinweisboxen. */
         --radius-0: 0;
         --radius-1: 2px;
         --radius-2: 4px;
+        --radius: var(--radius-2);
+
+        /* Haarlinien als Strukturelement */
+        --haarlinie: 1px solid var(--hvm-hellgrau);
 
         /* Schatten, auf Basis von --hvm-ink */
         --schatten-1: 0 1px 2px color-mix(in srgb, var(--hvm-ink) 8%, transparent);
         --schatten-2: 0 16px 40px -16px color-mix(in srgb, var(--hvm-ink) 22%, transparent);
+        --schatten-3: 0 24px 48px -24px color-mix(in srgb, var(--hvm-ink) 28%, transparent);
 
         /* Bewegung (MP 3.6): ein Easing-Token */
         --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
         --dauer-kurz: 200ms;
         --dauer: 400ms;
         --dauer-lang: 500ms;
+        --dauer-wisch: 650ms;
         --versatz: 12px;
 
         /* Kopfzeile */
-        --header-h: 9.75rem;
-        --header-h-kompakt: 4.75rem;
+        --header-h: 9.25rem;
+        --header-h-kompakt: 4rem;
         --logo-voll-b: 144px;
-        --logo-kurz-h: 36px;
+        --logo-kurz-h: 32px;
 
         --z-header: 50;
         --z-mobilbar: 40;
@@ -114,9 +128,9 @@
     @media (max-width: 47.99em) {
         :root {
             --header-h: 7rem;
-            --header-h-kompakt: 4rem;
+            --header-h-kompakt: 3.75rem;
             --logo-voll-b: 104px;
-            --logo-kurz-h: 30px;
+            --logo-kurz-h: 28px;
         }
     }
 }

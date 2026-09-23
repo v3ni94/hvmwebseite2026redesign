@@ -46,6 +46,8 @@
 {% endblock %}
 
 {% block content %}
+{#- Weiche Trennzeichen in langen Komposita der Zwischenüberschriften (Filter trennen_html) -#}
+{% apply trennen_html %}
 <section class="l-section l-section--kompakt" aria-label="Datenschutzerklärung">
     <div class="l-container c-recht">
         {% if not app.is_production %}
@@ -196,4 +198,5 @@
         </div>
     </div>
 </section>
+{% endapply %}
 {% endblock %}

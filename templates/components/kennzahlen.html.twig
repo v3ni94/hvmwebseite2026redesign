@@ -10,7 +10,7 @@
     <dl class="c-kennzahlen">
         {% for e in eintraege %}
         <div class="c-kennzahl" data-einblenden>
-            <dt class="c-kennzahl__label">{{ e.label }}</dt>
+            <dt class="c-kennzahl__label">{{ e.label|trennen }}</dt>
             <dd class="c-kennzahl__wert{{ e.text|default(false) ? ' c-kennzahl__wert--text' }}">
                 {%- if e.vorsatz|default('') %}<span class="c-kennzahl__vorsatz">{{ e.vorsatz }}</span>{% endif -%}
                 {%- if e.zaehler|default(false) -%}
