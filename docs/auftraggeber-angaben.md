@@ -12,3 +12,11 @@ Verbindliche Angaben der Geschäftsführung, die Platzhalter aus dem Masterpromp
 | 23.09.2026 | Keine Aufnahmegebühr | zutreffend, darf genannt werden | Texte, FAQ Kosten und Vertrag |
 | 23.09.2026 | Hauseigene Techniker | nicht bestätigt, bleibt als [bestätigen] markiert | Texte |
 | 23.09.2026 | Freigabe-Rhythmus | Durchbauen bis staging-fähig, Freigaben gesammelt danach über config/freigaben.php | Projektablauf |
+| 23.09.2026 | Asset Management als eigene Leistung | bestätigt („ja, setze um“) | Seite /asset-management/, Artikel |
+| 23.09.2026 | Leistungsumfang Miet- und SE-Verwaltung: Mieterhöhungen, Indexanpassungen, Kautionsverwaltung, Wohnungsübergaben, Begleitung von Modernisierungen, CO2-Kostenaufteilung | bestätigt | Leistungsseiten, Artikel |
+| 23.09.2026 | Verkaufsbegleitung: Marktwerteinschätzung, Unterlagen zusammenstellen, Energieausweis prüfen, Begleitung bis zum Notartermin (Beurkundung durch den Notar, keine Aussage zur Provision) | bestätigt | Seite Verkauf, Artikel |
+| 23.09.2026 | Wertermittlung: kaufmännische Marktwerteinschätzung durch die HVM, Gutachten durch qualifizierte Sachverständige | bestätigt. Namen und Qualifikation der Sachverständigen weiterhin offen | Seite Wertgutachten, Artikel |
+| 23.09.2026 | Energieausweise stellt die HVM nicht selbst aus | bestätigt | Artikel Energieausweis |
+| 23.09.2026 | Online-Teilnahme an Eigentümerversammlungen bzw. virtuelle Versammlungen werden angeboten | bestätigt | Artikel online-eigentuemerversammlung |
+| 23.09.2026 | Leistungsverzeichnis Grund- und Sonderleistungen existiert | bestätigt. Inhalt bzw. Dokument noch nicht übergeben, Verweis bleibt Platzhalter | Artikel sonderleistungen-verwaltung |
+| 23.09.2026 | Entwurf des Verwaltervertrags wird mit dem Angebot übersandt | bestätigt | Artikel verwaltervertrag-inhalte |
