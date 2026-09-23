@@ -44,6 +44,11 @@
 
     .c-angebot__stepper { scroll-margin-top: calc(var(--header-h-kompakt) + var(--abstand-5)); }
     .c-angebot__stepper[hidden] { display: none; }
+    /* Stepper steht ohne hidden-Attribut im Markup, damit sein Platz ab dem ersten Rendern reserviert ist
+       (kein Layout-Shift, docs/seo-geo.md). Ohne JavaScript bleibt er ausgeblendet. */
+    @media (scripting: none) {
+        .c-angebot__stepper { display: none; }
+    }
 
     /* Navigation je Schritt */
     .c-angebot__navigation { display: flex; flex-wrap: wrap; gap: var(--abstand-4); align-items: center; padding-top: var(--abstand-2); }

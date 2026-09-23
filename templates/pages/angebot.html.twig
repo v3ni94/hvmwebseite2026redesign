@@ -30,7 +30,8 @@
 
             {% include 'partials/forms/angebot/fehlerliste.html.twig' %}
 
-            <div class="c-angebot__stepper" data-stepper hidden>
+            {#- ohne hidden-Attribut: Platz ist ab dem ersten Rendern reserviert (kein CLS), ohne JavaScript per CSS ausgeblendet -#}
+            <div class="c-angebot__stepper" data-stepper>
                 {{ f.stepper(form.schritte, 1, {label: 'Fortschritt der Anfrage'}) }}
             </div>
 

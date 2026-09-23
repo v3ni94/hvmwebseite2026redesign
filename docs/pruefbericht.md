@@ -103,3 +103,36 @@ Aus technischer und werbewirtschaftlicher Sicht ist die Seite freigabefähig, vo
 
 Lokale Ergebnisse nach dem Nachtrag: siehe Bericht dieser Sitzung (PHPUnit, Playwright, lint-dashes, PII). Vor Livegang in der Staging-Umgebung zu wiederholen.
 
+
+## 11. Nachtrag 23.09.2026: SEO, GEO und Performance
+
+Details und Entscheidungen in `docs/seo-geo.md`. Lighthouse 12 mit produktionsnaher Auslieferung (`APP_ENV=production`, gzip wie Nginx), Artikel auf Staging, da noch nicht freigegeben:
+
+
+| Seite (mobil) | Perf. | Access. | Best Pr. | SEO | LCP | CLS | TBT | Gewicht | Requests |
+|---|---|---|---|---|---|---|---|---|---|
+| / | 100 | 100 | 100 | 100 | 1,28 s | 0,000 | 8 ms | 39 KB | 15 |
+| /weg-verwaltung/ | 100 | 100 | 100 | 100 | 1,33 s | 0,000 | 0 ms | 39 KB | 15 |
+| /verwalterwechsel/ | 100 | 100 | 100 | 100 | 1,32 s | 0,004 | 0 ms | 39 KB | 15 |
+| /asset-management/ | 100 | 100 | 100 | 100 | 1,31 s | 0,000 | 0 ms | 39 KB | 15 |
+| /wissen/ | 100 | 100 | 100 | 100 | 1,30 s | 0,000 | 0 ms | 37 KB | 15 |
+| /wissen/hausgeld/ (1) | 100 | 100 | 100 | 69 | 1,32 s | 0,000 | 1 ms | 40 KB | 15 |
+| /angebot/ | 100 | 100 | 100 | 100 | 1,31 s | 0,005 | 0 ms | 45 KB | 18 |
+| /fakten/ | 100 | 100 | 100 | 100 | 1,27 s | 0,000 | 0 ms | 37 KB | 15 |
+
+| Seite (Desktop) | Perf. | Access. | Best Pr. | SEO | LCP | CLS | TBT | Gewicht | Requests |
+|---|---|---|---|---|---|---|---|---|---|
+| / | 100 | 100 | 100 | 100 | 0,37 s | 0,000 | 0 ms | 39 KB | 15 |
+| /weg-verwaltung/ | 100 | 100 | 100 | 100 | 0,37 s | 0,000 | 0 ms | 39 KB | 15 |
+| /verwalterwechsel/ | 100 | 100 | 100 | 100 | 0,36 s | 0,000 | 0 ms | 39 KB | 15 |
+| /asset-management/ | 100 | 100 | 100 | 100 | 0,35 s | 0,000 | 0 ms | 39 KB | 15 |
+| /wissen/ | 100 | 100 | 100 | 100 | 0,36 s | 0,000 | 0 ms | 37 KB | 15 |
+| /wissen/hausgeld/ (1) | 100 | 100 | 100 | 69 | 0,36 s | 0,000 | 0 ms | 40 KB | 15 |
+| /angebot/ | 100 | 100 | 100 | 100 | 0,38 s | 0,001 | 0 ms | 56 KB | 19 |
+| /fakten/ | 100 | 100 | 100 | 100 | 0,37 s | 0,000 | 0 ms | 37 KB | 15 |
+
+(1) SEO 69 nur wegen `noindex` auf Staging. Ohne Kompression (`php -S` direkt): Performance 98 bis 100, LCP mobil 1,95 bis 2,10 s.
+
+- Strukturierte Daten: `php bin/check-structured-data.php` ohne Fehler (staging 76 Seiten, production 23 Seiten).
+- CLS `/angebot/` mobil von 0,062 auf 0,005 (Stepper-Platz vorab reserviert).
+- Neue Tests: `tests/Unit/Controller/SeoControllerTest.php` (robots.txt mit KI-Crawlern und Schalter, llms.txt, Sitemap), `tests/Unit/Controller/FaktenControllerTest.php`, `tests/Unit/Seo/SeoMetaTest.php` (Titel- und Beschreibungslängen, Kurzfassung).
