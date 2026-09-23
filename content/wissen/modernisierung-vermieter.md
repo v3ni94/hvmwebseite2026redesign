@@ -79,4 +79,4 @@ Modernisierungen sollten in eine langfristige Planung eingebettet sein. Hinweise
 
 ## Hinweis
 
-Ankündigung und Mieterhöhung nach Modernisierung sind formal anspruchsvoll. Vor größeren Maßnahmen empfiehlt sich die Beratung durch einen Rechtsanwalt, zu steuerlichen Fragen durch einen Steuerberater. Die Begleitung von Modernisierungen gehört zu den Leistungen einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Ankündigung und Mieterhöhung nach Modernisierung sind formal anspruchsvoll. Vor größeren Maßnahmen empfiehlt sich die Beratung durch einen Rechtsanwalt, zu steuerlichen Fragen durch einen Steuerberater. Die Begleitung von Modernisierungen gehört zu den Leistungen der Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

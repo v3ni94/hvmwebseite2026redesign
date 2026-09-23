@@ -79,4 +79,4 @@ Unabhängig von der Form sollten Sie prüfen, welche Leistungen im Grundpreis en
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH bietet Mietverwaltung und Sondereigentumsverwaltung an [Leistungsumfang bestätigen]. Informationen finden Sie auf den Seiten [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/).
+Die Hausverwaltung Müller GmbH bietet Mietverwaltung und Sondereigentumsverwaltung an. Informationen finden Sie auf den Seiten [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/).

@@ -70,4 +70,4 @@ Das Gebäudeenergierecht ist in Bewegung. Die europäische Gebäuderichtlinie si
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH stellt selbst keine Energieausweise aus [bestätigen]. Im Rahmen der Verkaufsbegleitung prüfen wir, ob ein gültiger Ausweis vorliegt [Leistungsumfang Verkauf bestätigen]. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).
+Die Hausverwaltung Müller GmbH stellt selbst keine Energieausweise aus. Im Rahmen der Verkaufsbegleitung prüft sie, ob ein gültiger Ausweis vorliegt, und verweist bei Bedarf an einen Aussteller. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).

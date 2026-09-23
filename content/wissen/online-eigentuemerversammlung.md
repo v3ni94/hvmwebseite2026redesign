@@ -67,4 +67,4 @@ Die Nutzung einer Plattform und die technische Betreuung verursachen Kosten. Ob 
 
 Für viele Gemeinschaften ist die hybride Versammlung ein guter Einstieg. Sie erhält den persönlichen Austausch vor Ort und öffnet die Versammlung für Eigentümer, die nicht anreisen können. Die rein virtuelle Versammlung bietet sich an, wenn die Eigentümer weit verstreut wohnen und mit digitalen Werkzeugen vertraut sind. Bei Versammlungen mit schwierigen oder konfliktreichen Themen kann die Präsenz weiterhin Vorteile haben.
 
-Ob und in welcher Form die Hausverwaltung Müller GmbH Online-Teilnahme anbietet, wird mit der jeweiligen Gemeinschaft abgestimmt [Angebot Online-Versammlung bestätigen]. Mehr dazu auf der Seite [WEG-Verwaltung](/weg-verwaltung/).
+Die Hausverwaltung Müller GmbH bietet die Online-Teilnahme an Eigentümerversammlungen an, die konkrete Form wird mit der jeweiligen Gemeinschaft abgestimmt. Mehr dazu auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

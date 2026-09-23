@@ -64,4 +64,4 @@ Wird eine vermietete Wohnung verkauft, tritt der Erwerber in die Rechte und Pfli
 
 ## Hinweis
 
-Die Beurteilung einzelner Forderungen gegen die Kaution kann im Streitfall schwierig sein. Hier empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Verwaltung von Kautionen und die Kautionsabrechnung beim Mieterwechsel gehören zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Beurteilung einzelner Forderungen gegen die Kaution kann im Streitfall schwierig sein. Hier empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Verwaltung von Kautionen und die Kautionsabrechnung beim Mieterwechsel gehören zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

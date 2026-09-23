@@ -18,7 +18,7 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | A8 | Intervall der Objektbegehungen und feste Ansprechperson je Objekt festlegen | Bericht „content“ dieser Sitzung, MP Abschnitt 6/7 | nein |
 | A9 | Klären, ob Objekte außerhalb des Bestands vermittelt/verkauft werden | Bericht „content“ dieser Sitzung | nein |
 | A10 | Antwortzeit für automatische Eingangsbestätigungen festlegen (Bewerbung, Kontakt, Angebotsanfrage) | `templates/emails/bewerbung-bestaetigung.html.twig:10`, `.txt.twig:6`, `templates/emails/kontakt-bestaetigung.html.twig:10`, `.txt.twig:6`, `templates/emails/lead-bestaetigung.html.twig:30`, `.txt.twig:16` | ja |
-| A11 | Startseite und Wertgutachten-Seite: verbleibender allgemeiner Platzhalter „[bestätigen]“ auflösen | `templates/pages/start.html.twig:3`, `templates/pages/wertgutachten.html.twig:5` | ja |
+| A11 | erledigt (23.09.2026): Startseite und Wertgutachten-Seite, verbleibender allgemeiner Platzhalter „[bestätigen]“ in den Kommentaren aufgelöst | `templates/pages/start.html.twig:3`, `templates/pages/wertgutachten.html.twig:5` | ja |
 | A12 | Mapping der Altdatenbank für den Leadimport ergänzen (drei Stellen) und Status für Altbestand sowie Zeitzone der Altdatenbank festlegen | `config/legacy-mapping.php:14,19,28,36,42` | nein (Import vor Livegang nicht zwingend) |
 | A13 | Ablauf der Zugangsvergabe zum Eigentümerportal bestätigen | `content/wissen/eigentuemerportal.md:15,55` | nein |
 | A14 | Funktionsumfang des Eigentümerportals bestätigen | `content/wissen/eigentuemerportal.md:35` | nein |

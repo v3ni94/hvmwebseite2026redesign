@@ -72,4 +72,4 @@ Klare Regeln vermeiden doppelte Arbeit und Lücken, gerade wenn mehrere Dienstle
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH ist in der WEG-Verwaltung, der Mietverwaltung und der Sondereigentumsverwaltung tätig [Leistungsumfang bestätigen]. Ob Leistungen des Asset Managements angeboten werden, wird derzeit abgestimmt [Leistung Asset Management bestätigen].
+Die Hausverwaltung Müller GmbH ist in der WEG-Verwaltung, der Mietverwaltung und der Sondereigentumsverwaltung tätig und bietet zusätzlich Leistungen des Asset Managements an.

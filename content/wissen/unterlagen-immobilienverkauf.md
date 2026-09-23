@@ -84,4 +84,4 @@ Planen Sie für die Beschaffung ausreichend Zeit ein. Behördliche Auskünfte un
 
 ## Hinweis
 
-Die Zusammenstellung der Verkaufsunterlagen gehört zur Begleitung beim Verkauf durch die Hausverwaltung Müller GmbH [Leistungsumfang Verkauf bestätigen]. Für Immobilien aus dem eigenen Verwaltungsbestand liegen viele Unterlagen bereits vor. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).
+Die Zusammenstellung der Verkaufsunterlagen gehört zur Begleitung beim Verkauf durch die Hausverwaltung Müller GmbH. Für Immobilien aus dem eigenen Verwaltungsbestand liegen viele Unterlagen bereits vor. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).

@@ -67,4 +67,4 @@ Nach dem Eigentumsübergang sollte der Mieter schriftlich über den Vermieterwec
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH begleitet Eigentümer beim Verkauf vermieteter Wohnungen [Leistungsumfang Verkauf bestätigen]. Bei Wohnungen, die wir als Sondereigentumsverwaltung betreuen, liegen die Mietunterlagen bereits vor [bestätigen]. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).
+Die Hausverwaltung Müller GmbH begleitet Eigentümer beim Verkauf vermieteter Wohnungen. Bei Wohnungen, die wir als Sondereigentumsverwaltung betreuen, liegen die Mietunterlagen bereits vor [bestätigen]. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).

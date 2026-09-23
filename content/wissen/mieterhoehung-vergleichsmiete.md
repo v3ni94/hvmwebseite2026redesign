@@ -78,4 +78,4 @@ Eine Mieterhöhung ist nicht nur eine rechtliche, sondern auch eine kaufmännisc
 
 ## Hinweis
 
-Die Wirksamkeit eines Erhöhungsverlangens hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Vorbereitung von Mieterhöhungen gehört zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Wirksamkeit eines Erhöhungsverlangens hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Vorbereitung von Mieterhöhungen gehört zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

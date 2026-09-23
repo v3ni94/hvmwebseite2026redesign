@@ -71,4 +71,4 @@ Asset Management ersetzt keine Rechts- oder Steuerberatung. Mietrechtliche Grenz
 
 ## Hinweis
 
-Ob und in welchem Umfang die Hausverwaltung Müller GmbH Leistungen des Asset Managements anbietet, wird derzeit abgestimmt [Leistung Asset Management bestätigen]. Informationen zur laufenden Verwaltung finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Hausverwaltung Müller GmbH bietet Leistungen des Asset Managements als eigene Leistung an. Informationen zur laufenden Verwaltung finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

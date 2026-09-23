@@ -62,4 +62,4 @@ Die CO2-Kostenaufteilung macht die energetische Qualität eines Gebäudes für d
 
 ## Hinweis
 
-Die Anwendung des Gesetzes im Einzelfall, insbesondere bei gemischt genutzten Gebäuden oder Sonderfällen, sollte bei Zweifeln mit einem Rechtsanwalt geklärt werden. Die Umsetzung der CO2-Kostenaufteilung in der Heizkostenabrechnung gehört zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Anwendung des Gesetzes im Einzelfall, insbesondere bei gemischt genutzten Gebäuden oder Sonderfällen, sollte bei Zweifeln mit einem Rechtsanwalt geklärt werden. Die Umsetzung der CO2-Kostenaufteilung in der Heizkostenabrechnung gehört zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

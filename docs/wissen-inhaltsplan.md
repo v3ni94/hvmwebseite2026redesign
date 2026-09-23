@@ -114,4 +114,4 @@ Neue Zielgruppe `verkauf-bewertung` (Titel „Verkauf und Bewertung“). FAQ-Dat
 | kosten-vertrag | verwaltervertrag-inhalte | Der Verwaltervertrag: typische Inhalte | /weg-verwaltung/ | angebot |
 | kosten-vertrag | sonderleistungen-verwaltung | Grundleistungen und Sonderleistungen der Verwaltung | /weg-verwaltung/ | angebot |
 
-Leistungsseite `/asset-management/`: Entwurf, Leistung durch die Geschäftsführung zu bestätigen (`[Leistung Asset Management bestätigen]`).
+Leistungsseite `/asset-management/`: Leistung laut docs/auftraggeber-angaben.md (23.09.2026) durch die Geschäftsführung bestätigt, Seite bleibt in config/freigaben.php auf Entwurf, da die Textfreigabe separat erfolgt.

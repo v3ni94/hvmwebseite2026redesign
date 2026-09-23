@@ -78,4 +78,4 @@ Die Abrechnung der Kaution folgt, sobald die Ansprüche geprüft sind. Hinweise 
 
 ## Hinweis
 
-Ob einzelne Schäden vom Mieter zu vertreten sind und ob Renovierungsklauseln wirksam sind, hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Durchführung von Wohnungsübergaben gehört zu den Leistungen rund um die Vermietung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Vermietung](/vermietung/).
+Ob einzelne Schäden vom Mieter zu vertreten sind und ob Renovierungsklauseln wirksam sind, hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Durchführung von Wohnungsübergaben gehört zu den Leistungen der Hausverwaltung Müller GmbH rund um die Vermietung. Informationen finden Sie auf der Seite [Vermietung](/vermietung/).

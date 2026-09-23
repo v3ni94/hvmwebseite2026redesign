@@ -81,4 +81,4 @@ Die Wohnungseigentümer können den Verwalter jederzeit abberufen. Der Verwalter
 
 Bei Zweifeln an der Wirksamkeit einzelner Klauseln sollte vor der Beschlussfassung anwaltlicher Rat eingeholt werden.
 
-Einen Vertragsentwurf erhalten Sie mit dem Angebot der Hausverwaltung Müller GmbH [Vertragsentwurf mit Angebot bestätigen]. Informationen zur Leistung finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).
+Einen Vertragsentwurf erhalten Sie mit dem Angebot der Hausverwaltung Müller GmbH. Informationen zur Leistung finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

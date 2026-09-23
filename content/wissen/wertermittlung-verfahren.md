@@ -64,4 +64,4 @@ Welche Anforderungen im Einzelfall gelten, etwa gegenüber dem Finanzamt, sollte
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH gibt eine kaufmännische Marktwerteinschätzung ab [Leistungsumfang Wertermittlung bestätigen]. Eine solche Einschätzung ersetzt kein Verkehrswertgutachten. Wird ein Gutachten benötigt, verweisen wir an qualifizierte Sachverständige [Qualifikation Gutachter bestätigen]. Informationen finden Sie auf der Seite [Wertgutachten](/wertgutachten/).
+Die Hausverwaltung Müller GmbH gibt eine kaufmännische Marktwerteinschätzung ab. Eine solche Einschätzung ersetzt kein Verkehrswertgutachten. Wird ein Gutachten benötigt, verweisen wir an qualifizierte Sachverständige [Sachverständige benennen]. Informationen finden Sie auf der Seite [Wertgutachten](/wertgutachten/).

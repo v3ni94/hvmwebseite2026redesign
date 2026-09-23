@@ -68,4 +68,4 @@ Nach Zahlung des Kaufpreises erfolgt die Übergabe der Immobilie mit Protokoll, 
 
 ## Hinweis
 
-Die Hausverwaltung Müller GmbH begleitet Eigentümer beim Verkauf von der Einschätzung des Marktwerts bis zum Notartermin [Leistungsumfang Verkauf bestätigen]. Der Kaufvertrag wird ausschließlich vom Notar beurkundet. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).
+Die Hausverwaltung Müller GmbH begleitet Eigentümer beim Verkauf von der Einschätzung des Marktwerts bis zum Notartermin. Der Kaufvertrag wird ausschließlich vom Notar beurkundet. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).

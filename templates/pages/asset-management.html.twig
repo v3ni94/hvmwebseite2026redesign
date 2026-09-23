@@ -1,7 +1,8 @@
 {#
-  Asset Management für Wohnimmobilien. ENTWURF: Die Leistung ist durch die Geschäftsführung noch nicht bestätigt
-  (docs/wissen-inhaltsplan.md Abschnitt 4). Die Seite beschreibt allgemein, was Asset Management umfasst,
-  und macht keine Aussagen zu Umfang, Referenzen oder Konditionen der Hausverwaltung Müller GmbH.
+  Asset Management für Wohnimmobilien. Die Leistung ist laut docs/auftraggeber-angaben.md durch die
+  Geschäftsführung bestätigt (docs/wissen-inhaltsplan.md Abschnitt 4). Die Seite bleibt in
+  config/freigaben.php auf Entwurf, weil die Textfreigabe separat erfolgt, und beschreibt allgemein,
+  was Asset Management umfasst, ohne Aussagen zu Referenzen oder Konditionen der Hausverwaltung Müller GmbH.
   Grundlage: docs/architektur.md Abschnitt 9, Vorlage templates/pages/mietverwaltung.html.twig.
   Alle Texte sind Entwürfe, keine Rechts-, Steuer- oder Anlageberatung.
 #}
@@ -21,7 +22,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Strategische Steuerung von Wohnimmobilien für <strong>Kapitalanleger, Family Offices und Eigentümer mehrerer Objekte</strong>: Bestandsanalyse, Objektstrategie, Investitionsplanung und ein Berichtswesen mit klaren Kennzahlen. {{ placeholder('Leistung Asset Management bestätigen') }}</p>
+        <p class="c-seitenkopf__text">Strategische Steuerung von Wohnimmobilien für <strong>Kapitalanleger, Family Offices und Eigentümer mehrerer Objekte</strong>: Bestandsanalyse, Objektstrategie, Investitionsplanung und ein Berichtswesen mit klaren Kennzahlen.</p>
     </div>
 </section>
 {% endblock %}
@@ -31,8 +32,8 @@
 <section class="l-section l-section--kompakt" aria-labelledby="entwurf-titel">
     <div class="l-container">
         <h2 class="u-visually-hidden" id="entwurf-titel">Hinweis zum Entwurf</h2>
-        {% set entwurf_text %}Diese Seite ist ein Entwurf. Ob und in welchem Umfang die Hausverwaltung Müller GmbH Asset Management anbietet, ist noch durch die Geschäftsführung zu bestätigen {{ placeholder('Leistung Asset Management bestätigen') }}. Die folgenden Abschnitte beschreiben allgemein, was Asset Management für Wohnimmobilien umfasst.{% endset %}
-        {{ n.hinweis('Leistung in Abstimmung', entwurf_text, {typ: 'warnung'}) }}
+        {% set entwurf_text %}Diese Seite ist ein Entwurf. Die Hausverwaltung Müller GmbH bietet Asset Management für Wohnimmobilien als eigene Leistung an. Die folgenden Abschnitte beschreiben allgemein, was Asset Management für Wohnimmobilien umfasst.{% endset %}
+        {{ n.hinweis('Seite in Entwurf', entwurf_text, {typ: 'warnung'}) }}
     </div>
 </section>
 

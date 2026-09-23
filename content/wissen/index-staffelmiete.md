@@ -76,4 +76,4 @@ Für Mietverträge ohne Staffel- oder Indexvereinbarung gilt die Erhöhung nach 
 
 ## Hinweis
 
-Die Gestaltung von Staffel- und Indexvereinbarungen sollte in Zweifelsfällen mit einem Rechtsanwalt abgestimmt werden. Die Berechnung von Indexanpassungen und die Überwachung von Mietstaffeln gehören zu den Aufgaben einer Mietverwaltung [Leistungsumfang bestätigen]. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Gestaltung von Staffel- und Indexvereinbarungen sollte in Zweifelsfällen mit einem Rechtsanwalt abgestimmt werden. Die Berechnung von Indexanpassungen und die Überwachung von Mietstaffeln gehören zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).

@@ -70,4 +70,4 @@ Auch die Verwaltung der Gemeinschaft ist ein Qualitätsmerkmal. Aufschlussreich 
 
 ## Hinweis
 
-Die Prüfung der Unterlagen ersetzt keine rechtliche Beratung. Bei Unklarheiten zur Teilungserklärung oder zu Beschlüssen empfiehlt sich die Beratung durch einen Rechtsanwalt, Fragen zum Kaufvertrag klären Sie mit dem Notar. Die Hausverwaltung Müller GmbH begleitet Immobilienverkäufe und stellt dabei die Unterlagen der Gemeinschaft zusammen [Leistungsumfang Verkauf bestätigen]. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).
+Die Prüfung der Unterlagen ersetzt keine rechtliche Beratung. Bei Unklarheiten zur Teilungserklärung oder zu Beschlüssen empfiehlt sich die Beratung durch einen Rechtsanwalt, Fragen zum Kaufvertrag klären Sie mit dem Notar. Die Hausverwaltung Müller GmbH begleitet Immobilienverkäufe und stellt dabei die Unterlagen der Gemeinschaft zusammen. Informationen finden Sie auf der Seite [Verkauf](/verkauf/).

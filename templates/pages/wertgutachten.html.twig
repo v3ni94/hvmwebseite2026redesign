@@ -2,7 +2,9 @@
   Wertgutachten: Leistung, Anlässe und Ablauf. Grundlage: MP Abschnitt 5, 3.7, 8;
   Bestandsaufnahme 3.6 (Altseite nicht abrufbar, Inhalt vollständig neu). Klare Trennung zwischen
   kaufmännischer Marktwerteinschätzung und einem Gutachten durch qualifizierte Sachverständige.
-  Keine gerichtsfesten Gutachten versprechen, Qualifikation der Gutachter als [bestätigen] markiert.
+  Keine gerichtsfesten Gutachten versprechen. Marktwerteinschätzung durch die HVM und Gutachten durch
+  qualifizierte Sachverständige laut docs/auftraggeber-angaben.md bestätigt, Benennung der Sachverständigen
+  bleibt als placeholder('Sachverständige benennen') offen.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -53,7 +55,7 @@
             titel: 'Marktwerteinschätzung oder *Gutachten*',
             id: 'abgrenzung-titel',
         }) }}
-        {% set abgrenzung_text %}Die Hausverwaltung Müller GmbH gibt auf Grundlage von Lage, Zustand und vergleichbaren Objekten eine kaufmännische Marktwerteinschätzung ab. Diese ersetzt kein Verkehrswertgutachten und ist nicht gerichtsfest. Wird ein förmliches Gutachten benötigt, etwa gegenüber Gericht, Finanzamt oder Bank, vermitteln wir an qualifizierte Sachverständige {{ placeholder('Qualifikation Gutachter bestätigen') }}. Die Erstellung eines solchen Gutachtens liegt außerhalb der eigenen Leistung.{% endset %}
+        {% set abgrenzung_text %}Die Hausverwaltung Müller GmbH gibt auf Grundlage von Lage, Zustand und vergleichbaren Objekten eine kaufmännische Marktwerteinschätzung ab. Diese ersetzt kein Verkehrswertgutachten und ist nicht gerichtsfest. Wird ein förmliches Gutachten benötigt, etwa gegenüber Gericht, Finanzamt oder Bank, vermitteln wir an qualifizierte Sachverständige {{ placeholder('Sachverständige benennen') }}. Die Erstellung eines solchen Gutachtens liegt außerhalb der eigenen Leistung.{% endset %}
         {{ n.hinweis('Zwei unterschiedliche Leistungen', abgrenzung_text) }}
     </div>
 </section>
