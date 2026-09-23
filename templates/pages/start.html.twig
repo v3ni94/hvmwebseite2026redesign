@@ -19,9 +19,9 @@
 {% import 'components/placeholder.html.twig' as ph %}
 
 {% block hero %}
-<section class="c-hero c-hero--mit-keil is-dunkel">
+<section class="c-hero c-hero--mit-keil c-hero--mit-kennzahlen">
     <div class="c-hero__umriss-rahmen" aria-hidden="true">
-        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true, parallaxe: true} only %}
+        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', zeichnen: true, parallaxe: true} only %}
     </div>
     <div class="l-container">
         <div class="c-hero__inhalt">
@@ -33,11 +33,11 @@
             <p class="c-hero__lead u-auftritt u-auftritt--3">WEG-Verwaltung, Mietverwaltung und Sondereigentumsverwaltung aus {{ firma.anschrift.ort }}, {{ firma.gruendung_text }}. Dazu Vermietung, Verkauf und Wertgutachten.</p>
             <div class="c-aktionen u-auftritt u-auftritt--4">
                 {{ b.button(nav.cta.label, nav.cta.url, {variante: 'primaer', icon: 'pfeil'}) }}
-                {{ b.button(nav.cta_sekundaer.label, nav.cta_sekundaer.url, {variante: 'dunkel'}) }}
+                {{ b.button(nav.cta_sekundaer.label, nav.cta_sekundaer.url, {variante: 'sekundaer'}) }}
             </div>
         </div>
 
-        <div class="c-hero__kennzahlen">
+        <div class="c-hero__kennzahlen is-orange">
             <h2 class="u-visually-hidden">Kennzahlen</h2>
             {% set mitglieder = firma.mitgliedschaften|map(m => m.kurz)|join(' und ') %}
             {{ kz.kennzahlen([
@@ -46,9 +46,9 @@
                 {wert: kennzahlen.gruendungsjahr, vorsatz: 'seit', label: 'Gründungsjahr'},
                 {wert: mitglieder, text: true, label: 'Mitgliedschaften in Fachverbänden'},
             ], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}
+            <span class="c-keil c-keil-uebergang" aria-hidden="true"></span>
         </div>
     </div>
-    <span class="c-keil c-keil-uebergang" aria-hidden="true"></span>
 </section>
 {% endblock %}
 
@@ -70,20 +70,20 @@
              text: 'Betreuung von Mietobjekten für Vermieter und Investoren: Mietverhältnisse, Mieteingang, Betriebskostenabrechnung und Instandhaltung.'},
             {titel: 'SE-Verwaltung', url: '/se-verwaltung/', ton: 'm', breite: 5,
              text: 'Sondereigentumsverwaltung für Kapitalanleger: Betreuung der vermieteten Eigentumswohnung neben der WEG-Verwaltung.'},
-            {titel: 'Verwalterwechsel', url: '/verwalterwechsel/', ton: 'u', breite: 5, keil: true, fuss: 'Ablauf ansehen',
+            {titel: 'Verwalterwechsel', url: '/verwalterwechsel/', ton: 'o', breite: 5, keil: true, fuss: 'Ablauf ansehen',
              text: 'Geordneter Wechsel für Eigentümergemeinschaften: Beschlussfassung, Übergabe der Unterlagen und Start der Verwaltung.'},
             {titel: 'Vermietung', url: '/vermietung/', ton: 'w', breite: 7,
              text: 'Vermietung im Auftrag der Eigentümer: Vermarktung, Besichtigungen, Auswahl der Mieter und Mietvertrag.'},
-            {titel: 'Verkauf', url: '/verkauf/', ton: 'w', breite: 7,
+            {titel: 'Verkauf', url: '/verkauf/', ton: 'u', breite: 7,
              text: 'Verkauf von Wohnungen und Häusern: Bewertung, Vermarktung und Begleitung bis zum Abschluss.'},
-            {titel: 'Wertgutachten', url: '/wertgutachten/', ton: 'm', breite: 5,
+            {titel: 'Wertgutachten', url: '/wertgutachten/', ton: 'w', breite: 5,
              text: 'Wertermittlung für Immobilien, zum Beispiel vor einem Verkauf, im Erbfall oder bei einer Vermögensaufteilung.'},
         ]) }}
     </div>
 </section>
 
-{# Prozess: So läuft der Verwalterwechsel #}
-<section class="l-section l-section--flaeche" aria-labelledby="wechsel-titel">
+{# Prozess: So läuft der Verwalterwechsel, mit orangem Farbstreifen als Sektionsübergang #}
+<section class="l-section l-section--flaeche l-section--streifen" aria-labelledby="wechsel-titel">
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Verwalterwechsel',

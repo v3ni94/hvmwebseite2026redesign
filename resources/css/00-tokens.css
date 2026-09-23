@@ -43,8 +43,16 @@
         /* Feine Kontur statt Rand: 6 % Ink auf Weiß, 8 % Weiß auf Dunkel */
         --kontur: color-mix(in srgb, var(--hvm-ink) 6%, transparent);
         --kontur-auf-dunkel: color-mix(in srgb, var(--hvm-weiss) 8%, transparent);
-        /* Punktraster auf dunklen Flächen: 7 % Weiß */
+        /* Punktraster: 7 % Weiß auf dunklen Flächen, 9 % Ink auf hellen Seitenköpfen (helle Fassung) */
         --punkt-auf-dunkel: color-mix(in srgb, var(--hvm-weiss) 7%, transparent);
+        --punkt-auf-hell: color-mix(in srgb, var(--hvm-ink) 9%, transparent);
+        /* Orange Flächen (Kennzahlen, CTA-Band, Karte): Haarlinien und Kontur aus Ink */
+        --linie-auf-orange: color-mix(in srgb, var(--hvm-ink) 22%, transparent);
+        --kontur-auf-orange: color-mix(in srgb, var(--hvm-ink) 10%, transparent);
+        /* Brotkrumen-Links auf Umriss: Ink zu 72 % (6,4 : 1), aktuelle Seite in Ink */
+        --text-gedaempft-auf-umriss: color-mix(in srgb, var(--hvm-ink) 72%, var(--hvm-umriss));
+        /* Überhang des orangen Kennzahlenfelds unter den hellen Hero */
+        --ueberhang: clamp(2.5rem, 1.5rem + 4.444vw, 5.5rem);
 
         /* Schrift (MP 3.3), keine Webfonts */
         --schrift: system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;

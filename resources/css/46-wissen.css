@@ -21,10 +21,11 @@
         color: var(--hvm-ink);
     }
     .c-wissen-filter__link:hover { border-color: var(--hvm-anthrazit); }
+    /* Aktiver Filter als orange Fläche, Text Ink (8,31 : 1) */
     .c-wissen-filter__link[aria-current="page"] {
-        background: var(--hvm-ink);
-        border-color: var(--hvm-ink);
-        color: var(--hvm-weiss);
+        background: var(--hvm-orange);
+        border-color: var(--hvm-orange);
+        color: var(--hvm-ink);
     }
 
     /* Live-Suchergebnisse (resources/js/search.js), ersetzt die Abschnitte solange gesucht wird */

@@ -1,25 +1,39 @@
-/* Seitenbezogene Muster: Hero und Seitenkopf (beide dunkel, bis an die Oberkante), Startseite, 404, Styleguide */
+/* Seitenbezogene Muster: Hero und Seitenkopf (helle Fassung, bis an die Oberkante), Startseite, 404, Styleguide */
 @layer components {
     /*
-     * Dunkler Seitenkopf: zieht sich um --header-h unter die schwebende Pill und hält oben Platz für
-     * Pill und Brotkrumen frei. Hausumriss sehr groß und angeschnitten, Punktraster als Textur.
+     * Heller Seitenkopf (Richtung 2030, helle Fassung): Grund Umrissgrau mit Punktraster aus 9 % Ink,
+     * zieht sich um --header-h unter die schwebende Pill und hält oben Platz für Pill und Brotkrumen frei.
+     * Hausumriss sehr groß und angeschnitten in Hellgrau, dazu ein großer Orangekeil, der wie im Logo
+     * von der Oberkante hängt (rechts, teils hinter der Glas-Pill). Text in Ink (14,73 : 1 auf Umriss).
      */
     .c-hero,
     .c-seitenkopf {
-        --fokus-innen: var(--hvm-weiss);
-        --farbe-linie: var(--linie-auf-dunkel);
-        --kontur: var(--kontur-auf-dunkel);
         position: relative;
         overflow: hidden;
         margin-top: calc(-1 * var(--header-h));
         padding-block: calc(var(--header-h) + clamp(3.5rem, 2.5rem + 4.444vw, 6.5rem)) clamp(3rem, 2.25rem + 3.333vw, 5.25rem);
-        background-color: var(--hvm-ink);
-        background-image: radial-gradient(var(--punkt-auf-dunkel) 1px, transparent 1.5px);
+        background-color: var(--hvm-umriss);
+        background-image: radial-gradient(var(--punkt-auf-hell) 1px, transparent 1.5px);
         background-size: 28px 28px;
         background-position: center top;
-        color: var(--hvm-weiss);
+        color: var(--hvm-ink);
     }
     .c-hero--mit-keil { overflow: visible; }
+    /* Großer Orangekeil, der wie im Logo von der Oberkante hängt: rechts neben dem Ende der Glas-Pill */
+    .c-hero::before,
+    .c-seitenkopf::before {
+        --keil-b: clamp(2.5rem, 1.5rem + 2.5vw, 4rem);
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0.75rem;
+        width: var(--keil-b);
+        height: calc(var(--keil-b) / var(--hvm-keil-verhaeltnis));
+        background: var(--hvm-orange);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+        pointer-events: none;
+    }
+    .c-seitenkopf::before { --keil-b: clamp(2rem, 1.25rem + 1.875vw, 3rem); }
     .c-hero__umriss-rahmen {
         position: absolute;
         inset: 0;
@@ -34,9 +48,10 @@
         height: auto;
     }
     .c-hero .c-hausumriss,
-    .c-seitenkopf .c-hausumriss { --umriss-farbe: color-mix(in srgb, var(--hvm-umriss) 11%, transparent); }
+    .c-seitenkopf .c-hausumriss { --umriss-farbe: var(--hvm-hellgrau); }
     @media (max-width: 47.99em) {
         .c-hero__umriss { width: 160vw; right: -74vw; bottom: -12%; }
+        .c-hero::before, .c-seitenkopf::before { right: var(--rand); }
     }
     /*
      * Hero-Inhalt als Container (Einheit cqi für die Display-Größe). Editorial versetzt: Eyebrow und
@@ -52,8 +67,6 @@
         justify-items: start;
     }
     .c-hero__inhalt > * { max-width: 100%; }
-    .c-hero .c-eyebrow,
-    .c-seitenkopf .c-eyebrow { color: var(--hvm-hellgrau); }
     /* Headline als ein Satzfluss: h1 leicht, anschließend das fette Schlüsselwort (hgroup mit p) */
     .c-hero__titel { max-width: min(14.5em, 100%); }
     @media (min-width: 64em) {
@@ -70,13 +83,31 @@
         font-size: var(--fs-lead);
         font-weight: var(--fw-leicht);
         line-height: 1.5;
-        color: var(--hvm-umriss);
         max-width: 40rem;
     }
     .c-hero .c-aktionen { margin-top: var(--abstand-2); }
-    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(4rem, 3rem + 4.444vw, 7rem); }
-    .c-hero__kennzahlen .c-kennzahl__label,
-    .c-hero__kennzahlen .c-kennzahlen__stichtag { color: var(--hvm-hellgrau); }
+    /*
+     * Kennzahlenfeld: große orange Fläche mit Radius, Text in Ink (8,31 : 1). Hängt um --ueberhang unter
+     * den Seitenkopf in die folgende Sektion; der Orangekeil hängt an seiner Unterkante bei 60 % der Breite.
+     */
+    .c-hero--mit-kennzahlen { padding-bottom: 0; }
+    .c-hero__kennzahlen {
+        --fokus-innen: var(--hvm-ink);
+        --farbe-linie: var(--linie-auf-orange);
+        position: relative;
+        z-index: 1;
+        margin-top: clamp(3rem, 2rem + 3.333vw, 4.5rem);
+        margin-bottom: calc(-1 * var(--ueberhang));
+        padding: clamp(1.75rem, 1.25rem + 2.222vw, 3.25rem) clamp(1.5rem, 1rem + 2.222vw, 3rem) clamp(1.5rem, 1rem + 2.222vw, 2.75rem);
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        border-radius: var(--radius-karte);
+        box-shadow: 0 32px 64px -32px color-mix(in srgb, var(--hvm-ink) 28%, transparent);
+    }
+    .c-hero__kennzahlen .c-kennzahl::before,
+    .c-hero__kennzahlen .c-kennzahlen__stichtag .c-keil { background: var(--hvm-ink); }
+    .c-hero__kennzahlen .c-keil-uebergang { left: max(var(--rand), 60%); }
+    main > .c-hero--mit-kennzahlen + .l-section { padding-top: calc(var(--sektion-y) + var(--ueberhang)); }
 
     /* Seitenkopf für Inhaltsseiten: kompakter, gleiche Sprache wie der Hero */
     .c-seitenkopf { padding-bottom: clamp(3rem, 2.25rem + 3.333vw, 5rem); }
@@ -85,10 +116,8 @@
     .c-seitenkopf h1 { max-width: 18ch; font-size: min(var(--fs-h1), 9.2cqi); line-height: 1.0; }
     .c-seitenkopf__umriss { position: absolute; width: clamp(26rem, 52vw, 56rem); right: -10%; top: 10%; height: auto; }
     .c-seitenkopf .c-suche { width: 100%; }
-    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; color: var(--hvm-umriss); }
-    .c-seitenkopf__text strong { color: var(--hvm-weiss); }
-    .c-seitenkopf .c-artikel-meta { color: var(--hvm-hellgrau); }
-    .c-seitenkopf .c-eingabe { border-color: transparent; }
+    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; }
+    .c-seitenkopf__text strong { font-weight: var(--fw-halbfett); }
     @media (min-width: 64em) {
         .c-seitenkopf__inhalt { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: var(--spalten-abstand); }
         .c-seitenkopf__inhalt > * { grid-column: 1; }
@@ -101,7 +130,16 @@
         .c-start-faq { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
         .c-start-faq .c-section-head { position: sticky; top: calc(var(--header-h-kompakt) + var(--abstand-6)); align-self: start; }
     }
-    .c-service-icon { width: 2.25rem; height: 2.25rem; }
+    /* Icon-Plättchen der Service-Karten: orange Fläche mit Ink-Icon */
+    .c-service-icon {
+        box-sizing: content-box;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0.75rem;
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        border-radius: 0.875rem;
+    }
 
     /* 404 */
     .c-fehlerseite__code {

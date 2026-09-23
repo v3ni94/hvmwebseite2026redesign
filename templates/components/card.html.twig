@@ -2,13 +2,13 @@
   Karte. Ganze Fläche klickbar über den Titel-Link (kein verschachtelter Link), Hover mit Orangekeil-Wischeffekt.
   {% import 'components/card.html.twig' as c %}
   {{ c.card({titel: 'WEG-Verwaltung', text: '...', url: '/weg-verwaltung/', ton: 'h', nummer: '01', icon: 'schaden', fuss: 'Mehr erfahren', gross: false, ebene: 3}) }}
-  ton: w (weiß), u (Umriss), m (Hellgrau), v (Mittelgrau), h (Anthrazit). Text immer --hvm-ink.
+  ton: w (weiß), m (weiß mit Kontur), u und v (Umriss), h (Hellgrau), o (Orange, Hervorhebung). Text immer --hvm-ink.
 #}
 {% macro card(o) %}
 {%- set ebene = o.ebene|default(3) -%}
 <article class="c-karte c-karte--{{ o.ton|default('w') }}{{ o.url|default('') ? ' c-karte--link' }}{{ o.gross|default(false) ? ' c-karte--gross' }}{{ o.klasse|default('') ? ' ' ~ o.klasse }}"{% if o.einblenden|default(true) %} data-einblenden{% endif %}>
     {% if o.keil|default(false) %}<span class="c-keil c-karte__keil" aria-hidden="true"></span>{% endif %}
-    {% if o.nummer|default('') %}<p class="c-karte__nummer" aria-hidden="true">{{ o.nummer }}</p>{% endif %}
+    {% if o.nummer|default('') %}<p class="c-karte__nummer" aria-hidden="true"><span>{{ o.nummer }}</span></p>{% endif %}
     {% if o.icon|default('') %}{% include 'partials/icon.html.twig' with {name: o.icon, klasse: 'c-service-icon'} only %}{% endif %}
     {% if o.eyebrow|default('') %}<p class="c-karte__eyebrow">{{ o.eyebrow }}</p>{% endif %}
     <h{{ ebene }} class="c-karte__titel">

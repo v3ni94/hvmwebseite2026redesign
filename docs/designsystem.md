@@ -1,6 +1,6 @@
 # Designsystem muellerhv.de
 
-Stand: 23.09.2026 (Richtung 2030, siehe Abschnitt 12). Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
+Stand: 23.09.2026 (Richtung 2030, helle Fassung, siehe Abschnitt 12 und 12.2). Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
 Grundlage: `docs/architektur.md` Abschnitt 4, 6 und 7, Masterprompt (MP) Abschnitt 3, 5 und 8, CI-Skill hvm-ci, `docs/logo/geometrie.md`.
 Ansicht aller Bausteine: `/styleguide/` (nur außerhalb der Produktion).
 
@@ -298,3 +298,41 @@ Befund der Geschäftsführung: Farben und Inhalte passen, die Gestaltung wirkt w
 - Kontaktseite: „Weitere Anliegen“ nutzt `.c-karten` (auto-fit), zwei Karten füllen die Breite.
 
 Abweichungen, die die Geschäftsführung freigeben muss: Kurzform HVM statt Vollversion in der Kopfzeile (Vollversion nur noch im Footer); dunkler Seitenkopf auf allen Seiten statt heller Seitenkopf; Display bis 96 px (hebt Entscheidung 3 teilweise auf, die Begrenzung über cqi bleibt); Brotkrumen in Weiß auf Ink.
+
+### 12.2 Helle Fassung (23.09.2026)
+
+Befund der Geschäftsführung zum Stand „Richtung 2030“: Richtung passt, aber heller und mit mehr Farbe, die schwarze Startseite ist zu viel. Ziel: hell, luftig, warm, Orange als Gestaltungsfläche, nie als Text auf Weiß. Grenzen aus MP 3 unverändert.
+
+Änderungen:
+
+- Seitenköpfe (`.c-hero`, `.c-seitenkopf`, alle Seiten): Grund Umrissgrau mit Punktraster aus 9 % Ink (`--punkt-auf-hell`), Text in Ink, Hausumriss groß und angeschnitten in Hellgrau, Eyebrow und Einleitung in Ink. Ein großer Orangekeil hängt wie im Logo von der Oberkante (rechts neben dem Ende der Glas-Pill, mobil hinter der Pill hervor). Brotkrumen liegen im hellen Kopf: Links Ink zu 72 % auf Umriss (`--text-gedaempft-auf-umriss`), aktuelle Seite Ink, Trennzeichen Mittelgrau (dekorativ). Hero-Buttons: primär Orange, sekundär Ink-Kontur. Damit entfällt die frühere Abweichung „weißer Streifen mit Brotkrumen“ vollständig, ohne dunkle Köpfe.
+- Startseite: Kennzahlen als große orange Fläche mit Radius (`.c-hero__kennzahlen.is-orange`), Ziffern und Labels in Ink, Marker und Stichtag-Keil in Ink; die Fläche hängt um `--ueberhang` (40 bis 88 px) in die Leistungen-Sektion, der Orangekeil hängt an ihrer Unterkante bei 60 %. Der Hero hat mit `.c-hero--mit-kennzahlen` unten keinen Innenabstand, die folgende Sektion erhält den Überhang als zusätzlichen oberen Abstand.
+- Bento hell: `h` Hellgrau, `v` und `u` Umriss, `m` und `w` Weiß mit Kontur (`--schatten-karte`); neuer Ton `o` Orange mit Text Ink als Hervorhebung (Verwalterwechsel), Hover wischt Weiß statt Orange ein (`--karte-wisch`), Keil auf der orangen Karte weiß. Innenkante auf den Grautönen 55 % Weiß. Startseite: Verkauf `u`, Wertgutachten `w`.
+- Nummern als Flächen: Bento-Nummern (`.c-karte__nummer > span`), Sektionsnummern (`.c-section-head::before`) und Zeitleistenmarker (`.c-zeitleiste__nummer` im 2-rem-Kreis auf der Kennlinie) als orange Kreis- bzw. Pillenfläche mit Ink-Ziffern, auf der orangen Karte weiß. Der frühere leere Marker der Zeitleiste entfällt.
+- Service-Karten: Icon auf orangem Plättchen (`.c-service-icon`, 48 px, Radius 14 px, Icon in Ink).
+- Aktive Zustände: Wissen-Filter aktiv Orange mit Ink, FAQ geöffnet Orange mit Ink-Minus, Navigation aktiv Orange (unverändert), Fokusring außen Orange (unverändert).
+- Farbstreifen: `.l-section--streifen` zeichnet einen 10 px hohen orangen Streifen an der Oberkante einer Sektion, eingesetzt an der Zeitleisten-Sektion der Startseite und der Ablauf-Sektion Verwalterwechsel.
+- CTA-Band: Fläche Orange (`.is-orange`), Titel und Text Ink, Primärbutton `ink` (Fläche Ink, Text Weiß, Hover wischt Weiß ein), Sekundärbutton Ink-Kontur. Der Orangekeil hängt an der Unterkante bei 60 % in den dunklen Footer, also durch das Orange-Segment der Kennlinie.
+- Dunkel bleiben Footer und mobile Bottom-Bar. Header-Pill bleibt Weiß mit Glas, Kurzform HVM, aktive Fläche Orange.
+- Styleguide: Beschriftung der Bento-Beispiele auf die helle Stufung angepasst.
+- Neue Tokens: `--punkt-auf-hell`, `--linie-auf-orange` (22 % Ink), `--kontur-auf-orange` (10 % Ink), `--text-gedaempft-auf-umriss`, `--ueberhang`. Neue Rollen `.l-section--orange` und `.is-orange` (Fokus innen Ink, Linien aus Ink).
+
+Kontraste der hellen Fassung (WCAG-Formel wie Abschnitt 5, alle Textpaare mindestens 4,5 : 1):
+
+| Vordergrund | Hintergrund | Kontrast | Einsatz | Anforderung |
+|---|---|---|---|---|
+| Ink | Umriss | 14,73 | Seitenköpfe (Headline, Einleitung, Eyebrow), aktuelle Brotkrume, Bento V, Farbfläche-Sektionen | 4,5 erfüllt |
+| Ink zu 72 % auf Umriss (#555555) | Umriss | 6,31 | Brotkrumen-Links | 4,5 erfüllt |
+| Ink | Orange | 8,31 | Kennzahlenfeld (Ziffern, Labels, Stichtag), orange Karte, CTA-Band (Titel, Text), Nummernflächen, aktiver Filter, FAQ geöffnet, Sekundärbutton im CTA-Band | 4,5 erfüllt |
+| Weiß | Ink | 17,40 | Ink-Button im CTA-Band, Footer | 4,5 erfüllt |
+| Ink | Hellgrau | 12,20 | Bento H | 4,5 erfüllt |
+| Ink | Weiß | 17,40 | Bento M und W, Service-Karten, Fließtext | 4,5 erfüllt |
+| Ink (Kontur Sekundärbutton) | Umriss | 14,73 | Sekundärbutton im Seitenkopf | 3,0 für Bedienelemente erfüllt |
+| Ink (Kontur Sekundärbutton) | Orange | 8,31 | Sekundärbutton im CTA-Band | 3,0 erfüllt |
+| Fokus innen Ink | Umriss / Orange | 14,73 / 8,31 | Fokusring auf hellen und orangen Flächen | 3,0 erfüllt |
+| Anthrazit (Rand Suchfeld) | Umriss | 3,00 | Suchfeld im Seitenkopf der 404-Seite | 3,0 erfüllt |
+
+Dekorativ, nicht als Text: Hellgrau-Hausumriss auf Umriss (1,21), Orangekeil auf Umriss (1,77) und auf Weiß (2,09), weißer Keil auf Orange (2,09), Punktraster 9 % Ink auf Umriss (1,19), Haarlinien 22 % Ink auf Orange (1,50), Mittelgrau-Trennzeichen auf Umriss (2,30). Anthrazit wird auf Umriss (3,00) nicht als Text eingesetzt.
+
+Prüfung: `php bin/lint-dashes.php` ohne Treffer, `composer build`, PHPUnit 420 Tests grün, Playwright 142 Tests grün inklusive axe ohne serious oder critical Befunde, Lighthouse mobil für `/` in Produktions-Simulation: Performance 98, Accessibility 100, Best Practices 100, SEO 100.
+

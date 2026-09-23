@@ -50,11 +50,29 @@
         background: var(--hvm-ink);
         color: var(--hvm-weiss);
     }
-    /* Punktraster als Textur auf dunklen Flächen (7 % Weiß), sonst keine Textur */
+    /* Orange Sektion (CTA-Band, Kennzahlenfeld): Text in Ink (8,31 : 1), Linien aus Ink */
+    .l-section--orange,
+    .is-orange {
+        --fokus-innen: var(--hvm-ink);
+        --farbe-linie: var(--linie-auf-orange);
+        --kontur: var(--kontur-auf-orange);
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+    }
+    /* Punktraster als Textur: 7 % Weiß auf dunklen Flächen, 9 % Ink auf hellen Seitenköpfen */
     .l-punktraster {
         background-image: radial-gradient(var(--punkt-auf-dunkel) 1px, transparent 1.5px);
         background-size: 28px 28px;
         background-position: center top;
+    }
+    .l-punktraster--hell { background-image: radial-gradient(var(--punkt-auf-hell) 1px, transparent 1.5px); }
+    /* Orangefarbener Farbstreifen als Sektionsübergang an der Oberkante (ein bis zwei Stellen je Seite) */
+    .l-section--streifen::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 0.625rem;
+        background: var(--hvm-orange);
     }
 
     .l-stack > * + * { margin-top: var(--stack, var(--abstand-5)); }

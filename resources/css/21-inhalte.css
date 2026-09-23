@@ -57,7 +57,7 @@
         position: absolute;
         inset: 0 -45%;
         z-index: -1;
-        background: var(--hvm-orange);
+        background: var(--karte-wisch, var(--hvm-orange));
         transform: translateX(-104%) skewX(calc(-1 * var(--hvm-keil-winkel)));
         transition: transform var(--dauer-wisch) var(--ease);
     }
@@ -77,7 +77,7 @@
     .c-karte--kompakt { padding: clamp(1.5rem, 1rem + 1vw, 2rem); }
     .c-karte--kompakt .c-karte__titel { font-size: 1.3125rem; }
 
-    /* Bento-Grid mit Graustufen aus dem Logo: H dunkel, V mittel, M hell */
+    /* Bento-Grid, helle Stufung der Graustufen aus dem Logo: H Hellgrau, V Umriss, M Weiß mit Kontur; o Orange als Hervorhebung */
     .c-bento {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -86,14 +86,18 @@
     .c-bento > * { grid-column: span 12; display: grid; }
     .c-bento .c-karte { min-height: 16rem; box-shadow: none; }
     /* Innenkante: 1 px helle Linie oben als feine Tiefe auf den Graustufen */
-    .c-bento .c-karte:not(.c-karte--w) { box-shadow: inset 0 1px 0 color-mix(in srgb, var(--hvm-weiss) 35%, transparent); }
-    .c-bento .c-karte--h { --karte-bg: var(--hvm-anthrazit); }
-    .c-bento .c-karte--v { --karte-bg: var(--hvm-mittelgrau); }
-    .c-bento .c-karte--m { --karte-bg: var(--hvm-hellgrau); }
-    .c-bento .c-karte--u { --karte-bg: var(--hvm-umriss); }
+    .c-bento .c-karte:not(.c-karte--w, .c-karte--m) { box-shadow: inset 0 1px 0 color-mix(in srgb, var(--hvm-weiss) 55%, transparent); }
+    .c-bento .c-karte--h { --karte-bg: var(--hvm-hellgrau); }
+    .c-bento .c-karte--v { --karte-bg: var(--hvm-umriss); }
+    .c-bento .c-karte--m,
     .c-bento .c-karte--w { --karte-bg: var(--hvm-weiss); box-shadow: var(--schatten-karte); }
+    .c-bento .c-karte--u { --karte-bg: var(--hvm-umriss); }
     .c-bento .c-karte--link:hover { box-shadow: var(--schatten-3); }
-    .c-bento .c-karte--w.c-karte--link:hover { box-shadow: var(--schatten-karte), var(--schatten-3); }
+    .c-bento :is(.c-karte--w, .c-karte--m).c-karte--link:hover { box-shadow: var(--schatten-karte), var(--schatten-3); }
+    /* Orange Karte (Hervorhebung, z. B. Verwalterwechsel): Fläche Orange, Text Ink (8,31 : 1), Hover wischt Weiß ein */
+    .c-karte--o { --karte-bg: var(--hvm-orange); --karte-wisch: var(--hvm-weiss); --farbe-linie: var(--linie-auf-orange); }
+    .c-karte--o .c-karte__keil { background: var(--hvm-weiss); }
+    .c-karte--o.c-karte--link:hover .c-karte__pfeil { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-orange); }
     /* Nummer als feine Kopfzeile der Karte mit Haarlinie */
     .c-bento .c-karte__nummer {
         display: flex;
@@ -106,6 +110,19 @@
         max-width: none;
     }
     .c-bento .c-karte__nummer::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: 0.28; }
+    /* Nummer als orange Kreisfläche mit Ink-Ziffer; auf der orangen Karte weiß */
+    .c-bento .c-karte__nummer > span {
+        display: inline-grid;
+        place-items: center;
+        min-width: 2.125rem;
+        height: 2.125rem;
+        padding-inline: 0.5rem;
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        border-radius: var(--radius-pill);
+        letter-spacing: 0.06em;
+    }
+    .c-karte--o .c-karte__nummer > span { background: var(--hvm-weiss); }
     .c-bento .c-karte--gross { min-height: 26rem; }
     .c-bento .c-karte--gross .c-karte__titel { font-size: var(--fs-h2); font-weight: var(--fw-leicht); letter-spacing: var(--tracking-display); line-height: 1.04; }
     .c-bento .c-karte--gross .c-karte__text { font-size: var(--fs-lead); line-height: 1.45; max-width: 32rem; }
@@ -210,6 +227,8 @@
     .c-kennzahlen__stichtag .c-keil { --keil-b: 0.5rem; }
     .is-dunkel .c-kennzahl__label,
     .is-dunkel .c-kennzahlen__stichtag { color: var(--hvm-hellgrau); }
+    .is-orange .c-kennzahl::before,
+    .is-orange .c-kennzahlen__stichtag .c-keil { background: var(--hvm-ink); }
 
     /*
      * Zeitleiste: mobil vertikal, ab ausreichender Containerbreite horizontal (Container Query).
@@ -222,7 +241,7 @@
      */
     .c-zeitleiste {
         --kl-h: var(--hvm-kennlinie-hoehe);
-        --zl-marke: 0.875rem;
+        --zl-marke: 2rem;
         position: relative;
         container-type: inline-size;
         overflow-x: clip;
@@ -248,30 +267,38 @@
     }
     .c-zeitleiste__schritt {
         position: relative;
-        padding-left: var(--abstand-7);
+        padding-left: calc(var(--zl-marke) + var(--abstand-4));
         display: grid;
         gap: var(--abstand-3);
         align-content: start;
         min-width: 0;
     }
+    /* Marker: orange Kreisfläche auf der Kennlinie, darin die Schrittnummer in Ink (8,31 : 1) */
     .c-zeitleiste__schritt::before {
         content: "";
         position: absolute;
         left: 0;
-        top: 0.25rem;
+        top: 0;
         z-index: 1;
         width: var(--zl-marke);
         height: var(--zl-marke);
-        background: var(--hvm-weiss);
-        border: 1.5px solid var(--hvm-ink);
+        background: var(--hvm-orange);
         border-radius: 50%;
     }
     .c-zeitleiste__nummer {
-        font-size: 0.8125rem;
-        font-weight: var(--fw-halbfett);
-        letter-spacing: 0.08em;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        display: inline-grid;
+        place-items: center;
+        width: var(--zl-marke);
+        height: var(--zl-marke);
+        font-size: 0.75rem;
+        font-weight: var(--fw-fett);
+        letter-spacing: 0.04em;
         font-variant-numeric: tabular-nums;
-        line-height: 1.4;
+        line-height: 1;
     }
     .c-zeitleiste__titel {
         font-size: 1.1875rem;
@@ -283,7 +310,7 @@
         -webkit-hyphens: manual;
     }
     .c-zeitleiste__text { font-size: 1rem; line-height: 1.6; min-width: 0; }
-    .l-section--flaeche .c-zeitleiste__schritt::before { background: var(--hvm-umriss); }
+    .c-zeitleiste__linie { top: 0; bottom: 0; }
 
     /* Spaltenzahl auf der Liste (ein Container kann sich in seiner eigenen Query nicht selbst stylen) */
     .c-zeitleiste--n3 .c-zeitleiste__liste { --zl-spalten: 3; }
@@ -410,15 +437,16 @@
     .c-faq__zeichen::after { rotate: 90deg; }
     .c-faq__eintrag[open] .c-faq__zeichen::after { rotate: 0deg; }
     .c-faq__zeichen { border: 1px solid currentColor; border-radius: 50%; width: 2rem; height: 2rem; margin-top: -0.125rem; transition: background-color var(--dauer) var(--ease); }
-    .c-faq__eintrag[open] .c-faq__zeichen { background: var(--hvm-ink); color: var(--hvm-weiss); border-color: var(--hvm-ink); }
+    .c-faq__eintrag[open] .c-faq__zeichen { background: var(--hvm-orange); color: var(--hvm-ink); border-color: var(--hvm-orange); }
     .c-faq__frage:hover { text-decoration: underline; text-decoration-color: var(--hvm-orange); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
     .c-faq__antwort { padding-bottom: var(--abstand-6); padding-right: var(--abstand-7); }
     .c-faq__antwort > * + * { margin-top: var(--abstand-4); }
 
-    /* CTA-Band */
+    /* CTA-Band: Fläche Orange, Text Ink (8,31 : 1), Buttons Ink mit weißem Text; der Orangekeil hängt
+       an der Unterkante bei 60 % in den dunklen Footer (Position des Orange-Segments der Kennlinie) */
     .c-cta-band {
         position: relative;
-        overflow: hidden;
+        overflow: visible;
         padding-block: var(--sektion-y);
     }
     .c-cta-band__inner { position: relative; z-index: 1; display: grid; gap: var(--abstand-6); }
@@ -432,11 +460,10 @@
     .c-cta-band .c-aktionen { margin-top: var(--abstand-2); }
     .c-cta-band__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.45; max-width: 36rem; }
     /* Keil an derselben Stelle wie der Sektionsübergang (60 % der Breite, Position des Orange-Segments) */
-    .c-cta-band .c-keil { position: absolute; top: 0; left: max(var(--rand), 60%); --keil-b: var(--keil-uebergang-b); }
+    .c-cta-band .c-keil { position: absolute; top: 100%; left: max(var(--rand), 60%); z-index: 2; --keil-b: 1.5rem; pointer-events: none; }
     .is-dunkel .c-cta-band__text { color: var(--hvm-umriss); }
     @media (max-width: 47.99em) {
-        .c-cta-band { padding-top: calc(var(--sektion-y) + 3rem); }
-        .c-cta-band .c-keil { --keil-b: 1.5rem; left: auto; right: var(--rand); }
+        .c-cta-band .c-keil { --keil-b: 1.25rem; left: auto; right: var(--rand); }
     }
 
     /* Breadcrumbs */
@@ -449,15 +476,15 @@
         padding-block: var(--abstand-3);
         font-size: 0.8125rem;
         letter-spacing: 0.01em;
-        color: var(--hvm-weiss);
-        --fokus-innen: var(--hvm-weiss);
+        color: var(--hvm-ink);
     }
     .c-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: var(--abstand-2); list-style: none; padding: 0; max-width: none; }
     .c-breadcrumbs li { display: inline-flex; gap: var(--abstand-2); align-items: center; }
     .c-breadcrumbs li + li::before { content: "/" / ""; color: var(--hvm-mittelgrau); }
-    .c-breadcrumbs a { color: var(--hvm-hellgrau); text-decoration: none; }
-    .c-breadcrumbs a:hover { color: var(--hvm-weiss); text-decoration: underline; text-decoration-color: var(--hvm-orange); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
-    .c-breadcrumbs [aria-current="page"] { color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
+    /* Links Ink zu 72 % auf Umriss (6,4 : 1), aktuelle Seite Ink (14,73 : 1) */
+    .c-breadcrumbs a { color: var(--text-gedaempft-auf-umriss); text-decoration: none; }
+    .c-breadcrumbs a:hover { color: var(--hvm-ink); text-decoration: underline; text-decoration-color: var(--hvm-orange); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+    .c-breadcrumbs [aria-current="page"] { color: var(--hvm-ink); font-weight: var(--fw-halbfett); }
 
     /* Tabelle */
     .c-tabelle-rahmen { overflow-x: auto; max-width: 100%; }

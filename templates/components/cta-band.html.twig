@@ -1,19 +1,19 @@
 {#
-  CTA-Band (dunkel), Titel mit *Schlüsselwort*, bis zu zwei Aktionen, Orangekeil am oberen Rand.
+  CTA-Band (Fläche Orange, Text Ink), Titel mit *Schlüsselwort*, bis zu zwei Aktionen in Ink, Orangekeil hängt an der Unterkante in den Footer.
   {% import 'components/cta-band.html.twig' as cta %}
   {{ cta.cta_band({titel: 'Angebot für Ihre *Immobilie*', text: '...', primaer: {label, url}, sekundaer: {label, url}, id: 'cta-titel'}) }}
 #}
 {% macro cta_band(o) %}
 {%- import 'components/titel.html.twig' as t -%}
 {%- import 'components/button.html.twig' as b -%}
-<section class="c-cta-band is-dunkel"{% if o.id|default('') %} aria-labelledby="{{ o.id }}"{% endif %}>
+<section class="c-cta-band is-orange"{% if o.id|default('') %} aria-labelledby="{{ o.id }}"{% endif %}>
     <span class="c-keil" aria-hidden="true"></span>
     <div class="l-container c-cta-band__inner" data-einblenden>
         <h2 class="c-cta-band__titel"{% if o.id|default('') %} id="{{ o.id }}"{% endif %}>{{ t.text(o.titel) }}</h2>
         {% if o.text|default('') %}<p class="c-cta-band__text">{{ o.text }}</p>{% endif %}
         <div class="c-aktionen">
-            {% if o.primaer|default(null) %}{{ b.button(o.primaer.label, o.primaer.url, {variante: 'primaer', icon: 'pfeil'}) }}{% endif %}
-            {% if o.sekundaer|default(null) %}{{ b.button(o.sekundaer.label, o.sekundaer.url, {variante: 'dunkel'}) }}{% endif %}
+            {% if o.primaer|default(null) %}{{ b.button(o.primaer.label, o.primaer.url, {variante: 'ink', icon: 'pfeil'}) }}{% endif %}
+            {% if o.sekundaer|default(null) %}{{ b.button(o.sekundaer.label, o.sekundaer.url, {variante: 'sekundaer'}) }}{% endif %}
         </div>
     </div>
 </section>

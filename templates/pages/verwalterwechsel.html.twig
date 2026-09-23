@@ -16,9 +16,9 @@
 {% import 'components/cta-band.html.twig' as cta %}
 
 {% block hero %}
-<section class="c-hero c-hero--mit-keil is-dunkel">
+<section class="c-hero c-hero--mit-keil">
     <div class="c-hero__umriss-rahmen" aria-hidden="true">
-        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true, parallaxe: true} only %}
+        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', zeichnen: true, parallaxe: true} only %}
     </div>
     <div class="l-container">
         <div class="c-hero__inhalt">
@@ -29,7 +29,7 @@
             <p class="c-hero__lead u-auftritt u-auftritt--3">Vom Beschluss der Eigentümerversammlung bis zur Übergabe der Unterlagen: ein klarer Ablauf, der sich an Ihrer Beschlusslage und der Vertragslaufzeit Ihres bisherigen Verwalters orientiert.</p>
             <div class="c-aktionen u-auftritt u-auftritt--4">
                 {{ b.button('Wechsel anfragen', cta_url('/angebot/', {anlass: 'wechsel'}), {variante: 'primaer', icon: 'pfeil'}) }}
-                {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'dunkel'}) }}
+                {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'sekundaer'}) }}
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
     </div>
 </section>
 
-<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+<section class="l-section l-section--flaeche l-section--streifen" aria-labelledby="ablauf-titel">
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Ablauf',
