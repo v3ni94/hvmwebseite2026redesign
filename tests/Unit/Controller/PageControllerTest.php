@@ -17,10 +17,16 @@ final class PageControllerTest extends TestCase
     {
         /** @var list<array{0: string, 1: string}> $routes */
         $routes = require dirname(__DIR__, 3) . '/config/routes.php';
+        $gesehen = [];
         foreach ($routes as $route) {
-            if ($route[0] === 'GET' && str_ends_with($route[1], '/')) {
-                yield $route[1] => [$route[1]];
+            $pfad = $route[1];
+            // Feature-Routen ersetzen Stubs (doppelte Pfade), Platzhalter und Admin (Login-Weiterleitung) gesondert getestet.
+            if (!in_array('GET', (array) $route[0], true) || !str_ends_with($pfad, '/')
+                || str_contains($pfad, '{') || str_starts_with($pfad, '/admin/') || isset($gesehen[$pfad])) {
+                continue;
             }
+            $gesehen[$pfad] = true;
+            yield $pfad => [$pfad];
         }
     }
 

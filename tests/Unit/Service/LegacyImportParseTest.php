@@ -70,7 +70,9 @@ final class LegacyImportParseTest extends TestCase
     public function testMapRowConvertsValues(): void
     {
         $rows = LegacyImport::readFile(self::fixture('properties.csv'));
-        $mapped = $this->import()->mapRow($rows[0], new \DateTimeImmutable('2026-09-23 12:00:00', new \DateTimeZone('UTC')));
+        $row = $rows[0];
+        $row['private_managementcost_id'] = null;
+        $mapped = $this->import()->mapRow($row, new \DateTimeImmutable('2026-09-23 12:00:00', new \DateTimeZone('UTC')));
         self::assertSame(101, $mapped['legacy_id']);
         self::assertSame('weg', $mapped['data']['management_form']);
         self::assertSame('frau', $mapped['data']['contact_salutation']);
@@ -80,13 +82,15 @@ final class LegacyImportParseTest extends TestCase
         self::assertSame('altbestand', $mapped['data']['source']);
         // 09:30 Uhr deutscher Winterzeit = 08:30 UTC
         self::assertSame('2023-11-14 08:30:00', $mapped['data']['created_at']);
-        self::assertSame([], $mapped['hinweise'] === [] ? [] : array_filter($mapped['hinweise'], static fn (string $h): bool => !str_starts_with($h, 'Preisstufe')));
+        self::assertSame([], $mapped['hinweise']);
     }
 
     public function testMapRowCollectsHintsWithoutPersonalData(): void
     {
         $rows = LegacyImport::readFile(self::fixture('properties.csv'));
-        $mapped = $this->import()->mapRow($rows[2]);
+        $row = $rows[2];
+        $row['commercial_managementcost_id'] = null;
+        $mapped = $this->import()->mapRow($row);
         self::assertSame('miet', $mapped['data']['management_form']);
         self::assertNull($mapped['data']['contact_email']);
         self::assertNull($mapped['data']['contact_salutation']);

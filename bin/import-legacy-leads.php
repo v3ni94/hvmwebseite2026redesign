@@ -25,9 +25,14 @@ $root = dirname(__DIR__);
 require $root . '/vendor/autoload.php';
 
 $positional = array_values(array_filter(array_slice($argv, 1), static fn (string $a): bool => !str_starts_with($a, '--')));
-$options = getopt('', ['dry-run', 'table:']);
-$dryRun = array_key_exists('dry-run', $options);
-$table = (string) ($options['table'] ?? 'Properties');
+// Optionen selbst auswerten: getopt() bricht beim ersten Positionsargument ab
+$dryRun = in_array('--dry-run', $argv, true);
+$table = 'Properties';
+foreach ($argv as $arg) {
+    if (str_starts_with($arg, '--table=')) {
+        $table = substr($arg, 8);
+    }
+}
 $file = $positional[0] ?? '';
 
 if ($file === '' || !is_file($file) || !is_readable($file)) {

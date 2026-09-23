@@ -95,6 +95,8 @@
     }
     .c-admin-filter__aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: var(--abstand-4); }
     .c-admin-ergebnis { margin-bottom: 0; }
+    /* Bezugsrahmen für absolut positionierte, visuell versteckte Texte in scrollenden Tabellen */
+    .c-admin .c-tabelle-rahmen { position: relative; }
     .c-admin-liste { background: var(--hvm-weiss); }
     .c-admin-liste td, .c-admin-liste th { padding: var(--abstand-2) var(--abstand-3); }
     .c-admin-liste__datum { white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -103,7 +105,7 @@
     .c-admin-sortierung__pfeil { font-size: 0.7em; }
 
     .c-admin-seiten ul { display: flex; flex-wrap: wrap; gap: var(--abstand-2); list-style: none; margin: 0; padding: 0; }
-    .c-admin-seiten a, .c-admin-seiten span {
+    .c-admin-seiten li > a, .c-admin-seiten li > span {
         display: inline-block; min-width: 2.75rem; min-height: 2.75rem; padding: var(--abstand-2) var(--abstand-3);
         text-align: center; border: 1px solid var(--hvm-anthrazit); color: var(--hvm-ink); background: var(--hvm-weiss); text-decoration: none;
     }
@@ -117,6 +119,9 @@
     }
     .c-admin-umschalter a[aria-current="true"] { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
 
+    /* Listen und Datenblöcke im Admin laufen über die volle Breite (Basis begrenzt p, ul, ol, dl auf 70ch) */
+    .c-admin-kennzahlen, .c-admin-saeulen__labels, .c-admin-balken, .c-admin-daten, .c-admin-verlauf, .c-admin-seiten ul, .c-admin-nav__liste { max-width: none; }
+    .c-admin-kennzahl .c-admin-kennzahl__text { font-size: var(--fs-h4); line-height: 1.3; font-weight: var(--fw-normal); }
     .c-admin-kennzahlen { display: grid; gap: var(--abstand-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); margin: 0; }
     .c-admin-kennzahl { background: var(--hvm-weiss); padding: var(--abstand-4) var(--abstand-5); box-shadow: var(--schatten-1); border-top: 4px solid var(--hvm-orange); }
     .c-admin-kennzahl dt { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; font-weight: var(--fw-halbfett); }

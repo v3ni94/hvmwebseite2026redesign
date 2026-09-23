@@ -70,5 +70,5 @@ return [
     'csrf_exempt' => [],
 
     // Klassen, die Hvm\Support\SitemapProvider implementieren (z. B. Wissensartikel)
-    'sitemap_providers' => [],
+    'sitemap_providers' => [\Hvm\Content\WissenSitemapProvider::class],
 ];

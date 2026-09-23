@@ -139,7 +139,7 @@ final class LegacyImport
         $tableName = '(?:`?[\w$]+`?\.)?`?' . $quoted . '`?';
 
         $createColumns = [];
-        if (preg_match('/CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?' . $tableName . '\s*\((.*?)\)\s*(?:ENGINE|DEFAULT|;)/is', $content, $m) === 1) {
+        if (preg_match('/CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?' . $tableName . '\s*\((.*?)\)\s*(?:ENGINE|DEFAULT\s+CHARSET|CHARSET|COMMENT\s*=|;)/is', $content, $m) === 1) {
             preg_match_all('/^\s*`([^`]+)`\s+/m', $m[1], $cm);
             $createColumns = $cm[1];
         }
@@ -305,7 +305,8 @@ final class LegacyImport
      * Wandelt eine Zeile der Alttabelle in Spalten für leads.
      *
      * @param array<string, ?string> $row
-     * @return array{legacy_id: int, data: array<string, mixed>, hinweise: list<string>}
+     * @return array{legacy_id: int, data: array<string, mixed>, hinweise: list<string>, eingang_ersetzt: bool}
+     *         eingang_ersetzt: Created At fehlte, created_at ist der Importzeitpunkt und wird bei erneutem Import nicht überschrieben
      * @throws \DomainException mit einem Grund ohne personenbezogene Daten
      */
     public function mapRow(array $row, ?DateTimeImmutable $now = null): array
@@ -364,6 +365,7 @@ final class LegacyImport
         $zone = new DateTimeZone(is_string($this->mapping['zeitzone'] ?? null) ? $this->mapping['zeitzone'] : 'Europe/Berlin');
         $createdRaw = $value('Created At');
         $created = $createdRaw === null ? null : self::parseDateTime($createdRaw, $zone);
+        $createdFallback = $created === null;
         if ($created === null) {
             $hinweise[] = 'Created At fehlt oder ist nicht lesbar, Importzeitpunkt verwendet';
             $created = $now;
@@ -405,7 +407,7 @@ final class LegacyImport
             $data[$spec['column']] = $tier;
         }
 
-        return ['legacy_id' => $legacyId, 'data' => $data, 'hinweise' => $hinweise];
+        return ['legacy_id' => $legacyId, 'data' => $data, 'hinweise' => $hinweise, 'eingang_ersetzt' => $createdFallback];
     }
 
     private function lookup(string $section, string $key): mixed
@@ -558,7 +560,12 @@ final class LegacyImport
                     $eintraege[] = ['legacy_id' => $legacyId, 'aktion' => 'uebersprungen', 'grund' => 'Lead ist anonymisiert'];
                     continue;
                 }
-                $changes = self::diff($existing, $mapped['data']);
+                $compare = $mapped['data'];
+                if ($mapped['eingang_ersetzt']) {
+                    // Ersatzzeitpunkt ändert sich bei jedem Lauf, würde sonst jede Zeile als geändert melden
+                    $compare['created_at'] = $existing['created_at'];
+                }
+                $changes = self::diff($existing, $compare);
                 if ($changes === []) {
                     $zaehler['unveraendert']++;
                     $eintraege[] = ['legacy_id' => $legacyId, 'aktion' => 'unveraendert', 'grund' => null];

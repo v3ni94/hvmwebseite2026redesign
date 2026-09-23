@@ -15,6 +15,7 @@ use Hvm\Support\Config;
 use Hvm\Support\Container;
 use Hvm\Support\Log;
 use Hvm\Validation\BewerbungValidator;
+use Hvm\Validation\UploadValidator;
 use Hvm\View\PageMeta;
 use Hvm\View\View;
 use Throwable;
@@ -87,10 +88,12 @@ final class BewerbungController
         $spam = $this->spam->check($post, self::FORM, ['nachricht'], ['name']);
         $stellen = $this->stellen();
         $result = (new BewerbungValidator())->validate($post, $stellen);
-        $upload = $this->application()?->validateUpload($this->uploadedFile($request));
+        // Die Datei wird immer geprüft (auch ohne Datenbankverbindung): UploadValidator braucht keine
+        // Datenbank. Ob die Datei am Ende gespeichert werden kann, entscheidet erst store().
+        $upload = UploadValidator::validate($this->uploadedFile($request), ApplicationService::ALLOWED_MIME, 'pdf', ApplicationService::MAX_FILE_BYTES);
 
         if ($spam['status'] === 'spam') {
-            if ($result['valid'] && $upload !== null && $upload['ok']) {
+            if ($result['valid'] && $upload['ok']) {
                 $this->store($result['data'], $upload, $spam);
             } else {
                 $this->log->info('Bewerbungsformular: Spamverdacht mit ungültigen Daten verworfen', ['grund' => $spam['grund']]);
@@ -107,7 +110,7 @@ final class BewerbungController
         }
 
         $errors = $result['errors'];
-        if ($upload !== null && !$upload['ok']) {
+        if (!$upload['ok']) {
             $errors = BewerbungValidator::ordered($errors + ['datei' => (string) $upload['fehler']]);
         }
         if ($errors !== []) {

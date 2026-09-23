@@ -26,7 +26,11 @@
         </div>
         <div class="c-admin-kennzahl">
             <dt>Abschlussquote</dt>
-            <dd>{{ daten.abschluss.quote is null ? 'keine Angabe' : daten.abschluss.quote|number_format(1, ',', '.') ~ ' %' }}</dd>
+            {% if daten.abschluss.quote is null %}
+            <dd class="c-admin-kennzahl__text">noch keine abgeschlossenen Leads</dd>
+            {% else %}
+            <dd>{{ daten.abschluss.quote|number_format(1, ',', '.') }} %</dd>
+            {% endif %}
         </div>
     </dl>
     <p class="c-admin-hinweistext">
