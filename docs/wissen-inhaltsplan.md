@@ -74,3 +74,44 @@ fragen:
 ```
 
 Zielgruppen-Titel: weg-beirat „WEG und Beirat“, vermieter-investoren „Vermieter und Investoren“, mieter „Mieter“, kosten-vertrag „Kosten und Vertrag“.
+
+## 4. Erweiterung (Stand 23.09.2026)
+
+Neue Zielgruppe `verkauf-bewertung` (Titel „Verkauf und Bewertung“). FAQ-Datei `content/faq/verkauf-bewertung.yaml`.
+
+| Zielgruppe | Slug | Arbeitstitel | `leistung` | `cta` |
+|---|---|---|---|---|
+| weg-beirat | verwaltungsbeirat-aufgaben | Der Verwaltungsbeirat: Aufgaben und Zusammenarbeit | /weg-verwaltung/ | angebot |
+| weg-beirat | hausgeld | Das Hausgeld: Zusammensetzung und Zahlung | /weg-verwaltung/ | angebot |
+| weg-beirat | sonderumlage | Die Sonderumlage | /weg-verwaltung/ | angebot |
+| weg-beirat | bauliche-veraenderungen-weg | Bauliche Veränderungen in der WEG | /weg-verwaltung/ | angebot |
+| weg-beirat | erhaltung-planen-weg | Erhaltung des Gemeinschaftseigentums planen | /weg-verwaltung/ | angebot |
+| weg-beirat | teilungserklaerung-gemeinschaftsordnung | Teilungserklärung und Gemeinschaftsordnung | /weg-verwaltung/ | angebot |
+| weg-beirat | verkehrssicherungspflicht | Verkehrssicherungspflichten in Wohnanlagen | /weg-verwaltung/ | angebot |
+| weg-beirat | gebaeudeversicherung-weg | Versicherungen der Gemeinschaft | /weg-verwaltung/ | angebot |
+| weg-beirat | ladestationen-e-mobilitaet | Ladestationen und E-Mobilität in der WEG | /weg-verwaltung/ | angebot |
+| weg-beirat | online-eigentuemerversammlung | Online-Teilnahme und virtuelle Eigentümerversammlung | /weg-verwaltung/ | angebot |
+| vermieter-investoren | asset-management-immobilien | Asset Management für Wohnimmobilien | /asset-management/ | kontakt |
+| vermieter-investoren | property-asset-facility-management | Property, Asset und Facility Management: die Unterschiede | /asset-management/ | kontakt |
+| vermieter-investoren | instandhaltungsplanung-bestand | Instandhaltungsplanung für Bestandsimmobilien | /mietverwaltung/ | angebot |
+| vermieter-investoren | mieterhoehung-vergleichsmiete | Mieterhöhung bis zur ortsüblichen Vergleichsmiete | /mietverwaltung/ | angebot |
+| vermieter-investoren | index-staffelmiete | Indexmiete und Staffelmiete | /mietverwaltung/ | angebot |
+| vermieter-investoren | mietkaution | Die Mietkaution | /mietverwaltung/ | angebot |
+| vermieter-investoren | wohnungsuebergabe | Wohnungsübergabe und Übergabeprotokoll | /vermietung/ | kontakt |
+| vermieter-investoren | modernisierung-vermieter | Modernisierung im vermieteten Bestand | /mietverwaltung/ | angebot |
+| vermieter-investoren | co2-kostenaufteilung | CO2-Kostenaufteilung zwischen Vermieter und Mieter | /mietverwaltung/ | angebot |
+| vermieter-investoren | mietverwaltung-oder-se-verwaltung | Mietverwaltung oder SE-Verwaltung: was passt? | /se-verwaltung/ | angebot |
+| verkauf-bewertung | immobilie-verkaufen-ablauf | Eine Immobilie verkaufen: der Ablauf | /verkauf/ | kontakt |
+| verkauf-bewertung | unterlagen-immobilienverkauf | Unterlagen für den Immobilienverkauf | /verkauf/ | kontakt |
+| verkauf-bewertung | energieausweis | Der Energieausweis bei Verkauf und Vermietung | /verkauf/ | kontakt |
+| verkauf-bewertung | wertermittlung-verfahren | Verfahren der Wertermittlung | /wertgutachten/ | kontakt |
+| verkauf-bewertung | vermietete-wohnung-verkaufen | Eine vermietete Wohnung verkaufen | /verkauf/ | kontakt |
+| verkauf-bewertung | eigentumswohnung-kaufen-pruefen | Eigentumswohnung kaufen: Unterlagen der WEG prüfen | /verkauf/ | kontakt |
+| mieter | hausordnung | Die Hausordnung | /service/ | service |
+| mieter | rauchwarnmelder | Rauchwarnmelder in der Wohnung | /service/ | service |
+| mieter | schimmel-vermeiden | Feuchtigkeit und Schimmel vermeiden | /service/ | service |
+| mieter | auszug-wohnungsrueckgabe | Auszug und Rückgabe der Wohnung | /service/ | service |
+| kosten-vertrag | verwaltervertrag-inhalte | Der Verwaltervertrag: typische Inhalte | /weg-verwaltung/ | angebot |
+| kosten-vertrag | sonderleistungen-verwaltung | Grundleistungen und Sonderleistungen der Verwaltung | /weg-verwaltung/ | angebot |
+
+Leistungsseite `/asset-management/`: Entwurf, Leistung durch die Geschäftsführung zu bestätigen (`[Leistung Asset Management bestätigen]`).

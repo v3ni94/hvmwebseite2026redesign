@@ -36,7 +36,7 @@ final class Article
      */
     public static function zielgruppen(): array
     {
-        return ['weg-beirat', 'vermieter-investoren', 'mieter', 'kosten-vertrag'];
+        return ['weg-beirat', 'vermieter-investoren', 'verkauf-bewertung', 'mieter', 'kosten-vertrag'];
     }
 
     public static function zielgruppeLabel(string $zielgruppe): string
@@ -44,6 +44,7 @@ final class Article
         return match ($zielgruppe) {
             'weg-beirat' => 'WEG und Beirat',
             'vermieter-investoren' => 'Vermieter und Investoren',
+            'verkauf-bewertung' => 'Verkauf und Bewertung',
             'mieter' => 'Mieter',
             'kosten-vertrag' => 'Kosten und Vertrag',
             default => $zielgruppe,
