@@ -10,7 +10,7 @@ leistung: /weg-verwaltung/
 cta: angebot
 faq:
   - frage: "Habe ich als Eigentümer einen Anspruch auf eine Wallbox?"
-    antwort: "Jeder Wohnungseigentümer kann angemessene bauliche Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen. Über die Art der Durchführung entscheidet die Gemeinschaft durch Beschluss. Soweit Gemeinschaftseigentum betroffen ist, was praktisch fast immer der Fall ist, sollte vor dem Beschluss nicht installiert werden."
+    antwort: "Jeder Wohnungseigentümer kann angemessene bauliche Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen. Über die Art der Durchführung entscheidet die Gemeinschaft durch Beschluss. Da Leitungen und Anschluss praktisch immer Gemeinschaftseigentum berühren, ist vor der Installation in aller Regel ein Beschluss erforderlich."
   - frage: "Wer bezahlt die Ladestation?"
     antwort: "Grundsätzlich trägt der Eigentümer, der die Maßnahme verlangt, die Kosten der Errichtung und die Folgekosten. Beschließt die Gemeinschaft eine gemeinsame Ladeinfrastruktur, richtet sich die Kostenverteilung nach den gesetzlichen Regeln für bauliche Veränderungen und nach dem Beschluss."
   - frage: "Können auch Mieter eine Ladestation verlangen?"
