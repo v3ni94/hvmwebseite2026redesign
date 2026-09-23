@@ -1,9 +1,48 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Danke-Seite nach dem Absenden (PRG). Zeigt nächste Schritte, ohne personenbezogene Daten.
+  abschluss: {art_label, indikation} aus der Sitzung, nur direkt nach dem Absenden, sonst null.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/button.html.twig' as b %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Vielen Dank</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+<section class="c-seitenkopf c-seitenkopf--angebot">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss'} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Anfrage eingegangen') }}
+        <h1>Vielen Dank für Ihre Anfrage</h1>
+        <p class="c-seitenkopf__text">
+            {% if abschluss and abschluss.art_label %}Ihre Anfrage zur {{ abschluss.art_label }} ist bei uns eingegangen.{% else %}Ihre Anfrage ist bei uns eingegangen.{% endif %}
+            Eine Eingangsbestätigung senden wir an die angegebene E-Mail-Adresse.
+        </p>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt u-mt-0" aria-labelledby="naechste-schritte">
+    <div class="l-container">
+        <h2 id="naechste-schritte">Die nächsten Schritte</h2>
+        {{ tl.timeline([
+            {titel: 'Prüfung Ihrer Angaben', text: 'Wir sehen uns Ihre Angaben zum Objekt und zu Ihrem Anliegen an.'},
+            {titel: 'Rückmeldung', text: 'Wir melden uns bei Ihnen, um offene Fragen zu klären und einen Termin abzustimmen.'},
+            {titel: 'Besichtigung und Angebot', text: 'Nach einer Besichtigung des Objekts erhalten Sie ein individuelles Angebot.'},
+        ], {ebene: 3}) }}
+        <p class="c-angebot__antwortzeit">Mit einer Rückmeldung können Sie rechnen: {{ placeholder('Antwortzeit festlegen') }}</p>
+
+        {% if abschluss and abschluss.indikation is not null %}
+        <div class="c-angebot__indikation">
+            <p class="c-angebot__indikation-titel">Unverbindliche Indikation</p>
+            <p><span class="c-angebot__indikation-betrag">{{ betrag(abschluss.indikation) }}</span> netto je Monat für die angegebenen Einheiten.</p>
+            <p class="u-text-klein">Die Indikation ist unverbindlich. Sie erhalten ein individuelles Angebot nach Prüfung Ihrer Angaben.</p>
+        </div>
+        {% endif %}
+
+        <div class="l-cluster u-mt-7">
+            {{ b.button('Zur Startseite', '/', {variante: 'sekundaer'}) }}
+            {{ b.textlink('Wissen und FAQ', '/wissen/') }}
+        </div>
+    </div>
+</section>
 {% endblock %}

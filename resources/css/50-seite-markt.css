@@ -1,0 +1,84 @@
+/*
+ * Seitenspezifisches CSS für Vermietung, Verkauf, Wertgutachten, Referenzen und Betreuungsgebiete
+ * (Aufgabe „Markt“). Ausschließlich Ergänzungen, keine Änderungen an gemeinsamen Dateien.
+ * Deutschlandkarte (MP 5, Betreuungsgebiete): reines Inline-SVG, kein Bild, kein externer Aufruf.
+ */
+@layer components {
+    .c-karte-de {
+        display: grid;
+        gap: var(--abstand-8);
+        align-items: start;
+    }
+    @media (min-width: 64em) {
+        .c-karte-de { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    }
+
+    .c-karte-de__svg {
+        width: 100%;
+        max-width: 26rem;
+        height: auto;
+        justify-self: center;
+    }
+    .c-karte-de__umriss {
+        fill: var(--hvm-umriss);
+        stroke: var(--hvm-anthrazit);
+    }
+    .c-karte-de__punkt {
+        fill: var(--hvm-mittelgrau);
+        stroke: var(--hvm-weiss);
+        stroke-width: 1.5;
+    }
+    .c-karte-de__punkt--hauptsitz {
+        fill: var(--hvm-orange);
+    }
+
+    .c-karte-de__liste {
+        display: grid;
+        gap: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid var(--hvm-hellgrau);
+    }
+    .c-karte-de__eintrag {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: var(--abstand-4);
+        row-gap: var(--abstand-1);
+        align-items: baseline;
+        justify-content: space-between;
+        padding-block: var(--abstand-3);
+        border-bottom: 1px solid var(--hvm-hellgrau);
+    }
+    .c-karte-de__eintrag--hauptsitz { font-weight: var(--fw-halbfett); }
+    .c-karte-de__name {
+        font-size: var(--fs-text);
+    }
+    .c-karte-de__marke {
+        margin-left: var(--abstand-2);
+        font-size: var(--fs-klein);
+        font-weight: var(--fw-halbfett);
+        color: var(--hvm-ink);
+        background: var(--hvm-orange);
+        padding: 0.05em 0.5em;
+        white-space: nowrap;
+    }
+    .c-karte-de__status {
+        flex: 0 0 auto;
+        margin-left: auto;
+        font-size: var(--fs-klein);
+        /* Ink mit reduzierter Deckkraft (wie Platzhaltertext in Feldern, docs/designsystem.md 5.2),
+           nicht Anthrazit: dessen Kontrast auf Weiß (3,55) ist unter 24 px nicht ausreichend. */
+        color: color-mix(in srgb, var(--hvm-ink) 62%, transparent);
+        text-align: right;
+        max-width: 100%;
+    }
+    .c-karte-de__aktion {
+        flex-basis: 100%;
+        font-size: var(--fs-klein);
+    }
+    .c-karte-de__aktion a {
+        text-decoration-color: var(--hvm-orange);
+        text-decoration-thickness: 2px;
+    }
+}

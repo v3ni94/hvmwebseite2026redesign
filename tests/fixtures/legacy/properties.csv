@@ -1,0 +1,5 @@
+ID;Contact Gender;Contact First Name;Contact Last Name;Contact Telephone;Contact Email;Contact Street;Contact Zip;Contact City;management_start;Year of Construction;Street;Zip;City;Source;Created At;managementform_id;private_managementcost_id;commercial_managementcost_id;parking_managementcost_id
+101;Frau;Erika;Beispiel;0211 000000;erika.beispiel@example.org;;;;2024-03-01;1985;Musterweg 1;41061;Musterstadt;;2023-11-14 09:30:00;1;7;;
+102;Herr;Max;Muster;;max.muster@example.org;;;;03.2024;1970;Beispielallee 5;41063;Musterstadt;google;2023-12-01 14:05:00;9;;;
+103;m;Lena;Fiktiv;;keine-adresse;Testgasse 2;41065;Musterdorf;;19xx;Testgasse 2;41065;Musterdorf;;01.02.2024 08:00;2;;3;
+104;;;;;;;;;;;;;;;;1;;;

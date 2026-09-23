@@ -34,18 +34,23 @@
         "optimize-autoloader": true
     },
     "scripts": {
-        "build": "php bin/build-assets.php",
+        "build": [
+            "php bin/build-assets.php",
+            "php bin/build-og-images.php",
+            "php bin/build-search-index.php"
+        ],
         "test": "phpunit",
         "lint": [
             "for f in $(find src bin config -name '*.php'); do php -l \"$f\" > /dev/null || exit 1; done",
-            "php bin/lint-dashes.php"
+            "php bin/lint-dashes.php",
+            "php bin/check-placeholders.php --report"
         ],
         "migrate": "php bin/migrate.php"
     },
     "scripts-descriptions": {
-        "build": "CSS und JS aus resources/ nach public/assets/build/ bündeln",
+        "build": "CSS und JS aus resources/ bündeln, danach Open-Graph-Bilder erzeugen",
         "test": "PHPUnit ausführen",
-        "lint": "PHP-Syntaxprüfung und Gedankenstrich-Linter",
+        "lint": "PHP-Syntaxprüfung, Gedankenstrich-Linter und Platzhalter-Bericht",
         "migrate": "Datenbankmigrationen ausführen"
     }
 }

@@ -1,0 +1,22 @@
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'partials/forms/angebot/_felder.html.twig' as af %}
+<section class="c-angebot__schritt" id="schritt-4" data-schritt="4" data-titel="Kontakt" aria-labelledby="schritt-4-titel">
+    <h2 class="c-angebot__titel" id="schritt-4-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">4</span> Kontakt</h2>
+    <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+    {{ f.auswahl({name: 'anrede', label: 'Anrede', optional: true, leer: 'Bitte wählen', optionen: form.anreden, wert: form.werte.anrede|default(null), fehler: form.fehler.anrede|default(''), klasse: 'c-angebot__anrede'}) }}
+    <fieldset class="c-angebot__gruppe" aria-describedby="name-hinweis">
+        <legend class="c-auswahl__legende">Name</legend>
+        <p class="c-feld__hinweis" id="name-hinweis">Bitte mindestens Vor- oder Nachnamen angeben.</p>
+        <div class="c-formular__reihe c-formular__reihe--2">
+            {{ af.eingabe({name: 'vorname', label: 'Vorname', autocomplete: 'given-name', maxlaenge: form.max.vorname, wert: form.werte.vorname|default(''), fehler: form.fehler.vorname|default('')}) }}
+            {{ af.eingabe({name: 'nachname', label: 'Nachname', autocomplete: 'family-name', maxlaenge: form.max.nachname, wert: form.werte.nachname|default(''), fehler: form.fehler.nachname|default('')}) }}
+        </div>
+    </fieldset>
+    <div class="c-formular__reihe c-formular__reihe--2">
+        {{ af.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', pflicht: true, autocomplete: 'email', maxlaenge: 254, wert: form.werte.email|default(''), fehler: form.fehler.email|default(''), fehlertext: 'Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@example.org.'}) }}
+        {{ af.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', maxlaenge: 30, wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.'}) }}
+    </div>
+    {{ f.auswahl({name: 'rolle', label: 'Ihre Rolle', optional: true, leer: 'Bitte wählen', optionen: form.rollen, wert: form.werte.rolle|default(null), fehler: form.fehler.rolle|default('')}) }}
+    {{ f.textfeld({name: 'nachricht', label: 'Nachricht', optional: true, zeilen: 5, maxlaenge: form.max.nachricht, wert: form.werte.nachricht|default(''), hinweis: 'Zum Beispiel Besonderheiten des Objekts oder Fragen an uns.', fehler: form.fehler.nachricht|default('')}) }}
+    {{ af.navigation(4, form.schritte|length) }}
+</section>

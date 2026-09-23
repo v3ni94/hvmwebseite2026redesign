@@ -1,0 +1,16 @@
+{% autoescape false %}
+{{ anrede_zeile }}
+
+vielen Dank für Ihre Nachricht zum Anliegen "{{ anliegen_label }}". Ihre Angaben sind bei uns eingegangen.
+
+Wir prüfen Ihre Nachricht und melden uns bei Ihnen. Mit einer Rückmeldung können Sie rechnen: [Antwortzeit festlegen]
+
+Diese Nachricht bestätigt den Eingang Ihrer Anfrage. Möchten Sie Angaben ergänzen, schreiben Sie uns an {{ firma.email }}. Falls Sie diese Nachricht nicht gesendet haben, teilen Sie uns das bitte ebenfalls mit.
+
+Mit freundlichen Grüßen
+{{ firma.name }}
+
+Informationen zur Verarbeitung Ihrer Daten: {{ basis_url }}/datenschutz/
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

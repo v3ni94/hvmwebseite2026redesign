@@ -1,0 +1,29 @@
+{% autoescape false %}
+{{ anrede_zeile }}
+
+vielen Dank für Ihre Anfrage zur {{ art_label }}. Ihre Angaben sind bei uns eingegangen.
+
+Ihre Angaben zum Objekt
+Objekt:            {{ lead.object_street ? lead.object_street ~ ', ' : '' }}{{ lead.object_zip }} {{ lead.object_city }}
+Wohneinheiten:     {{ lead.units_residential }}
+Gewerbeeinheiten:  {{ lead.units_commercial }}
+{% if lead.units_parking > 0 %}Stellplätze:       {{ lead.units_parking }}
+{% endif %}{% if lead.management_start %}Gewünschter Beginn: {{ lead.management_start|date('m.Y') }}
+{% endif %}
+
+So geht es weiter
+1. Wir prüfen Ihre Angaben.
+2. Wir melden uns bei Ihnen, um offene Fragen zu klären. Antwortzeit: [Antwortzeit festlegen]
+3. Nach einer Besichtigung des Objekts erhalten Sie ein individuelles Angebot.
+
+Diese Nachricht bestätigt den Eingang Ihrer Anfrage. Ein Vertrag kommt dadurch nicht zustande.
+
+Möchten Sie Angaben ergänzen, schreiben Sie uns an {{ firma.email }}. Falls Sie diese Anfrage nicht gestellt haben, teilen Sie uns das bitte ebenfalls mit.
+
+Mit freundlichen Grüßen
+{{ firma.name }}
+
+Informationen zur Verarbeitung Ihrer Daten: {{ basis_url }}/datenschutz/
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

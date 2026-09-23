@@ -1,0 +1,32 @@
+{#
+  Danke-Seite nach dem Absenden des Kontaktformulars (PRG). abschluss: {anliegen_label} aus der
+  Sitzung, nur direkt nach dem Absenden, sonst null.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/button.html.twig' as b %}
+
+{% block content %}
+<section class="c-seitenkopf">
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Nachricht eingegangen') }}
+        <h1>Vielen Dank für Ihre Nachricht</h1>
+        <p class="c-seitenkopf__text">
+            {% if abschluss and abschluss.anliegen_label %}Ihre Nachricht zum Anliegen „{{ abschluss.anliegen_label }}“ ist bei uns eingegangen.{% else %}Ihre Nachricht ist bei uns eingegangen.{% endif %}
+            Eine Eingangsbestätigung senden wir an die angegebene E-Mail-Adresse.
+        </p>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt u-mt-0" aria-labelledby="naechste-schritte">
+    <div class="l-container">
+        <h2 id="naechste-schritte">Wie es weitergeht</h2>
+        <p>Wir prüfen Ihre Nachricht und melden uns bei Ihnen. Mit einer Rückmeldung können Sie rechnen: {{ placeholder('Antwortzeit festlegen') }}</p>
+        <div class="l-cluster u-mt-7">
+            {{ b.button('Zur Startseite', '/', {variante: 'sekundaer'}) }}
+            {{ b.textlink('Wissen und FAQ', '/wissen/') }}
+        </div>
+    </div>
+</section>
+{% endblock %}

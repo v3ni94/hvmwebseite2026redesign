@@ -1,0 +1,16 @@
+{% autoescape false %}
+{{ anrede_zeile }}
+
+vielen Dank für Ihre Bewerbung{% if bewerbung.stelle %} als {{ bewerbung.stelle }}{% endif %}. Ihre Unterlagen sind bei uns eingegangen.
+
+Wir sichten Ihre Unterlagen und melden uns bei Ihnen. Mit einer Rückmeldung können Sie rechnen: [Antwortzeit festlegen]
+
+Diese Nachricht bestätigt den Eingang Ihrer Bewerbung. Bei Fragen schreiben Sie uns an {{ firma.email }}. Falls Sie diese Bewerbung nicht gesendet haben, teilen Sie uns das bitte ebenfalls mit.
+
+Mit freundlichen Grüßen
+{{ firma.name }}
+
+Informationen zur Verarbeitung Ihrer Daten: {{ basis_url }}/datenschutz/
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

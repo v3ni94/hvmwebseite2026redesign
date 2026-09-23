@@ -1,0 +1,26 @@
+{#
+  Immobilienangebote (MP Abschnitt 5, Bestandsaufnahme Abschnitt 3.4, 3.5 und 7).
+  Die alte Anbindung an ein externes Maklersystem (vermutlich FLOWFACT, zu verifizieren) wird nicht
+  nachgebaut. Aktuelle Angebote werden nicht manuell im Template gepflegt: Format und Anzahl der
+  Altseite sind nicht belastbar und würden bei jeder Änderung im Maklersystem veralten.
+  Parameter: typ ('miete' oder 'kauf'), id (Anker-ID der Sektion).
+  {% include 'partials/immobilienangebote.html.twig' with {typ: 'miete', id: 'angebote-titel'} only %}
+#}
+{%- import 'components/section-head.html.twig' as sh -%}
+{%- import 'components/placeholder.html.twig' as ph -%}
+{%- set eyebrow = typ == 'kauf' ? 'Kaufangebote' : 'Mietangebote' -%}
+{%- set titel = typ == 'kauf' ? 'Aktuelle *Kaufangebote*' : 'Aktuelle *Mietangebote*' -%}
+<section class="l-section l-section--flaeche" aria-labelledby="{{ id|default('immobilienangebote-titel') }}">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: eyebrow,
+            titel: titel,
+            text: 'Die Anbindung an das Maklersystem der Hausverwaltung Müller GmbH folgt. Bis dahin erscheinen an dieser Stelle keine nachgebauten oder veralteten Einträge.',
+            id: id|default('immobilienangebote-titel'),
+        }) }}
+        {{ ph.block('Immobilienangebote folgen in Kürze', 'Datenquelle Immobilienangebote klären', {
+            erklaerung: 'Anbindung an das bestehende Maklersystem ist vorgesehen, aber noch nicht eingerichtet. Einzelne Objekte werden hier nicht von Hand nachgetragen.',
+            immer: true,
+        }) }}
+    </div>
+</section>

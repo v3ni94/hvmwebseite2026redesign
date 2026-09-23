@@ -1,0 +1,15 @@
+{#
+  Fehlerzusammenfassung oben im Formular (serverseitige Prüfung). Sprunglinks auf die Felder.
+  Erwartet: form.fehlerliste (Liste {id, text}).
+#}
+{% if form.fehlerliste|length > 0 %}
+<div class="c-fehlerliste" id="fehlerliste" role="alert" tabindex="-1" aria-labelledby="fehlerliste-titel" autofocus data-fehlerliste>
+    <h2 class="c-fehlerliste__titel" id="fehlerliste-titel">Bitte prüfen Sie Ihre Angaben</h2>
+    <p>{{ form.fehlerliste|length == 1 ? 'Eine Angabe fehlt oder ist unvollständig.' : form.fehlerliste|length ~ ' Angaben fehlen oder sind unvollständig.' }}</p>
+    <ul class="c-fehlerliste__liste">
+        {% for eintrag in form.fehlerliste %}
+        <li><a href="#{{ eintrag.id }}" data-schritt-ziel="{{ eintrag.schritt }}">{{ eintrag.text }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

@@ -21,6 +21,11 @@ final class SchemaBuilder
         return $this->baseUrl() . '/#organisation';
     }
 
+    public function websiteId(): string
+    {
+        return $this->baseUrl() . '/#website';
+    }
+
     private function baseUrl(): string
     {
         return rtrim((string) $this->config->get('app.url', ''), '/');
@@ -35,18 +40,21 @@ final class SchemaBuilder
         $schemas = [];
         if ($page['slug'] === 'start') {
             $schemas[] = $this->organization();
+            $schemas[] = $this->website();
         }
 
         if ($type === 'Service') {
-            $schemas[] = [
+            $schemas[] = self::withoutNulls([
                 '@context' => 'https://schema.org',
                 '@type' => 'Service',
                 'name' => $page['breadcrumbs'] !== [] ? end($page['breadcrumbs'])['label'] : $page['title'],
                 'description' => $page['description'],
                 'url' => $page['canonical'],
                 'provider' => ['@id' => $this->organizationId()],
-                'areaServed' => ['@type' => 'Country', 'name' => 'Deutschland'],
-            ];
+                // areaServed nur mit bestätigten Regionen (config/standorte.php, status 'eigene_praesenz' oder
+                // 'partner', verifiziert true). Aktuell ist nur der Hauptsitz bestätigt, keine Servicegebiete.
+                'areaServed' => $this->confirmedAreaServed(),
+            ]);
         } elseif ($type !== '' && $type !== 'none') {
             $schemas[] = [
                 '@context' => 'https://schema.org',
@@ -98,11 +106,111 @@ final class SchemaBuilder
                 array_values((array) ($firma['mitgliedschaften'] ?? []))
             ),
         ];
-        if (is_file((string) $this->config->get('app.base_path') . '/public/assets/img/logo.svg')) {
-            $schema['logo'] = $this->baseUrl() . '/assets/img/logo.svg';
+        if (is_file((string) $this->config->get('app.base_path') . '/public/assets/img/logo/hvm-logo.svg')) {
+            $schema['logo'] = $this->baseUrl() . '/assets/img/logo/hvm-logo.svg';
         }
 
         return self::withoutNulls($schema);
+    }
+
+    /**
+     * WebSite-Entität, referenziert von den übrigen Seiten über isPartOf.
+     * Ohne SearchAction: die Suche ist rein clientseitig (Architektur Abschnitt 1) und liefert keine
+     * eigene Ergebnis-URL, die Google als Sitelinks-Suchbox anzeigen könnte.
+     *
+     * @return array<string, mixed>
+     */
+    public function website(): array
+    {
+        return self::withoutNulls([
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            '@id' => $this->websiteId(),
+            'name' => (string) $this->config->get('unternehmen.name', ''),
+            'url' => $this->baseUrl() . '/',
+            'inLanguage' => 'de-DE',
+            'publisher' => ['@id' => $this->organizationId()],
+        ]);
+    }
+
+    /**
+     * Bestätigte Servicegebiete aus config/standorte.php (status 'eigene_praesenz' oder 'partner',
+     * verifiziert true), ohne den Hauptsitz selbst (der steht bereits in der Anschrift). Leere Liste,
+     * solange keine weitere Region bestätigt ist: dann wird areaServed weggelassen, nie geraten.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private function confirmedAreaServed(): array
+    {
+        $orte = [];
+        foreach ($this->config->array('standorte') as $standort) {
+            $status = $standort['status'] ?? null;
+            $verifiziert = $standort['verifiziert'] ?? false;
+            $hauptsitz = $standort['hauptsitz'] ?? false;
+            if ($hauptsitz || $verifiziert !== true || !in_array($status, ['eigene_praesenz', 'partner'], true)) {
+                continue;
+            }
+            $orte[] = ['@type' => 'City', 'name' => (string) ($standort['name'] ?? '')];
+        }
+
+        return $orte;
+    }
+
+    /**
+     * FAQPage aus einer Liste von Fragen und Antworten. Wiederverwendbar für Wissensartikel und die
+     * FAQ-Seite (`/wissen/`); Antworttext als reiner Text ohne HTML.
+     *
+     * @param list<array{frage: string, antwort: string}> $fragen
+     * @return array<string, mixed>
+     */
+    public function faqPage(array $fragen, string $url): array
+    {
+        return self::withoutNulls([
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'url' => $url,
+            'mainEntity' => array_map(
+                static fn (array $f): array => [
+                    '@type' => 'Question',
+                    'name' => $f['frage'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['antwort']],
+                ],
+                $fragen
+            ),
+        ]);
+    }
+
+    /**
+     * Article aus den Frontmatter-Feldern eines Wissensartikels. Nur belegte Angaben: fehlt ein Datum
+     * oder ein Autor, bleibt das Feld weg statt geraten zu werden.
+     *
+     * @param array{titel: string, beschreibung?: string, url: string, stand?: string, autor?: string, bild?: string} $artikel
+     * @return array<string, mixed>
+     */
+    public function article(array $artikel): array
+    {
+        $bild = $artikel['bild'] ?? null;
+
+        return self::withoutNulls([
+            '@context' => 'https://schema.org',
+            '@type' => 'Article',
+            'headline' => $artikel['titel'],
+            'description' => $artikel['beschreibung'] ?? null,
+            'url' => $artikel['url'],
+            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $artikel['url']],
+            'inLanguage' => 'de-DE',
+            'dateModified' => isset($artikel['stand']) ? self::isoDate($artikel['stand']) : null,
+            'datePublished' => isset($artikel['stand']) ? self::isoDate($artikel['stand']) : null,
+            'author' => isset($artikel['autor']) ? ['@type' => 'Organization', 'name' => $artikel['autor']] : ['@id' => $this->organizationId()],
+            'publisher' => ['@id' => $this->organizationId()],
+            'image' => $bild !== null ? $this->baseUrl() . $bild : null,
+            'isPartOf' => ['@type' => 'WebSite', '@id' => $this->websiteId()],
+        ]);
+    }
+
+    private static function isoDate(string $value): ?string
+    {
+        return preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) ? $value . 'T00:00:00+01:00' : null;
     }
 
     /**

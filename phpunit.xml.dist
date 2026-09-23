@@ -15,7 +15,10 @@
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
         </testsuite>
-        <!-- Integration (MariaDB hvm_test) wird ergänzt, sobald tests/Integration existiert -->
+        <!-- Integration gegen MariaDB (DB_TEST_*, Datenbank hvm_test). Ohne erreichbare Testdatenbank werden die Tests übersprungen. -->
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>

@@ -1,0 +1,27 @@
+{#
+  Verwandte Artikel derselben Zielgruppe (Hvm\Content\WissenRepository::verwandte()).
+  {% include 'partials/wissen/verwandte-artikel.html.twig' with {verwandte: verwandte} only %}
+#}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/section-head.html.twig' as sh %}
+{% if verwandte|length > 0 %}
+<section class="l-section l-section--kompakt l-section--flaeche" aria-labelledby="verwandte-titel">
+    <div class="l-container">
+        {{ sh.section_head({eyebrow: 'Weiterlesen', titel: 'Verwandte *Beiträge*', ebene: 2, id: 'verwandte-titel'}) }}
+        <div class="c-karten c-karten--4">
+            {% for artikel in verwandte %}
+            {{ c.card({
+                titel: artikel.titel,
+                text: artikel.beschreibung,
+                url: '/wissen/' ~ artikel.slug ~ '/',
+                ton: 'w',
+                eyebrow: artikel.istEntwurf ? 'Entwurf, nicht freigegeben',
+                fuss: 'Beitrag lesen',
+                klasse: 'c-karte--kompakt',
+                ebene: 3,
+            }) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

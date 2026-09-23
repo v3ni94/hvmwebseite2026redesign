@@ -1,0 +1,117 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+
+{% block content %}
+{% set spalten = [
+    {schluessel: 'eingang', label: 'Eingang'},
+    {schluessel: null, label: 'Name'},
+    {schluessel: 'art', label: 'Verwaltungsart'},
+    {schluessel: 'plz', label: 'Objekt'},
+    {schluessel: 'einheiten', label: 'Einheiten'},
+    {schluessel: 'quelle', label: 'Quelle'},
+    {schluessel: 'status', label: 'Status'},
+    {schluessel: null, label: 'Zugewiesen'},
+] %}
+{% set basis_query = query_basis|url_encode %}
+{% set listen_url = '/admin/leads/' ~ (basis_query ? '?' ~ basis_query : '') ~ (liste.seite > 1 ? (basis_query ? '&' : '?') ~ 'seite=' ~ liste.seite : '') %}
+
+<section class="c-admin-abschnitt" aria-labelledby="titel-leads">
+    <div class="c-admin-kopfzeile">
+        <h1 id="titel-leads" class="c-admin-titel">Leads</h1>
+        <a class="c-button c-button--sekundaer c-button--klein" href="/admin/leads/export.csv{{ basis_query ? '?' ~ basis_query }}" download>CSV-Export der gefilterten Liste</a>
+    </div>
+
+    <form class="c-admin-filter" method="get" action="/admin/leads/" role="search" aria-label="Leads filtern">
+        {% set status_optionen = [{wert: 'alle', label: 'Alle einschließlich Spam'}] %}
+        {% for wert, label in optionen.status %}{% set status_optionen = status_optionen|merge([{wert: wert, label: label}]) %}{% endfor %}
+        {{ f.auswahl({name: 'status', id: 'filter-status', label: 'Status', wert: filter.status, leer: 'Alle außer Spam', optionen: status_optionen}) }}
+
+        {% set art_optionen = [] %}
+        {% for wert, label in optionen.arten %}{% set art_optionen = art_optionen|merge([{wert: wert, label: label}]) %}{% endfor %}
+        {{ f.auswahl({name: 'art', id: 'filter-art', label: 'Verwaltungsart', wert: filter.art, leer: 'Alle', optionen: art_optionen}) }}
+
+        {{ f.eingabe({name: 'region', id: 'filter-region', label: 'Region', wert: filter.region, hinweis: 'PLZ-Anfang (z. B. 41) oder Ort'}) }}
+
+        {% set quellen_optionen = [{wert: '(ohne)', label: 'ohne Angabe'}] %}
+        {% for q in optionen.quellen %}{% set quellen_optionen = quellen_optionen|merge([{wert: q, label: optionen.quellen_labels[q]|default(q)}]) %}{% endfor %}
+        {{ f.auswahl({name: 'quelle', id: 'filter-quelle', label: 'Quelle', wert: filter.quelle, leer: 'Alle', optionen: quellen_optionen}) }}
+
+        {{ f.eingabe({name: 'von', id: 'filter-von', label: 'Eingang von', typ: 'date', wert: filter.von}) }}
+        {{ f.eingabe({name: 'bis', id: 'filter-bis', label: 'Eingang bis', typ: 'date', wert: filter.bis}) }}
+
+        {% if filter.sort != 'eingang' %}<input type="hidden" name="sort" value="{{ filter.sort }}">{% endif %}
+        {% if filter.richtung != 'desc' %}<input type="hidden" name="richtung" value="{{ filter.richtung }}">{% endif %}
+        <div class="c-admin-filter__aktionen">
+            <button class="c-button c-button--primaer c-button--klein" type="submit">Filtern</button>
+            <a class="c-admin-link" href="/admin/leads/">Filter zurücksetzen</a>
+        </div>
+    </form>
+
+    <p class="c-admin-ergebnis" role="status">
+        {{ liste.total }} {{ liste.total == 1 ? 'Lead' : 'Leads' }}{% if liste.seiten > 1 %}, Seite {{ liste.seite }} von {{ liste.seiten }}{% endif %}.
+    </p>
+
+    <div class="c-tabelle-rahmen" role="region" tabindex="0" aria-labelledby="titel-leads">
+        <table class="c-tabelle c-admin-liste">
+            <caption class="u-visually-hidden">Leads, sortiert nach {{ (spalten|filter(s => s.schluessel == filter.sort)|first).label|default('Eingang') }} {{ filter.richtung == 'asc' ? 'aufsteigend' : 'absteigend' }}</caption>
+            <thead>
+                <tr>
+                    {% for s in spalten %}
+                    {% if s.schluessel %}
+                        {% set aktiv = filter.sort == s.schluessel %}
+                        {% set richtung = aktiv and filter.richtung == 'desc' ? 'asc' : (aktiv ? 'desc' : (s.schluessel in ['eingang', 'einheiten'] ? 'desc' : 'asc')) %}
+                        {% set q = query_filter|merge({sort: s.schluessel, richtung: richtung})|url_encode %}
+                        <th scope="col"{% if aktiv %} aria-sort="{{ filter.richtung == 'asc' ? 'ascending' : 'descending' }}"{% endif %}>
+                            <a class="c-admin-sortierung{{ aktiv ? ' is-aktiv' }}" href="/admin/leads/?{{ q }}">{{ s.label }}<span class="c-admin-sortierung__pfeil" aria-hidden="true">{{ aktiv ? (filter.richtung == 'asc' ? '▲' : '▼') : '' }}</span><span class="u-visually-hidden">, sortieren {{ richtung == 'asc' ? 'aufsteigend' : 'absteigend' }}</span></a>
+                        </th>
+                    {% else %}
+                        <th scope="col">{{ s.label }}</th>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in liste.rows %}
+                <tr>
+                    <td class="c-admin-liste__datum">{{ (l.created_at ~ ' UTC')|date('d.m.Y H:i', 'Europe/Berlin') }}</td>
+                    <td>
+                        <a class="c-admin-link" href="/admin/leads/{{ l.uuid }}/?{{ {zurueck: listen_url}|url_encode }}">
+                            {%- if l.anonymized_at -%}
+                                anonymisiert
+                            {%- else -%}
+                                {{ [l.contact_first_name, l.contact_last_name]|filter(v => v)|join(' ')|default('ohne Namen') }}
+                            {%- endif -%}
+                        </a>
+                        {% if l.legacy_id %}<span class="c-admin-marke">Altbestand</span>{% endif %}
+                    </td>
+                    <td>{{ optionen.arten[l.management_form]|default(l.management_form) }}</td>
+                    <td>{{ [l.object_zip, l.object_city]|filter(v => v)|join(' ')|default('keine Angabe') }}</td>
+                    <td class="is-zahl">{{ l.units_residential + l.units_commercial }}{% if l.units_parking %}<span class="c-admin-klein"> + {{ l.units_parking }} St.</span>{% endif %}</td>
+                    <td>{{ l.source ? optionen.quellen_labels[l.source]|default(l.source) : 'ohne Angabe' }}</td>
+                    <td><span class="c-admin-status c-admin-status--{{ l.status }}">{{ optionen.status[l.status]|default(l.status) }}</span></td>
+                    <td>{{ l.assigned_to_email|default('') ?: 'niemand' }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="{{ spalten|length }}">Keine Leads für diese Filter.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if liste.seiten > 1 %}
+    <nav class="c-admin-seiten" aria-label="Seiten">
+        <ul role="list">
+            {% if liste.seite > 1 %}
+            <li><a href="/admin/leads/?{{ query_basis|merge({seite: liste.seite - 1})|url_encode }}" rel="prev">Vorherige Seite</a></li>
+            {% endif %}
+            {% for s in max(1, liste.seite - 2)..min(liste.seiten, liste.seite + 2) %}
+            <li>{% if s == liste.seite %}<span aria-current="page">{{ s }}</span>{% else %}<a href="/admin/leads/?{{ query_basis|merge({seite: s})|url_encode }}"><span class="u-visually-hidden">Seite </span>{{ s }}</a>{% endif %}</li>
+            {% endfor %}
+            {% if liste.seite < liste.seiten %}
+            <li><a href="/admin/leads/?{{ query_basis|merge({seite: liste.seite + 1})|url_encode }}" rel="next">Nächste Seite</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% autoescape false %}
+NEUE KONTAKTANFRAGE
+{{ anliegen_label }}
+
+Anliegen:  {{ anliegen_label }}
+Quelle:    {{ anfrage.source ?: 'unbekannt' }}
+Eingang:   {{ datum(eingang) }}, {{ eingang|date('H:i', 'Europe/Berlin') }} Uhr
+Kennung:   {{ anfrage.uuid }}
+
+Name, Kontaktdaten und Nachricht stehen aus Datenschutzgründen nur im Admin-Bereich.
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

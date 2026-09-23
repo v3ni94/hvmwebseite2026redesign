@@ -1,0 +1,14 @@
+{
+  "name": "hvm-website-e2e",
+  "private": true,
+  "description": "Playwright-Prüfwerkzeuge für die Webseite der Hausverwaltung Müller GmbH (muellerhv.de). PHP-Anwendung selbst ohne Node-Abhängigkeit.",
+  "scripts": {
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.56.1"
+  }
+}

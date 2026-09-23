@@ -1,0 +1,65 @@
+/*
+ * Seitenspezifisches CSS für /wissen/ und /wissen/{slug}/ (Wissen und FAQ, MP Abschnitt 7).
+ * Nutzt ausschließlich Tokens aus 00-tokens.css und Komponenten aus 20-komponenten.css /
+ * 21-inhalte.css (c-karte, c-faq, c-hinweis, c-prosa, c-suche, c-fortschritt). Keine neuen Farben.
+ */
+@layer components {
+    /* Zielgruppen-Filter auf /wissen/ (echte Links, funktionieren ohne JavaScript) */
+    .c-wissen-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--abstand-2);
+        margin-top: var(--abstand-4);
+    }
+    .c-wissen-filter__link {
+        padding: var(--abstand-2) var(--abstand-4);
+        border: 1px solid var(--hvm-hellgrau);
+        border-radius: var(--radius-2);
+        font-size: var(--fs-klein);
+        font-weight: var(--fw-halbfett);
+        text-decoration: none;
+        color: var(--hvm-ink);
+    }
+    .c-wissen-filter__link:hover { border-color: var(--hvm-anthrazit); }
+    .c-wissen-filter__link[aria-current="page"] {
+        background: var(--hvm-ink);
+        border-color: var(--hvm-ink);
+        color: var(--hvm-weiss);
+    }
+
+    /* Live-Suchergebnisse (resources/js/search.js), ersetzt die Abschnitte solange gesucht wird */
+    .c-suche-live__liste { list-style: none; padding: 0; margin-top: var(--abstand-5); display: grid; gap: var(--abstand-4); }
+    .c-suche-live__eintrag { padding-block: var(--abstand-4); border-top: 1px solid var(--hvm-hellgrau); }
+    .c-suche-live__eintrag a { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--abstand-3); text-decoration-color: var(--hvm-orange); }
+    .c-suche-live__titel { font-weight: var(--fw-halbfett); }
+    .c-suche-live__zielgruppe { font-size: var(--fs-klein); color: var(--hvm-anthrazit); }
+    .c-suche-live__eintrag p { margin-top: var(--abstand-1); font-size: var(--fs-klein); }
+    .c-suche-live__leer { margin-top: var(--abstand-5); }
+
+    .c-wissen-keine-treffer { color: var(--hvm-anthrazit); }
+    .c-wissen-faq-titel { font-size: var(--fs-h3); font-weight: var(--fw-normal); margin: var(--abstand-7) 0 var(--abstand-4); }
+
+    /* Artikelkopf: Zielgruppe, Stand, Autor */
+    .c-artikel-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--abstand-2);
+        color: var(--hvm-ink);
+        font-size: var(--fs-klein);
+    }
+
+    /* Inhaltsverzeichnis (nur ab mehr als drei H2-Abschnitten) */
+    .c-inhaltsverzeichnis {
+        margin: var(--abstand-6) 0;
+        padding: var(--abstand-5);
+        background: var(--hvm-umriss);
+        max-width: var(--zeilenlaenge);
+    }
+    .c-inhaltsverzeichnis__titel { font-weight: var(--fw-halbfett); margin-bottom: var(--abstand-3); }
+    .c-inhaltsverzeichnis ol { list-style: decimal; padding-left: 1.25em; margin: 0; }
+    .c-inhaltsverzeichnis li + li { margin-top: var(--abstand-2); }
+    .c-inhaltsverzeichnis a[aria-current="location"] { font-weight: var(--fw-halbfett); text-decoration-thickness: 2px; }
+
+    .c-artikel-weiterfuehrend { margin-top: var(--abstand-6); }
+    .c-artikel-seite { position: sticky; top: calc(var(--header-h) + var(--abstand-6)); align-self: start; }
+}

@@ -1,0 +1,25 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+
+{% block body_class %}c-admin--anmeldung{% endblock %}
+
+{% block content %}
+<section class="c-admin-anmeldung" aria-labelledby="titel-anmeldung">
+    <h1 id="titel-anmeldung" class="c-admin-titel">Anmeldung</h1>
+    <p class="c-admin-anmeldung__text">Interner Bereich der {{ firma.name }}. Die Anmeldung erfolgt in zwei Schritten: Passwort und Bestätigungscode aus der Authenticator-App.</p>
+
+    {% if hinweis %}
+    <div class="c-admin-meldung c-admin-meldung--info" role="status"><p>{{ hinweis }}</p></div>
+    {% endif %}
+    {% if fehler %}
+    <div class="c-admin-meldung c-admin-meldung--fehler" role="alert" id="anmeldung-fehler"><p>{{ fehler }}</p></div>
+    {% endif %}
+
+    <form class="c-admin-formular" method="post" action="/admin/login/" novalidate{% if fehler %} aria-describedby="anmeldung-fehler"{% endif %}>
+        {{ csrf_field() }}
+        {{ f.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', wert: email, pflicht: true, autocomplete: 'username'}) }}
+        {{ f.eingabe({name: 'passwort', label: 'Passwort', typ: 'password', pflicht: true, autocomplete: 'current-password'}) }}
+        <button class="c-button c-button--primaer" type="submit">Weiter</button>
+    </form>
+</section>
+{% endblock %}

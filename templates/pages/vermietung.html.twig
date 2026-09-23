@@ -1,9 +1,94 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Vermietung: Leistung der Hausverwaltung Müller GmbH für Eigentümer bei der Neuvermietung
+  (nicht Ratgeber für Selbstvermieter). Grundlage: MP Abschnitt 5, 3.7, 8; Bestandsaufnahme 3.4, 7.
+  Alle Texte sind Entwürfe, keine Rechtsberatung. Keine Aussagen zu Provisionen oder Kosten.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Vermietung Ihrer Immobilie im Auftrag als Eigentümer: von der Vermarktung bis zur Übergabe an die neuen Mieterinnen und Mieter. Die Hausverwaltung Müller GmbH übernimmt den Prozess, Sie erhalten ein besetztes Mietverhältnis.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Vermietung</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Eigentümer*, die vermieten möchten',
+            text: 'Die Leistung richtet sich an Eigentümer leerstehender oder frei werdender Wohn- und Gewerbeeinheiten, die die Neuvermietung an die Hausverwaltung Müller GmbH übergeben möchten. Läuft bereits ein Mietverhältnis, ist die laufende Betreuung Teil der Mietverwaltung.',
+            id: 'fuer-wen-titel',
+            geteilt: true,
+            aktion: {label: 'Zur Mietverwaltung', url: '/mietverwaltung/'},
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ablauf',
+            titel: 'So läuft die *Vermietung*',
+            text: 'Von der ersten Vermarktung bis zur dokumentierten Übergabe an die neuen Mieterinnen und Mieter.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Vermarktung und Exposé', text: 'Erstellung eines Exposés und Veröffentlichung der Einheit über die üblichen Vermarktungswege.'},
+            {titel: 'Besichtigungen', text: 'Koordination und Durchführung der Besichtigungstermine mit Interessenten.'},
+            {titel: 'Mieterauswahl', text: 'Auswahl nach klaren, nachvollziehbaren Kriterien aus den eingegangenen Bewerbungen.'},
+            {titel: 'Bonitätsprüfung', text: 'Prüfung der Bonität im rechtlich zulässigen Rahmen vor Vertragsabschluss.'},
+            {titel: 'Mietvertrag', text: 'Erstellung und Abschluss des Mietvertrags mit den ausgewählten Mieterinnen und Mietern.'},
+            {titel: 'Übergabe mit Protokoll', text: 'Übergabe der Mieteinheit, dokumentiert in einem Übergabeprotokoll.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Was diese Seite *nicht* ist',
+            id: 'abgrenzung-titel',
+        }) }}
+        {{ n.hinweis('Kein Ratgeber für Selbstvermieter', 'Diese Seite beschreibt die Leistung der Hausverwaltung Müller GmbH für Eigentümer, die die Vermietung beauftragen, nicht eine Anleitung zur Selbstvermietung. Angaben zu Vergütung und Kosten richten sich nach dem Einzelfall und werden hier bewusst nicht genannt. Die laufende Betreuung nach Einzug ist Teil der Mietverwaltung.') }}
+    </div>
+</section>
+
+{% include 'partials/immobilienangebote.html.twig' with {typ: 'miete', id: 'angebote-titel'} only %}
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Nach welchen Kriterien wählen Sie Mieterinnen und Mieter aus?', antwort: 'Die Auswahl erfolgt nach klaren, nachvollziehbaren Kriterien, unter anderem der geprüften Bonität. Details stimmen wir bei Beauftragung mit Ihnen ab.'},
+            {frage: 'Übernehmen Sie auch die laufende Verwaltung nach der Vermietung?', antwort: 'Die laufende Betreuung des Mietverhältnisses ist Teil der gesonderten Leistung Mietverwaltung, die Sie zusätzlich beauftragen können.'},
+            {frage: 'Was kostet die Vermietung durch die Hausverwaltung Müller GmbH?', antwort: 'Die Vergütung richtet sich nach Objekt und Umfang der Beauftragung. Sie erhalten ein individuelles Angebot auf Anfrage.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: '*Vermietung* beauftragen',
+    text: 'Schildern Sie uns Ihre Immobilie, wir melden uns mit dem weiteren Vorgehen.',
+    primaer: {label: 'Vermietung beauftragen', url: cta_url('/kontakt/', {anliegen: 'vermietung'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

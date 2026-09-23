@@ -1,0 +1,80 @@
+{#
+  Bewerbungsformular (MP 6.3, Karriere), eigenständiges Partial: benötigt nur die Variable "form", die
+  von Hvm\Controller\BewerbungController bereitgestellt wird (GET und POST /karriere/bewerbung/). Wer
+  eine andere Seite (z. B. /karriere/) um dieses Formular ergänzen möchte, kann es nur dann per
+  {% include %} einbinden, wenn diese Seite ebenfalls über den BewerbungController gerendert wird
+  (Formularvorbelegung, CSRF-Token und Zeitfalle stammen von dort). "form.enctype" ist immer
+  "multipart/form-data" (Datei-Upload) und muss am <form>-Element gesetzt werden.
+#}
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'components/notice.html.twig' as n %}
+
+{% if form.hinweis %}
+<div class="c-formular__meldung" role="alert">
+    {{ n.hinweis(form.hinweis.titel, form.hinweis.text, {typ: 'warnung'}) }}
+</div>
+{% endif %}
+
+{% if form.fehlerliste|length > 0 %}
+<div class="c-fehlerliste" id="bewerbung-fehlerliste" role="alert" tabindex="-1" aria-labelledby="bewerbung-fehlerliste-titel" autofocus>
+    <h2 class="c-fehlerliste__titel" id="bewerbung-fehlerliste-titel">Bitte prüfen Sie Ihre Angaben</h2>
+    <p>{{ form.fehlerliste|length == 1 ? 'Eine Angabe fehlt oder ist unvollständig.' : form.fehlerliste|length ~ ' Angaben fehlen oder sind unvollständig.' }}</p>
+    <ul class="c-fehlerliste__liste">
+        {% for eintrag in form.fehlerliste %}
+        <li><a href="#{{ eintrag.id }}">{{ eintrag.text }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form class="c-formular c-bewerbung__formular" action="{{ form.aktion }}" method="post" enctype="multipart/form-data" novalidate>
+    {{ csrf_field() }}
+    <input type="hidden" name="{{ form.token_feld }}" value="{{ form.token }}">
+    <div class="c-formular__hp" aria-hidden="true">
+        <label for="feld-{{ form.honeypot_feld }}">Dieses Feld bitte leer lassen</label>
+        <input type="text" id="feld-{{ form.honeypot_feld }}" name="{{ form.honeypot_feld }}" value="" tabindex="-1" autocomplete="off">
+    </div>
+
+    <p class="c-formular__pflicht u-text-klein">Pflichtangaben sind mit „(Pflichtfeld)“ gekennzeichnet.</p>
+
+    {% if form.stellen|length > 0 %}
+    {{ f.auswahl({name: 'stelle', label: 'Gewünschte Stelle', optional: true, leer: 'Initiativbewerbung (keine Stelle ausgewählt)', optionen: form.stellen|map(s => {wert: s.slug, label: s.titel}), wert: form.werte.stelle|default(null), fehler: form.fehler.stelle|default('')}) }}
+    {% else %}
+    {{ f.eingabe({name: 'stelle', label: 'Gewünschte Stelle', optional: true, maxlaenge: form.max.stelle, wert: form.werte.stelle|default(''), hinweis: 'Zurzeit sind keine Stellen ausgeschrieben. Initiativbewerbungen sind willkommen.', fehler: form.fehler.stelle|default('')}) }}
+    {% endif %}
+
+    <div class="c-formular__reihe c-formular__reihe--2">
+        {{ f.eingabe({name: 'name', label: 'Name', pflicht: true, autocomplete: 'name', wert: form.werte.name|default(''), fehler: form.fehler.name|default('')}) }}
+        {{ f.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', pflicht: true, autocomplete: 'email', wert: form.werte.email|default(''), fehler: form.fehler.email|default(''), fehlertext: 'Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@example.org.'}) }}
+    </div>
+    {{ f.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.'}) }}
+    {{ f.textfeld({name: 'nachricht', label: 'Nachricht', optional: true, zeilen: 6, maxlaenge: form.max.nachricht, wert: form.werte.nachricht|default(''), hinweis: 'Zum Beispiel ein kurzes Anschreiben oder Ihr gewünschter Starttermin.', fehler: form.fehler.nachricht|default('')}) }}
+
+    <div class="c-feld c-bewerbung__datei">
+        <label class="c-feld__label" for="feld-datei">Bewerbungsunterlagen<span class="c-feld__zusatz">(Pflichtfeld)</span></label>
+        <p class="c-feld__hinweis" id="datei-hinweis">Eine PDF-Datei, höchstens {{ form.max_datei_mb }} MB. Lebenslauf und Anschreiben bitte in einer Datei zusammenfassen.</p>
+        <input
+            class="c-bewerbung__datei-eingabe"
+            id="feld-datei"
+            name="datei"
+            type="file"
+            accept="application/pdf,.pdf"
+            required
+            {%- if form.fehler.datei|default('') %} aria-describedby="datei-hinweis datei-fehler" aria-invalid="true"{% else %} aria-describedby="datei-hinweis"{% endif %}>
+        {% if form.fehler.datei|default('') %}
+        <p class="c-feld__fehler" id="datei-fehler">{% include 'partials/icon.html.twig' with {name: 'fehler'} only %}<span><span class="u-visually-hidden">Fehler: </span>{{ form.fehler.datei }}</span></p>
+        {% endif %}
+    </div>
+
+    <div class="c-bewerbung__datenschutz">
+        <p class="c-bewerbung__datenschutz-text" id="bewerbung-datenschutz-hinweis">
+            Wir verwenden Ihre Angaben und Ihre Bewerbungsunterlagen ausschließlich zur Bearbeitung Ihrer Bewerbung.
+            Die Datei wird verschlüsselt gespeichert. Weitere Informationen, auch zu Ihren Rechten, finden Sie in
+            unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+            {{ placeholder('Freigabe Datenschutztext') }}
+        </p>
+        {{ f.checkbox({name: 'einwilligung', label: 'Ich habe den Hinweis zur Verarbeitung meiner Bewerbungsdaten gelesen.', pflicht: true, aktiv: form.werte.einwilligung|default(false), fehler: form.fehler.einwilligung|default('')}) }}
+    </div>
+
+    <button class="c-button c-button--primaer" type="submit">Bewerbung senden</button>
+</form>

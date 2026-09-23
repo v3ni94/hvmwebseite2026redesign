@@ -41,6 +41,7 @@ final class View
             'charset' => 'UTF-8',
         ]);
         $this->twig->addExtension(new TwigExtension($context, $csrf, $manifestPath, $production));
+        $this->twig->addExtension(new AttributionExtension($context, (string) $config->get('app.url', '')));
 
         $this->twig->addGlobal('app', [
             'env' => (string) $config->get('app.env'),

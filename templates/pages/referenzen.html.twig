@@ -1,9 +1,78 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Referenzen: Objekttypen im Bestand (allgemein, nach Kennzahlen) und Fallbeispiele nur mit
+  Freigabe der jeweiligen Eigentümer. Grundlage: MP Abschnitt 5, 3.7, 8. Keine Kundenstimmen hier
+  (config/kundenstimmen.php, siehe Startseite), das ist ein eigener Abschnitt.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/kennzahlen.html.twig' as kz %}
+{% import 'components/placeholder.html.twig' as ph %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Referenzen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Ein Überblick über die Objekttypen im Verwaltungsbestand der Hausverwaltung Müller GmbH. Einzelne Objekte zeigen wir nur mit ausdrücklicher Freigabe der jeweiligen Eigentümer.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Referenzen</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="kennzahlen-titel">
+    <div class="l-container">
+        <h2 class="u-visually-hidden" id="kennzahlen-titel">Kennzahlen</h2>
+        {{ kz.kennzahlen([
+            {wert: kennzahlen.einheiten, zaehler: true, label: 'Verwaltete Einheiten'},
+            {wert: kennzahlen.objekte, zaehler: true, label: 'Objekte in der Verwaltung'},
+            {wert: kennzahlen.gruendungsjahr, vorsatz: 'seit', label: 'Gründungsjahr'},
+        ], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="objekttypen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Objekttypen',
+            titel: 'Diese *Objekte* verwalten wir',
+            text: 'Der Bestand umfasst unterschiedliche Objekttypen, betreut über die jeweils passende Leistung.',
+            id: 'objekttypen-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Wohnungseigentümergemeinschaften', url: '/weg-verwaltung/', fuss: 'Zur WEG-Verwaltung', text: 'Mehrfamilienhäuser und Wohnanlagen im gemeinschaftlichen Eigentum.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Vermietete Objekte', url: '/mietverwaltung/', fuss: 'Zur Mietverwaltung', text: 'Wohn- und Gewerbeeinheiten im Auftrag von Vermietern und Investoren.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Vermietete Eigentumswohnungen', url: '/se-verwaltung/', fuss: 'Zur SE-Verwaltung', text: 'Sondereigentum einzelner Kapitalanleger innerhalb einer Eigentümergemeinschaft.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="fallbeispiele-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Fallbeispiele',
+            titel: 'Objekte aus dem *Bestand*',
+            text: 'Konkrete Fallbeispiele veröffentlichen wir ausschließlich mit ausdrücklicher Freigabe der jeweiligen Eigentümer.',
+            id: 'fallbeispiele-titel',
+        }) }}
+        {{ ph.block('Fallbeispiele folgen nach Freigabe', 'Freigegebene Referenzobjekte ergänzen', {
+            erklaerung: 'Objekte erscheinen an dieser Stelle erst nach schriftlicher Freigabe der Eigentümer, ohne Adresse oder sonstige Angaben, die eine Identifikation ohne Zustimmung ermöglichen.',
+            immer: true,
+        }) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für Ihre *Immobilie* anfordern',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: cta_url('/angebot/')},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

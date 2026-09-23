@@ -1,0 +1,153 @@
+/*
+ * Admin-Bereich (MP 6.5). Eigenes Bundle admin.css, wird nach app.css geladen und nutzt dessen
+ * Tokens, Formularfelder, Buttons und Tabellen. Keine neuen Farben, nur CI-Tokens und color-mix().
+ */
+@layer overrides {
+    body.c-admin { padding-top: 0; padding-bottom: 0; background: var(--hvm-umriss); }
+}
+
+@layer components {
+    .c-admin { --admin-rand: clamp(1rem, 0.6rem + 1.8vw, 2rem); font-size: var(--fs-klein); }
+
+    /* Kopf */
+    .c-admin-kopf { background: var(--hvm-weiss); border-bottom: 1px solid var(--hvm-hellgrau); }
+    .c-admin-kopf__innen {
+        display: flex; flex-wrap: wrap; align-items: center; gap: var(--abstand-4) var(--abstand-6);
+        max-width: 90rem; margin-inline: auto; padding: var(--abstand-3) var(--admin-rand);
+    }
+    .c-admin-kopf__marke { display: inline-flex; align-items: center; gap: var(--abstand-3); color: var(--hvm-ink); text-decoration: none; }
+    .c-admin-kopf__bereich { font-weight: var(--fw-halbfett); letter-spacing: var(--tracking-label); text-transform: uppercase; font-size: var(--fs-label); }
+    .c-admin-kopf__konto { display: flex; align-items: center; gap: var(--abstand-4); margin-left: auto; flex-wrap: wrap; }
+    .c-admin-kopf__nutzer { overflow-wrap: anywhere; }
+
+    .c-admin-nav__liste { display: flex; gap: var(--abstand-2); list-style: none; margin: 0; padding: 0; }
+    .c-admin-nav__link {
+        display: inline-block; padding: var(--abstand-2) var(--abstand-3); color: var(--hvm-ink);
+        text-decoration: none; border-bottom: 3px solid transparent;
+    }
+    .c-admin-nav__link:hover { border-bottom-color: var(--hvm-hellgrau); }
+    .c-admin-nav__link[aria-current="page"] { font-weight: var(--fw-fett); border-bottom-color: var(--hvm-orange); }
+
+    /* Inhalt */
+    .c-admin-inhalt { max-width: 90rem; margin-inline: auto; padding: var(--abstand-6) var(--admin-rand) var(--abstand-8); }
+    .c-admin-inhalt:focus { outline: none; }
+    .c-admin-abschnitt > * + * { margin-top: var(--abstand-5); }
+    .c-admin-titel { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem); font-weight: var(--fw-leicht); margin: 0; }
+    .c-admin-untertitel { font-size: var(--fs-h4); font-weight: var(--fw-halbfett); margin: 0 0 var(--abstand-4); }
+    .c-admin-kleintitel { font-size: var(--fs-klein); font-weight: var(--fw-halbfett); margin: var(--abstand-5) 0 var(--abstand-2); }
+    .c-admin-kopfzeile { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--abstand-4); }
+    .c-admin-hinweistext { max-width: 80ch; }
+    .c-admin-link { color: var(--hvm-ink); text-decoration: underline; text-underline-offset: 0.2em; }
+    .c-admin-link:hover { text-decoration-thickness: 2px; }
+    .c-admin-klein { font-size: 0.8125rem; }
+    .c-admin-leer { font-style: italic; }
+    .c-admin-nachricht { white-space: normal; overflow-wrap: anywhere; max-width: 70ch; margin: 0; }
+    .c-admin-zurueck { margin: 0; }
+
+    /* Meldungen */
+    .c-admin-meldung {
+        margin-bottom: var(--abstand-5); padding: var(--abstand-3) var(--abstand-4);
+        background: var(--hvm-weiss); border-left: 4px solid var(--hvm-ink); box-shadow: var(--schatten-1);
+    }
+    .c-admin-meldung p { margin: 0; }
+    .c-admin-meldung--erfolg { border-left-color: var(--hvm-orange); }
+    .c-admin-meldung--fehler { border-left-color: var(--hvm-orange); background: color-mix(in srgb, var(--hvm-orange) 14%, var(--hvm-weiss)); font-weight: var(--fw-halbfett); }
+
+    /* Anmeldung */
+    .c-admin--anmeldung .c-admin-inhalt { max-width: 30rem; }
+    .c-admin-anmeldung { background: var(--hvm-weiss); padding: var(--abstand-6); box-shadow: var(--schatten-1); }
+    .c-admin-anmeldung > * + * { margin-top: var(--abstand-4); }
+    .c-admin-formular { display: grid; gap: var(--abstand-4); justify-items: start; }
+    .c-admin-formular > .c-feld { width: 100%; }
+    .c-admin-formular + .c-admin-formular { margin-top: var(--abstand-5); padding-top: var(--abstand-5); border-top: 1px solid var(--hvm-hellgrau); }
+
+    /* Karten und Detail */
+    .c-admin-karte { background: var(--hvm-weiss); padding: var(--abstand-5); box-shadow: var(--schatten-1); }
+    .c-admin-detail { display: grid; gap: var(--abstand-5); align-items: start; }
+    .c-admin-detail__daten, .c-admin-detail__aktionen { display: grid; gap: var(--abstand-5); min-width: 0; }
+    @media (min-width: 64em) {
+        .c-admin-detail { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+    }
+    .c-admin-daten { display: grid; gap: 0; margin: 0; }
+    .c-admin-daten__zeile { display: grid; grid-template-columns: minmax(8rem, 1fr) 2fr; gap: var(--abstand-3); padding: var(--abstand-2) 0; border-bottom: 1px solid var(--hvm-umriss); }
+    .c-admin-daten dt { font-weight: var(--fw-halbfett); }
+    .c-admin-daten dd { margin: 0; overflow-wrap: anywhere; }
+
+    .c-admin-status {
+        display: inline-block; padding: 0.125rem var(--abstand-2); border: 1px solid var(--hvm-ink);
+        font-size: 0.8125rem; font-weight: var(--fw-halbfett); white-space: nowrap; background: var(--hvm-weiss);
+    }
+    .c-admin-status--neu { background: var(--hvm-orange); border-color: var(--hvm-orange); }
+    .c-admin-status--gewonnen { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-weiss); }
+    .c-admin-status--verloren, .c-admin-status--spam { background: var(--hvm-umriss); border-color: var(--hvm-anthrazit); }
+    .c-admin-marke { display: inline-block; margin-left: var(--abstand-2); padding: 0 var(--abstand-1); border: 1px dashed var(--hvm-anthrazit); font-size: 0.75rem; }
+
+    .c-admin-verlauf { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--abstand-3); }
+    .c-admin-verlauf__eintrag { padding-left: var(--abstand-4); border-left: 3px solid var(--hvm-hellgrau); }
+    .c-admin-verlauf__eintrag p { margin: 0; }
+    .c-admin-verlauf__kopf { display: flex; flex-wrap: wrap; gap: var(--abstand-1) var(--abstand-3); }
+    .c-admin-verlauf__typ { font-weight: var(--fw-halbfett); }
+
+    /* Filter und Liste */
+    .c-admin-filter {
+        display: grid; gap: var(--abstand-4); align-items: end; background: var(--hvm-weiss); padding: var(--abstand-5); box-shadow: var(--schatten-1);
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+    }
+    .c-admin-filter__aktionen { display: flex; flex-wrap: wrap; align-items: center; gap: var(--abstand-4); }
+    .c-admin-ergebnis { margin-bottom: 0; }
+    .c-admin-liste { background: var(--hvm-weiss); }
+    .c-admin-liste td, .c-admin-liste th { padding: var(--abstand-2) var(--abstand-3); }
+    .c-admin-liste__datum { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .c-admin-sortierung { color: var(--hvm-ink); text-decoration: none; display: inline-flex; gap: var(--abstand-1); }
+    .c-admin-sortierung:hover, .c-admin-sortierung.is-aktiv { text-decoration: underline; text-underline-offset: 0.2em; }
+    .c-admin-sortierung__pfeil { font-size: 0.7em; }
+
+    .c-admin-seiten ul { display: flex; flex-wrap: wrap; gap: var(--abstand-2); list-style: none; margin: 0; padding: 0; }
+    .c-admin-seiten a, .c-admin-seiten span {
+        display: inline-block; min-width: 2.75rem; min-height: 2.75rem; padding: var(--abstand-2) var(--abstand-3);
+        text-align: center; border: 1px solid var(--hvm-anthrazit); color: var(--hvm-ink); background: var(--hvm-weiss); text-decoration: none;
+    }
+    .c-admin-seiten [aria-current="page"] { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-weiss); font-weight: var(--fw-fett); }
+
+    /* Dashboard */
+    .c-admin-umschalter { display: flex; flex-wrap: wrap; gap: var(--abstand-2); }
+    .c-admin-umschalter a {
+        padding: var(--abstand-2) var(--abstand-4); border: 1px solid var(--hvm-anthrazit); color: var(--hvm-ink);
+        background: var(--hvm-weiss); text-decoration: none;
+    }
+    .c-admin-umschalter a[aria-current="true"] { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
+
+    .c-admin-kennzahlen { display: grid; gap: var(--abstand-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); margin: 0; }
+    .c-admin-kennzahl { background: var(--hvm-weiss); padding: var(--abstand-4) var(--abstand-5); box-shadow: var(--schatten-1); border-top: 4px solid var(--hvm-orange); }
+    .c-admin-kennzahl dt { font-size: var(--fs-label); letter-spacing: var(--tracking-label); text-transform: uppercase; font-weight: var(--fw-halbfett); }
+    .c-admin-kennzahl dd { margin: var(--abstand-2) 0 0; font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); font-weight: var(--fw-leicht); line-height: 1; font-variant-numeric: tabular-nums; }
+
+    .c-admin-diagramme { display: grid; gap: var(--abstand-5); }
+    @media (min-width: 64em) {
+        .c-admin-diagramme { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .c-admin-diagramm--breit { grid-column: 1 / -1; }
+    }
+    .c-admin-diagramm { margin: 0; background: var(--hvm-weiss); padding: var(--abstand-5); box-shadow: var(--schatten-1); display: grid; gap: var(--abstand-4); min-width: 0; }
+    .c-admin-diagramm__titel { font-size: var(--fs-h4); font-weight: var(--fw-halbfett); }
+    .c-admin-tabelle--kompakt th, .c-admin-tabelle--kompakt td { padding: var(--abstand-1) var(--abstand-3); }
+
+    .c-admin-balken { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--abstand-2); }
+    .c-admin-balken__zeile { display: grid; grid-template-columns: minmax(6rem, 10rem) minmax(0, 1fr) 3rem; align-items: center; gap: var(--abstand-3); }
+    .c-admin-balken__label { overflow-wrap: anywhere; }
+    .c-admin-balken__spur { display: block; width: 100%; height: 1.25rem; }
+    .c-admin-balken__grund { fill: var(--hvm-umriss); }
+    .c-admin-balken__wert { fill: var(--hvm-ink); }
+    .c-admin-balken__wert.is-akzent { fill: var(--hvm-orange); }
+    .c-admin-balken__zahl { text-align: right; font-variant-numeric: tabular-nums; font-weight: var(--fw-halbfett); }
+
+    .c-admin-saeulen { display: grid; gap: var(--abstand-2); }
+    .c-admin-saeulen__grafik { display: block; width: 100%; height: 12rem; }
+    .c-admin-saeulen__wert { fill: var(--hvm-orange); }
+    .c-admin-saeulen__achse { stroke: var(--hvm-ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .c-admin-saeulen__labels { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); text-align: center; }
+    .c-admin-saeulen__labels li { display: grid; font-size: 0.75rem; line-height: 1.3; }
+    .c-admin-saeulen__zahl { font-weight: var(--fw-fett); font-size: var(--fs-klein); font-variant-numeric: tabular-nums; }
+    @media (max-width: 40em) {
+        .c-admin-saeulen__kw { writing-mode: vertical-rl; transform: rotate(180deg); justify-self: center; }
+    }
+}

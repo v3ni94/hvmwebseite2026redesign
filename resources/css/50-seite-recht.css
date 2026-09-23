@@ -1,0 +1,91 @@
+/*
+ * Seitenspezifisches CSS für die Pflichtseiten Impressum, Datenschutzerklärung und
+ * Barrierefreiheitserklärung (Aufgabe „Recht“). Nur Ergänzungen auf Basis von c-prosa und c-hinweis
+ * aus 21-inhalte.css, keine neuen Farben, keine Änderungen an gemeinsamen Dateien.
+ */
+@layer components {
+    .c-recht {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--abstand-8);
+        align-items: start;
+    }
+    .c-recht > * { min-width: 0; }
+    .c-recht .c-prosa,
+    .c-recht .c-hinweis { overflow-wrap: break-word; }
+    .c-recht code { overflow-wrap: anywhere; }
+    @media (min-width: 64em) {
+        .c-recht--mit-inhalt { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+    }
+
+    .c-recht__hinweise { display: grid; gap: var(--abstand-4); }
+    .c-recht__hinweise:empty { display: none; }
+
+    /* Inhaltsverzeichnis der Seite (Sprungmarken) */
+    .c-recht-inhalt {
+        padding: var(--abstand-5);
+        background: var(--hvm-umriss);
+        border-left: 4px solid var(--hvm-anthrazit);
+        font-size: var(--fs-klein);
+    }
+    @media (min-width: 64em) {
+        .c-recht-inhalt {
+            position: sticky;
+            top: calc(var(--header-h-kompakt, 4.75rem) + var(--abstand-5));
+            max-height: calc(100vh - var(--header-h-kompakt, 4.75rem) - var(--abstand-8));
+            overflow-y: auto;
+        }
+    }
+    .c-recht-inhalt__titel { font-weight: var(--fw-halbfett); margin-bottom: var(--abstand-3); }
+    .c-recht-inhalt ol { list-style: decimal; padding-left: 1.5em; margin: 0; }
+    .c-recht-inhalt li + li { margin-top: var(--abstand-2); }
+
+    /* Abschnitte der Rechtstexte */
+    .c-recht .c-prosa h2 { scroll-margin-top: calc(var(--header-h-kompakt, 4.75rem) + var(--abstand-5)); }
+    .c-recht .c-prosa h2:first-child { margin-top: 0; }
+    .c-recht .c-prosa .c-hinweis { margin-block: var(--abstand-5); }
+
+    /* Angabenliste (Impressum, Kontakt) */
+    .c-angaben {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--abstand-1) var(--abstand-5);
+        border-top: 1px solid var(--hvm-hellgrau);
+        padding-top: var(--abstand-4);
+    }
+    @media (min-width: 36em) {
+        .c-angaben { grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr); }
+    }
+    .c-angaben dt { font-weight: var(--fw-halbfett); }
+    .c-angaben dd { margin: 0 0 var(--abstand-3); }
+    @media (min-width: 36em) {
+        .c-angaben dd { margin-bottom: var(--abstand-2); }
+    }
+
+    .c-recht__stand {
+        font-size: var(--fs-klein);
+        border-top: 1px solid var(--hvm-hellgrau);
+        padding-top: var(--abstand-4);
+    }
+}
+
+@layer components {
+    /* Interne Erläuterungen (nur außerhalb der Produktion) */
+    .c-recht__intern {
+        font-size: var(--fs-klein);
+        padding: var(--abstand-3) var(--abstand-4);
+        border-left: 4px solid var(--hvm-orange);
+        background: var(--hvm-weiss);
+        box-shadow: inset 0 0 0 1px var(--hvm-hellgrau);
+    }
+}
+
+@layer components {
+    /*
+     * Lange Komposita im Seitenkopf (z. B. „Datenschutzerklärung“) passen mobil ohne Trennwörterbuch
+     * nicht in die Satzbreite. Nur für die Rechtsseiten: Spalte begrenzen, Umbruch notfalls im Wort.
+     */
+    :is(.page-impressum, .page-datenschutz, .page-barrierefreiheit) .c-seitenkopf__inhalt { grid-template-columns: minmax(0, 1fr); }
+    :is(.page-impressum, .page-datenschutz, .page-barrierefreiheit) .c-seitenkopf__inhalt > * { max-width: 100%; }
+    :is(.page-impressum, .page-datenschutz, .page-barrierefreiheit) .c-seitenkopf h1 { overflow-wrap: break-word; hyphens: auto; }
+}

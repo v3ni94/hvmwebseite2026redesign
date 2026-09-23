@@ -1,9 +1,102 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Über uns: Gründung, Hauptsitz, Bestand, Mitgliedschaften, Arbeitsweise, Geschäftsführung.
+  Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 1 (Ziel 3), 2, 5, 8;
+  docs/auftraggeber-angaben.md; docs/architektur.md Abschnitt 9. Keine Geschichte, keine
+  Superlative und keine Kundenstimmen. Team als Platzhalter, da noch keine Angaben bestätigt sind.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/kennzahlen.html.twig' as kz %}
+{% import 'components/placeholder.html.twig' as ph %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Unternehmen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH verwaltet {{ firma.gruendung_text }} Wohnungseigentum und Mietobjekte mit Hauptsitz in {{ firma.anschrift.ort }}.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Über uns</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="unternehmen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Die Hausverwaltung Müller GmbH auf einen *Blick*',
+            text: 'Gegründet am ' ~ datum(firma.gruendung) ~ ' (' ~ firma.gruendung_text ~ '), Hauptsitz Rheinpromenade 13, ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Geschäftsführer ist ' ~ firma.geschaeftsfuehrer ~ '.',
+            id: 'unternehmen-titel',
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="bestand-titel">
+    <div class="l-container">
+        <h2 class="u-visually-hidden" id="bestand-titel">Bestand</h2>
+        {{ kz.kennzahlen([
+            {wert: kennzahlen.einheiten, zaehler: true, label: 'Verwaltungseinheiten'},
+            {wert: kennzahlen.objekte, zaehler: true, label: 'Objekte in der Verwaltung'},
+            {wert: kennzahlen.gruendungsjahr, vorsatz: 'seit', label: 'Gründungsjahr'},
+        ], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="mitgliedschaften-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Mitgliedschaften',
+            titel: 'Fachliche *Mitgliedschaften*',
+            text: 'Die Hausverwaltung Müller GmbH ist Mitglied in folgenden Verbänden.',
+            id: 'mitgliedschaften-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {% for mitglied in firma.mitgliedschaften %}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: mitglied.kurz, text: mitglied.name, icon: 'info'}) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="arbeitsweise-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Arbeitsweise',
+            titel: 'Wie wir *arbeiten*',
+            id: 'arbeitsweise-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schriftlich und nachvollziehbar', text: 'Beschlüsse, Abrechnungen und Vereinbarungen halten wir schriftlich fest, damit Eigentümer und Mieter den Stand jederzeit nachvollziehen können.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Feste Ansprechpartner', text: 'Für jedes Objekt gibt es feste Zuständigkeiten in der Verwaltung, damit Anfragen nicht mehrfach erklärt werden müssen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Abgestimmte Dienstleister', text: 'Für wiederkehrende Leistungen wie Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst bestehen Rahmenverträge.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="team-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Team',
+            titel: 'Geschäftsführung und *Team*',
+            id: 'team-titel',
+        }) }}
+        <p class="c-prosa">Geschäftsführer der Hausverwaltung Müller GmbH ist {{ firma.geschaeftsfuehrer }}.</p>
+        {{ ph.block('Team und Ansprechpartner', 'Team und Ansprechpartner ergänzen', {erklaerung: 'Weitere Mitarbeiterinnen und Mitarbeiter mit Zuständigkeit werden nach Freigabe durch die Geschäftsführung ergänzt.'}) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Fragen an die *Hausverwaltung Müller GmbH*',
+    text: 'Nehmen Sie Kontakt zu uns auf oder fordern Sie ein Angebot für Ihre Immobilie an.',
+    primaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    sekundaer: {label: 'Angebot anfordern', url: cta_url('/angebot/')},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

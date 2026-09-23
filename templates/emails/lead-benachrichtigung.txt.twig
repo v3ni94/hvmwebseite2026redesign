@@ -1,0 +1,23 @@
+{% autoescape false %}
+NEUE VERWALTUNGSANFRAGE
+{{ art_label }}, PLZ-Bereich {{ plz_bereich }}
+
+Verwaltungsart:      {{ art_label }}
+Wohneinheiten:       {{ lead.units_residential }}
+Gewerbeeinheiten:    {{ lead.units_commercial }}
+Stellplätze:         {{ lead.units_parking }}
+Baujahr:             {{ lead.year_of_construction ?: 'keine Angabe' }}
+Gewünschter Beginn:  {{ lead.management_start ? lead.management_start|date('m.Y') : 'keine Angabe' }}
+Aktueller Verwalter: {{ lead.has_current_manager is same as(true) ? 'ja' : (lead.has_current_manager is same as(false) ? 'nein' : 'keine Angabe') }}
+Rolle:               {{ rolle_label ?: 'keine Angabe' }}
+Quelle:              {{ lead.source ?: 'unbekannt' }}
+Eingang:             {{ datum(eingang) }}, {{ eingang|date('H:i', 'Europe/Berlin') }} Uhr
+Kennung:             {{ lead.uuid }}
+
+Anfrage im Admin-Bereich öffnen:
+{{ admin_url }}
+
+Kontaktdaten, Anschrift und Nachricht stehen aus Datenschutzgründen nur im Admin-Bereich.
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

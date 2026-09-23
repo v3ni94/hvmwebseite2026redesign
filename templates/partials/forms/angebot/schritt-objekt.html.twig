@@ -1,0 +1,22 @@
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'partials/forms/angebot/_felder.html.twig' as af %}
+<section class="c-angebot__schritt" id="schritt-2" data-schritt="2" data-titel="Objekt" aria-labelledby="schritt-2-titel">
+    <h2 class="c-angebot__titel" id="schritt-2-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">2</span> Objekt</h2>
+    <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+    {{ af.eingabe({name: 'strasse', label: 'Straße und Hausnummer', optional: true, autocomplete: 'off', maxlaenge: form.max.strasse, wert: form.werte.strasse|default(''), fehler: form.fehler.strasse|default('')}) }}
+    <div class="c-formular__reihe c-formular__reihe--plz">
+        {{ af.eingabe({name: 'plz', label: 'PLZ', pflicht: true, inputmode: 'numeric', muster: '[0-9]{5}', maxlaenge: 5, autocomplete: 'off', wert: form.werte.plz|default(''), fehler: form.fehler.plz|default(''), fehlertext: 'Bitte geben Sie eine fünfstellige Postleitzahl an.'}) }}
+        {{ af.eingabe({name: 'ort', label: 'Ort', pflicht: true, maxlaenge: form.max.ort, autocomplete: 'off', wert: form.werte.ort|default(''), fehler: form.fehler.ort|default(''), fehlertext: 'Bitte geben Sie den Ort des Objekts an.'}) }}
+    </div>
+    {{ af.eingabe({name: 'baujahr', label: 'Baujahr', optional: true, typ: 'number', inputmode: 'numeric', min: form.baujahr_min, max: form.baujahr_max, schritt: 1, wert: form.werte.baujahr|default(''), hinweis: 'Ungefähre Angabe genügt.', fehler: form.fehler.baujahr|default(''), fehlertext: 'Bitte geben Sie ein Baujahr zwischen ' ~ form.baujahr_min ~ ' und ' ~ form.baujahr_max ~ ' an.'}) }}
+    <fieldset class="c-angebot__gruppe" aria-describedby="einheiten-hinweis">
+        <legend class="c-auswahl__legende">Anzahl der Einheiten</legend>
+        <p class="c-feld__hinweis" id="einheiten-hinweis">Bitte mindestens eine Wohn- oder Gewerbeeinheit angeben.</p>
+        <div class="c-formular__reihe c-formular__reihe--3">
+            {{ af.eingabe({name: 'wohneinheiten', label: 'Wohneinheiten', typ: 'number', inputmode: 'numeric', min: 0, max: form.einheiten_max, schritt: 1, wert: form.werte.wohneinheiten|default(''), fehler: form.fehler.wohneinheiten|default(''), fehlertext: 'Bitte geben Sie eine Zahl zwischen 0 und ' ~ form.einheiten_max ~ ' an.'}) }}
+            {{ af.eingabe({name: 'gewerbeeinheiten', label: 'Gewerbeeinheiten', typ: 'number', inputmode: 'numeric', min: 0, max: form.einheiten_max, schritt: 1, wert: form.werte.gewerbeeinheiten|default(''), fehler: form.fehler.gewerbeeinheiten|default(''), fehlertext: 'Bitte geben Sie eine Zahl zwischen 0 und ' ~ form.einheiten_max ~ ' an.'}) }}
+            {{ af.eingabe({name: 'stellplaetze', label: 'Stellplätze', optional: true, typ: 'number', inputmode: 'numeric', min: 0, max: form.einheiten_max, schritt: 1, wert: form.werte.stellplaetze|default(''), fehler: form.fehler.stellplaetze|default(''), fehlertext: 'Bitte geben Sie eine Zahl zwischen 0 und ' ~ form.einheiten_max ~ ' an.'}) }}
+        </div>
+    </fieldset>
+    {{ af.navigation(2, form.schritte|length) }}
+</section>

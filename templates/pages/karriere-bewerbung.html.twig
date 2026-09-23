@@ -1,9 +1,36 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Bewerbungsformular (MP 6.3, Karriere), Route /karriere/bewerbung/ (config/routes/kontakt.php,
+  Hvm\Controller\BewerbungController). Ohne JavaScript und mit JavaScript identisch bedienbar:
+  ein einzelner Formularschritt, daher kein Fortschritt und kein eigenes JS-Modul nötig.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+
 {% block content %}
-    <section class="l-container">
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss'} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Bewerbung') }}
         <h1>Bewerbung</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+        <p class="c-seitenkopf__text">Senden Sie uns Ihre Bewerbungsunterlagen als PDF-Datei. Sie erhalten eine Eingangsbestätigung per E-Mail.</p>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt u-mt-0" aria-label="Bewerbungsformular">
+    <div class="l-container l-grid">
+        <div class="l-span-8">
+            {% include 'partials/forms/bewerbung-form.html.twig' %}
+        </div>
+        <aside class="l-span-4 c-angebot__seite" aria-labelledby="bewerbung-kontakt-titel">
+            <div class="c-angebot__kasten c-angebot__kasten--kontakt">
+                <h2 class="c-angebot__kasten-titel" id="bewerbung-kontakt-titel">Fragen zur Bewerbung?</h2>
+                <p class="u-text-klein">
+                    {% if firma.telefon %}Telefon <a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a><br>{% endif %}
+                    E-Mail <a href="mailto:{{ firma.email }}">{{ firma.email }}</a>
+                </p>
+            </div>
+        </aside>
+    </div>
+</section>
 {% endblock %}

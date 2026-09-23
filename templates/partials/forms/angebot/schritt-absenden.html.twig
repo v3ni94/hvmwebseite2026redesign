@@ -1,0 +1,32 @@
+{% import 'components/form-fields.html.twig' as f %}
+<section class="c-angebot__schritt" id="schritt-5" data-schritt="5" data-titel="Absenden" aria-labelledby="schritt-5-titel">
+    <h2 class="c-angebot__titel" id="schritt-5-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">5</span> Prüfen und absenden</h2>
+    <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+
+    <div class="c-angebot__zusammenfassung" data-zusammenfassung hidden>
+        <p>Bitte prüfen Sie Ihre Angaben. Über „Ändern“ gelangen Sie zum jeweiligen Schritt.</p>
+        <dl class="c-angebot__liste" data-zusammenfassung-liste></dl>
+    </div>
+
+    {% if form.preise %}
+    <div class="c-angebot__indikation" data-indikation hidden aria-live="polite">
+        <p class="c-angebot__indikation-titel">Unverbindliche Indikation</p>
+        <p><span class="c-angebot__indikation-betrag" data-indikation-betrag></span> netto je Monat für die angegebenen Einheiten.</p>
+        <p class="u-text-klein">Die Indikation ist unverbindlich. Sie erhalten ein individuelles Angebot nach Prüfung Ihrer Angaben.</p>
+    </div>
+    {% endif %}
+
+    <div class="c-angebot__datenschutz">
+        <p class="c-angebot__datenschutz-text" id="datenschutz-hinweis">
+            Wir verwenden Ihre Angaben, um Ihre Anfrage zu bearbeiten und Ihnen ein Angebot zu erstellen.
+            Weitere Informationen, auch zu Ihren Rechten, finden Sie in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+            {{ placeholder('Freigabe Datenschutztext') }}
+        </p>
+        {{ f.checkbox({name: 'datenschutz', label: 'Ich habe den Datenschutzhinweis gelesen.', pflicht: true, aktiv: form.werte.datenschutz|default(false), fehler: form.fehler.datenschutz|default('')}) }}
+    </div>
+
+    <div class="c-angebot__navigation c-angebot__navigation--absenden">
+        <button class="c-button c-button--sekundaer" type="button" data-zurueck hidden>Zurück</button>
+        <button class="c-button c-button--primaer" type="submit" data-absenden>Anfrage senden {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</button>
+    </div>
+</section>

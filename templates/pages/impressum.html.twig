@@ -1,9 +1,109 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Impressum. Grundlage: MP Abschnitt 2 und 9, Bestandsaufnahme 3.8, config/unternehmen.php.
+  Pflichtangaben ausschließlich aus firma.*. Niemals eine Steuernummer. USt-IdNr. nur, wenn gesetzt.
+  Offene Rechtsfragen (Rechtsgrundlage, § 34c GewO, Berufshaftpflicht, Verbraucherschlichtung,
+  EU-OS-Plattform, § 18 MStV) als Platzhalter; Entscheidung durch Rechtsanwalt, siehe docs/recht-offene-fragen.md.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/notice.html.twig' as n %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Rechtliches') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Anbieterkennzeichnung der {{ firma.name }} für diese Webseite.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Impressum</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+<section class="l-section l-section--kompakt" aria-label="Angaben zum Anbieter">
+    <div class="l-container c-recht">
+        {% if not app.is_production %}
+        <div class="c-recht__hinweise">
+            {% set pruef_text %}Die Angaben in eckigen Klammern entscheidet ein Rechtsanwalt vor dem Livegang. Die offenen Fragen sind in docs/recht-offene-fragen.md zusammengefasst. {{ placeholder('Freigabe Impressum') }}{% endset %}
+            {{ n.hinweis('Entwurf zur rechtlichen Prüfung', pruef_text, {typ: 'warnung'}) }}
+        </div>
+        {% endif %}
+
+        <div class="c-prosa">
+            <h2 id="anbieter">Angaben gemäß § 5 DDG {{ placeholder('Rechtsgrundlage vor Livegang verifizieren') }}</h2>
+            <dl class="c-angaben">
+                <dt>Anbieter</dt>
+                <dd>{{ firma.name }}</dd>
+                <dt>Anschrift</dt>
+                <dd>{{ firma.anschrift.strasse }}<br>{{ firma.anschrift.plz }} {{ firma.anschrift.ort }}<br>Deutschland</dd>
+                <dt>Vertreten durch</dt>
+                <dd>den Geschäftsführer {{ firma.geschaeftsfuehrer }}</dd>
+            </dl>
+
+            <h2 id="kontakt">Kontakt</h2>
+            <dl class="c-angaben">
+                <dt>Telefon</dt>
+                <dd>{% if firma.telefon %}<a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a>{% else %}{{ placeholder(firma.telefon_platzhalter) }}{% endif %}</dd>
+                <dt>E-Mail</dt>
+                <dd><a href="mailto:{{ firma.email }}">{{ firma.email }}</a></dd>
+            </dl>
+
+            <h2 id="register">Registereintrag</h2>
+            <dl class="c-angaben">
+                <dt>Registergericht</dt>
+                <dd>{{ firma.registergericht }}</dd>
+                <dt>Registernummer</dt>
+                <dd>{{ firma.hrb }}</dd>
+            </dl>
+
+            <h2 id="umsatzsteuer">Umsatzsteuer-Identifikationsnummer</h2>
+            <dl class="c-angaben">
+                <dt>USt-IdNr.</dt>
+                <dd>{% if firma.ust_id %}{{ firma.ust_id }}{% else %}{{ placeholder(firma.ust_id_platzhalter) }}{% endif %}</dd>
+            </dl>
+
+            <h2 id="erlaubnis">Gewerberechtliche Erlaubnis und Aufsichtsbehörde</h2>
+            {% if not app.is_production %}
+            <p class="c-recht__intern">Interner Hinweis: Die {{ firma.name }} verwaltet Wohnimmobilien und vermittelt Immobilien. Ob und in welcher Form Angaben zur gewerberechtlichen Erlaubnis und zur zuständigen Aufsichtsbehörde aufzunehmen sind, entscheidet ein Rechtsanwalt vor dem Livegang.</p>
+            {% endif %}
+            <dl class="c-angaben">
+                <dt>Erlaubnis</dt>
+                <dd>{{ placeholder('Erlaubnis nach § 34c GewO und zuständige Behörde ergänzen') }}</dd>
+                <dt>Aufsichtsbehörde</dt>
+                <dd>{{ placeholder('zuständige Behörde mit Anschrift ergänzen') }}</dd>
+            </dl>
+
+            <h2 id="versicherung">Berufshaftpflichtversicherung</h2>
+            <p>{{ placeholder('Angaben zur Berufshaftpflichtversicherung prüfen') }}</p>
+            {% if not app.is_production %}
+            <p class="c-recht__intern">Interner Hinweis: Wird die Angabe aufgenommen, gehören dazu Name und Anschrift des Versicherers sowie der räumliche Geltungsbereich. Die Aufnahme entscheidet ein Rechtsanwalt.</p>
+            {% endif %}
+
+            <h2 id="mitgliedschaften">Mitgliedschaften</h2>
+            <ul>
+                {% for m in firma.mitgliedschaften %}
+                <li>{{ m.name == m.kurz ? m.name : m.name ~ ' (' ~ m.kurz ~ ')' }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2 id="inhalte">Verantwortlich für redaktionelle Inhalte</h2>
+            <p>{{ placeholder('Angabe für redaktionelle Inhalte nach Medienstaatsvertrag prüfen, Name und Anschrift ergänzen') }}</p>
+
+            <h2 id="schlichtung">Verbraucherstreitbeilegung</h2>
+            <p>{{ placeholder('Aussage zur Teilnahme an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle vor Livegang prüfen') }}</p>
+            {% if not app.is_production %}
+            <p class="c-recht__intern">Interner Hinweis: Die bisherige Webseite erklärte die Teilnahme an einem Verfahren vor einer Universalschlichtungsstelle. Eine solche Erklärung bindet das Unternehmen. Die Geschäftsführung entscheidet nach rechtlicher Beratung, welche Aussage hier steht. Ein Hinweis auf die Plattform der EU zur Online-Streitbeilegung entfällt vorerst, siehe docs/recht-offene-fragen.md.</p>
+            {% endif %}
+
+            <h2 id="hinweis-inhalte">Hinweis zu den Inhalten</h2>
+            <p>Die Inhalte dieser Webseite, insbesondere die Beiträge im Bereich <a href="/wissen/">Wissen</a>, dienen der allgemeinen Information. Sie stellen keine Rechts- oder Steuerberatung dar und ersetzen nicht die Prüfung des Einzelfalls.</p>
+
+            <h2 id="bildnachweise">Bildnachweise</h2>
+            <p>Auf dieser Webseite werden derzeit keine Fotografien Dritter verwendet. {{ placeholder('Bildnachweise ergänzen, sobald Bilder Dritter eingesetzt werden') }}</p>
+            <p>Kartengrundlage der Seite <a href="/betreuungsgebiete/">Betreuungsgebiete</a>: Natural Earth, gemeinfrei.</p>
+            <p>Webseite: {{ firma.name }}</p>
+        </div>
+    </div>
+</section>
 {% endblock %}

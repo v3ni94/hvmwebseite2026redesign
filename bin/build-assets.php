@@ -7,6 +7,7 @@ declare(strict_types=1);
  *
  * CSS: resources/css/*.css in sortierter Reihenfolge zu public/assets/build/app.[hash].css,
  *      Kommentare entfernt und Leerraum konservativ reduziert (Zeichenketten bleiben unverändert).
+ *      Unterordner resources/css/<name>/*.css ergeben eigene Bundles <name>.[hash].css (z. B. admin.css).
  * JS:  resources/js/** wird unverändert in ein Verzeichnis mit Inhalts-Hash kopiert
  *      (public/assets/build/js/[hash]/...). Relative ES-Modul-Importe funktionieren dadurch weiter,
  *      alle Dateien sind per Hash versioniert und dürfen dauerhaft gecacht werden.
@@ -141,6 +142,25 @@ $cssName = 'app.' . substr(hash('sha256', $css), 0, 10) . '.css';
 file_put_contents($out . '/' . $cssName, $css);
 $manifest['app.css'] = $cssName;
 $say(sprintf('CSS: %d Dateien, %d Byte, %s', count($cssFiles), strlen($css), $cssName));
+
+// Weitere CSS-Bundles aus Unterordnern: resources/css/<name>/*.css => <name>.[hash].css (z. B. admin.css)
+foreach (is_dir($cssDir) ? (glob($cssDir . '/*', GLOB_ONLYDIR) ?: []) : [] as $bundleDir) {
+    $bundle = basename($bundleDir);
+    if (!preg_match('/^[a-z0-9-]+$/', $bundle) || $bundle === 'app') {
+        continue;
+    }
+    $bundleFiles = glob($bundleDir . '/*.css') ?: [];
+    sort($bundleFiles, SORT_STRING);
+    $bundleCss = '';
+    foreach ($bundleFiles as $file) {
+        $bundleCss .= file_get_contents($file) . "\n";
+    }
+    $bundleCss = minifyCss($bundleCss);
+    $bundleName = $bundle . '.' . substr(hash('sha256', $bundleCss), 0, 10) . '.css';
+    file_put_contents($out . '/' . $bundleName, $bundleCss);
+    $manifest[$bundle . '.css'] = $bundleName;
+    $say(sprintf('CSS-Bundle %s: %d Dateien, %d Byte, %s', $bundle, count($bundleFiles), strlen($bundleCss), $bundleName));
+}
 
 // JS
 $jsFiles = listJs($jsDir);

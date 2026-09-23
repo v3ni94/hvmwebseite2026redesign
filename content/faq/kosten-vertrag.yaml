@@ -1,0 +1,39 @@
+zielgruppe: kosten-vertrag
+titel: "Kosten und Vertrag"
+fragen:
+  - frage: "Was kostet eine Hausverwaltung?"
+    antwort: "Das hängt von Art der Verwaltung, Größe, Zustand und technischer Ausstattung des Objekts ab. Üblich ist eine monatliche Grundvergütung je Einheit und eine gesonderte Vergütung für klar beschriebene Sonderleistungen. Ein belastbarer Preis setzt Angaben zum Objekt voraus, deshalb erstellt die Hausverwaltung Müller GmbH ein individuelles Angebot."
+    artikel: kosten-hausverwaltung
+    freigabe: nein
+  - frage: "Erhebt die Hausverwaltung Müller GmbH eine Aufnahmegebühr?"
+    antwort: "Nein. Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr bei der Übernahme einer Verwaltung."
+    artikel: kosten-hausverwaltung
+    freigabe: nein
+  - frage: "Wie vergleiche ich Angebote verschiedener Hausverwaltungen?"
+    antwort: "Vergleichen Sie nicht nur den Preis je Einheit, sondern den Leistungsumfang. Entscheidend ist, welche Leistungen in der Grundvergütung enthalten sind und welche gesondert berechnet werden. Achten Sie außerdem auf Laufzeit, Erreichbarkeit und etwaige einmalige Kosten."
+    artikel: kosten-hausverwaltung
+    freigabe: nein
+  - frage: "Wer trägt die Kosten der WEG-Verwaltung?"
+    antwort: "Vertragspartner ist die Gemeinschaft der Wohnungseigentümer. Die Vergütung wird über das Hausgeld finanziert und nach dem geltenden Kostenverteilungsschlüssel auf die Eigentümer verteilt. Vermieter können den auf sie entfallenden Anteil bei Wohnraum nicht auf ihre Mieter umlegen."
+    artikel: kosten-hausverwaltung
+    freigabe: nein
+  - frage: "Welche Leistungen sind in der WEG-Verwaltung enthalten?"
+    antwort: "Das Gesetz weist dem Verwalter unter anderem Maßnahmen ordnungsmäßiger Verwaltung von untergeordneter Bedeutung, Wirtschaftsplan, Jahresabrechnung und Vermögensbericht, die Einberufung der Eigentümerversammlung und die Vertretung der Gemeinschaft zu. Außerdem setzt er die Beschlüsse der Eigentümer um. Der Verwaltervertrag konkretisiert diese Aufgaben und grenzt Grund- und Sonderleistungen ab."
+    artikel: leistungsumfang-verwaltervertrag
+    freigabe: nein
+  - frage: "Was sind Sonderleistungen?"
+    antwort: "Sonderleistungen gehen über die regelmäßig anfallenden Aufgaben hinaus und werden gesondert vergütet. Typische Beispiele sind die Begleitung größerer Baumaßnahmen oder zusätzliche Eigentümerversammlungen. Welche Leistungen dazugehören, regelt der Verwaltervertrag."
+    artikel: leistungsumfang-verwaltervertrag
+    freigabe: nein
+  - frage: "Für wie lange wird ein WEG-Verwalter bestellt?"
+    antwort: "Die Bestellung darf höchstens fünf Jahre dauern, die erste Bestellung nach Begründung von Wohnungseigentum höchstens drei Jahre. Eine erneute Bestellung ist zulässig. Die Laufzeit des Verwaltervertrags wird in der Praxis meist an die Bestellungszeit angepasst."
+    artikel: vertragslaufzeit-verwaltervertrag
+    freigabe: nein
+  - frage: "Kann die Gemeinschaft den Verwaltervertrag vorzeitig beenden?"
+    antwort: "Die Eigentümer können den Verwalter jederzeit durch Beschluss abberufen. Der Verwaltervertrag endet dann spätestens sechs Monate nach der Abberufung. Ob bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab."
+    artikel: vertragslaufzeit-verwaltervertrag
+    freigabe: nein
+  - frage: "Wie lange läuft ein Vertrag über Miet- oder Sondereigentumsverwaltung?"
+    antwort: "Für diese Verträge gibt es keine besonderen gesetzlichen Laufzeitregeln. Laufzeit und Kündigungsfristen ergeben sich aus dem Verwaltungsvertrag. Eine Kündigung aus wichtigem Grund bleibt unabhängig davon möglich."
+    artikel: vertragslaufzeit-verwaltervertrag
+    freigabe: nein

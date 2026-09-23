@@ -10,8 +10,8 @@ declare(strict_types=1);
 $seiten = [
     'start', 'weg-verwaltung', 'mietverwaltung', 'se-verwaltung', 'verwalterwechsel',
     'vermietung', 'verkauf', 'wertgutachten', 'wissen', 'betreuungsgebiete', 'referenzen',
-    'ueber-uns', 'karriere', 'karriere-bewerbung', 'service', 'notfall', 'kontakt',
-    'angebot', 'angebot-danke', 'impressum', 'datenschutz', 'barrierefreiheit',
+    'ueber-uns', 'karriere', 'karriere-bewerbung', 'bewerbung-danke', 'service', 'notfall', 'kontakt',
+    'kontakt-danke', 'angebot', 'angebot-danke', 'impressum', 'datenschutz', 'barrierefreiheit',
 ];
 
 $freigaben = [];

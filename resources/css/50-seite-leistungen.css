@@ -1,0 +1,73 @@
+/*
+  Seitenspezifisches CSS für die Leistungsseiten (WEG-Verwaltung, Mietverwaltung, SE-Verwaltung) und die
+  Landingpage Verwalterwechsel. Nur hier verwendet, keine Änderungen an gemeinsamen CSS-Dateien.
+  Muss in resources/css nach 21-inhalte.css eingereiht werden (numerische Sortierung 50-*).
+*/
+@layer components {
+    /* Leistungsumfang: einfache Liste innerhalb einer Karte (kaufmännisch, technisch, organisatorisch) */
+    .c-leistungsliste {
+        display: grid;
+        gap: var(--abstand-2);
+        margin: 0;
+        padding-left: 1.1em;
+        font-size: var(--fs-text);
+        line-height: var(--lh-text);
+    }
+    .c-leistungsliste li::marker { color: var(--hvm-orange); }
+
+    /* Checkliste Unterlagenübergabe (Verwalterwechsel) */
+    .c-checkliste {
+        display: grid;
+        gap: var(--abstand-3) var(--spalten-abstand);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-width: none;
+    }
+    @media (min-width: 40em) {
+        .c-checkliste { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .c-checkliste li {
+        position: relative;
+        padding: var(--abstand-3) var(--abstand-4) var(--abstand-3) var(--abstand-7);
+        background: var(--hvm-weiss);
+        box-shadow: inset 0 0 0 1px var(--hvm-hellgrau);
+        font-size: var(--fs-text);
+    }
+    .c-checkliste li::before {
+        content: "";
+        position: absolute;
+        left: var(--abstand-4);
+        top: 50%;
+        translate: 0 -50%;
+        width: 0.9rem;
+        height: 0.9rem;
+        border: 2px solid var(--hvm-orange);
+    }
+
+    /* Abstand vor einer zweiten Kartenreihe innerhalb derselben Sektion */
+    .c-karten--abstand { margin-top: var(--abstand-6); }
+
+    /*
+      Korrektur nur für diese vier Seiten: Grid-Kinder der Zeitleiste (components/timeline.html.twig)
+      haben ohne min-width: 0 eine implizite Mindestbreite über dem längsten zusammenhängenden Wort
+      (z. B. "Eigentümerversammlung", "Wohnungseigentümergemeinschaften") und laufen bei 5 oder 6
+      Schritten in die Nachbarspalte über. overflow-wrap: break-word aus 01-reset.css verhindert das
+      nicht, weil es die Mindestgröße im Grid nicht verändert. Betrifft die geteilte Datei
+      21-inhalte.css (.c-zeitleiste__schritt), die hier bewusst nicht geändert wird, siehe Bericht.
+    */
+    .page-weg-verwaltung .c-zeitleiste__schritt,
+    .page-mietverwaltung .c-zeitleiste__schritt,
+    .page-se-verwaltung .c-zeitleiste__schritt,
+    .page-verwalterwechsel .c-zeitleiste__schritt,
+    .page-weg-verwaltung .c-zeitleiste__titel,
+    .page-mietverwaltung .c-zeitleiste__titel,
+    .page-se-verwaltung .c-zeitleiste__titel,
+    .page-verwalterwechsel .c-zeitleiste__titel,
+    .page-weg-verwaltung .c-zeitleiste__text,
+    .page-mietverwaltung .c-zeitleiste__text,
+    .page-se-verwaltung .c-zeitleiste__text,
+    .page-verwalterwechsel .c-zeitleiste__text {
+        min-width: 0;
+    }
+}

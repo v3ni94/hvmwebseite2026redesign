@@ -1,0 +1,13 @@
+{% autoescape false %}
+NEUE BEWERBUNG
+{{ bewerbung.stelle ?: 'Initiativbewerbung' }}
+
+Gewünschte Stelle:  {{ bewerbung.stelle ?: 'Initiativbewerbung' }}
+Unterlagen:         PDF, {{ (bewerbung.datei_groesse / 1024 / 1024)|number_format(1, ',', '.') }} MB
+Eingang:            {{ datum(eingang) }}, {{ eingang|date('H:i', 'Europe/Berlin') }} Uhr
+Kennung:            {{ bewerbung.uuid }}
+
+Name, Kontaktdaten, Nachricht und die Bewerbungsunterlagen selbst stehen aus Datenschutzgründen nur im Admin-Bereich zum Download bereit.
+
+{% include 'emails/_fuss.txt.twig' %}
+{% endautoescape %}

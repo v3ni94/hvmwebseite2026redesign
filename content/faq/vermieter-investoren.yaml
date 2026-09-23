@@ -1,0 +1,39 @@
+zielgruppe: vermieter-investoren
+titel: "Vermieter und Investoren"
+fragen:
+  - frage: "In wessen Auftrag handelt eine Mietverwaltung?"
+    antwort: "Die Mietverwaltung handelt im Auftrag und im Interesse des Eigentümers, der sie beauftragt hat. Sie ist Ansprechpartner der Mieter, vertritt aber nicht deren Interessen gegenüber dem Vermieter. Einzelheiten im Beitrag [Mietverwaltung: Aufgaben und Leistungsumfang](/wissen/mietverwaltung-leistungen/)."
+    artikel: mietverwaltung-leistungen
+    freigabe: nein
+  - frage: "Welche Aufgaben übernimmt eine Mietverwaltung?"
+    antwort: "Üblich sind Mietbuchhaltung und Mahnwesen, die Betriebskostenabrechnung, die Bearbeitung von Mieteranliegen sowie die Beauftragung und Überwachung von Instandsetzungen. Ob auch die Neuvermietung dazugehört, regelt der Verwaltungsvertrag. Rechts- und Steuerberatung gehören nicht dazu."
+    artikel: mietverwaltung-leistungen
+    freigabe: nein
+  - frage: "Brauche ich neben dem WEG-Verwalter eine Sondereigentumsverwaltung?"
+    antwort: "Der WEG-Verwalter ist für das gemeinschaftliche Eigentum zuständig, nicht für Ihr Mietverhältnis. Mieteinzug, Betriebskostenabrechnung gegenüber dem Mieter und die Betreuung der Wohnung übernimmt die Sondereigentumsverwaltung, sofern Sie diese Aufgaben nicht selbst erledigen."
+    artikel: sondereigentumsverwaltung
+    freigabe: nein
+  - frage: "Kann ich die WEG-Jahresabrechnung einfach an meinen Mieter weitergeben?"
+    antwort: "Nein. Die Jahresabrechnung der Gemeinschaft enthält Kosten, die nicht auf Mieter umgelegt werden dürfen, etwa die Verwaltervergütung oder die Zuführung zur Erhaltungsrücklage. Sie muss in eine mietrechtliche Betriebskostenabrechnung übertragen werden. Dabei sind der Mietvertrag und die gesetzliche Abrechnungsfrist zu beachten."
+    artikel: sondereigentumsverwaltung
+    freigabe: nein
+  - frage: "Bis wann muss die Betriebskostenabrechnung beim Mieter sein?"
+    antwort: "Spätestens bis zum Ablauf des zwölften Monats nach Ende des Abrechnungszeitraums. Geht sie später zu, ist eine Nachforderung grundsätzlich ausgeschlossen, es sei denn, der Vermieter hat die Verspätung nicht zu vertreten. Maßgeblich ist der Zugang beim Mieter."
+    artikel: betriebskostenabrechnung
+    freigabe: nein
+  - frage: "Welche Kosten dürfen nicht auf Mieter umgelegt werden?"
+    antwort: "Verwaltungskosten sowie Kosten für Instandhaltung und Instandsetzung sind keine Betriebskosten und bei Wohnraum nicht umlegbar. Auch Betriebskosten dürfen nur umgelegt werden, wenn der Mietvertrag dies vorsieht. Seit dem 01.07.2024 sind zudem die laufenden Entgelte für die Fernsehversorgung über einen Kabelanschluss grundsätzlich nicht mehr umlegbar."
+    artikel: betriebskostenabrechnung
+    freigabe: nein
+  - frage: "Welche Angaben darf ich von Mietinteressenten verlangen?"
+    antwort: "Nur Angaben, die für die Entscheidung über den Mietvertrag erforderlich sind, und das gestuft nach Stand des Verfahrens. Für eine Besichtigung genügen in der Regel Name und Kontaktdaten. Einkommensnachweise und Bonitätsauskünfte sollten erst verlangt werden, wenn ein Interessent in die engere Wahl kommt."
+    artikel: mieterauswahl
+    freigabe: nein
+  - frage: "Was geschieht mit den Unterlagen abgelehnter Mietinteressenten?"
+    antwort: "Personenbezogene Daten dürfen nur so lange gespeichert werden, wie sie für den Zweck erforderlich sind. Unterlagen von Interessenten, die nicht zum Zug kommen, werden nach Abschluss des Auswahlverfahrens gelöscht oder zurückgegeben, soweit keine Pflicht oder kein berechtigter Grund zur Aufbewahrung besteht."
+    artikel: mieterauswahl
+    freigabe: nein
+  - frage: "Welche Kosten entstehen bei Leerstand?"
+    antwort: "Grundsteuer, Versicherungen, Grundgebühren und bei Eigentumswohnungen das Hausgeld laufen weiter. Die auf die leere Wohnung entfallenden Betriebskosten trägt grundsätzlich der Vermieter selbst. Hinzu kommt der Mietausfall, deshalb sollte die Anschlussvermietung bereits mit Eingang der Kündigung vorbereitet werden."
+    artikel: leerstand-vermeiden
+    freigabe: nein

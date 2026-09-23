@@ -1,0 +1,28 @@
+{#
+  Danke-Seite nach dem Absenden der Bewerbung (PRG). abschluss: true nur direkt nach dem Absenden.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/button.html.twig' as b %}
+
+{% block content %}
+<section class="c-seitenkopf">
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Bewerbung eingegangen') }}
+        <h1>Vielen Dank für Ihre Bewerbung</h1>
+        <p class="c-seitenkopf__text">Ihre Bewerbungsunterlagen sind bei uns eingegangen. Eine Eingangsbestätigung senden wir an die angegebene E-Mail-Adresse.</p>
+    </div>
+</section>
+
+<section class="l-section l-section--kompakt u-mt-0" aria-labelledby="naechste-schritte">
+    <div class="l-container">
+        <h2 id="naechste-schritte">Wie es weitergeht</h2>
+        <p>Wir sichten Ihre Unterlagen und melden uns bei Ihnen. Mit einer Rückmeldung können Sie rechnen: {{ placeholder('Antwortzeit festlegen') }}</p>
+        <div class="l-cluster u-mt-7">
+            {{ b.button('Zur Startseite', '/', {variante: 'sekundaer'}) }}
+            {{ b.textlink('Mehr über die Hausverwaltung Müller', '/ueber-uns/') }}
+        </div>
+    </div>
+</section>
+{% endblock %}

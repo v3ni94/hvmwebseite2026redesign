@@ -1,0 +1,72 @@
+{#
+  Wissensartikel (/wissen/{slug}/). MP Abschnitt 7, docs/wissen-inhaltsplan.md.
+  artikel: Hvm\Content\Article (Controller: Hvm\Controller\WissenController::show()).
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/button.html.twig' as b %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow(zielgruppeLabel) }}
+        <h1>{{ artikel.titel }}</h1>
+        <p class="c-artikel-meta">
+            <span>Stand {{ datum(artikel.stand) }}</span>
+            <span aria-hidden="true">·</span>
+            <span>{{ artikel.autor }}</span>
+        </p>
+        {% if artikel.istEntwurf %}
+        <p>{{ placeholder('Entwurf, nicht freigegeben') }}</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="l-section l-section--kompakt" aria-labelledby="artikel-titel">
+    <div class="l-container l-grid">
+        <div class="l-span-8 c-artikel-haupt">
+            <h2 class="u-visually-hidden" id="artikel-titel">{{ artikel.titel }}</h2>
+
+            <div class="c-fortschritt c-fortschritt--lesen" data-lesefortschritt="#artikel-inhalt" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Lesefortschritt"><span class="c-fortschritt__balken"></span></div>
+
+            {% include 'partials/wissen/inhaltsverzeichnis.html.twig' with {ueberschriften: artikel.ueberschriften} only %}
+
+            <div class="c-prosa" id="artikel-inhalt">
+                {{ artikel.html|raw }}
+            </div>
+
+            {{ n.hinweis('Hinweis', 'Dieser Beitrag dient der allgemeinen Information und ersetzt keine Beratung im Einzelfall. Stand: ' ~ datum(artikel.stand) ~ '.') }}
+
+            <p class="c-artikel-weiterfuehrend">
+                {{ b.textlink('Zur Leistungsseite: ' ~ leistungLabel, artikel.leistung, {icon: 'pfeil'}) }}
+            </p>
+
+            {% if artikel.faq|length > 0 %}
+            <h2 class="c-wissen-faq-titel">Häufige Fragen zu diesem Thema</h2>
+            {{ faq.faq(artikel.faq) }}
+            {% endif %}
+        </div>
+
+        <aside class="l-span-4 c-artikel-seite" aria-label="Weitere Schritte">
+            {{ b.button(ctaLabel, ctaUrl, {variante: 'primaer', breit: true}) }}
+        </aside>
+    </div>
+</section>
+
+{% include 'partials/wissen/verwandte-artikel.html.twig' with {verwandte: verwandte} only %}
+
+{{ cta.cta_band({
+    titel: 'Angebot für *Ihre Immobilie* anfordern',
+    text: 'Unverbindlich, nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: '/angebot/'},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'artikel-cta-titel',
+}) }}
+{% endblock %}

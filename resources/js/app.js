@@ -6,6 +6,8 @@ import { initKopfzeile } from './modules/kopfzeile.js';
 import { initEinblenden } from './modules/einblenden.js';
 import { initZaehler } from './modules/zaehler.js';
 import { initFortschritt } from './modules/fortschritt.js';
+import { initSuche } from './search.js';
+import { initLesefortschritt } from './lesefortschritt.js';
 
 document.documentElement.classList.add('js');
 
@@ -13,3 +15,5 @@ initKopfzeile();
 initEinblenden();
 initZaehler();
 initFortschritt();
+initSuche();
+initLesefortschritt();

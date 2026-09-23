@@ -1,0 +1,35 @@
+{#
+  Interne Benachrichtigung an LEAD_NOTIFY_TO. Enthält bewusst keine Namen, Kontaktdaten oder Anschrift:
+  diese stehen nur im Admin-Bereich. Betreff ohne personenbezogene Daten (LeadService::notifySubject).
+#}
+{% extends 'emails/layout.html.twig' %}
+
+{% block inhalt %}
+<p style="margin:0 0 4px 0;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Neue Verwaltungsanfrage</p>
+<p style="margin:0 0 20px 0;font-size:22px;line-height:1.3;font-weight:300;">{{ art_label }}, PLZ-Bereich <strong style="font-weight:700;">{{ plz_bereich }}</strong></p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:15px;">
+    {% set zeilen = [
+        ['Verwaltungsart', art_label],
+        ['Wohneinheiten', lead.units_residential],
+        ['Gewerbeeinheiten', lead.units_commercial],
+        ['Stellplätze', lead.units_parking],
+        ['Baujahr', lead.year_of_construction ?: 'keine Angabe'],
+        ['Gewünschter Beginn', lead.management_start ? lead.management_start|date('m.Y') : 'keine Angabe'],
+        ['Aktueller Verwalter', lead.has_current_manager is same as(true) ? 'ja' : (lead.has_current_manager is same as(false) ? 'nein' : 'keine Angabe')],
+        ['Rolle', rolle_label ?: 'keine Angabe'],
+        ['Quelle', lead.source ?: 'unbekannt'],
+        ['Eingang', datum(eingang) ~ ', ' ~ eingang|date('H:i', 'Europe/Berlin') ~ ' Uhr'],
+        ['Kennung', lead.uuid],
+    ] %}
+    {% for z in zeilen %}
+    <tr>
+        <td style="padding:8px 12px 8px 0;border-bottom:1px solid #D7D8DA;width:42%;font-weight:600;vertical-align:top;">{{ z[0] }}</td>
+        <td style="padding:8px 0;border-bottom:1px solid #D7D8DA;vertical-align:top;">{{ z[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p style="margin:24px 0 8px 0;">
+    <a href="{{ admin_url }}" style="display:inline-block;padding:12px 20px;background:#E6A83C;color:#1A1A1A;font-weight:600;text-decoration:none;">Anfrage im Admin-Bereich öffnen</a>
+</p>
+<p style="margin:16px 0 0 0;font-size:13px;">Kontaktdaten, Anschrift und Nachricht stehen aus Datenschutzgründen nur im Admin-Bereich.</p>
+{% endblock %}

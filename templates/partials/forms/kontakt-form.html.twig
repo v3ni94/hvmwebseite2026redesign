@@ -1,0 +1,70 @@
+{#
+  Kontaktformular (MP 6.3), eigenständiges Partial: benötigt nur die Variable "form", die von
+  Hvm\Controller\KontaktController bereitgestellt wird (GET und POST /kontakt/). Wer die Seite
+  pages/kontakt.html.twig um eigenen Inhalt ergänzt (Anfahrt, Öffnungszeiten, Karte), bindet dieses
+  Partial einfach per {% include 'partials/forms/kontakt-form.html.twig' %} ein (kein "only": der
+  Twig-Kontext, also "form", wird vom Elternteil vererbt). CSRF, Honeypot und Zeitfalle sind hier
+  bereits enthalten, ohne dass der einbindende Agent etwas zusätzlich übergeben muss.
+#}
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/button.html.twig' as b %}
+
+{% if form.hinweis %}
+<div class="c-formular__meldung" role="alert">
+    {{ n.hinweis(form.hinweis.titel, form.hinweis.text, {typ: 'warnung'}) }}
+</div>
+{% endif %}
+
+{% if form.fehlerliste|length > 0 %}
+<div class="c-fehlerliste" id="kontakt-fehlerliste" role="alert" tabindex="-1" aria-labelledby="kontakt-fehlerliste-titel" autofocus>
+    <h2 class="c-fehlerliste__titel" id="kontakt-fehlerliste-titel">Bitte prüfen Sie Ihre Angaben</h2>
+    <p>{{ form.fehlerliste|length == 1 ? 'Eine Angabe fehlt oder ist unvollständig.' : form.fehlerliste|length ~ ' Angaben fehlen oder sind unvollständig.' }}</p>
+    <ul class="c-fehlerliste__liste">
+        {% for eintrag in form.fehlerliste %}
+        <li><a href="#{{ eintrag.id }}">{{ eintrag.text }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form class="c-formular c-kontakt__formular" action="{{ form.aktion }}" method="post" novalidate>
+    {{ csrf_field() }}
+    <input type="hidden" name="{{ form.token_feld }}" value="{{ form.token }}">
+    {% for name, wert in form.hidden %}
+    <input type="hidden" name="{{ name }}" value="{{ wert }}">
+    {% endfor %}
+    <div class="c-formular__hp" aria-hidden="true">
+        <label for="feld-{{ form.honeypot_feld }}">Dieses Feld bitte leer lassen</label>
+        <input type="text" id="feld-{{ form.honeypot_feld }}" name="{{ form.honeypot_feld }}" value="" tabindex="-1" autocomplete="off">
+    </div>
+
+    <p class="c-formular__pflicht u-text-klein">Pflichtangaben sind mit „(Pflichtfeld)“ gekennzeichnet.</p>
+
+    {{ f.auswahl({name: 'anliegen', label: 'Ihr Anliegen', pflicht: true, leer: 'Bitte wählen', optionen: form.anliegen, wert: form.werte.anliegen|default(null), fehler: form.fehler.anliegen|default('')}) }}
+
+    {% if form.werte.anliegen|default(null) == 'verwaltung' %}
+    <div class="c-formular__meldung" role="note">
+        {{ n.hinweis('Verwaltung anfragen?', 'Für Anfragen zu WEG-, Miet- oder SE-Verwaltung erfassen wir die Angaben zu Ihrem Objekt direkt im Angebotsformular.') }}
+        {{ b.textlink('Zum Angebotsformular', '/angebot/') }}
+    </div>
+    {% endif %}
+
+    <div class="c-formular__reihe c-formular__reihe--2">
+        {{ f.eingabe({name: 'name', label: 'Name', optional: true, autocomplete: 'name', wert: form.werte.name|default(''), fehler: form.fehler.name|default('')}) }}
+        {{ f.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', pflicht: true, autocomplete: 'email', wert: form.werte.email|default(''), fehler: form.fehler.email|default(''), fehlertext: 'Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@example.org.'}) }}
+    </div>
+    {{ f.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.'}) }}
+    {{ f.textfeld({name: 'nachricht', label: 'Nachricht', pflicht: true, zeilen: 6, maxlaenge: form.max.nachricht, wert: form.werte.nachricht|default(''), fehler: form.fehler.nachricht|default('')}) }}
+
+    <div class="c-kontakt__datenschutz">
+        <p class="c-kontakt__datenschutz-text" id="kontakt-datenschutz-hinweis">
+            Wir verwenden Ihre Angaben, um Ihre Nachricht zu bearbeiten. Weitere Informationen, auch zu Ihren
+            Rechten, finden Sie in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+            {{ placeholder('Freigabe Datenschutztext') }}
+        </p>
+        {{ f.checkbox({name: 'datenschutz', label: 'Ich habe den Datenschutzhinweis gelesen.', pflicht: true, aktiv: form.werte.datenschutz|default(false), fehler: form.fehler.datenschutz|default('')}) }}
+    </div>
+
+    <button class="c-button c-button--primaer" type="submit">Nachricht senden</button>
+</form>

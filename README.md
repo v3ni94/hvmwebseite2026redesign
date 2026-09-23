@@ -10,6 +10,9 @@ Verbindliche Grundlagen stehen in `docs/`:
 - `docs/bestandsaufnahme-muellerhv-de.md`: Ist-Zustand der Altseite
 - `docs/phase0.md`: Voraussetzung Datenleck Altseite
 - `docs/quellen/`: Auftragsgrundlagen (Masterprompt)
+- `docs/betrieb.md`: Deployment, Rollback, Backup, Wiederherstellung, Monitoring,
+  Livegang-Checkliste (verbindlich, ergänzt die Abschnitte Deployment und Betrieb unten)
+- `docs/bildinventar.md`: Bildinventar mit Lizenzstatus
 
 ## Voraussetzungen lokal
 
@@ -94,7 +97,9 @@ Staging als eigenes Compose-Projekt mit eigener `.env`: `COMPOSE_PROJECT_NAME=hv
 
 Der Worker (`bin/worker.php`, Outbox für Mail und Webhook) wird mit `docker compose --profile worker up -d worker` gestartet, sobald die Datei vorhanden ist.
 
-Vor jedem Deployment: `composer test`, `composer lint`, auf Staging `php bin/check-pii.php --base-url=...` (sobald vorhanden).
+Vor jedem Deployment: `composer test`, `composer lint`, auf Staging `php bin/check-pii.php --base-url=...` und `php bin/check-headers.php --base-url=...`.
+
+Ausführliche Anleitung mit Staging-Betrieb, Rauchtest und Livegang-Checkliste: `docs/betrieb.md`.
 
 ## Rollback
 
@@ -104,3 +109,11 @@ Images werden mit `HVM_TAG` versioniert (z. B. Git-Commit oder Datum).
 2. Neues Image bauen und starten: `HVM_TAG=<neu> docker compose build && HVM_TAG=<neu> docker compose up -d`.
 3. Rollback: `HVM_TAG=<vorher> docker compose up -d`. Das vorherige Image muss lokal oder in einer Registry vorliegen.
 4. Migrationen sind vorwärtsgerichtet. Hat das neue Release das Schema verändert und ist das alte Release damit nicht verträglich, Datenbank aus der Sicherung wiederherstellen. Migrationen daher möglichst abwärtsverträglich anlegen (Spalten zuerst ergänzen, später entfernen).
+
+## Backup und Wiederherstellung
+
+`bin/backup-db.sh` sichert per `mariadb-dump` (`--single-transaction`), komprimiert und verschlüsselt mit `age` (Standard, Begründung und Alternative `openssl` in `docs/betrieb.md`). `bin/restore-db.sh` entschlüsselt und spielt eine Sicherung mit Sicherheitsabfrage in eine Zieldatenbank ein. Docker-Variante als eigener Dienst mit Cron: `docker compose --profile backup up -d backup`. Details, Umgebungsvariablen und das Testergebnis der Wiederherstellung: `docs/betrieb.md`.
+
+## Betrieb
+
+Monitoring (Healthcheck, Logs, 404-Kontrolle der ersten vier Wochen nach Livegang) und die Livegang-Checkliste stehen in `docs/betrieb.md`. Werkzeuge zur Inventur der Altseite (`bin/legacy-mirror.sh`, `bin/legacy-scrub.php`, `bin/legacy-inventory.php`) sind dort ebenfalls beschrieben; `muellerhv.de` ist aus dieser Entwicklungsumgebung gesperrt, die Ausführung erfolgt auf einem Rechner ohne Domainbeschränkung.

@@ -1,0 +1,78 @@
+{#
+  Serverseitig gerenderte Diagramme für das Dashboard, ohne Bibliothek und ohne style-Attribute.
+  Die Balken sind SVG-Rechtecke mit Präsentationsattributen (x, y, width, height), Farben aus admin.css.
+  Die Grafik ist aria-hidden, die Zahlen stehen zusätzlich in einer Tabelle.
+
+  {% import 'admin/_diagramme.html.twig' as d %}
+  {{ d.balken(zeilen, {id: 'quellen', titel: 'Leads je Quelle', spalte: 'Quelle'}) }}
+  {{ d.wochen(wochen, {id: 'wochen', titel: 'Leads je Woche'}) }}
+#}
+
+{% macro balken(zeilen, o) %}
+<figure class="c-admin-diagramm" aria-labelledby="{{ o.id }}-titel">
+    <figcaption class="c-admin-diagramm__titel" id="{{ o.id }}-titel">{{ o.titel }}</figcaption>
+    <ul class="c-admin-balken" role="list" aria-hidden="true">
+        {% for z in zeilen %}
+        <li class="c-admin-balken__zeile">
+            <span class="c-admin-balken__label">{{ z.label }}</span>
+            <svg class="c-admin-balken__spur" viewBox="0 0 100 10" preserveAspectRatio="none" focusable="false">
+                <rect class="c-admin-balken__grund" x="0" y="0" width="100" height="10"/>
+                <rect class="c-admin-balken__wert{{ o.akzent|default('') == z.schluessel|default('') and o.akzent|default('') ? ' is-akzent' }}" x="0" y="0" width="{{ z.balken }}" height="10"/>
+            </svg>
+            <span class="c-admin-balken__zahl">{{ z.wert }}</span>
+        </li>
+        {% else %}
+        <li class="c-admin-balken__leer">Keine Daten im Zeitraum.</li>
+        {% endfor %}
+    </ul>
+    <div class="c-tabelle-rahmen" role="region" tabindex="0" aria-label="{{ o.titel }} als Tabelle">
+        <table class="c-tabelle c-admin-tabelle--kompakt">
+            <caption class="u-visually-hidden">{{ o.titel }}</caption>
+            <thead>
+                <tr><th scope="col">{{ o.spalte }}</th><th scope="col" class="is-zahl">Leads</th><th scope="col" class="is-zahl">Anteil</th></tr>
+            </thead>
+            <tbody>
+                {% for z in zeilen %}
+                <tr><th scope="row">{{ z.label }}</th><td class="is-zahl">{{ z.wert }}</td><td class="is-zahl">{{ z.anteil|number_format(1, ',', '.') }} %</td></tr>
+                {% else %}
+                <tr><td colspan="3">Keine Daten im Zeitraum.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</figure>
+{% endmacro %}
+
+{% macro wochen(wochen, o) %}
+{%- set anzahl = wochen|length -%}
+<figure class="c-admin-diagramm c-admin-diagramm--breit" aria-labelledby="{{ o.id }}-titel">
+    <figcaption class="c-admin-diagramm__titel" id="{{ o.id }}-titel">{{ o.titel }}</figcaption>
+    <div class="c-admin-saeulen" aria-hidden="true">
+        <svg class="c-admin-saeulen__grafik" viewBox="0 0 {{ anzahl * 20 }} 100" preserveAspectRatio="none" focusable="false">
+            {% for w in wochen %}
+            {%- set hoehe = (w.balken * 0.96)|round(2) -%}
+            <rect class="c-admin-saeulen__wert" x="{{ (loop.index0 * 20) + 3 }}" y="{{ 100 - hoehe }}" width="14" height="{{ hoehe }}"/>
+            {% endfor %}
+            <line class="c-admin-saeulen__achse" x1="0" y1="99.5" x2="{{ anzahl * 20 }}" y2="99.5"/>
+        </svg>
+        <ol class="c-admin-saeulen__labels" role="list">
+            {% for w in wochen %}
+            <li><span class="c-admin-saeulen__zahl">{{ w.wert }}</span><span class="c-admin-saeulen__kw">{{ w.label }}</span></li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div class="c-tabelle-rahmen" role="region" tabindex="0" aria-label="{{ o.titel }} als Tabelle">
+        <table class="c-tabelle c-admin-tabelle--kompakt">
+            <caption class="u-visually-hidden">{{ o.titel }}</caption>
+            <thead>
+                <tr><th scope="col">Woche</th><th scope="col">ab Montag</th><th scope="col" class="is-zahl">Leads</th></tr>
+            </thead>
+            <tbody>
+                {% for w in wochen %}
+                <tr><th scope="row">{{ w.label }}</th><td>{{ datum(w.von) }}</td><td class="is-zahl">{{ w.wert }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</figure>
+{% endmacro %}

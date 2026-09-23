@@ -1,9 +1,89 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Betreuungsgebiete: Hauptsitz Monheim am Rhein, Betreuung in mehreren Regionen. Klare Kennzeichnung
+  je Region eigene Präsenz oder Partnerbetreuung, Status aus config/standorte.php. Karte ohne Google
+  und ohne externe Anfragen (statisches Inline-SVG, siehe partials/karte-deutschland.html.twig).
+  Grundlage: MP Abschnitt 5, 3.7, 8; Bestandsaufnahme 3.7; config/standorte.php.
+
+  Bekannter offener Punkt (siehe Bericht): config/standorte.php wird hier als Twig-Array *dupliziert*,
+  weil src/View/View.php aktuell keine Twig-Variable "standorte" bereitstellt (anders als firma,
+  kennzahlen, nav). Empfehlung an die Architektur: in View.php ergänzen
+  "$this->twig->addGlobal('standorte', $config->array('standorte'));", analog zu Entscheidung 8 in
+  docs/designsystem.md (kundenstimmen). Danach kann diese Liste durch {{ standorte }} ersetzt werden.
+  Keine Anschriften oder Telefonnummern der Regionen: nur der Hauptsitz ist verifiziert (firma.anschrift).
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% set standorte = [
+    {slug: 'monheim-am-rhein', name: 'Monheim am Rhein', status: 'eigene_praesenz', hauptsitz: true, karte: [50.3, 271.5]},
+    {slug: 'berlin', name: 'Berlin', status: null, hauptsitz: false, karte: [329.8, 172.8]},
+    {slug: 'muenchen', name: 'München', status: null, hauptsitz: false, karte: [251.6, 467.6]},
+    {slug: 'hameln', name: 'Hameln', status: null, hauptsitz: false, karte: [156.1, 201.9]},
+    {slug: 'koeln-bonn', name: 'Köln / Bonn', status: null, hauptsitz: false, karte: [53.4, 282.4]},
+    {slug: 'duesseldorf', name: 'Düsseldorf', status: null, hauptsitz: false, karte: [45.4, 262.5]},
+    {slug: 'hamburg', name: 'Hamburg', status: null, hauptsitz: false, karte: [183.5, 99.2]},
+    {slug: 'hannover', name: 'Hannover', status: null, hauptsitz: false, karte: [172.3, 182.9]},
+    {slug: 'frankfurt', name: 'Frankfurt', status: null, hauptsitz: false, karte: [127.2, 338.1]},
+    {slug: 'essen', name: 'Essen', status: null, hauptsitz: false, karte: [55.6, 246.9]},
+    {slug: 'kassel', name: 'Kassel', status: null, hauptsitz: false, karte: [161.4, 256.7]},
+    {slug: 'konstanz', name: 'Konstanz', status: null, hauptsitz: false, karte: [148.5, 498.0]},
+] %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Regionen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.ort }}. Darüber hinaus betreuen wir Objekte in mehreren weiteren Regionen, teils in eigener Präsenz, teils über Partnerbetreuung.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Betreuungsgebiete</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section" aria-labelledby="karte-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Karte',
+            titel: 'Regionen im *Überblick*',
+            text: 'Die Karte zeigt die ungefähre Lage der Regionen, keine Objekt- oder Büroadressen. Angaben zur Betreuungsform stehen in der Liste darunter.',
+            id: 'karte-titel',
+        }) }}
+        {% include 'partials/karte-deutschland.html.twig' with {orte: standorte, id: 'karte-titel'} only %}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="hauptsitz-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Hauptsitz',
+            titel: 'Eigene Präsenz in *' ~ firma.anschrift.ort ~ '*',
+            text: firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Von hier aus wird der überwiegende Teil des Bestands unmittelbar betreut.',
+            id: 'hauptsitz-titel',
+        }) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="regionen-hinweis-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Einordnung',
+            titel: 'Eigene Präsenz oder *Partnerbetreuung*',
+            text: 'Für die übrigen Regionen wird derzeit geprüft, ob die Betreuung über eine eigene Präsenz oder über Partnerinnen und Partner vor Ort erfolgt. Bis zur Bestätigung durch die Geschäftsführung zeigt die Liste oben den Status als offenen Punkt. Anschriften und Telefonnummern einzelner Regionen veröffentlichen wir erst nach Prüfung, die entsprechenden Angaben der Altseite waren zudem uneinheitlich formatiert.',
+            id: 'regionen-hinweis-titel',
+        }) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Anfrage mit *Region*',
+    text: 'Wählen Sie oben Ihre Region und stellen Sie eine Anfrage, wir ordnen sie dem passenden Ansprechpartner zu.',
+    primaer: {label: 'Anfrage mit Region', url: cta_url('/angebot/')},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

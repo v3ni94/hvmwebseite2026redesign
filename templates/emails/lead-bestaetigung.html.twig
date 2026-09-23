@@ -1,0 +1,41 @@
+{#
+  Eingangsbestätigung an den Interessenten. Sachlich, ohne verbindliche Zusagen (MP 6.4).
+#}
+{% extends 'emails/layout.html.twig' %}
+
+{% block inhalt %}
+<p style="margin:0 0 16px 0;">{{ anrede_zeile }}</p>
+<p style="margin:0 0 16px 0;">vielen Dank für Ihre Anfrage zur {{ art_label }}. Ihre Angaben sind bei uns eingegangen.</p>
+
+<p style="margin:24px 0 8px 0;font-weight:600;">Ihre Angaben zum Objekt</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:15px;">
+    {% set zeilen = [
+        ['Objekt', (lead.object_street ? lead.object_street ~ ', ' : '') ~ lead.object_zip ~ ' ' ~ lead.object_city],
+        ['Wohneinheiten', lead.units_residential],
+        ['Gewerbeeinheiten', lead.units_commercial],
+    ] %}
+    {% if lead.units_parking > 0 %}{% set zeilen = zeilen|merge([['Stellplätze', lead.units_parking]]) %}{% endif %}
+    {% if lead.management_start %}{% set zeilen = zeilen|merge([['Gewünschter Beginn', lead.management_start|date('m.Y')]]) %}{% endif %}
+    {% for z in zeilen %}
+    <tr>
+        <td style="padding:6px 12px 6px 0;border-bottom:1px solid #D7D8DA;width:42%;vertical-align:top;">{{ z[0] }}</td>
+        <td style="padding:6px 0;border-bottom:1px solid #D7D8DA;vertical-align:top;">{{ z[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p style="margin:24px 0 8px 0;font-weight:600;">So geht es weiter</p>
+<ol style="margin:0 0 16px 0;padding-left:20px;">
+    <li style="margin-bottom:6px;">Wir prüfen Ihre Angaben.</li>
+    <li style="margin-bottom:6px;">Wir melden uns bei Ihnen, um offene Fragen zu klären. Antwortzeit: [Antwortzeit festlegen]</li>
+    <li style="margin-bottom:6px;">Nach einer Besichtigung des Objekts erhalten Sie ein individuelles Angebot.</li>
+</ol>
+
+<p style="margin:0 0 16px 0;">Diese Nachricht bestätigt den Eingang Ihrer Anfrage. Ein Vertrag kommt dadurch nicht zustande.</p>
+<p style="margin:0 0 16px 0;">Möchten Sie Angaben ergänzen, schreiben Sie uns an <a href="mailto:{{ firma.email }}" style="color:#1A1A1A;">{{ firma.email }}</a>. Falls Sie diese Anfrage nicht gestellt haben, teilen Sie uns das bitte ebenfalls mit.</p>
+
+<p style="margin:24px 0 0 0;">Mit freundlichen Grüßen</p>
+<p style="margin:4px 0 0 0;font-weight:600;">{{ firma.name }}</p>
+
+<p style="margin:24px 0 0 0;font-size:13px;">Informationen zur Verarbeitung Ihrer Daten: <a href="{{ basis_url }}/datenschutz/" style="color:#1A1A1A;">{{ basis_url }}/datenschutz/</a></p>
+{% endblock %}

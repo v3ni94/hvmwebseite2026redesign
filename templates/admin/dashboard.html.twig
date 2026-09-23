@@ -1,0 +1,44 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'admin/_diagramme.html.twig' as d %}
+
+{% block content %}
+<section class="c-admin-abschnitt" aria-labelledby="titel-dashboard">
+    <div class="c-admin-kopfzeile">
+        <h1 id="titel-dashboard" class="c-admin-titel">Dashboard</h1>
+        <nav class="c-admin-umschalter" aria-label="Zeitraum">
+            <a href="/admin/"{% if daten.zeitraum == '12w' %} aria-current="true"{% endif %}>Letzte 12 Wochen</a>
+            <a href="/admin/?zeitraum=gesamt"{% if daten.zeitraum == 'gesamt' %} aria-current="true"{% endif %}>Gesamter Bestand</a>
+        </nav>
+    </div>
+
+    <dl class="c-admin-kennzahlen">
+        <div class="c-admin-kennzahl">
+            <dt>Leads {{ daten.zeitraum == '12w' ? 'seit ' ~ datum(daten.seit) : 'gesamt' }}</dt>
+            <dd>{{ daten.gesamt }}</dd>
+        </div>
+        <div class="c-admin-kennzahl">
+            <dt>Gewonnen</dt>
+            <dd>{{ daten.abschluss.gewonnen }}</dd>
+        </div>
+        <div class="c-admin-kennzahl">
+            <dt>Verloren</dt>
+            <dd>{{ daten.abschluss.verloren }}</dd>
+        </div>
+        <div class="c-admin-kennzahl">
+            <dt>Abschlussquote</dt>
+            <dd>{{ daten.abschluss.quote is null ? 'keine Angabe' : daten.abschluss.quote|number_format(1, ',', '.') ~ ' %' }}</dd>
+        </div>
+    </dl>
+    <p class="c-admin-hinweistext">
+        Leads ohne Spam. Abschlussquote = gewonnen / (gewonnen + verloren){% if daten.abschluss.quote is not null %} = {{ daten.abschluss.gewonnen }} / ({{ daten.abschluss.gewonnen }} + {{ daten.abschluss.verloren }}){% endif %}. Offene Leads (neu, kontaktiert, Angebot) zählen nicht mit.
+        Zeitraum für Quellen, Verwaltungsarten und Status: {{ daten.zeitraum == '12w' ? 'Eingang ab ' ~ datum(daten.seit) : 'alle Leads' }}.
+    </p>
+
+    <div class="c-admin-diagramme">
+        {{ d.wochen(daten.wochen, {id: 'wochen', titel: 'Leads je Woche (letzte 12 Wochen)'}) }}
+        {{ d.balken(daten.quellen, {id: 'quellen', titel: 'Leads je Quelle', spalte: 'Quelle'}) }}
+        {{ d.balken(daten.arten, {id: 'arten', titel: 'Leads je Verwaltungsart', spalte: 'Verwaltungsart'}) }}
+        {{ d.balken(daten.status, {id: 'status', titel: 'Leads je Status (einschließlich Spam)', spalte: 'Status', akzent: 'gewonnen'}) }}
+    </div>
+</section>
+{% endblock %}

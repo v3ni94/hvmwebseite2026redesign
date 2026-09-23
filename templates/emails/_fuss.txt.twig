@@ -1,0 +1,6 @@
+{% autoescape false %}
+--
+{{ firma.name }} | {{ firma.anschrift.strasse }} | {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}
+{{ firma.registergericht }}, {{ firma.hrb }} | Geschäftsführer: {{ firma.geschaeftsfuehrer }} | www.muellerhv.de
+{% if firma.telefon %}Telefon {{ firma.telefon }} | {% endif %}E-Mail {{ firma.email }}
+{% endautoescape %}

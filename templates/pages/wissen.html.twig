@@ -1,9 +1,89 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Wissen und FAQ: Übersicht, Suche, Filter nach Zielgruppe, Artikelkarten und FAQ je Zielgruppe.
+  MP Abschnitt 7, docs/wissen-inhaltsplan.md. Suche funktioniert ohne JavaScript als GET-Filter
+  (Parameter q), mit JavaScript zusätzlich als Live-Suche über public/assets/search-index.json
+  (resources/js/search.js).
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'components/cta-band.html.twig' as cta %}
+{% import 'components/placeholder.html.twig' as ph %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Wissen und FAQ') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Allgemeine, sachliche Informationen zur Immobilienverwaltung für Wohnungseigentümer, Beiräte, Vermieter, Investoren und Mieter. Die Beiträge ersetzen keine Beratung im Einzelfall.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Wissen und FAQ</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+<section class="l-section l-section--kompakt" aria-labelledby="wissen-suche-titel">
+    <div class="l-container">
+        <h2 class="u-visually-hidden" id="wissen-suche-titel">Suche und Filter</h2>
+        {{ f.suche({name: 'q', label: 'Wissen und FAQ durchsuchen', aktion: '/wissen/', platzhalter: 'z. B. Verwalterwechsel', wert: suchbegriff}) }}
+        <nav class="c-wissen-filter" aria-label="Nach Zielgruppe filtern" data-wissen-filter>
+            <a href="/wissen/{{ suchbegriff ? '?q=' ~ suchbegriff|url_encode }}"{% if filterAktiv is null %} aria-current="page"{% endif %} class="c-wissen-filter__link">Alle</a>
+            {% for zg in alleZielgruppen %}
+            <a href="/wissen/?zielgruppe={{ zg }}{{ suchbegriff ? '&amp;q=' ~ suchbegriff|url_encode }}"{% if filterAktiv == zg %} aria-current="page"{% endif %} class="c-wissen-filter__link" data-zielgruppe="{{ zg }}">{{ zielgruppeLabels[zg] }}</a>
+            {% endfor %}
+        </nav>
+        <div class="c-wissen-live u-visually-hidden" data-wissen-live aria-live="polite" hidden></div>
+    </div>
+</section>
+
+{% for abschnitt in abschnitte %}
+<section class="l-section{{ loop.first ? '' : ' l-section--flaeche' }}" aria-labelledby="wissen-{{ abschnitt.zielgruppe }}-titel" data-wissen-abschnitt data-zielgruppe="{{ abschnitt.zielgruppe }}">
+    <div class="l-container">
+        {{ sh.section_head({eyebrow: 'Zielgruppe', titel: abschnitt.titel, id: 'wissen-' ~ abschnitt.zielgruppe ~ '-titel'}) }}
+
+        {% if abschnitt.artikel|length > 0 %}
+        <div class="c-karten c-karten--4">
+            {% for artikel in abschnitt.artikel %}
+            {{ c.card({
+                titel: artikel.titel,
+                text: artikel.beschreibung,
+                url: '/wissen/' ~ artikel.slug ~ '/',
+                ton: 'w',
+                eyebrow: artikel.istEntwurf ? 'Entwurf, nicht freigegeben',
+                fuss: 'Beitrag lesen',
+                klasse: 'c-karte--kompakt',
+            }) }}
+            {% endfor %}
+        </div>
+        {% elseif suchbegriff %}
+        <p class="c-wissen-keine-treffer">Keine Beiträge zu „{{ suchbegriff }}“ in dieser Zielgruppe gefunden.</p>
+        {% else %}
+        {{ ph.block('Beiträge folgen', 'Wissensartikel für ' ~ abschnitt.titel ~ ' ergänzen (content/wissen/*.md)') }}
+        {% endif %}
+
+        {% if abschnitt.faq and abschnitt.faq.fragen|length > 0 %}
+        <h3 class="c-wissen-faq-titel">Häufige Fragen: {{ abschnitt.titel }}</h3>
+        {{ faq.faq(abschnitt.faq.fragen|map(fr => {
+            frage: fr.frage ~ (fr.freigegeben ? '' : ' (Entwurf, nicht freigegeben)'),
+            antwort: fr.antwort,
+        })) }}
+        {% elseif not suchbegriff %}
+        {{ ph.block('FAQ folgen', 'FAQ für ' ~ abschnitt.titel ~ ' ergänzen (content/faq/' ~ abschnitt.zielgruppe ~ '.yaml)') }}
+        {% endif %}
+    </div>
+</section>
+{% endfor %}
+
+{% set primaerCta = filterAktiv == 'mieter' ? {label: 'Zum Service', url: '/service/'} : {label: 'Angebot anfordern', url: '/angebot/'} %}
+{{ cta.cta_band({
+    titel: 'Noch *Fragen* offen?',
+    text: 'Für eine Einschätzung zu Ihrem Objekt oder Vertrag nehmen Sie direkt Kontakt auf.',
+    primaer: primaerCta,
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'wissen-cta-titel',
+}) }}
 {% endblock %}

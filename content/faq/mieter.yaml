@@ -1,0 +1,39 @@
+zielgruppe: mieter
+titel: "Mieter"
+fragen:
+  - frage: "Vertritt die Hausverwaltung meine Interessen gegenüber dem Vermieter?"
+    antwort: "Nein. Eine Hausverwaltung handelt im Auftrag des Eigentümers, der sie beauftragt hat. Sie nimmt Ihre Anliegen auf und bearbeitet sie, kann Sie aber nicht rechtlich beraten oder gegenüber dem Vermieter vertreten. Unterstützung erhalten Mieter bei Mietervereinen oder Rechtsanwälten."
+    artikel: erreichbarkeit
+    freigabe: nein
+  - frage: "Wie melde ich einen Schaden in meiner Wohnung?"
+    antwort: "Melden Sie den Schaden unverzüglich Ihrem Vermieter oder der von ihm beauftragten Verwaltung, am besten schriftlich mit Beschreibung, Fotos und Ihren Erreichbarkeiten. Bei der Hausverwaltung Müller GmbH nutzen Sie dafür die E-Mail oder, soweit Sie einen Zugang haben, das Portal mit Ticketsystem. Einzelheiten im Beitrag [Einen Schaden melden](/wissen/schadensmeldung/)."
+    artikel: schadensmeldung
+    freigabe: nein
+  - frage: "Ich wohne in einer vermieteten Eigentumswohnung. Wer ist mein Ansprechpartner?"
+    antwort: "Ihr Vertragspartner ist Ihr Vermieter, also der Eigentümer der Wohnung. An ihn oder die von ihm beauftragte Verwaltung wenden Sie sich mit allen Fragen zum Mietverhältnis. Der Verwalter der Eigentümergemeinschaft ist für das gemeinschaftliche Eigentum zuständig und hat mit Ihnen keinen Vertrag."
+    artikel: erreichbarkeit
+    freigabe: nein
+  - frage: "Was ist ein Notfall?"
+    antwort: "Ein Notfall liegt vor, wenn Menschen gefährdet sind oder ein erheblicher Schaden droht, der nicht bis zum nächsten Werktag warten kann, etwa ein Wasserrohrbruch oder ein Heizungsausfall im Winter. Bei Gefahr für Menschen wählen Sie immer zuerst den Notruf 112. Der Notdienst der Hausverwaltung Müller GmbH ist rund um die Uhr erreichbar: [Notfallnummer ergänzen]."
+    artikel: notfall-was-tun
+    freigabe: nein
+  - frage: "Was tue ich bei Gasgeruch?"
+    antwort: "Keine elektrischen Schalter betätigen, kein offenes Feuer, Fenster öffnen und das Gebäude verlassen. Warnen Sie Mitbewohner, ohne zu klingeln. Rufen Sie von außerhalb den Entstörungsdienst des Gasnetzbetreibers oder die Feuerwehr unter 112 an."
+    artikel: notfall-was-tun
+    freigabe: nein
+  - frage: "Wie erreiche ich die Hausverwaltung Müller GmbH?"
+    antwort: "Telefonisch unter 02431 9550300, per E-Mail an info@muellerhv.de und, soweit Sie einen Zugang haben, über das Portal mit Ticketsystem. Für Notfälle steht ein Notdienst rund um die Uhr zur Verfügung. Telefonische Sprechzeiten: [Sprechzeiten ergänzen]."
+    artikel: erreichbarkeit
+    freigabe: nein
+  - frage: "Bis wann muss ich Einwände gegen meine Nebenkostenabrechnung erheben?"
+    antwort: "Einwendungen müssen dem Vermieter spätestens bis zum Ablauf des zwölften Monats nach Zugang der Abrechnung mitgeteilt werden. Danach sind sie grundsätzlich ausgeschlossen, es sei denn, Sie haben die Verspätung nicht zu vertreten. Sie haben außerdem das Recht, die Belege zur Abrechnung einzusehen."
+    artikel: nebenkostenabrechnung-mieter
+    freigabe: nein
+  - frage: "Wie zahle ich eine Nachzahlung aus der Nebenkostenabrechnung?"
+    antwort: "Nutzen Sie ausschließlich die Bankverbindung, die in Ihrer Abrechnung oder Ihrem Mietvertrag angegeben ist. Bei Zweifeln, etwa wenn Sie eine Mitteilung über eine geänderte Bankverbindung erhalten, fragen Sie über die bekannten Kontaktwege bei der Verwaltung nach, bevor Sie zahlen."
+    artikel: nebenkostenabrechnung-mieter
+    freigabe: nein
+  - frage: "Was kann ich über das Portal erledigen?"
+    antwort: "Über das Ticketsystem im Portal erfassen Sie Anliegen wie Schadensmeldungen oder Fragen an die Verwaltung. Jedes Anliegen wird als eigener Vorgang angelegt und ist dadurch nachvollziehbar. Notfälle melden Sie nicht über das Portal, sondern telefonisch. Zugang für Mieter: [Zugang für Mieter bestätigen]."
+    artikel: eigentuemerportal
+    freigabe: nein

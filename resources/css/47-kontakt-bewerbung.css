@@ -1,0 +1,46 @@
+/*
+ * Kontaktformular (/kontakt/) und Bewerbungsformular (/karriere/bewerbung/), MP 6.3. Nutzt die
+ * allgemeinen Formularklassen aus 30-formulare.css und die Fehlerzusammenfassung aus 45-angebot.css
+ * (.c-fehlerliste ist absichtlich nicht formularspezifisch benannt). Nur CI-Farben, Tokens aus 00-tokens.css.
+ */
+@layer components {
+    .c-formular__pflicht { margin: 0; }
+    .c-formular__meldung { display: grid; gap: var(--abstand-3); }
+
+    /* Honeypot: für Menschen unsichtbar, nicht fokussierbar, nicht vorgelesen */
+    .c-formular__hp {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    .c-kontakt__datenschutz, .c-bewerbung__datenschutz {
+        display: grid;
+        gap: var(--abstand-4);
+        padding: var(--abstand-5);
+        background: var(--hvm-umriss);
+    }
+    .c-kontakt__datenschutz-text, .c-bewerbung__datenschutz-text { margin: 0; font-size: var(--fs-klein); line-height: 1.55; }
+    .c-kontakt__datenschutz-text a, .c-bewerbung__datenschutz-text a { color: var(--hvm-ink); }
+
+    /* Datei-Upload (Bewerbung) */
+    .c-bewerbung__datei { display: grid; gap: var(--abstand-2); align-content: start; }
+    .c-bewerbung__datei-eingabe {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        color: var(--hvm-ink);
+        background: var(--hvm-weiss);
+        border: 1.5px solid var(--hvm-anthrazit);
+        border-radius: var(--radius-1);
+    }
+    .c-bewerbung__datei-eingabe[aria-invalid="true"] {
+        border-color: var(--hvm-ink);
+        border-width: 2px;
+        box-shadow: inset 4px 0 0 var(--hvm-orange);
+    }
+}

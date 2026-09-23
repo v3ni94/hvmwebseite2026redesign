@@ -1,0 +1,3 @@
+# Taegliche Datenbanksicherung, 03:15 UTC. Zeitpunkt bewusst ausserhalb der ueblichen
+# Geschaeftszeiten, vor dem naechtlichen Batch-Betrieb (falls spaeter vorhanden).
+15 3 * * * /app/bin/backup-db.sh >> /proc/1/fd/1 2>> /proc/1/fd/2

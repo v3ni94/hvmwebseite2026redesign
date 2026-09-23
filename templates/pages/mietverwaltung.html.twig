@@ -1,9 +1,166 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Mietverwaltung: Leistungsumfang und Ablauf für Vermieter und Investoren.
+  Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
+  Alle Texte sind Entwürfe, keine Rechtsberatung.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten für <strong>Vermieter und Investoren</strong>: Mietvertragsmanagement, Mietinkasso, Betriebskostenabrechnung und Instandhaltung aus einer Hand.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Mietverwaltung</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Vermieter* und Investoren',
+            text: 'Die Mietverwaltung richtet sich an Eigentümer vermieteter Wohn- und Gewerbeeinheiten, vom Einzeleigentümer bis zum Investor mit mehreren Objekten. Grundlage ist ein bestehendes oder neu abgeschlossenes Mietverhältnis. Die Neuvermietung leerstehender Einheiten bietet die Hausverwaltung Müller GmbH gesondert an, siehe Vermietung.',
+            id: 'fuer-wen-titel',
+            geteilt: true,
+            aktion: {label: 'Zur Vermietung', url: '/vermietung/'},
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="leistungsumfang-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Leistungsumfang',
+            titel: 'Aufgaben in der *Mietverwaltung*',
+            text: 'Die Aufgaben gliedern sich kaufmännisch, technisch und organisatorisch.',
+            id: 'leistungsumfang-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {% set kaufmaennisch %}
+            <ul class="c-leistungsliste">
+                <li>Mietinkasso und Mahnwesen bei Zahlungsrückständen</li>
+                <li>Erstellung der Betriebskostenabrechnung</li>
+                <li>Kontoführung für Mieteinnahmen und Ausgaben</li>
+                <li>Prüfung und Steuerung der Mietanpassung im gesetzlichen Rahmen</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Kaufmännisch', ton: 'w', nummer: '01', zusatz: kaufmaennisch}) }}
+            {% set technisch %}
+            <ul class="c-leistungsliste">
+                <li>Instandhaltung der Mieteinheit</li>
+                <li>Schadensaufnahme und Schadensmanagement</li>
+                <li>Beauftragung und Steuerung von Handwerkern, auch über Rahmenverträge</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Technisch', ton: 'w', nummer: '02', zusatz: technisch}) }}
+            {% set organisatorisch %}
+            <ul class="c-leistungsliste">
+                <li>Verwaltung bestehender Mietverträge</li>
+                <li>Kommunikation mit Mieterinnen und Mietern</li>
+                <li>Koordination von Übergaben innerhalb des Mietverhältnisses</li>
+                <li>Berichterstattung an den Eigentümer</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Was *nicht* enthalten ist',
+            id: 'abgrenzung-titel',
+        }) }}
+        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Die Mieterauswahl bei Neuvermietung sowie die Vermarktung leerstehender Einheiten sind Teil der gesonderten Leistung Vermietung. Rechtliche Vertretung in Mietstreitigkeiten und gerichtliche Mahnverfahren sind nicht Teil der laufenden Mietverwaltung, hierfür verweisen wir an Rechtsanwalt oder Gericht. Umfangreiche Instandsetzungen können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen.') }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Übernahme',
+            titel: 'Ablauf der *Übernahme*',
+            text: 'Der Wechsel in die Mietverwaltung der Hausverwaltung Müller GmbH folgt einem geordneten Ablauf.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern Objekt, Mietverhältnisse und Ausgangslage, Sie erhalten ein schriftliches Angebot.'},
+            {titel: 'Verwaltervertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der Mietverwaltung.'},
+            {titel: 'Übergabe der Unterlagen', text: 'Mietverträge, Kontodaten und laufende Vorgänge werden übergeben.'},
+            {titel: 'Start der Verwaltung', text: 'Mieterinnen und Mieter sowie Dienstleister werden informiert, die laufende Verwaltung beginnt.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="mehrwerte-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Mehrwerte',
+            titel: 'Für Ihre *Immobilie* inbegriffen',
+            id: 'mehrwerte-titel',
+        }) }}
+        {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
+        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge für Vermieter und Investoren', url: '/wissen/?zielgruppe=vermieter-investoren'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Mietverwaltung: Aufgaben und Leistungsumfang', url: '/wissen/mietverwaltung-leistungen/', fuss: 'Beitrag lesen', text: 'Der Leistungsumfang im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Betriebskostenabrechnung für Vermieter', url: '/wissen/betriebskostenabrechnung/', fuss: 'Beitrag lesen', text: 'Ablauf und Fristen der Abrechnung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Was kostet eine Hausverwaltung?', url: '/wissen/kosten-hausverwaltung/', fuss: 'Beitrag lesen', text: 'Faktoren für die Vergütung der Verwaltung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Was ist in der Verwaltung enthalten?', url: '/wissen/leistungsumfang-verwaltervertrag/', fuss: 'Beitrag lesen', text: 'Leistungsumfang des Verwaltervertrags.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Übernimmt die Mietverwaltung auch die Neuvermietung leerstehender Einheiten?', antwort: 'Nein, die Neuvermietung ist eine gesonderte Leistung. Informationen dazu finden Sie auf der Seite Vermietung.'},
+            {frage: 'Wer haftet bei einem Zahlungsrückstand des Mieters?', antwort: 'Wir übernehmen Mietinkasso und Mahnwesen im Rahmen der Verwaltung. Ob und in welcher Form weitere Schritte wie ein gerichtliches Mahnverfahren erfolgen, klären wir im Einzelfall mit Ihnen.'},
+            {frage: 'Wie oft erhalte ich einen Bericht zu meiner Immobilie?', antwort: 'Die Berichterstattung stimmen wir mit Ihnen ab, üblich sind regelmäßige Abrechnungen sowie eine Information bei besonderen Vorgängen.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für Ihre *Mietimmobilie* anfordern',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'miet'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

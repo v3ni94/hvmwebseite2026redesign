@@ -1,0 +1,18 @@
+{#
+  Eingangsbestätigung an die Bewerberin oder den Bewerber. Sachlich, ohne verbindliche Zusagen.
+#}
+{% extends 'emails/layout.html.twig' %}
+
+{% block inhalt %}
+<p style="margin:0 0 16px 0;">{{ anrede_zeile }}</p>
+<p style="margin:0 0 16px 0;">vielen Dank für Ihre Bewerbung{% if bewerbung.stelle %} als {{ bewerbung.stelle }}{% endif %}. Ihre Unterlagen sind bei uns eingegangen.</p>
+
+<p style="margin:0 0 16px 0;">Wir sichten Ihre Unterlagen und melden uns bei Ihnen. Mit einer Rückmeldung können Sie rechnen: [Antwortzeit festlegen]</p>
+
+<p style="margin:0 0 16px 0;">Diese Nachricht bestätigt den Eingang Ihrer Bewerbung. Bei Fragen schreiben Sie uns an <a href="mailto:{{ firma.email }}" style="color:#1A1A1A;">{{ firma.email }}</a>. Falls Sie diese Bewerbung nicht gesendet haben, teilen Sie uns das bitte ebenfalls mit.</p>
+
+<p style="margin:24px 0 0 0;">Mit freundlichen Grüßen</p>
+<p style="margin:4px 0 0 0;font-weight:600;">{{ firma.name }}</p>
+
+<p style="margin:24px 0 0 0;font-size:13px;">Informationen zur Verarbeitung Ihrer Daten: <a href="{{ basis_url }}/datenschutz/" style="color:#1A1A1A;">{{ basis_url }}/datenschutz/</a></p>
+{% endblock %}

@@ -1,9 +1,199 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Datenschutzerklärung (Gerüst). Grundlage: MP Abschnitt 9 und 10, docs/architektur.md (tatsächlich
+  eingesetzte Dienste und Verarbeitungen), Migrationen 0003 bis 0009, Hvm\Service\Attribution, Hvm\Http\Session.
+  Entwurf ohne Anspruch auf Vollständigkeit, finale Fassung durch Datenschutzbeauftragten oder Rechtsanwalt.
+  Rechtsgrundlagen sind Vorschläge zur Prüfung. Offene Punkte: docs/recht-offene-fragen.md.
+  Bei neuen Diensten, Formularfeldern oder Empfängern ist diese Seite anzupassen.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/notice.html.twig' as n %}
+
+{% set stand = '2026-09-23' %}
+{% set abschnitte = [
+    {id: 'verantwortlicher', titel: 'Verantwortlicher'},
+    {id: 'datenschutzbeauftragter', titel: 'Datenschutzbeauftragter'},
+    {id: 'ueberblick', titel: 'Überblick'},
+    {id: 'hosting', titel: 'Hosting'},
+    {id: 'logfiles', titel: 'Aufruf der Webseite und Server-Logfiles'},
+    {id: 'cookies', titel: 'Cookies und Sitzung'},
+    {id: 'missbrauchsschutz', titel: 'Schutz vor Missbrauch'},
+    {id: 'herkunft', titel: 'Herkunft von Anfragen'},
+    {id: 'angebotsformular', titel: 'Angebotsformular'},
+    {id: 'kontakt', titel: 'Kontaktformular, E-Mail und Telefon'},
+    {id: 'bewerbungen', titel: 'Bewerbungen'},
+    {id: 'e-mail-versand', titel: 'Versand von E-Mails'},
+    {id: 'weiterverarbeitung', titel: 'Interne Weiterverarbeitung'},
+    {id: 'empfaenger', titel: 'Empfänger und Drittländer'},
+    {id: 'speicherdauer', titel: 'Speicherdauer'},
+    {id: 'rechte', titel: 'Ihre Rechte'},
+    {id: 'beschwerde', titel: 'Beschwerderecht'},
+    {id: 'pflicht', titel: 'Bereitstellung der Daten'},
+    {id: 'aenderungen', titel: 'Änderungen dieser Erklärung'},
+] %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Rechtliches') }}
+        {# Weiches Trennzeichen (U+00AD) für die mobile Darstellung ohne Trennwörterbuch #}
+        <h1>{{ page.heading|replace({'Datenschutzerklärung': 'Datenschutz­erklärung'}) }}</h1>
+        <p class="c-seitenkopf__text">Informationen zur Verarbeitung personenbezogener Daten beim Besuch dieser Webseite und bei Anfragen an die {{ firma.name }}.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Datenschutz</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+<section class="l-section l-section--kompakt" aria-label="Datenschutzerklärung">
+    <div class="l-container c-recht">
+        {% if not app.is_production %}
+        <div class="c-recht__hinweise">
+            {% set geruest_text %}Diese Fassung ist ein Gerüst auf Grundlage der technisch eingesetzten Dienste. Die finale Fassung erstellt oder prüft der Datenschutzbeauftragte oder ein Rechtsanwalt. Angaben in eckigen Klammern sind offen, Rechtsgrundlagen sind Vorschläge zur Prüfung. {{ placeholder('Freigabe Datenschutzerklärung') }}{% endset %}
+            {{ n.hinweis('Gerüst, finale Fassung durch Datenschutzbeauftragten oder Rechtsanwalt', geruest_text, {typ: 'warnung'}) }}
+        </div>
+        {% endif %}
+
+        <div class="c-recht c-recht--mit-inhalt">
+            <nav class="c-recht-inhalt" aria-labelledby="inhalt-titel">
+                <p class="c-recht-inhalt__titel" id="inhalt-titel">Inhalt</p>
+                <ol>
+                    {% for a in abschnitte %}
+                    <li><a href="#{{ a.id }}">{{ a.titel }}</a></li>
+                    {% endfor %}
+                </ol>
+            </nav>
+
+            <div class="c-prosa">
+                <h2 id="verantwortlicher">Verantwortlicher</h2>
+                <p>Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Webseite ist:</p>
+                <dl class="c-angaben">
+                    <dt>Unternehmen</dt>
+                    <dd>{{ firma.name }}</dd>
+                    <dt>Anschrift</dt>
+                    <dd>{{ firma.anschrift.strasse }}<br>{{ firma.anschrift.plz }} {{ firma.anschrift.ort }}</dd>
+                    <dt>Vertreten durch</dt>
+                    <dd>den Geschäftsführer {{ firma.geschaeftsfuehrer }}</dd>
+                    <dt>Telefon</dt>
+                    <dd>{% if firma.telefon %}<a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a>{% else %}{{ placeholder(firma.telefon_platzhalter) }}{% endif %}</dd>
+                    <dt>E-Mail</dt>
+                    <dd><a href="mailto:{{ firma.email }}">{{ firma.email }}</a></dd>
+                </dl>
+                <p>Weitere Angaben zum Unternehmen finden Sie im <a href="/impressum/">Impressum</a>.</p>
+
+                <h2 id="datenschutzbeauftragter">Datenschutzbeauftragter</h2>
+                <p>{{ placeholder('Datenschutzbeauftragten mit Kontaktdaten ergänzen, falls benannt') }}</p>
+                <p>Fragen zum Datenschutz richten Sie bis dahin an <a href="mailto:{{ firma.email }}">{{ firma.email }}</a>.</p>
+
+                <h2 id="ueberblick">Überblick</h2>
+                <p>Diese Webseite ist so gebaut, dass sie ohne einwilligungspflichtige Dienste auskommt. Im Einzelnen:</p>
+                <ul>
+                    <li>Es werden keine Analyse-, Tracking- oder Werbedienste eingesetzt, auch keine Zählpixel.</li>
+                    <li>Es werden keine Cookies gesetzt, außer einem technisch notwendigen Sitzungscookie, wenn Sie ein Formular nutzen (siehe <a href="#cookies">Cookies und Sitzung</a>).</li>
+                    <li>Schriften, Grafiken und Skripte werden vom eigenen Server geladen. Es werden keine externen Schriftarten eingebunden.</li>
+                    <li>Es werden keine Karten von Drittanbietern eingebettet. Karten auf dieser Webseite sind statische Grafiken vom eigenen Server.</li>
+                    <li>Es werden keine Videos, Social-Media-Plugins oder sonstigen Inhalte Dritter eingebettet.</li>
+                </ul>
+                <p>Die Verbindung zu dieser Webseite ist per TLS verschlüsselt. Sie erkennen das an der Adresse, die mit https:// beginnt.</p>
+
+                <h2 id="hosting">Hosting</h2>
+                <p>Die Webseite wird auf einem eigenen Server betrieben, den die {{ firma.name }} bei der IONOS SE {{ placeholder('Vertragspartner und Rechtsform verifizieren') }} angemietet hat. Der Serverstandort ist {{ placeholder('Serverstandort bestätigen') }}. Die Datenbank mit Ihren Anfragen liegt auf demselben Server.</p>
+                <p>Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO {{ placeholder('Vertrag zur Auftragsverarbeitung bestätigen') }}.</p>
+                <p>Rechtsgrundlage: berechtigtes Interesse an einem sicheren und zuverlässigen Betrieb der Webseite, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="logfiles">Aufruf der Webseite und Server-Logfiles</h2>
+                <p>Beim Aufruf einer Seite überträgt Ihr Browser technisch bedingt Daten an unseren Server. Der Webserver protokolliert dabei:</p>
+                <ul>
+                    <li>IP-Adresse des anfragenden Geräts</li>
+                    <li>Datum und Uhrzeit des Zugriffs</li>
+                    <li>aufgerufene Adresse und übertragene Datenmenge</li>
+                    <li>Statuscode der Antwort</li>
+                    <li>Adresse der zuvor besuchten Seite (Referrer), soweit Ihr Browser sie übermittelt</li>
+                    <li>Kennung von Browser und Betriebssystem (User-Agent)</li>
+                </ul>
+                <p>{{ placeholder('Umfang der Protokollierung mit der Konfiguration von Nginx und Traefik abgleichen') }}</p>
+                <p>Zweck ist die Auslieferung der Webseite, die Fehleranalyse sowie die Erkennung und Abwehr von Angriffen. Eine Zusammenführung mit anderen Datenquellen findet nicht statt. Anwendungsprotokolle enthalten keine Namen, E-Mail-Adressen oder Telefonnummern.</p>
+                <p>Speicherdauer: {{ placeholder('Speicherdauer der Server-Logfiles festlegen') }}</p>
+                <p>Rechtsgrundlage: berechtigtes Interesse an Betrieb und Sicherheit der Webseite, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="cookies">Cookies und Sitzung</h2>
+                <p>Beim Aufruf der Informationsseiten werden keine Cookies gesetzt und keine Informationen auf Ihrem Endgerät gespeichert.</p>
+                <p>Nutzen Sie ein Formular (Angebot, Kontakt, Bewerbung), setzt der Server ein Sitzungscookie mit dem Namen <code>hvm_sid</code>. Es enthält nur eine zufällige Kennung und dient dazu, das Formular vor Fremdzugriffen zu schützen (Schutz gegen gefälschte Anfragen) und mehrstufige Eingaben zusammenzuhalten. Das Cookie wird beim Schließen des Browsers gelöscht, die Sitzung auf dem Server endet spätestens nach {{ placeholder('Dauer der Sitzung bei Inaktivität bestätigen') }} ohne Aktivität. Dasselbe Cookie nutzt der interne Verwaltungsbereich für angemeldete Mitarbeiter.</p>
+                <p>Rechtsgrundlage: Die Speicherung ist für den von Ihnen gewünschten Dienst unbedingt erforderlich und bedarf daher keiner Einwilligung {{ placeholder('Vorschrift des TDDDG zur Ausnahme für unbedingt erforderliche Speicherung verifizieren') }}. Die weitere Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="missbrauchsschutz">Schutz vor Missbrauch</h2>
+                <p>Zum Schutz der Formulare vor automatisierten Eingaben setzen wir eigene Verfahren auf unserem Server ein, keine Dienste Dritter. Dazu gehören ein verstecktes Feld, eine Prüfung der Ausfüllzeit und eine Begrenzung der Anfragen je Zeitraum. Für diese Begrenzung wird die IP-Adresse nicht im Klartext gespeichert, sondern als nicht umkehrbarer, mit einem geheimen Schlüssel gebildeter Prüfwert (Hash) zusammen mit einem Zähler.</p>
+                <p>Speicherdauer: {{ placeholder('Löschfrist der Zählwerte festlegen') }}</p>
+                <p>Rechtsgrundlage: berechtigtes Interesse an der Abwehr von Missbrauch, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="herkunft">Herkunft von Anfragen</h2>
+                <p>Um zu erkennen, über welchen Weg Anfragen zu uns gelangen, übernehmen wir bei einer Anfrage folgende Angaben, sofern sie vorhanden sind: Kampagnenparameter aus der Adresszeile (utm-Parameter), eine Klickkennung aus Anzeigen bei Google (gclid), die zuerst aufgerufene Seite und den Namen der verweisenden Webseite ohne weitere Adressbestandteile. Diese Angaben werden nicht in Cookies oder im Speicher Ihres Browsers abgelegt, sondern nur über die Adresszeile an das Formular weitergereicht und zusammen mit Ihrer Anfrage gespeichert. Es wird kein Skript von Google oder einem anderen Anbieter geladen.</p>
+                <p>{{ placeholder('Einsatz von Google Ads und Weitergabe der Klickkennung klären') }}</p>
+                <p>Rechtsgrundlage: berechtigtes Interesse an der Auswertung der Wirksamkeit unserer Werbung, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="angebotsformular">Angebotsformular</h2>
+                <p>Über das <a href="/angebot/">Angebotsformular</a> können Sie ein Angebot für die Verwaltung Ihrer Immobilie anfordern. Wir verarbeiten dabei:</p>
+                <ul>
+                    <li>Angaben zur Immobilie: Verwaltungsart, Anschrift des Objekts, Baujahr, Anzahl der Wohn- und Gewerbeeinheiten und Stellplätze, gewünschter Verwaltungsbeginn, Angabe zu einem bisherigen Verwalter</li>
+                    <li>Kontaktdaten: Anrede, Vor- und Nachname, E-Mail-Adresse, optional Telefonnummer und Anschrift, Ihre Rolle (zum Beispiel Eigentümer oder Beirat)</li>
+                    <li>Ihre Nachricht, sofern Sie eine angeben</li>
+                    <li>Zeitpunkt der Anfrage und Version des bestätigten Datenschutzhinweises</li>
+                    <li>Angaben zur Herkunft der Anfrage (siehe <a href="#herkunft">Herkunft von Anfragen</a>)</li>
+                </ul>
+                <p>Pflichtfelder sind gekennzeichnet. Zweck ist die Bearbeitung Ihrer Anfrage und die Erstellung eines Angebots. Sie erhalten eine Eingangsbestätigung per E-Mail.</p>
+                <p>Rechtsgrundlage: Durchführung vorvertraglicher Maßnahmen auf Ihre Anfrage, Art. 6 Abs. 1 lit. b DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="kontakt">Kontaktformular, E-Mail und Telefon</h2>
+                <p>Wenn Sie uns über das <a href="/kontakt/">Kontaktformular</a>, per E-Mail oder telefonisch kontaktieren, verarbeiten wir Ihr Anliegen, Ihren Namen, Ihre E-Mail-Adresse, optional Ihre Telefonnummer und Ihre Nachricht sowie den Zeitpunkt der Anfrage und die Version des bestätigten Datenschutzhinweises. Zweck ist die Bearbeitung Ihres Anliegens.</p>
+                <p>Rechtsgrundlage: bei Anfragen im Zusammenhang mit einem Vertrag oder dessen Anbahnung Art. 6 Abs. 1 lit. b DSGVO, im Übrigen berechtigtes Interesse an der Beantwortung von Anfragen, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="bewerbungen">Bewerbungen</h2>
+                <p>Über das <a href="/karriere/bewerbung/">Bewerbungsformular</a> können Sie sich bei uns bewerben. Wir verarbeiten die angegebene Stelle, Ihren Namen, Ihre E-Mail-Adresse, optional Ihre Telefonnummer, Ihre Nachricht und die hochgeladenen Unterlagen. Hochgeladene Dateien werden außerhalb des öffentlich erreichbaren Bereichs des Servers verschlüsselt abgelegt. Zugriff haben nur die mit dem Bewerbungsverfahren befassten Personen.</p>
+                <p>Zweck ist die Durchführung des Bewerbungsverfahrens. Kommt kein Arbeitsverhältnis zustande, werden die Unterlagen nach {{ placeholder('Aufbewahrungsfrist für Bewerbungsunterlagen festlegen') }} gelöscht, sofern Sie nicht in eine längere Speicherung eingewilligt haben.</p>
+                <p>Rechtsgrundlage: Anbahnung eines Beschäftigungsverhältnisses {{ placeholder('Rechtsgrundlage für Bewerberdaten prüfen') }}.</p>
+
+                <h2 id="e-mail-versand">Versand von E-Mails</h2>
+                <p>Eingangsbestätigungen an Sie und interne Benachrichtigungen über neue Anfragen versenden wir per E-Mail über den Dienstleister {{ placeholder('SMTP-Dienstleister ergänzen') }}. Die Übertragung an den Mailserver erfolgt verschlüsselt. {{ placeholder('Vertrag zur Auftragsverarbeitung mit dem E-Mail-Dienstleister bestätigen') }}</p>
+                <p>Rechtsgrundlage: wie bei der jeweiligen Anfrage, Art. 6 Abs. 1 lit. b oder lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="weiterverarbeitung">Interne Weiterverarbeitung</h2>
+                <p>Angebotsanfragen werden nach dem Eingang zusätzlich an ein System zur Automatisierung interner Abläufe (n8n) übermittelt, zum Beispiel zur Anlage eines Vorgangs. Die Übermittlung erfolgt verschlüsselt und signiert. {{ placeholder('Betrieb und Standort von n8n klären, gegebenenfalls Auftragsverarbeiter benennen') }}</p>
+                <p>Rechtsgrundlage: wie bei der Anfrage, Art. 6 Abs. 1 lit. b DSGVO, sowie berechtigtes Interesse an effizienten internen Abläufen, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="empfaenger">Empfänger und Drittländer</h2>
+                <p>Empfänger Ihrer Daten sind neben den zuständigen Mitarbeitern der {{ firma.name }} ausschließlich die oben genannten Dienstleister, soweit sie für uns als Auftragsverarbeiter tätig werden. Eine Weitergabe an sonstige Dritte erfolgt nur, wenn Sie eingewilligt haben oder eine gesetzliche Pflicht besteht.</p>
+                <p>Eine Übermittlung in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums ist nicht vorgesehen {{ placeholder('für alle Dienstleister verifizieren') }}.</p>
+
+                <h2 id="speicherdauer">Speicherdauer</h2>
+                <p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Anfragen, aus denen kein Vertrag entsteht, werden nach {{ placeholder('Aufbewahrungsfrist für Anfragen festlegen') }} gelöscht. Entsteht ein Vertrag, gelten die handels- und steuerrechtlichen Aufbewahrungsfristen {{ placeholder('Fristen durch Steuerberater bestätigen') }}.</p>
+                <p>Datensicherungen der Datenbank werden verschlüsselt und nach {{ placeholder('Aufbewahrungsdauer der Datensicherungen festlegen') }} überschrieben.</p>
+
+                <h2 id="rechte">Ihre Rechte</h2>
+                <p>Sie haben nach der Datenschutz-Grundverordnung gegenüber uns folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>
+                <ul>
+                    <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+                    <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+                    <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+                    <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+                    <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+                    <li>Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+                </ul>
+                <p><strong>Widerspruchsrecht:</strong> Soweit wir Daten auf Grundlage eines berechtigten Interesses verarbeiten (Art. 6 Abs. 1 lit. f DSGVO), können Sie dieser Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen (Art. 21 DSGVO).</p>
+                <p>Für die Ausübung Ihrer Rechte genügt eine Nachricht an <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder an die oben genannte Anschrift.</p>
+
+                <h2 id="beschwerde">Beschwerderecht</h2>
+                <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren (Art. 77 DSGVO). Für die {{ firma.name }} zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen. {{ placeholder('Bezeichnung der Aufsichtsbehörde vor Livegang verifizieren') }}</p>
+
+                <h2 id="pflicht">Bereitstellung der Daten</h2>
+                <p>Die Nutzung der Formulare ist freiwillig. Ohne die als Pflicht gekennzeichneten Angaben können wir Ihre Anfrage jedoch nicht bearbeiten. Eine automatisierte Entscheidungsfindung einschließlich Profiling im Sinne von Art. 22 DSGVO findet nicht statt. Eine im Angebotsformular gegebenenfalls angezeigte Preisindikation ist unverbindlich und ersetzt nicht die Prüfung durch unsere Mitarbeiter.</p>
+
+                <h2 id="aenderungen">Änderungen dieser Erklärung</h2>
+                <p>Wir passen diese Datenschutzerklärung an, wenn sich die Webseite, die eingesetzten Dienste oder die rechtlichen Anforderungen ändern. Es gilt die jeweils hier veröffentlichte Fassung.</p>
+
+                <p class="c-recht__stand">Stand: {{ datum(stand) }} {{ placeholder('Stand bei Freigabe aktualisieren') }}</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

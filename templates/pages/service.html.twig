@@ -1,9 +1,100 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Service für Mieter und Eigentümer: Portal, Schadensmeldung, Notfall, Formulare, Erreichbarkeit.
+  Grundlage: MP Abschnitt 1 (Ziel 3), 2, 5, 8; docs/auftraggeber-angaben.md (Eigentümerportal mit
+  Ticketsystem bestätigt, Portal-URL offen). Kern-CTA laut docs/architektur.md Abschnitt 9: Portal
+  öffnen, ohne Portal-URL ehrlich auf Kontakt umgelenkt (analog templates/partials/mobile-bar.html.twig).
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/placeholder.html.twig' as ph %}
+{% import 'components/button.html.twig' as b %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Service') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Der direkte Weg zum richtigen Kanal: Eigentümerportal, Schadensmeldung, Notfall und Formulare.</p>
+        <div class="c-aktionen">
+            {% if firma.portal_url %}
+            {{ b.button('Portal öffnen', firma.portal_url, {variante: 'primaer', icon: 'pfeil'}) }}
+            {% else %}
+            {{ b.button('Zum Kontakt', '/kontakt/', {variante: 'primaer', icon: 'pfeil'}) }}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Service für Mieter und Eigentümer</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="kanaele-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Vier *Kanäle* für Ihr Anliegen',
+            text: 'Wählen Sie den Kanal, der zu Ihrem Anliegen passt. Bei Gefahr im Verzug nutzen Sie stets die Notfallseite.',
+            id: 'kanaele-titel',
+        }) }}
+        {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
+        {% set notfall_zusatz %}Rund um die Uhr erreichbar, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal', icon: 'portal', url: firma.portal_url ?: '/kontakt/', fuss: firma.portal_url ? 'Zum Portal' : 'Zum Kontakt', text: 'Unterlagen einsehen und Anliegen über das Ticketsystem übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schadensmeldung', icon: 'schaden', url: firma.portal_url ?: '/kontakt/', fuss: firma.portal_url ? 'Schaden im Portal melden' : 'Schaden per Kontakt melden', text: 'Schäden in der Wohnung oder am Gemeinschaftseigentum bevorzugt über das Ticketsystem im Portal melden, andernfalls über das Kontaktformular.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Notfall', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Wasserrohrbruch, Heizungsausfall oder Sturmschaden: was im Notfall zu tun ist.', zusatz: notfall_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Kontakt', icon: 'kontakt', url: '/kontakt/', fuss: 'Kontakt aufnehmen', text: 'Fragen zu Verwaltung, Abrechnung oder Vertrag an unser Team.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="formulare-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Formulare',
+            titel: 'Formulare für *Mieter und Eigentümer*',
+            id: 'formulare-titel',
+        }) }}
+        {{ ph.block('Formulare', 'Formulare ergänzen', {erklaerung: 'Weitere Formulare, etwa für Schadensmeldungen ohne Portalzugang, werden hier ergänzt.'}) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="erreichbarkeit-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Erreichbarkeit',
+            titel: 'Erreichbarkeit der *Hausverwaltung*',
+            id: 'erreichbarkeit-titel',
+        }) }}
+        <p class="c-prosa">Bürozeiten {{ placeholder('Bürozeiten ergänzen') }}. Telefonisch erreichen Sie uns unter {{ firma.telefon ? firma.telefon : placeholder(firma.telefon_platzhalter) }}, schriftlich über <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder das <a href="/kontakt/">Kontaktformular</a>.</p>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge* für Mieter',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge für Mieter', url: '/wissen/?zielgruppe=mieter'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Einen Schaden melden', url: '/wissen/schadensmeldung/', fuss: 'Beitrag lesen', text: 'Wege der Schadensmeldung und was Sie angeben sollten.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Notfall im Haus', url: '/wissen/notfall-was-tun/', fuss: 'Beitrag lesen', text: 'Was ein Notfall ist und was zu tun ist.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Erreichbarkeit und Ansprechpartner', url: '/wissen/erreichbarkeit/', fuss: 'Beitrag lesen', text: 'Wie und wann Sie die Verwaltung erreichen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Das Portal für Eigentümer und Mieter', url: '/wissen/eigentuemerportal/', fuss: 'Beitrag lesen', text: 'Funktionen des Portals im Überblick.'}) }}
+        </div>
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Ihr Anliegen an die *Hausverwaltung*',
+    text: 'Portal, Schadensmeldung oder Kontakt: Wir leiten Sie zum richtigen Kanal.',
+    primaer: firma.portal_url ? {label: 'Portal öffnen', url: firma.portal_url} : {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    sekundaer: {label: 'Zur Notfallseite', url: '/notfall/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

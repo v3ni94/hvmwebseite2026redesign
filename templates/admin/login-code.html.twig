@@ -1,0 +1,18 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+
+{% block body_class %}c-admin--anmeldung{% endblock %}
+
+{% block content %}
+<section class="c-admin-anmeldung" aria-labelledby="titel-code">
+    <h1 id="titel-code" class="c-admin-titel">Bestätigungscode</h1>
+    <p class="c-admin-anmeldung__text">Geben Sie den sechsstelligen Code aus Ihrer Authenticator-App ein. Ein Code ist 30 Sekunden gültig und kann nur einmal verwendet werden.</p>
+
+    <form class="c-admin-formular" method="post" action="/admin/login/code/" novalidate>
+        {{ csrf_field() }}
+        {{ f.eingabe({name: 'code', label: 'Bestätigungscode', pflicht: true, autocomplete: 'one-time-code', inputmode: 'numeric', muster: '[0-9]{6}', fehler: fehler|default('')}) }}
+        <button class="c-button c-button--primaer" type="submit">Anmelden</button>
+    </form>
+    <p class="c-admin-anmeldung__zurueck"><a href="/admin/login/">Zurück zur Anmeldung</a></p>
+</section>
+{% endblock %}

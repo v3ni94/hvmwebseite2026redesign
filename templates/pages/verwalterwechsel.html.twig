@@ -1,9 +1,161 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Verwalterwechsel: wichtigste Landingpage. Ablauf als Zeitleiste, Zeitplan ohne erfundene Fristen,
+  Checkliste Unterlagenübergabe, Hinweis zur Beschlussfassung.
+  Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
+  Alle Texte sind Entwürfe, keine Rechtsberatung, Fristen werden nicht erfunden.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/button.html.twig' as b %}
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-hero c-hero--mit-keil is-dunkel">
+    <div class="c-hero__umriss-rahmen" aria-hidden="true">
+        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true} only %}
+    </div>
+    <div class="l-container">
+        <div class="c-hero__inhalt">
+            {{ e.eyebrow('Verwalterwechsel', {klasse: 'u-auftritt'}) }}
+            <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2">
+                <h1>Verwalterwechsel</h1><p> für Ihre <strong>Eigentümergemeinschaft</strong>, geordnet und nachvollziehbar.</p>
+            </hgroup>
+            <p class="c-hero__lead u-auftritt u-auftritt--3">Vom Beschluss der Eigentümerversammlung bis zur Übergabe der Unterlagen: ein klarer Ablauf, der sich an Ihrer Beschlusslage und der Vertragslaufzeit Ihres bisherigen Verwalters orientiert.</p>
+            <div class="c-aktionen u-auftritt u-auftritt--4">
+                {{ b.button('Wechsel anfragen', cta_url('/angebot/', {anlass: 'wechsel'}), {variante: 'primaer', icon: 'pfeil'}) }}
+                {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'dunkel'}) }}
+            </div>
+        </div>
+    </div>
+    <span class="c-keil c-keil-uebergang" aria-hidden="true"></span>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Verwalterwechsel</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Eigentümergemeinschaften* und Beiräte',
+            text: 'Diese Seite richtet sich an Wohnungseigentümergemeinschaften und ihre Beiräte, die einen Wechsel der Verwaltung prüfen oder bereits vorbereiten. Der Ablauf gilt unabhängig davon, aus welchem Grund gewechselt wird.',
+            id: 'fuer-wen-titel',
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ablauf',
+            titel: 'So läuft der *Verwalterwechsel*',
+            text: 'Die folgenden Schritte gelten allgemein. Die tatsächliche Reihenfolge und Dauer hängt von Ihrer Beschlusslage und dem bestehenden Verwaltervertrag ab.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern Objekt, Größe und aktuelle Situation. Sie erhalten ein schriftliches Angebot der Hausverwaltung Müller GmbH.'},
+            {titel: 'Vorbereitung der Beschlussfassung', text: 'Der Verwaltungsbeirat und die Eigentümer bereiten die Abstimmung vor, unter Beachtung der geltenden Einberufungsfristen.'},
+            {titel: 'Beschluss in der Eigentümerversammlung', text: 'Die Eigentümerversammlung beschließt über die Abberufung des bisherigen und die Bestellung des neuen Verwalters.'},
+            {titel: 'Verwaltervertrag', text: 'Die Gemeinschaft schließt den Verwaltervertrag mit der Hausverwaltung Müller GmbH.'},
+            {titel: 'Übergabe der Unterlagen und Konten', text: 'Der bisherige Verwalter übergibt Unterlagen, Beschluss-Sammlung und Konten. Wir dokumentieren die Übergabe.'},
+            {titel: 'Start der Verwaltung und Information der Eigentümer', text: 'Die laufende Verwaltung beginnt, Eigentümer und Dienstleister werden informiert.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="zeitplan-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Zeitplan',
+            titel: 'Zeitplan ohne *erfundene* Fristen',
+            id: 'zeitplan-titel',
+        }) }}
+        {{ n.hinweis('Maßgeblich sind Ihre Unterlagen', 'Wie lange ein Verwalterwechsel dauert, hängt von drei Punkten ab: der Beschlusslage Ihrer Gemeinschaft, der Vertragslaufzeit und den Kündigungsregeln des bisherigen Verwaltervertrags sowie den Einberufungsfristen für die Eigentümerversammlung nach Gesetz und Gemeinschaftsordnung. Wir nennen an dieser Stelle bewusst keine pauschalen Fristen. Prüfen Sie die Fristen anhand Ihrer Unterlagen, im Zweifel mit Unterstützung eines Rechtsanwalts, und tragen Sie Termine mit ausreichendem Vorlauf ein.') }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="checkliste-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Übergabe',
+            titel: 'Checkliste *Unterlagenübergabe*',
+            text: 'Diese Unterlagen benötigt die neue Verwaltung typischerweise vom bisherigen Verwalter. Je nach Objekt kann die Liste im Einzelfall abweichen.',
+            id: 'checkliste-titel',
+            geteilt: true,
+        }) }}
+        <ul class="c-checkliste">
+            <li>Beschluss-Sammlung</li>
+            <li>Protokolle der Eigentümerversammlungen</li>
+            <li>Teilungserklärung und Gemeinschaftsordnung</li>
+            <li>Verträge mit Dienstleistern</li>
+            <li>Kontenunterlagen und Kontoauszüge</li>
+            <li>Wirtschaftspläne und Abrechnungen</li>
+            <li>Unterlagen zur Erhaltungsrücklage</li>
+            <li>Versicherungsunterlagen</li>
+            <li>Pläne und technische Unterlagen</li>
+            <li>Schlüssel</li>
+        </ul>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="beschluss-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Beschlussfassung',
+            titel: 'Abberufung und *Bestellung* durch Beschluss',
+            id: 'beschluss-titel',
+        }) }}
+        {{ n.hinweis('Allgemeiner Hinweis, keine Rechtsberatung', 'Die Abberufung des bisherigen und die Bestellung des neuen Verwalters erfolgen durch Beschluss der Eigentümerversammlung. Mehrheiten, Form und Fristen richten sich nach Gesetz und Gemeinschaftsordnung. Mehr dazu in unseren Wissensbeiträgen.') }}
+        <div class="c-karten c-karten--4 c-karten--abstand">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Bestellung und Abberufung des Verwalters', url: '/wissen/verwalter-bestellung-abberufung/', fuss: 'Beitrag lesen', text: 'Voraussetzungen und Ablauf des Beschlusses.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verwalterwechsel in der WEG: Ablauf, Zeitplan, Unterlagen', url: '/wissen/verwalterwechsel-weg/', fuss: 'Beitrag lesen', text: 'Der Wechsel im Detail, mit Unterlagenübergabe.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="mehrwerte-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Mehrwerte',
+            titel: 'Für Ihre *Gemeinschaft* inbegriffen',
+            id: 'mehrwerte-titel',
+        }) }}
+        {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
+        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Können wir den Verwalter jederzeit wechseln?', antwort: 'Die Bestellung des neuen Verwalters erfolgt durch Beschluss der Eigentümerversammlung. Ob und wann eine Abberufung des bisherigen Verwalters möglich ist, hängt von dessen Vertrag und der Beschlusslage ab.'},
+            {frage: 'Was passiert mit laufenden Verträgen des bisherigen Verwalters?', antwort: 'Verträge mit Dienstleistern werden im Rahmen der Übergabe gesichtet. Ob sie fortgeführt, angepasst oder neu vergeben werden, entscheidet die Gemeinschaft.'},
+            {frage: 'Wie lange dauert die Übergabe?', antwort: 'Das hängt von Umfang und Vollständigkeit der Unterlagen sowie der Mitwirkung des bisherigen Verwalters ab. Eine pauschale Angabe wäre nicht seriös.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Verwalterwechsel für Ihre *Gemeinschaft* anfragen',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Wechsel anfragen', url: cta_url('/angebot/', {anlass: 'wechsel'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

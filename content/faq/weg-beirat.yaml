@@ -1,0 +1,43 @@
+zielgruppe: weg-beirat
+titel: "WEG und Beirat"
+fragen:
+  - frage: "Wie läuft ein Verwalterwechsel ab?"
+    antwort: "Die Eigentümer beschließen in einer Versammlung über die Abberufung des bisherigen und die Bestellung des neuen Verwalters sowie über den Verwaltervertrag. Anschließend übergibt der bisherige Verwalter die Unterlagen, und die Verfügungsberechtigung für die Konten der Gemeinschaft wird umgestellt. Der Stichtag des Wechsels sollte im Beschluss eindeutig festgelegt sein. Einzelheiten im Beitrag [Verwalterwechsel in der WEG](/wissen/verwalterwechsel-weg/)."
+    artikel: verwalterwechsel-weg
+    freigabe: nein
+  - frage: "Kann der Verwalter jederzeit abberufen werden?"
+    antwort: "Ja. Seit der WEG-Reform zum 01.12.2020 kann der Verwalter jederzeit durch Mehrheitsbeschluss abberufen werden, ein wichtiger Grund ist nicht erforderlich. Der Verwaltervertrag endet spätestens sechs Monate nach der Abberufung. Ob bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab."
+    artikel: verwalter-bestellung-abberufung
+    freigabe: nein
+  - frage: "Für welchen Zeitraum wird ein Verwalter bestellt?"
+    antwort: "Die Bestellung darf höchstens fünf Jahre dauern, die erste Bestellung nach Begründung von Wohnungseigentum höchstens drei Jahre. Eine Wiederbestellung ist zulässig und kann frühestens ein Jahr vor Ablauf der laufenden Bestellung beschlossen werden."
+    artikel: verwalter-bestellung-abberufung
+    freigabe: nein
+  - frage: "Mit welcher Frist muss zur Eigentümerversammlung eingeladen werden?"
+    antwort: "Die Einberufung erfolgt in Textform. Die Frist soll mindestens drei Wochen betragen, sofern kein Fall besonderer Dringlichkeit vorliegt. Die Beschlussgegenstände müssen in der Einladung so bezeichnet sein, dass jeder Eigentümer erkennt, worüber entschieden wird. Die Gemeinschaftsordnung kann abweichende Regelungen enthalten."
+    artikel: eigentuemerversammlung
+    freigabe: nein
+  - frage: "Ist eine Eigentümerversammlung auch bei geringer Teilnahme beschlussfähig?"
+    antwort: "Ja. Seit der WEG-Reform ist jede ordnungsgemäß einberufene Versammlung beschlussfähig, unabhängig von der Zahl der anwesenden oder vertretenen Eigentümer. Beschlüsse werden grundsätzlich mit der Mehrheit der abgegebenen Stimmen gefasst, Enthaltungen zählen dabei nicht mit."
+    artikel: beschlussfassung-weg
+    freigabe: nein
+  - frage: "Worüber beschließen die Eigentümer bei der Jahresabrechnung?"
+    antwort: "Beschlossen wird nicht mehr über die Abrechnung als Ganzes, sondern über die Einforderung von Nachschüssen oder die Anpassung der beschlossenen Vorschüsse. Das Zahlenwerk der Abrechnung ist Grundlage dieser Entscheidung und muss nachvollziehbar sein. Zusätzlich erhält jeder Eigentümer jährlich einen Vermögensbericht."
+    artikel: wirtschaftsplan-jahresabrechnung
+    freigabe: nein
+  - frage: "Welche Aufgaben hat der Verwaltungsbeirat?"
+    antwort: "Der Verwaltungsbeirat unterstützt und überwacht den Verwalter bei der Durchführung seiner Aufgaben. Er soll den Wirtschaftsplan und die Jahresabrechnung vor der Beschlussfassung prüfen und mit einer Stellungnahme versehen. Gegenüber dem Verwalter wird die Gemeinschaft vom Vorsitzenden des Verwaltungsbeirats oder von einem durch Beschluss ermächtigten Wohnungseigentümer vertreten."
+    artikel: wirtschaftsplan-jahresabrechnung
+    freigabe: nein
+  - frage: "Wie hoch muss die Erhaltungsrücklage sein?"
+    antwort: "Das Gesetz verlangt eine angemessene Erhaltungsrücklage, nennt aber keinen festen Betrag. Die angemessene Höhe richtet sich nach Alter, Zustand und Ausstattung des Gebäudes und nach den absehbaren Maßnahmen. Eine regelmäßig fortgeschriebene Erhaltungsplanung macht die Zuführung nachvollziehbar."
+    artikel: erhaltungsruecklage
+    freigabe: nein
+  - frage: "Kann die Gemeinschaft Beschlüsse auch ohne Versammlung fassen?"
+    antwort: "Ja, im Umlaufverfahren. Grundsätzlich müssen dafür alle Wohnungseigentümer in Textform zustimmen, eine E-Mail genügt. Die Eigentümer können aber für einen einzelnen Gegenstand vorab beschließen, dass im Umlaufverfahren die Mehrheit der abgegebenen Stimmen ausreicht."
+    artikel: umlaufbeschluss
+    freigabe: nein
+  - frage: "Haben Eigentümer Anspruch auf einen zertifizierten Verwalter?"
+    antwort: "Grundsätzlich ja. Jeder Wohnungseigentümer kann verlangen, dass ein zertifizierter Verwalter bestellt wird. Eine Ausnahme gilt für Gemeinschaften mit weniger als neun Sondereigentumsrechten, in denen ein Eigentümer Verwalter ist und weniger als ein Drittel der Eigentümer einen zertifizierten Verwalter verlangt."
+    artikel: zertifizierter-verwalter
+    freigabe: nein

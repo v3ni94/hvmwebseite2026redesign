@@ -1,9 +1,89 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Notfall: 24/7-Notdienst (bestätigt laut docs/auftraggeber-angaben.md), Nummer über
+  firma.notfall_telefon (noch offen). Klare Trennung Notfall / kein Notfall, Sicherheitshinweise
+  bei Gasgeruch. Grundlage: MP Abschnitt 1 (Ziel 3), 2, 5, 8. Sehr klare, gut scanbare Gestaltung,
+  große Anruf-Schaltfläche (resources/css/50-seite-unternehmen.css, Klasse c-notfall-anruf).
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/button.html.twig' as b %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf c-seitenkopf--notfall">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Notfall') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">24 Stunden am Tag, an sieben Tagen die Woche erreichbar bei einem Notfall im Objekt.</p>
+        <div class="c-notfall-anruf" data-einblenden>
+            {% if firma.notfall_telefon %}
+            {{ b.button('Notdienst anrufen: ' ~ firma.notfall_telefon, tel_href(firma.notfall_telefon), {variante: 'primaer', icon: 'telefon', breit: true, klasse: 'c-notfall-anruf__knopf'}) }}
+            {% else %}
+            <p class="c-notfall-anruf__platzhalter">{{ placeholder(firma.notfall_telefon_platzhalter) }}</p>
+            {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'primaer', icon: 'pfeil', breit: true, klasse: 'c-notfall-anruf__knopf'}) }}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Notfall</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="gefahr-titel">
+    <div class="l-container">
+        {{ n.hinweis('Gasgeruch, Feuer oder Gefahr für Leib und Leben', 'Wählen Sie zuerst den Notruf 112 beziehungsweise den Entstörungsdienst Ihres Gasversorgers. Betätigen Sie bei Gasgeruch keine elektrischen Schalter, öffnen Sie Fenster, verlassen Sie das Gebäude und rufen Sie erst von draußen an.', {typ: 'warnung'}) }}
+        <h2 class="u-visually-hidden" id="gefahr-titel">Gefahr für Leib und Leben</h2>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="notfall-titel">
+    <div class="l-container l-grid">
+        <div class="l-span-6">
+            {{ sh.section_head({
+                eyebrow: 'Notfall',
+                titel: 'Was ein *Notfall* ist',
+                text: 'Ein Notfall liegt vor, wenn eine unmittelbare Gefahr für Personen oder das Gebäude besteht oder erheblicher Schaden droht.',
+                id: 'notfall-titel',
+            }) }}
+            <ul class="c-leistungsliste">
+                <li>Wasserrohrbruch</li>
+                <li>Ausfall der Heizung während der Heizperiode</li>
+                <li>Sturmschäden mit Gefahr für Personen oder das Gebäude</li>
+                <li>Ausfall der Hauseingangstür</li>
+                <li>Stromausfall im gesamten Gebäude</li>
+            </ul>
+        </div>
+        <div class="l-span-6">
+            <h2 class="c-section-head__titel" id="kein-notfall-titel">Was <strong>kein</strong> Notfall ist</h2>
+            <p class="c-prosa">Für diese und ähnliche Anliegen nutzen Sie bitte die normale <a href="/service/">Schadensmeldung</a>, nicht den Notdienst.</p>
+            <ul class="c-leistungsliste">
+                <li>Tropfender Wasserhahn</li>
+                <li>Defekte Einzelleuchte</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Notfall im *Haus*: mehr erfahren',
+            id: 'wissen-titel',
+            aktion: {label: 'Beitrag lesen', url: '/wissen/notfall-was-tun/'},
+        }) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Kein *Notfall*, aber ein Anliegen?',
+    text: 'Nutzen Sie die Schadensmeldung im Service-Bereich oder das Kontaktformular.',
+    primaer: {label: 'Zum Service', url: '/service/'},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

@@ -1,0 +1,65 @@
+{#
+  HTML-Mail im HVM-CI (Skill hvm-ci, Abschnitt 2, 9 und 10): Tabellenlayout, CI-Farben,
+  Kennlinie als 3 px hoher Balken (Segmente 40 / 20 / 7,5 / 32,5 Prozent), Logo höchstens 180 px,
+  Pflichtangaben im Fuß. Inline-Styles sind in Mails erforderlich (Mailprogramme ignorieren Stylesheets);
+  die CSP der Webseite betrifft Mails nicht.
+  Blöcke: inhalt. Variablen: betreff, basis_url, firma.
+#}
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title>{{ betreff }}</title>
+</head>
+<body style="margin:0;padding:0;background:#ECECEC;color:#1A1A1A;font-family:system-ui,'Helvetica Neue',Helvetica,Arial,sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#ECECEC;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#FFFFFF;">
+    <tr>
+        <td style="padding:0;line-height:0;font-size:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td width="40%" height="3" style="height:3px;background:#87888A;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="20%" height="3" style="height:3px;background:#9C9D9F;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="7.5%" height="3" style="height:3px;background:#E6A83C;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="32.5%" height="3" style="height:3px;background:#D7D8DA;line-height:0;font-size:0;">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" style="padding:24px 32px 8px 32px;">
+            <img src="{{ basis_url }}/assets/img/logo/hvm-logo-480.png" width="120" alt="{{ firma.name }}" style="display:block;width:120px;max-width:180px;height:auto;border:0;">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:8px 32px 32px 32px;font-size:16px;line-height:1.55;color:#1A1A1A;">
+            {% block inhalt %}{% endblock %}
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:0 32px;line-height:0;font-size:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td width="40%" height="2" style="height:2px;background:#87888A;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="20%" height="2" style="height:2px;background:#9C9D9F;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="7.5%" height="2" style="height:2px;background:#E6A83C;line-height:0;font-size:0;">&nbsp;</td>
+                    <td width="32.5%" height="2" style="height:2px;background:#D7D8DA;line-height:0;font-size:0;">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding:16px 32px 28px 32px;font-size:12px;line-height:1.6;color:#1A1A1A;">
+            {{ firma.name }} | {{ firma.anschrift.strasse }} | {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}<br>
+            {{ firma.registergericht }}, {{ firma.hrb }} | Geschäftsführer: {{ firma.geschaeftsfuehrer }} | www.muellerhv.de<br>
+            {% if firma.telefon %}Telefon {{ firma.telefon }} | {% endif %}E-Mail {{ firma.email }}
+        </td>
+    </tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

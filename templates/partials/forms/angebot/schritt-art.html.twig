@@ -1,0 +1,15 @@
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'partials/forms/angebot/_felder.html.twig' as af %}
+<section class="c-angebot__schritt" id="schritt-1" data-schritt="1" data-titel="Verwaltungsart" aria-labelledby="schritt-1-titel">
+    <h2 class="c-angebot__titel" id="schritt-1-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">1</span> Verwaltungsart</h2>
+    <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+    {{ f.auswahlkarten({
+        name: 'art',
+        legende: 'Welche Verwaltung suchen Sie?',
+        optionen: form.arten,
+        wert: form.werte.art|default(null),
+        pflicht: true,
+        fehler: form.fehler.art|default(''),
+    }) }}
+    {{ af.navigation(1, form.schritte|length) }}
+</section>

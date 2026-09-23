@@ -1,0 +1,16 @@
+{#
+  Inhaltsverzeichnis aus den H2-Überschriften eines Wissensartikels, nur ab mehr als drei
+  Abschnitten (Aufgabenstellung Wissen und FAQ, Punkt 3). ids kommen aus
+  Hvm\Content\MarkdownRenderer (an den gerenderten <h2>-Elementen).
+  {% include 'partials/wissen/inhaltsverzeichnis.html.twig' with {ueberschriften: artikel.ueberschriften} only %}
+#}
+{% if ueberschriften|length > 3 %}
+<nav class="c-inhaltsverzeichnis" aria-labelledby="inhaltsverzeichnis-titel" data-inhaltsverzeichnis>
+    <p class="c-inhaltsverzeichnis__titel" id="inhaltsverzeichnis-titel">Inhalt dieses Beitrags</p>
+    <ol>
+        {% for punkt in ueberschriften %}
+        <li><a href="#{{ punkt.id }}">{{ punkt.text }}</a></li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endif %}

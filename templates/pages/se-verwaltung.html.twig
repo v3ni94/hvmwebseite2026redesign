@@ -1,9 +1,186 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  SE-Verwaltung (Sondereigentumsverwaltung): Betreuung der einzelnen vermieteten Eigentumswohnung
+  für Kapitalanleger, Abgrenzung und Schnittstelle zur WEG-Verwaltung.
+  Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
+  Alle Texte sind Entwürfe, keine Rechtsberatung.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Betreuung der einzelnen vermieteten Eigentumswohnung für <strong>Kapitalanleger</strong>: Mietverhältnis, Betriebskostenabrechnung und die Schnittstelle zur WEG-Verwaltung des Objekts.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>SE-Verwaltung</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Kapitalanleger* mit vermieteter Eigentumswohnung',
+            text: 'Die SE-Verwaltung richtet sich an Eigentümer einer einzelnen, vermieteten Wohnung innerhalb einer Wohnungseigentümergemeinschaft. Sie betrifft nur das Sondereigentum, also die einzelne Wohnung samt Mietverhältnis, nicht die Verwaltung des Gemeinschaftseigentums.',
+            id: 'fuer-wen-titel',
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="abgrenzung-weg-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'SE-Verwaltung und *WEG-Verwaltung* im Unterschied',
+            text: 'Die WEG-Verwaltung handelt als Organ der Gemeinschaft der Wohnungseigentümer und betreut das gemeinschaftliche Eigentum, etwa Dach, Fassade und Treppenhaus, im Auftrag aller Eigentümer gemeinsam. Die SE-Verwaltung betreut im Auftrag des einzelnen Eigentümers dessen Sondereigentum, also die einzelne Wohnung und das dazugehörige Mietverhältnis. Beide Leistungen ergänzen sich, sind aber rechtlich und organisatorisch getrennt.',
+            id: 'abgrenzung-weg-titel',
+            geteilt: true,
+            aktion: {label: 'Zur WEG-Verwaltung', url: '/weg-verwaltung/'},
+        }) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="leistungsumfang-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Leistungsumfang',
+            titel: 'Aufgaben in der *SE-Verwaltung*',
+            text: 'Die Aufgaben gliedern sich kaufmännisch, technisch und organisatorisch.',
+            id: 'leistungsumfang-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {% set kaufmaennisch %}
+            <ul class="c-leistungsliste">
+                <li>Mietinkasso und Mahnwesen für die einzelne Einheit</li>
+                <li>Prüfung der auf die Einheit entfallenden Betriebskosten</li>
+                <li>Weiterleitung und Prüfung der WEG-Jahresabrechnung für die Einheit</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Kaufmännisch', ton: 'w', nummer: '01', zusatz: kaufmaennisch}) }}
+            {% set technisch %}
+            <ul class="c-leistungsliste">
+                <li>Instandhaltung innerhalb der Wohnung (Sondereigentum)</li>
+                <li>Abstimmung mit der WEG-Verwaltung bei Schäden am Gemeinschaftseigentum</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Technisch', ton: 'w', nummer: '02', zusatz: technisch}) }}
+            {% set organisatorisch %}
+            <ul class="c-leistungsliste">
+                <li>Schnittstelle zur WEG-Verwaltung des Objekts</li>
+                <li>Weitergabe von Beschlüssen, Wirtschaftsplan und Rücklagenstand an den Eigentümer</li>
+                <li>Kommunikation mit der Mieterin oder dem Mieter</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="schnittstelle-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Schnittstelle',
+            titel: 'Zusammenarbeit mit der *WEG-Verwaltung*',
+            id: 'schnittstelle-titel',
+        }) }}
+        {{ n.hinweis('Schnittstelle zur WEG-Verwaltung', 'Ist die Hausverwaltung Müller GmbH auch für die WEG-Verwaltung des Objekts beauftragt, sind die Wege kurz. Führt eine andere Verwaltung die WEG, stimmen wir uns mit dieser zu Beschlüssen, Wirtschaftsplan und Rücklage ab. Eine Vertretung in der Eigentümerversammlung übernehmen wir nur mit gesonderter Vollmacht und nach Absprache.') }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Was *nicht* enthalten ist',
+            id: 'abgrenzung-titel',
+        }) }}
+        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Die Verwaltung des Gemeinschaftseigentums ist nicht Teil der SE-Verwaltung, hierfür siehe WEG-Verwaltung. Die Neuvermietung einer leerstehenden Einheit ist eine gesonderte Leistung, siehe Vermietung. Umfangreiche Instandsetzungen innerhalb der Wohnung können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen.', {typ: 'info'}) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Übernahme',
+            titel: 'Ablauf der *Übernahme*',
+            text: 'Der Wechsel in die SE-Verwaltung der Hausverwaltung Müller GmbH folgt einem geordneten Ablauf.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern die Wohnung, das Mietverhältnis und die zuständige WEG-Verwaltung, Sie erhalten ein schriftliches Angebot.'},
+            {titel: 'Verwaltervertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der SE-Verwaltung.'},
+            {titel: 'Übergabe der Unterlagen', text: 'Mietvertrag, Kontodaten und WEG-Unterlagen zur Einheit werden übergeben.'},
+            {titel: 'Start der Verwaltung', text: 'Mieterin oder Mieter sowie die WEG-Verwaltung werden informiert, die laufende Verwaltung beginnt.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="mehrwerte-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Mehrwerte',
+            titel: 'Für Ihre *Wohnung* inbegriffen',
+            id: 'mehrwerte-titel',
+        }) }}
+        {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
+        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge für Vermieter und Investoren', url: '/wissen/?zielgruppe=vermieter-investoren'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Sondereigentumsverwaltung für Kapitalanleger', url: '/wissen/sondereigentumsverwaltung/', fuss: 'Beitrag lesen', text: 'Leistungsumfang und Abgrenzung im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Betriebskostenabrechnung für Vermieter', url: '/wissen/betriebskostenabrechnung/', fuss: 'Beitrag lesen', text: 'Ablauf und Fristen der Abrechnung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Eigentümerversammlung', url: '/wissen/eigentuemerversammlung/', fuss: 'Beitrag lesen', text: 'Einberufung, Ablauf und Niederschrift.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Was kostet eine Hausverwaltung?', url: '/wissen/kosten-hausverwaltung/', fuss: 'Beitrag lesen', text: 'Faktoren für die Vergütung der Verwaltung.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Vertritt die SE-Verwaltung mich auch in der Eigentümerversammlung?', antwort: 'Nur mit gesonderter Vollmacht und nach vorheriger Absprache. Grundsätzlich betreuen wir das Sondereigentum, nicht die Vertretung in der Gemeinschaft.'},
+            {frage: 'Kann die Hausverwaltung Müller GmbH auch die WEG-Verwaltung des Objekts übernehmen?', antwort: 'Das prüfen wir im Einzelfall. Ist die Gemeinschaft daran interessiert, kann ein Wechsel der WEG-Verwaltung gesondert beschlossen werden.'},
+            {frage: 'Was passiert, wenn meine Wohnung leer steht?', antwort: 'Für die Neuvermietung bieten wir eine gesonderte Leistung an, siehe Vermietung.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für Ihre *Eigentumswohnung* anfordern',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'se'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

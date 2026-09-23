@@ -1,9 +1,94 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Verkauf: Leistung und Ablauf beim Verkauf einer Immobilie. Grundlage: MP Abschnitt 5, 3.7, 8;
+  Bestandsaufnahme 3.5, 7. Wertermittlung ausdrücklich als Einschätzung, keine Rechtsberatung.
+  Der Kaufvertrag wird notariell beurkundet, nicht durch die Hausverwaltung Müller GmbH erstellt.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Verkauf Ihrer Immobilie mit Begleitung durch die Hausverwaltung Müller GmbH: Einschätzung des Marktwerts, Zusammenstellung der Unterlagen, Vermarktung und Besichtigungen bis zur Begleitung zum Notartermin.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Verkauf</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Eigentümer*, die verkaufen möchten',
+            text: 'Die Leistung richtet sich an Eigentümer von Wohnungen und Häusern aus dem Bestand der Hausverwaltung Müller GmbH sowie an Eigentümer, die eine Immobilie außerhalb der laufenden Verwaltung verkaufen möchten.',
+            id: 'fuer-wen-titel',
+            geteilt: true,
+            aktion: {label: 'Zum Wertgutachten', url: '/wertgutachten/'},
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ablauf',
+            titel: 'So läuft der *Verkauf*',
+            text: 'Von der ersten Einschätzung bis zur Begleitung zum Notartermin. Der Kaufvertrag selbst wird notariell beurkundet.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Wertermittlung', text: 'Einschätzung des Marktwerts auf Grundlage von Lage, Zustand und vergleichbaren Objekten.'},
+            {titel: 'Unterlagen', text: 'Zusammenstellung der für den Verkauf erforderlichen Unterlagen.'},
+            {titel: 'Vermarktung', text: 'Erstellung eines Exposés und Veröffentlichung über die üblichen Vermarktungswege.'},
+            {titel: 'Besichtigungen', text: 'Koordination und Durchführung der Besichtigungstermine mit Interessenten.'},
+            {titel: 'Käuferprüfung', text: 'Prüfung der Kaufinteressenten vor Aufnahme der Vertragsverhandlung.'},
+            {titel: 'Begleitung bis zum Notartermin', text: 'Abstimmung mit Notariat und Beteiligten bis zur Beurkundung des Kaufvertrags.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Wertermittlung und *Notartermin*',
+            id: 'abgrenzung-titel',
+        }) }}
+        {{ n.hinweis('Einschätzung, keine Rechtsberatung', 'Die genannte Wertermittlung ist eine kaufmännische Einschätzung, kein Wertgutachten im Sinne eines qualifizierten Sachverständigen, siehe Wertgutachten. Der Kaufvertrag wird ausschließlich durch den Notar beurkundet. Die Hausverwaltung Müller GmbH begleitet den Prozess, erstellt oder prüft aber keinen rechtssicheren Kaufvertrag und leistet keine Rechtsberatung. Bei rechtlichen Fragen verweisen wir an Rechtsanwalt oder Notar.', {typ: 'info'}) }}
+    </div>
+</section>
+
+{% include 'partials/immobilienangebote.html.twig' with {typ: 'kauf', id: 'angebote-titel'} only %}
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Ist die Wertermittlung verbindlich?', antwort: 'Nein, es handelt sich um eine kaufmännische Einschätzung des Marktwerts. Für ein förmliches Gutachten verweisen wir auf die Seite Wertgutachten.'},
+            {frage: 'Wer erstellt den Kaufvertrag?', antwort: 'Der Kaufvertrag wird vom Notar erstellt und beurkundet. Wir begleiten den Verkaufsprozess bis zum Notartermin.'},
+            {frage: 'Verkaufen Sie auch Objekte außerhalb Ihres Verwaltungsbestands?', antwort: 'Ja, die Leistung steht grundsätzlich auch Eigentümern offen, deren Immobilie nicht von der Hausverwaltung Müller GmbH verwaltet wird.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: '*Bewertung* anfragen',
+    text: 'Schildern Sie uns Ihre Immobilie, wir melden uns mit einer ersten Einschätzung.',
+    primaer: {label: 'Bewertung anfragen', url: cta_url('/kontakt/', {anliegen: 'verkauf'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

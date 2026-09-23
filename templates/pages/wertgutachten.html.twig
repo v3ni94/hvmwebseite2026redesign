@@ -1,9 +1,99 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Wertgutachten: Leistung, Anlässe und Ablauf. Grundlage: MP Abschnitt 5, 3.7, 8;
+  Bestandsaufnahme 3.6 (Altseite nicht abrufbar, Inhalt vollständig neu). Klare Trennung zwischen
+  kaufmännischer Marktwerteinschätzung und einem Gutachten durch qualifizierte Sachverständige.
+  Keine gerichtsfesten Gutachten versprechen, Qualifikation der Gutachter als [bestätigen] markiert.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Wertermittlung für Immobilien: eine kaufmännische Einschätzung durch die Hausverwaltung Müller GmbH oder, je nach Anlass, ein Gutachten durch qualifizierte Sachverständige.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Wertgutachten</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="anlaesse-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Anlässe',
+            titel: 'Wann eine *Wertermittlung* sinnvoll ist',
+            text: 'Eine Wertermittlung ist bei unterschiedlichen Anlässen gefragt, mit unterschiedlichen Anforderungen an Form und Belastbarkeit des Ergebnisses.',
+            id: 'anlaesse-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verkauf', text: 'Einschätzung des Marktwerts vor der Vermarktung, siehe auch Verkauf.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Erbschaft', text: 'Wertermittlung für die Aufteilung eines Nachlasses oder gegenüber dem Finanzamt.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Scheidung', text: 'Wertermittlung im Rahmen einer Vermögensauseinandersetzung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Finanzierung', text: 'Wertnachweis gegenüber einer finanzierenden Bank.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Vermögensaufstellung', text: 'Aufnahme des Immobilienwerts in eine private oder unternehmerische Vermögensübersicht.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Marktwerteinschätzung oder *Gutachten*',
+            id: 'abgrenzung-titel',
+        }) }}
+        {% set abgrenzung_text %}Die Hausverwaltung Müller GmbH gibt auf Grundlage von Lage, Zustand und vergleichbaren Objekten eine kaufmännische Marktwerteinschätzung ab. Diese ersetzt kein Verkehrswertgutachten und ist nicht gerichtsfest. Wird ein förmliches Gutachten benötigt, etwa gegenüber Gericht, Finanzamt oder Bank, vermitteln wir an qualifizierte Sachverständige {{ placeholder('Qualifikation Gutachter bestätigen') }}. Die Erstellung eines solchen Gutachtens liegt außerhalb der eigenen Leistung.{% endset %}
+        {{ n.hinweis('Zwei unterschiedliche Leistungen', abgrenzung_text) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ablauf',
+            titel: 'So läuft die *Einschätzung*',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Anfrage und Objektangaben', text: 'Sie schildern Objekt, Lage und Anlass der Wertermittlung.'},
+            {titel: 'Besichtigung', text: 'Sichtung des Objekts vor Ort, soweit für die Einschätzung erforderlich.'},
+            {titel: 'Auswertung', text: 'Einordnung anhand von Lage, Zustand und vergleichbaren Objekten.'},
+            {titel: 'Übergabe der Einschätzung', text: 'Sie erhalten die Marktwerteinschätzung in schriftlicher Form.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Ist die Marktwerteinschätzung gerichtsfest?', antwort: 'Nein. Für gerichtliche oder behördliche Zwecke ist in der Regel ein Gutachten qualifizierter Sachverständiger erforderlich, siehe Abgrenzung oben.'},
+            {frage: 'Was kostet eine Wertermittlung?', antwort: 'Die Vergütung richtet sich nach Objekt und Anlass. Sie erhalten eine Auskunft auf Anfrage.'},
+            {frage: 'Wie lange dauert die Einschätzung?', antwort: 'Die Dauer hängt von Objekt und Terminfindung ab und wird bei der Anfrage abgestimmt.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: '*Gutachten* anfragen',
+    text: 'Schildern Sie uns Objekt und Anlass, wir schlagen das passende weitere Vorgehen vor.',
+    primaer: {label: 'Gutachten anfragen', url: cta_url('/kontakt/', {anliegen: 'gutachten'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

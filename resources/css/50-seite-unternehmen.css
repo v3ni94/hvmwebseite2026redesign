@@ -1,0 +1,35 @@
+/*
+  Seitenspezifisches CSS für Über uns, Karriere, Service, Notfall und Kontakt (Welle 2, Webdesigner/Texter).
+  Nur hier verwendet, keine Änderungen an gemeinsamen CSS-Dateien oder Komponenten. Muss in
+  resources/css nach 21-inhalte.css eingereiht werden (numerische Sortierung 50-*).
+*/
+@layer components {
+    /* Notfallseite: große, gut scanbare Anruf-Schaltfläche direkt im Seitenkopf */
+    .c-notfall-anruf {
+        margin-top: var(--abstand-6);
+        max-width: 26rem;
+    }
+    .c-notfall-anruf__knopf {
+        min-height: 4.5rem;
+        padding-block: var(--abstand-4);
+        font-size: var(--fs-lead);
+        font-weight: var(--fw-halbfett);
+    }
+    .c-notfall-anruf__platzhalter {
+        margin-bottom: var(--abstand-3);
+        font-size: var(--fs-text);
+    }
+    .page-notfall .c-seitenkopf__text { max-width: 34rem; }
+
+    /* Kontaktseite: Adressspalte neben dem Kontaktformular */
+    .c-kontakt-adresse address { font-style: normal; }
+    .c-kontakt-adresse .c-section-head__titel {
+        font-size: var(--fs-h4);
+        font-weight: var(--fw-halbfett);
+        margin-bottom: var(--abstand-2);
+    }
+    .c-kontakt-adresse .c-prosa { max-width: none; }
+
+    /* Karriereseite: Platzhalterkarten für Stellen ohne eigenes Bild sollen wie kompakte Karten wirken */
+    .page-karriere .c-karte--kompakt { height: 100%; }
+}

@@ -1,0 +1,43 @@
+{#
+  Ergänzung zu components/form-fields.html.twig für das Angebotsformular:
+  Eingabefeld mit zusätzlichen Attributen für die clientseitige Prüfung (maxlength, min, max, step).
+  Label, Hinweis und Fehler kommen aus den Makros der Komponente, damit das Markup identisch bleibt.
+  {{ af.eingabe({name: 'plz', label: 'PLZ', pflicht: true, maxlaenge: 5, inputmode: 'numeric', muster: '[0-9]{5}'}) }}
+#}
+{% import 'components/form-fields.html.twig' as f %}
+
+{% macro eingabe(o) %}
+{%- import 'components/form-fields.html.twig' as f -%}
+{%- set id = o.id|default('feld-' ~ o.name) -%}
+<div class="c-feld{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {{ f._label(id, o) }}
+    <input class="c-eingabe" id="{{ id }}" name="{{ o.name }}" type="{{ o.typ|default('text') }}"
+        {%- if o.wert|default('') is not same as('') and o.wert is not null %} value="{{ o.wert }}"{% endif -%}
+        {%- if o.autocomplete|default('') %} autocomplete="{{ o.autocomplete }}"{% endif -%}
+        {%- if o.inputmode|default('') %} inputmode="{{ o.inputmode }}"{% endif -%}
+        {%- if o.muster|default('') %} pattern="{{ o.muster }}"{% endif -%}
+        {%- if o.platzhalter|default('') %} placeholder="{{ o.platzhalter }}"{% endif -%}
+        {%- if o.maxlaenge|default(0) %} maxlength="{{ o.maxlaenge }}"{% endif -%}
+        {%- if o.min is defined %} min="{{ o.min }}"{% endif -%}
+        {%- if o.max is defined %} max="{{ o.max }}"{% endif -%}
+        {%- if o.schritt is defined %} step="{{ o.schritt }}"{% endif -%}
+        {%- if o.pflicht|default(false) %} required{% endif -%}
+        {%- if o.fehlertext|default('') %} data-fehlertext="{{ o.fehlertext }}"{% endif -%}
+        {{- f._beschreibung(id, o) }}>
+    {{ f._meldungen(id, o) }}
+</div>
+{% endmacro %}
+
+{#
+  Navigation eines Schritts (nur mit JavaScript sichtbar).
+#}
+{% macro navigation(schritt, anzahl) %}
+<div class="c-angebot__navigation" data-navigation hidden>
+    {% if schritt > 1 %}
+    <button class="c-button c-button--sekundaer" type="button" data-zurueck>Zurück</button>
+    {% endif %}
+    {% if schritt < anzahl %}
+    <button class="c-button c-button--primaer" type="button" data-weiter>Weiter {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</button>
+    {% endif %}
+</div>
+{% endmacro %}

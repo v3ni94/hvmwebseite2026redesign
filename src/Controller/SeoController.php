@@ -39,7 +39,7 @@ final class SeoController
             if (($this->config->get('seiten.' . $slug . '.sitemap') ?? false) !== true) {
                 continue;
             }
-            $entries[$route['path']] = $this->config->get('freigaben.' . $slug . '.datum');
+            $entries[$route['path']] = $this->lastmod($slug);
         }
 
         foreach ((array) $this->config->get('app.sitemap_providers', []) as $class) {
@@ -70,6 +70,22 @@ final class SeoController
         $xml->endDocument();
 
         return Response::xml($xml->outputMemory())->withHeader('Cache-Control', 'public, max-age=3600');
+    }
+
+    /**
+     * lastmod bevorzugt das Freigabedatum (config/freigaben.php); ohne Freigabe die letzte
+     * Änderung der Seitenvorlage (Dateiänderungsdatum), sonst kein lastmod.
+     */
+    private function lastmod(string $slug): ?string
+    {
+        $datum = $this->config->get('freigaben.' . $slug . '.datum');
+        if (is_string($datum) && $datum !== '') {
+            return $datum;
+        }
+        $template = (string) $this->config->get('app.base_path') . '/templates/pages/' . $slug . '.html.twig';
+        $mtime = is_file($template) ? filemtime($template) : false;
+
+        return $mtime !== false ? date('Y-m-d', $mtime) : null;
     }
 
     public function robots(Request $request, array $params = []): Response

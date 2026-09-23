@@ -1,9 +1,86 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Erklärung zur Barrierefreiheit (freiwillig). Grundlage: MP Abschnitt 9 (WCAG 2.2 AA), docs/designsystem.md
+  Abschnitt 5 und 7. Keine Aussage, ob eine gesetzliche Pflicht besteht; das prüft ein Rechtsanwalt
+  (docs/recht-offene-fragen.md). Stand der Vereinbarkeit erst nach Prüfung ausfüllen.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/notice.html.twig' as n %}
+
+{% set stand = '2026-09-23' %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Rechtliches') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Die {{ firma.name }} möchte, dass diese Webseite für alle Menschen nutzbar ist, unabhängig von Einschränkungen oder eingesetzten Hilfsmitteln.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Barrierefreiheit</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+<section class="l-section l-section--kompakt" aria-label="Erklärung zur Barrierefreiheit">
+    <div class="l-container c-recht">
+        {% if not app.is_production %}
+        <div class="c-recht__hinweise">
+            {% set pruef_text %}Freiwillige Erklärung. Ob für diese Webseite eine gesetzliche Pflicht zur Barrierefreiheit oder zu einer Erklärung besteht und welche Pflichtangaben dann gelten, prüft ein Rechtsanwalt {{ placeholder('verifizieren') }}. Den Stand der Vereinbarkeit erst nach einer Prüfung eintragen.{% endset %}
+            {{ n.hinweis('Entwurf zur Prüfung', pruef_text, {typ: 'warnung'}) }}
+        </div>
+        {% endif %}
+
+        <div class="c-prosa">
+            <h2 id="geltungsbereich">Geltungsbereich</h2>
+            <p>Diese Erklärung gilt für die Webseite der {{ firma.name }} unter {{ app.url ?: 'www.muellerhv.de' }}. Sie gilt nicht für externe Anwendungen, auf die wir verlinken, etwa das Eigentümerportal.</p>
+
+            <h2 id="ziel">Ziel</h2>
+            <p>Wir gestalten diese Webseite mit dem Ziel, die Anforderungen der Web Content Accessibility Guidelines (WCAG) 2.2 auf der Konformitätsstufe AA zu erfüllen. Die Erklärung geben wir freiwillig ab.</p>
+
+            <h2 id="stand">Stand der Vereinbarkeit</h2>
+            <p>{{ placeholder('Stand der Vereinbarkeit nach Prüfung ausfüllen') }}</p>
+            <p>Grundlage der Bewertung: {{ placeholder('Prüfmethode nach Prüfung ausfüllen, zum Beispiel Selbstbewertung oder Prüfung durch Dritte') }}</p>
+
+            <h2 id="umsetzung">Umsetzung</h2>
+            <p>Bei der Gestaltung und Entwicklung haben wir unter anderem folgende Punkte berücksichtigt:</p>
+            <ul>
+                <li>Alle Funktionen sind mit der Tastatur bedienbar, der Fokus ist deutlich sichtbar.</li>
+                <li>Ein Link am Seitenanfang führt direkt zum Inhalt.</li>
+                <li>Jede Seite hat eine eindeutige Hauptüberschrift und eine logische Gliederung der Überschriften.</li>
+                <li>Farbkontraste von Texten und Bedienelementen sind auf die Anforderungen der WCAG 2.2 AA ausgelegt. Informationen werden nicht allein über Farbe vermittelt.</li>
+                <li>Formularfelder haben sichtbare Beschriftungen. Fehlermeldungen sind als Text formuliert und dem jeweiligen Feld zugeordnet.</li>
+                <li>Die Inhalte und Formulare sind auch ohne JavaScript nutzbar.</li>
+                <li>Bei der Systemeinstellung für reduzierte Bewegung werden Animationen abgeschaltet.</li>
+                <li>Die Darstellung passt sich an die Bildschirmgröße an und lässt sich im Browser vergrößern.</li>
+                <li>Die Sprache der Seiten ist als Deutsch ausgezeichnet.</li>
+            </ul>
+
+            <h2 id="einschraenkungen">Bekannte Einschränkungen</h2>
+            <p>Folgende Inhalte sind nach aktuellem Kenntnisstand nicht oder nur eingeschränkt barrierefrei:</p>
+            <ul>
+                <li>Karte der Betreuungsgebiete: Die Karte ist eine Grafik. Alle Informationen der Karte stehen zusätzlich als Text in einer Liste auf derselben Seite zur Verfügung.</li>
+                <li>Silbentrennung: Lange Wörter werden abhängig vom Browser getrennt. In Umgebungen ohne deutsches Trennwörterbuch brechen lange Wörter ohne Trennstrich um.</li>
+                <li>Dokumente zum Herunterladen: {{ placeholder('nach Prüfung ergänzen, ob und welche Dokumente nicht barrierefrei sind') }}</li>
+            </ul>
+            <p>{{ placeholder('weitere Einschränkungen nach Prüfung ergänzen') }}</p>
+
+            <h2 id="feedback">Barrieren melden</h2>
+            <p>Sind Ihnen Barrieren auf dieser Webseite aufgefallen oder benötigen Sie Informationen in einer anderen Form? Schreiben Sie uns. Wir prüfen Ihre Rückmeldung und antworten Ihnen.</p>
+            <dl class="c-angaben">
+                <dt>E-Mail</dt>
+                <dd><a href="mailto:{{ firma.email }}?subject=Barrierefreiheit%20der%20Webseite">{{ firma.email }}</a></dd>
+                <dt>Telefon</dt>
+                <dd>{% if firma.telefon %}<a href="{{ tel_href(firma.telefon) }}">{{ firma.telefon }}</a>{% else %}{{ placeholder(firma.telefon_platzhalter) }}{% endif %}</dd>
+                <dt>Post</dt>
+                <dd>{{ firma.name }}, {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}</dd>
+            </dl>
+
+            <h2 id="durchsetzung">Durchsetzungsverfahren</h2>
+            <p>{{ placeholder('Angaben zu Schlichtungs- oder Durchsetzungsverfahren durch Rechtsanwalt prüfen und verifizieren') }}</p>
+
+            <p class="c-recht__stand">Erstellt am: {{ datum(stand) }} (Entwurf). Letzte Überprüfung: {{ placeholder('Datum nach Prüfung ausfüllen') }}</p>
+        </div>
+    </div>
+</section>
 {% endblock %}

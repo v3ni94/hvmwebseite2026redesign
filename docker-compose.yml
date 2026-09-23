@@ -77,6 +77,31 @@ services:
       - "traefik.http.middlewares.${TRAEFIK_ROUTER:-hvm}-staging-robots.headers.customresponseheaders.X-Robots-Tag=${STAGING_ROBOTS_TAG:-noindex, nofollow}"
       - "traefik.http.middlewares.${TRAEFIK_ROUTER:-hvm}-staging.chain.middlewares=${TRAEFIK_ROUTER:-hvm}-staging-auth,${TRAEFIK_ROUTER:-hvm}-staging-robots"
 
+  # Taegliche verschluesselte Datenbanksicherung (docs/betrieb.md, bin/backup-db.sh).
+  # Aktivierung mit --profile backup. Alternative: Cronjob auf dem Host, der
+  # "docker compose run --rm backup /app/bin/backup-db.sh" aufruft.
+  backup:
+    build:
+      context: .
+      dockerfile: docker/backup/Dockerfile
+    image: ${HVM_IMAGE:-hvm-website}-backup:${HVM_TAG:-latest}
+    restart: unless-stopped
+    profiles: ["backup"]
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      BACKUP_DIR: /backups
+      TZ: Europe/Berlin
+    env_file:
+      - .env
+    volumes:
+      - backup_data:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+
   db:
     image: mariadb:10.11
     restart: unless-stopped
@@ -113,3 +138,4 @@ volumes:
   storage_logs:
   storage_uploads:
   storage_ratelimit:
+  backup_data:

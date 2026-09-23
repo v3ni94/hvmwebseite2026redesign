@@ -1,0 +1,158 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+
+{% macro zeile(label, wert) %}
+<div class="c-admin-daten__zeile">
+    <dt>{{ label }}</dt>
+    <dd>{% if wert is same as(null) or wert is same as('') %}<span class="c-admin-leer">keine Angabe</span>{% else %}{{ wert }}{% endif %}</dd>
+</div>
+{% endmacro %}
+
+{% block content %}
+{% import _self as m %}
+{% set l = lead %}
+{% set anonym = l.anonymized_at is not null %}
+{% set zeit = (l.created_at ~ ' UTC')|date('d.m.Y H:i', 'Europe/Berlin') %}
+<section class="c-admin-abschnitt" aria-labelledby="titel-lead">
+    <p class="c-admin-zurueck"><a class="c-admin-link" href="{{ zurueck ?: '/admin/leads/' }}">Zurück zur Liste</a></p>
+    <div class="c-admin-kopfzeile">
+        <h1 id="titel-lead" class="c-admin-titel">
+            {% if anonym %}Anonymisierter Lead{% else %}{{ [l.contact_first_name, l.contact_last_name]|filter(v => v)|join(' ')|default('Lead ohne Namen') }}{% endif %}
+        </h1>
+        <span class="c-admin-status c-admin-status--{{ l.status }}">{{ optionen.status[l.status]|default(l.status) }}</span>
+    </div>
+    <p class="c-admin-hinweistext">
+        Eingang am {{ zeit }} Uhr, {{ optionen.arten[l.management_form]|default(l.management_form) }}{% if l.legacy_id %}, Altbestand (Alt-ID {{ l.legacy_id }}){% endif %}.
+        {% if anonym %}Personenbezogene Daten wurden am {{ (l.anonymized_at ~ ' UTC')|date('d.m.Y', 'Europe/Berlin') }} durch den Löschlauf entfernt.{% endif %}
+    </p>
+
+    <div class="c-admin-detail">
+        <div class="c-admin-detail__daten">
+            <section class="c-admin-karte" aria-labelledby="titel-kontakt">
+                <h2 id="titel-kontakt" class="c-admin-untertitel">Kontakt</h2>
+                <dl class="c-admin-daten">
+                    {{ m.zeile('Anrede', optionen.anreden[l.contact_salutation]|default(l.contact_salutation)) }}
+                    {{ m.zeile('Vorname', l.contact_first_name) }}
+                    {{ m.zeile('Nachname', l.contact_last_name) }}
+                    <div class="c-admin-daten__zeile">
+                        <dt>E-Mail</dt>
+                        <dd>{% if l.contact_email %}<a class="c-admin-link" href="mailto:{{ l.contact_email }}">{{ l.contact_email }}</a>{% else %}<span class="c-admin-leer">keine Angabe</span>{% endif %}</dd>
+                    </div>
+                    <div class="c-admin-daten__zeile">
+                        <dt>Telefon</dt>
+                        <dd>{% if l.contact_phone and tel_href(l.contact_phone) %}<a class="c-admin-link" href="{{ tel_href(l.contact_phone) }}">{{ l.contact_phone }}</a>{% elseif l.contact_phone %}{{ l.contact_phone }}{% else %}<span class="c-admin-leer">keine Angabe</span>{% endif %}</dd>
+                    </div>
+                    {{ m.zeile('Rolle', optionen.rollen[l.contact_role]|default(l.contact_role)) }}
+                    {{ m.zeile('Anschrift', [l.contact_street, [l.contact_zip, l.contact_city]|filter(v => v)|join(' ')]|filter(v => v)|join(', ')) }}
+                </dl>
+            </section>
+
+            <section class="c-admin-karte" aria-labelledby="titel-objekt">
+                <h2 id="titel-objekt" class="c-admin-untertitel">Objekt und Wunsch</h2>
+                <dl class="c-admin-daten">
+                    {{ m.zeile('Verwaltungsart', optionen.arten[l.management_form]|default(l.management_form)) }}
+                    {{ m.zeile('Straße', l.object_street) }}
+                    {{ m.zeile('PLZ und Ort', [l.object_zip, l.object_city]|filter(v => v)|join(' ')) }}
+                    {{ m.zeile('Betreuungsgebiet', l.region) }}
+                    {{ m.zeile('Baujahr', l.year_of_construction) }}
+                    {{ m.zeile('Wohneinheiten', l.units_residential) }}
+                    {{ m.zeile('Gewerbeeinheiten', l.units_commercial) }}
+                    {{ m.zeile('Stellplätze', l.units_parking) }}
+                    {{ m.zeile('Verwaltungsbeginn', l.management_start ? datum(l.management_start)|slice(3) : null) }}
+                    {{ m.zeile('Aktueller Verwalter', l.has_current_manager is null ? null : (l.has_current_manager ? 'ja' : 'nein')) }}
+                </dl>
+                <h3 class="c-admin-kleintitel">Nachricht</h3>
+                {% if l.message %}<p class="c-admin-nachricht">{{ l.message|nl2br }}</p>{% else %}<p class="c-admin-leer">keine Nachricht</p>{% endif %}
+                {% if l.notes %}
+                <h3 class="c-admin-kleintitel">Notiz aus dem Datensatz</h3>
+                <p class="c-admin-nachricht">{{ l.notes|nl2br }}</p>
+                {% endif %}
+            </section>
+
+            <section class="c-admin-karte" aria-labelledby="titel-herkunft">
+                <h2 id="titel-herkunft" class="c-admin-untertitel">Herkunft</h2>
+                <dl class="c-admin-daten">
+                    {{ m.zeile('Quelle', l.source ? optionen.quellen_labels[l.source]|default(l.source) : null) }}
+                    {{ m.zeile('utm_source', l.utm_source) }}
+                    {{ m.zeile('utm_medium', l.utm_medium) }}
+                    {{ m.zeile('utm_campaign', l.utm_campaign) }}
+                    {{ m.zeile('utm_term', l.utm_term) }}
+                    {{ m.zeile('utm_content', l.utm_content) }}
+                    {{ m.zeile('Einstiegsseite', l.landing_page) }}
+                    {{ m.zeile('Referrer', l.referrer) }}
+                </dl>
+            </section>
+
+            <section class="c-admin-karte" aria-labelledby="titel-technik">
+                <h2 id="titel-technik" class="c-admin-untertitel">Technische Angaben</h2>
+                <dl class="c-admin-daten">
+                    {{ m.zeile('UUID', l.uuid) }}
+                    {{ m.zeile('Alt-ID', l.legacy_id) }}
+                    {{ m.zeile('Datenschutzhinweis', l.consent_text_version ? l.consent_text_version ~ (l.consent_at ? ', bestätigt am ' ~ (l.consent_at ~ ' UTC')|date('d.m.Y H:i', 'Europe/Berlin') : '') : null) }}
+                    {{ m.zeile('Preisstufe Wohnen', l.price_tier_residential_id) }}
+                    {{ m.zeile('Preisstufe Gewerbe', l.price_tier_commercial_id) }}
+                    {{ m.zeile('Preisstufe Stellplätze', l.price_tier_parking_id) }}
+                    {{ m.zeile('Zuletzt geändert', (l.updated_at ~ ' UTC')|date('d.m.Y H:i', 'Europe/Berlin')) }}
+                </dl>
+            </section>
+        </div>
+
+        <div class="c-admin-detail__aktionen">
+            <section class="c-admin-karte" aria-labelledby="titel-bearbeiten">
+                <h2 id="titel-bearbeiten" class="c-admin-untertitel">Bearbeiten</h2>
+
+                <form class="c-admin-formular" method="post" action="/admin/leads/{{ l.uuid }}/status/" data-bestaetigen-bei="spam verloren" data-bestaetigen-text="Status wirklich ändern? Leads mit diesem Status werden nach Ablauf der Aufbewahrungsfrist gelöscht bzw. anonymisiert.">
+                    {{ csrf_field() }}
+                    {% if zurueck %}<input type="hidden" name="zurueck" value="{{ zurueck }}">{% endif %}
+                    {% set status_optionen = [] %}
+                    {% for wert, label in optionen.status %}{% set status_optionen = status_optionen|merge([{wert: wert, label: label}]) %}{% endfor %}
+                    {{ f.auswahl({name: 'status', id: 'feld-status', label: 'Status', wert: l.status, optionen: status_optionen}) }}
+                    <button class="c-button c-button--primaer c-button--klein" type="submit">Status speichern</button>
+                </form>
+
+                <form class="c-admin-formular" method="post" action="/admin/leads/{{ l.uuid }}/zuweisung/">
+                    {{ csrf_field() }}
+                    {% if zurueck %}<input type="hidden" name="zurueck" value="{{ zurueck }}">{% endif %}
+                    {% set benutzer_optionen = [] %}
+                    {% for b in benutzer %}{% set benutzer_optionen = benutzer_optionen|merge([{wert: b.id ~ '', label: b.email}]) %}{% endfor %}
+                    {{ f.auswahl({name: 'assigned_to', id: 'feld-zuweisung', label: 'Zugewiesen an', wert: l.assigned_to is null ? '' : l.assigned_to ~ '', leer: 'niemand', optionen: benutzer_optionen}) }}
+                    <button class="c-button c-button--sekundaer c-button--klein" type="submit">Zuweisung speichern</button>
+                </form>
+
+                {% if not anonym %}
+                <form class="c-admin-formular" method="post" action="/admin/leads/{{ l.uuid }}/notiz/">
+                    {{ csrf_field() }}
+                    {% if zurueck %}<input type="hidden" name="zurueck" value="{{ zurueck }}">{% endif %}
+                    {{ f.textfeld({name: 'notiz', id: 'feld-notiz', label: 'Neue Notiz', zeilen: 4, maxlaenge: 5000, hinweis: 'Notizen werden mit Datum und Benutzer im Verlauf gespeichert und lassen sich nicht bearbeiten. Nur sachliche, für die Anfrage erforderliche Angaben.'}) }}
+                    <button class="c-button c-button--sekundaer c-button--klein" type="submit">Notiz speichern</button>
+                </form>
+                {% endif %}
+            </section>
+
+            <section class="c-admin-karte" aria-labelledby="titel-verlauf">
+                <h2 id="titel-verlauf" class="c-admin-untertitel">Verlauf</h2>
+                <ol class="c-admin-verlauf" role="list">
+                    {% for e in ereignisse %}
+                    <li class="c-admin-verlauf__eintrag">
+                        <p class="c-admin-verlauf__kopf">
+                            <time datetime="{{ (e.created_at ~ ' UTC')|date('Y-m-d\\TH:i:sP', 'UTC') }}">{{ (e.created_at ~ ' UTC')|date('d.m.Y H:i', 'Europe/Berlin') }}</time>
+                            <span class="c-admin-verlauf__typ">{{ optionen.ereignisse[e.typ]|default(e.typ) }}</span>
+                            {% if e.admin_email %}<span class="c-admin-klein">durch {{ e.admin_email }}</span>{% endif %}
+                        </p>
+                        {% if e.typ == 'status' %}
+                        <p>{{ optionen.status[e.von_status]|default(e.von_status) }} zu {{ optionen.status[e.nach_status]|default(e.nach_status) }}</p>
+                        {% elseif e.typ == 'zuweisung' %}
+                        <p>{{ e.notiz ? 'Zugewiesen an ' ~ benutzer_map[e.notiz]|default('Benutzer ' ~ e.notiz) : 'Zuweisung aufgehoben' }}</p>
+                        {% elseif e.notiz %}
+                        <p class="c-admin-nachricht">{{ e.notiz|nl2br }}</p>
+                        {% endif %}
+                    </li>
+                    {% else %}
+                    <li>Kein Verlauf vorhanden.</li>
+                    {% endfor %}
+                </ol>
+            </section>
+        </div>
+    </div>
+</section>
+{% endblock %}

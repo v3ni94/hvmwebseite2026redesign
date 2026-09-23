@@ -1,9 +1,168 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  WEG-Verwaltung: Leistungsumfang, Abgrenzung und Ablauf für Wohnungseigentümergemeinschaften und Beiräte.
+  Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
+  Rechtsstand: WEMoG. Alle Texte sind Entwürfe, keine Rechtsberatung, Normen bewusst allgemein formuliert.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Verwaltung des gemeinschaftlichen Eigentums als <strong>Organ der Gemeinschaft der Wohnungseigentümer</strong>: Beschlüsse umsetzen, Wirtschaftsplan und Jahresabrechnung erstellen, Eigentümerversammlungen durchführen und Erhaltungsmaßnahmen steuern.</p>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>WEG-Verwaltung</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+<section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            titel: 'Für *Wohnungseigentümergemeinschaften* und Beiräte',
+            text: 'Die WEG-Verwaltung richtet sich an Gemeinschaften der Wohnungseigentümer, unabhängig von der Anzahl der Einheiten. Beauftragt wird die Hausverwaltung Müller GmbH durch Beschluss der Eigentümerversammlung, Ansprechpartner sind in der Regel der Verwaltungsbeirat und die einzelnen Eigentümer.',
+            id: 'fuer-wen-titel',
+        }) }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="leistungsumfang-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Leistungsumfang',
+            titel: 'Aufgaben als *Verwaltungsorgan*',
+            text: 'Seit der WEG-Reform (WEMoG) handelt der Verwalter als Organ der Gemeinschaft der Wohnungseigentümer. Die Aufgaben gliedern sich kaufmännisch, technisch und organisatorisch.',
+            id: 'leistungsumfang-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {% set kaufmaennisch %}
+            <ul class="c-leistungsliste">
+                <li>Aufstellung des Wirtschaftsplans</li>
+                <li>Erstellung der Jahresabrechnung</li>
+                <li>Erstellung des Vermögensberichts</li>
+                <li>Verwaltung und Überwachung der Erhaltungsrücklage</li>
+                <li>Hausgeldinkasso und Mahnwesen gegenüber Eigentümern</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Kaufmännisch', ton: 'w', nummer: '01', zusatz: kaufmaennisch}) }}
+            {% set technisch %}
+            <ul class="c-leistungsliste">
+                <li>Vorbereitung und Umsetzung von Erhaltungsmaßnahmen</li>
+                <li>Regelmäßige Objektbegehungen</li>
+                <li>Schadensaufnahme und Schadensmanagement</li>
+                <li>Steuerung von Dienstleistern und Handwerkern, auch über Rahmenverträge</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Technisch', ton: 'w', nummer: '02', zusatz: technisch}) }}
+            {% set organisatorisch %}
+            <ul class="c-leistungsliste">
+                <li>Einberufung und Durchführung der Eigentümerversammlung</li>
+                <li>Durchführung der gefassten Beschlüsse</li>
+                <li>Führung der Beschluss-Sammlung</li>
+                <li>Kommunikation mit Eigentümern und Verwaltungsbeirat</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Was *nicht* enthalten ist',
+            id: 'abgrenzung-titel',
+        }) }}
+        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Rechtsberatung und steuerliche Beratung sind nicht Teil der Verwaltungsleistung, hierfür verweisen wir an Rechtsanwalt oder Steuerberater. Umfangreiche Sanierungsvorhaben und Sonderprojekte können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen. Die Betreuung des Sondereigentums einzelner vermieteter Wohnungen ist gesondert geregelt, siehe SE-Verwaltung.') }}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Übernahme',
+            titel: 'Ablauf der *Übernahme*',
+            text: 'Der Wechsel zur Hausverwaltung Müller GmbH folgt einem geordneten Ablauf. Eine ausführliche Darstellung mit Zeitplan und Unterlagenübergabe finden Sie auf der Seite Verwalterwechsel.',
+            id: 'ablauf-titel',
+            geteilt: true,
+            aktion: {label: 'Verwalterwechsel im Detail', url: '/verwalterwechsel/'},
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern Objekt und Ausgangslage, Sie erhalten ein schriftliches Angebot.'},
+            {titel: 'Beschluss der Eigentümerversammlung', text: 'Die Eigentümerversammlung beschließt über Bestellung und Verwaltervertrag.'},
+            {titel: 'Übergabe der Unterlagen', text: 'Der bisherige Verwalter übergibt Beschluss-Sammlung, Konten und Unterlagen.'},
+            {titel: 'Start der Verwaltung', text: 'Eigentümer und Dienstleister werden informiert, die laufende Verwaltung beginnt.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="mehrwerte-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Mehrwerte',
+            titel: 'Für Ihre *Gemeinschaft* inbegriffen',
+            id: 'mehrwerte-titel',
+        }) }}
+        {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
+        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge zu WEG und Beirat', url: '/wissen/?zielgruppe=weg-beirat'},
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Eigentümerversammlung', url: '/wissen/eigentuemerversammlung/', fuss: 'Beitrag lesen', text: 'Einberufung, Ablauf und Niederschrift.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Wirtschaftsplan und Jahresabrechnung', url: '/wissen/wirtschaftsplan-jahresabrechnung/', fuss: 'Beitrag lesen', text: 'Wirtschaftsplan, Jahresabrechnung und Vermögensbericht im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Erhaltungsrücklage', url: '/wissen/erhaltungsruecklage/', fuss: 'Beitrag lesen', text: 'Zweck und Bemessung der Rücklage.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Beschlussfassung in der Gemeinschaft', url: '/wissen/beschlussfassung-weg/', fuss: 'Beitrag lesen', text: 'Mehrheiten, Umlaufbeschluss und Niederschrift.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Ist der Verwalter Vertreter der Gemeinschaft oder der einzelnen Eigentümer?', antwort: 'Der Verwalter handelt als Organ der Gemeinschaft der Wohnungseigentümer und setzt deren Beschlüsse um. Einzelinteressen einzelner Eigentümer vertritt er nicht.'},
+            {frage: 'Wie oft findet eine Eigentümerversammlung statt?', antwort: 'Mindestens einmal jährlich. Die genaue Häufigkeit und Einberufungsfristen richten sich nach Gesetz und der jeweiligen Gemeinschaftsordnung.'},
+            {frage: 'Was passiert mit der Erhaltungsrücklage bei einem Verwalterwechsel?', antwort: 'Die Rücklage verbleibt bei der Gemeinschaft und wird mit den Kontenunterlagen an die neue Verwaltung übergeben.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für Ihre *Eigentümergemeinschaft* anfordern',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'weg'})},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}

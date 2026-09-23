@@ -1,0 +1,57 @@
+{#
+  Layout des Admin-Bereichs (MP 6.5). Nicht öffentlich: noindex, keine strukturierten Daten, kein Seiten-Header.
+  CSP: keine style-Attribute, keine on*-Handler, Skript nur als Modul mit Nonce.
+  Variablen: titel, admin.user ({id, email} oder null), admin.flash ({typ, text} oder null), admin.bereich.
+  Blöcke: title, body_class, content.
+#}
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="same-origin">
+    <title>{% block title %}{{ titel }} | Verwaltung | {{ firma.name }}{% endblock %}</title>
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin.css') }}">
+</head>
+<body class="c-admin {% block body_class %}{% endblock %}">
+    <a class="u-skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <header class="c-admin-kopf">
+        {% include 'partials/kennlinie.html.twig' with {klasse: 'c-admin-kopf__linie'} only %}
+        <div class="c-admin-kopf__innen">
+            <a class="c-admin-kopf__marke" href="/admin/">
+                <img src="/assets/img/logo/hvm-kurzform.svg" width="74" height="36" alt="">
+                <span class="c-admin-kopf__bereich">Verwaltung<span class="u-visually-hidden">, {{ firma.name }}</span></span>
+            </a>
+            {% if admin.user %}
+            <nav class="c-admin-nav" aria-label="Admin-Navigation">
+                <ul class="c-admin-nav__liste" role="list">
+                    <li><a class="c-admin-nav__link" href="/admin/"{% if admin.bereich|default('') == 'dashboard' %} aria-current="page"{% endif %}>Dashboard</a></li>
+                    <li><a class="c-admin-nav__link" href="/admin/leads/"{% if admin.bereich|default('') == 'leads' %} aria-current="page"{% endif %}>Leads</a></li>
+                </ul>
+            </nav>
+            <div class="c-admin-kopf__konto">
+                <span class="c-admin-kopf__nutzer"><span class="u-visually-hidden">Angemeldet als </span>{{ admin.user.email }}</span>
+                <form method="post" action="/admin/logout/">
+                    {{ csrf_field() }}
+                    <button class="c-button c-button--sekundaer c-button--klein" type="submit">Abmelden</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+    <main id="inhalt" class="c-admin-inhalt" tabindex="-1">
+        {% if admin.flash %}
+        <div class="c-admin-meldung c-admin-meldung--{{ admin.flash.typ }}" role="status">
+            <p>{{ admin.flash.text }}</p>
+        </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    <script type="module" src="{{ asset('admin.js') }}" nonce="{{ csp_nonce() }}"></script>
+</body>
+</html>

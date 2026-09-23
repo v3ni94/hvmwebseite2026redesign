@@ -1,0 +1,16 @@
+{% import 'components/form-fields.html.twig' as f %}
+{% import 'partials/forms/angebot/_felder.html.twig' as af %}
+<section class="c-angebot__schritt" id="schritt-3" data-schritt="3" data-titel="Zeitpunkt" aria-labelledby="schritt-3-titel">
+    <h2 class="c-angebot__titel" id="schritt-3-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">3</span> Zeitpunkt</h2>
+    <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+    {{ af.eingabe({name: 'beginn', label: 'Gewünschter Verwaltungsbeginn', optional: true, typ: 'month', min: form.beginn_min, max: form.beginn_max, platzhalter: 'MM.JJJJ', wert: form.werte.beginn|default(''), hinweis: 'Monat und Jahr, zum Beispiel 01.2027. Ohne Angabe klären wir den Zeitpunkt im Gespräch.', fehler: form.fehler.beginn|default(''), fehlertext: 'Bitte geben Sie Monat und Jahr an, zum Beispiel 01.2027.'}) }}
+    {{ f.auswahlkarten({
+        name: 'aktueller_verwalter',
+        legende: 'Wird das Objekt derzeit von einer Hausverwaltung betreut? (optional)',
+        optionen: [{wert: 'ja', label: 'Ja'}, {wert: 'nein', label: 'Nein'}],
+        wert: form.werte.aktueller_verwalter|default(null),
+        spalten: true,
+        fehler: form.fehler.aktueller_verwalter|default(''),
+    }) }}
+    {{ af.navigation(3, form.schritte|length) }}
+</section>

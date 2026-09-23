@@ -1,9 +1,88 @@
-{# Platzhalterseite (Stub). Wird durch das Seitentemplate ersetzt. #}
+{#
+  Karriere: allgemeine Einladung zur Bewerbung, Stellen aus config/stellen.php (falls vorhanden,
+  sonst Platzhalter), Ausbildung als offener Punkt. Grundlage: MP Abschnitt 1 (Ziel 3), 2, 5, 8.
+  config/stellen.php existiert noch nicht und ist auch nicht als Twig-Variable verfügbar
+  (kein Global in src/View/View.php). Die Variable "stellen" bleibt daher undefiniert und
+  "stellen|default([])" greift auf den Platzhalter zurück, analog zu "kundenstimmen" in
+  templates/pages/start.html.twig (docs/designsystem.md Abschnitt 9, Entscheidung 8). Sobald
+  config/stellen.php angelegt und als Global verdrahtet ist, zeigt diese Seite die Einträge ohne
+  weitere Änderung an. Siehe Bericht.
+#}
 {% extends 'layouts/base.html.twig' %}
 
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/placeholder.html.twig' as ph %}
+{% import 'components/button.html.twig' as b %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Karriere') }}
+        <h1>{{ page.heading }}</h1>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH sucht Verstärkung für die Verwaltung von Wohnungseigentum und Mietobjekten in {{ firma.anschrift.ort }}. Wir freuen uns über Ihre Bewerbung.</p>
+        <div class="c-aktionen">
+            {{ b.button('Jetzt bewerben', '/karriere/bewerbung/', {variante: 'primaer', icon: 'pfeil'}) }}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block content %}
-    <section class="l-container">
-        <h1>Karriere</h1>
-        <p>{{ placeholder('Inhalt folgt') }}</p>
-    </section>
+
+{% set stellen = stellen|default([]) %}
+
+<section class="l-section l-section--kompakt" aria-labelledby="stellen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Stellenangebote',
+            titel: 'Offene *Stellen*',
+            text: 'Eine allgemeine Bewerbung ist auch ohne passende ausgeschriebene Stelle möglich.',
+            id: 'stellen-titel',
+        }) }}
+        {% if stellen|length > 0 %}
+        <div class="c-karten c-karten--4">
+            {% for stelle in stellen %}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: stelle.titel, text: stelle.text|default(''), url: '/karriere/bewerbung/', fuss: 'Jetzt bewerben'}) }}
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ ph.block('Offene Stellen', 'Stellenangebote ergänzen', {erklaerung: 'Aktuelle Stellenangebote werden nach Freigabe durch die Geschäftsführung eingepflegt (config/stellen.php).'}) }}
+        {% endif %}
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ausbildung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ausbildung',
+            titel: 'Ausbildung bei der *Hausverwaltung Müller*',
+            id: 'ausbildung-titel',
+        }) }}
+        {{ ph.block('Ausbildungsangebot', 'Ausbildungsangebot klären', {erklaerung: 'Ob und in welchen Berufsbildern die Hausverwaltung Müller GmbH ausbildet, ist mit der Geschäftsführung zu klären.'}) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="bewerbung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Bewerbung',
+            titel: 'So *bewerben* Sie sich',
+            text: 'Senden Sie Ihre Bewerbungsunterlagen über das Online-Formular. Sie erhalten eine Eingangsbestätigung.',
+            id: 'bewerbung-titel',
+            aktion: {label: 'Zum Bewerbungsformular', url: '/karriere/bewerbung/'},
+        }) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Bereit für die *Bewerbung*',
+    text: 'Nutzen Sie das Online-Formular für Ihre Bewerbungsunterlagen.',
+    primaer: {label: 'Jetzt bewerben', url: '/karriere/bewerbung/'},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
 {% endblock %}
