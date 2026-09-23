@@ -9,12 +9,12 @@
     }
 
     /*
-     * Display-Headline 36 bis 76 px. Zusätzlich an die Breite des umgebenden Containers gebunden
-     * (8,4 cqi, Container siehe .c-hero__inhalt), damit lange Komposita auch in schmalen Spalten
-     * nicht mitten im Wort brechen. Trennung nur an weichen Trennzeichen (Filter trennen, &shy;).
+     * Display-Headline 38 bis 96 px, enges Tracking, Zeilenhöhe 1,0. Zusätzlich an die Breite des
+     * umgebenden Containers gebunden (9,2 cqi, Container siehe .c-hero__inhalt), damit lange Komposita
+     * auch in schmalen Spalten nicht mitten im Wort brechen. Trennung nur an weichen Trennzeichen.
      */
     .c-display {
-        font-size: min(var(--fs-display), 8.4cqi);
+        font-size: min(var(--fs-display), 9.2cqi);
         line-height: var(--lh-display);
         letter-spacing: var(--tracking-display);
         font-weight: var(--fw-leicht);
@@ -33,7 +33,23 @@
         max-width: none;
     }
 
-    /* Eyebrow: Versalien, erweitertes Tracking, Orangekeil als Marker */
+    /*
+     * Kinetische Typografie (kinetik.js): Wörter werden erst zur Laufzeit in Spans zerlegt und zeitversetzt
+     * eingeblendet. Das h1 im ausgelieferten HTML bleibt ohne Kindelemente. Nur ohne reduzierte Bewegung.
+     */
+    .c-wort { display: inline-block; }
+    @media (prefers-reduced-motion: no-preference) {
+        .is-kinetisch .c-wort {
+            animation: hvm-wort var(--dauer-lang) var(--ease) both;
+            animation-delay: calc(120ms + var(--i, 0) * 55ms);
+        }
+        @keyframes hvm-wort {
+            from { opacity: 0; transform: translateY(0.35em); }
+            to { opacity: 1; transform: none; }
+        }
+    }
+
+    /* Eyebrow: technisches Label in Versalien, erweitertes Tracking, Orangekeil als Marker, tabellarische Ziffern */
     .c-eyebrow {
         display: inline-flex;
         align-items: flex-start;
@@ -42,6 +58,7 @@
         font-weight: var(--fw-halbfett);
         letter-spacing: var(--tracking-label);
         text-transform: uppercase;
+        font-variant-numeric: tabular-nums;
         line-height: 1.5;
         max-width: none;
         hyphens: manual;
@@ -56,22 +73,57 @@
         clip-path: polygon(0 0, 100% 0, 0 100%);
     }
 
-    /* Section-Head */
+    /*
+     * Section-Head. Jede Sektion zählt hoch (CSS-Zähler), die Nummer steht als technisches Label
+     * rechts in der Kopfzeile: „01“ in tabellarischen Ziffern mit Haarlinie davor.
+     */
     .c-section-head {
         display: grid;
         gap: var(--abstand-5);
-        max-width: 56rem;
         margin-bottom: var(--block-y);
+        counter-increment: sektion;
     }
-    .c-section-head__kopf { display: grid; gap: var(--abstand-4); justify-items: start; }
-    .c-section-head__titel { font-size: var(--fs-h2); }
+    .c-section-head__kopf { display: grid; gap: var(--abstand-5); justify-items: start; max-width: 60rem; }
+    .c-section-head__titel { font-size: var(--fs-h2); line-height: 1.04; max-width: 16ch; }
     .c-section-head__text {
         font-size: var(--fs-lead);
-        line-height: 1.5;
+        line-height: 1.45;
         font-weight: var(--fw-leicht);
-        max-width: 38rem;
+        max-width: 34rem;
     }
-    .c-section-head__aktion { margin-top: var(--abstand-2); }
+    .c-section-head__aktion { margin-top: var(--abstand-3); }
+    /* Nummer: als eigenes Element hinter dem Kopf, rechts oben in der Kopfzeile */
+    .c-section-head::before {
+        content: counter(sektion, decimal-leading-zero);
+        grid-row: 1;
+        grid-column: 1 / -1;
+        justify-self: end;
+        align-self: start;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: var(--fs-label);
+        font-weight: var(--fw-halbfett);
+        letter-spacing: var(--tracking-label);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.5;
+        pointer-events: none;
+    }
+    .c-section-head::after {
+        content: "";
+        grid-row: 1;
+        grid-column: 1 / -1;
+        justify-self: end;
+        align-self: start;
+        width: 3rem;
+        height: 1px;
+        margin-top: 0.7rem;
+        margin-right: 2.5rem;
+        background: currentColor;
+        opacity: 0.35;
+    }
+    .c-section-head > .c-section-head__kopf { grid-row: 1; grid-column: 1; }
+    .c-section-head > .c-section-head__text { grid-column: 1; }
     @media (min-width: 64em) {
         .c-section-head--geteilt {
             max-width: none;
@@ -81,11 +133,13 @@
             padding-bottom: var(--abstand-6);
             border-bottom: var(--haarlinie);
         }
+        .c-section-head--geteilt::before,
+        .c-section-head--geteilt::after { grid-column: 2; }
+        .c-section-head--geteilt > .c-section-head__text { grid-column: 2; grid-row: 1; justify-self: start; padding-top: 2.5rem; }
         .is-dunkel .c-section-head--geteilt { border-bottom-color: var(--linie-auf-dunkel); }
-        .c-section-head--geteilt .c-section-head__text { justify-self: start; }
     }
 
-    /* Buttons: primär (Orange, Text --hvm-ink), sekundär, auf dunkel, Textlink */
+    /* Buttons: Pill, primär (Orange, Text --hvm-ink), sekundär (Kontur), auf dunkel, Textlink */
     .c-button {
         --btn-bg: transparent;
         --btn-fg: var(--hvm-ink);
@@ -99,8 +153,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.625em;
-        min-height: 3.25rem;
-        padding: 0.75rem 1.5rem 0.75rem 1.625rem;
+        min-height: 3.375rem;
+        padding: 0.75rem 1.625rem 0.75rem 1.75rem;
         font-size: 0.9375rem;
         font-weight: var(--fw-halbfett);
         line-height: 1.2;
@@ -110,10 +164,10 @@
         color: var(--btn-fg);
         background: var(--btn-bg);
         border: 1px solid var(--btn-rand);
-        border-radius: var(--radius);
-        transition: color var(--dauer) var(--ease), border-color var(--dauer) var(--ease);
+        border-radius: var(--radius-pill);
+        transition: color var(--dauer) var(--ease), border-color var(--dauer) var(--ease), transform var(--dauer) var(--ease);
     }
-    .c-button:focus-visible { outline-offset: 3px; }
+    .c-button:focus-visible { outline-offset: 3px; border-radius: var(--radius-pill); }
     /* Hover: Wischeffekt in der Keil-Schräge */
     .c-button::before {
         content: "";
@@ -140,10 +194,11 @@
     .c-button--secondary { --btn-bg: transparent; }
     .c-button--dunkel {
         --btn-fg: var(--hvm-weiss);
-        --btn-rand: var(--hvm-weiss);
+        --btn-rand: color-mix(in srgb, var(--hvm-weiss) 48%, transparent);
         --btn-bg-hover: var(--hvm-weiss);
         --btn-fg-hover: var(--hvm-ink);
     }
+    .c-button--dunkel:hover { border-color: var(--hvm-weiss); }
     .c-button--klein { min-height: 2.75rem; padding: 0.5rem 1.125rem 0.5rem 1.25rem; font-size: 0.875rem; }
     .c-button--breit { width: 100%; }
 
@@ -204,19 +259,28 @@
     h1 .placeholder,
     h2 .placeholder { font-size: 0.5em; vertical-align: middle; }
 
-    /* Entwurfsband (nur außerhalb der Produktion bei nicht freigegebenen Seiten) */
+    /*
+     * Entwurfsband (nur außerhalb der Produktion bei nicht freigegebenen Seiten): schwebende Pill am
+     * unteren Rand, damit der dunkle Seitenkopf bis an die Oberkante laufen kann.
+     */
     .c-entwurf {
+        position: fixed;
+        right: var(--abstand-4);
+        bottom: calc(var(--abstand-4) + env(safe-area-inset-bottom));
+        z-index: calc(var(--z-mobilbar) - 1);
+        width: min(calc(100% - 2 * var(--rand)), 17rem);
+        opacity: 0.94;
         background: var(--hvm-orange);
         color: var(--hvm-ink);
-        font-size: var(--fs-klein);
+        font-size: 0.8125rem;
         line-height: 1.4;
+        border-radius: var(--radius-feld);
+        box-shadow: var(--schatten-pill);
     }
     .c-entwurf__inner {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: var(--abstand-2) var(--abstand-4);
-        padding-block: var(--abstand-3);
+        display: grid;
+        gap: var(--abstand-1);
+        padding: var(--abstand-3) var(--abstand-4);
     }
     .c-entwurf__label {
         font-size: var(--fs-label);
@@ -225,4 +289,7 @@
         text-transform: uppercase;
     }
     .c-entwurf p { max-width: none; }
+    @media (max-width: 47.99em) {
+        .c-entwurf { bottom: calc(4.75rem + env(safe-area-inset-bottom)); }
+    }
 }

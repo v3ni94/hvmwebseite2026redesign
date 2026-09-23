@@ -18,12 +18,12 @@
 {% block hero %}
 <section class="c-hero c-hero--mit-keil is-dunkel">
     <div class="c-hero__umriss-rahmen" aria-hidden="true">
-        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true} only %}
+        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true, parallaxe: true} only %}
     </div>
     <div class="l-container">
         <div class="c-hero__inhalt">
             {{ e.eyebrow('Verwalterwechsel', {klasse: 'u-auftritt'}) }}
-            <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2">
+            <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2" data-kinetisch>
                 <h1>Verwalterwechsel</h1><p> für Ihre <strong>Eigentümer&shy;gemeinschaft</strong>, geordnet und nachvollziehbar.</p>
             </hgroup>
             <p class="c-hero__lead u-auftritt u-auftritt--3">Vom Beschluss der Eigentümerversammlung bis zur Übergabe der Unterlagen: ein klarer Ablauf, der sich an Ihrer Beschlusslage und der Vertragslaufzeit Ihres bisherigen Verwalters orientiert.</p>

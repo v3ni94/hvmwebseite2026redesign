@@ -1,16 +1,16 @@
 {#
-  Kopfzeile: fest positioniert, beim Scrollen kompakt (resources/js/modules/kopfzeile.js).
-  Vollversion des Logos im Grundzustand, Kurzform im kompakten Zustand. Beide mit width/height gegen Layoutsprung.
+  Kopfzeile: schwebende Glas-Pill, fest positioniert, beim Scrollen kompakt (resources/js/modules/kopfzeile.js).
+  In der Pill steht die Kurzform HVM (mit width/height gegen Layoutsprung); die Vollversion des Logos
+  steht im Footer. Der Scroll-Fortschritt (Kennlinie) liegt im Basislayout.
   Untermenü als Disclosure-Button (aria-expanded), ohne JavaScript über :focus-within erreichbar.
   Mobile Navigation: Button mit aria-expanded; ohne JavaScript Sprunglink zur Footer-Navigation.
 #}
 {% set pfad = request.path|default('/') %}
 <header class="c-header" data-kopfzeile>
-    {% include 'partials/kennlinie.html.twig' with {klasse: 'c-header__kennlinie'} only %}
     <div class="l-container c-header__inner">
+      <div class="c-header__pill">
         <a class="c-header__marke" href="/" aria-label="{{ firma.name }}, zur Startseite">
-            <img class="c-header__logo c-header__logo--voll" src="/assets/img/logo/hvm-logo.svg" width="144" height="125" alt="" fetchpriority="high">
-            <img class="c-header__logo c-header__logo--kurz" src="/assets/img/logo/hvm-kurzform.svg" width="74" height="36" alt="" loading="lazy">
+            <img class="c-header__logo c-header__logo--kurz" src="/assets/img/logo/hvm-kurzform.svg" width="74" height="36" alt="" fetchpriority="high">
         </a>
 
         <nav class="c-nav" id="hauptnavigation" aria-label="Hauptnavigation" data-nav>
@@ -26,6 +26,7 @@
                         {% include 'partials/icon.html.twig' with {name: 'chevron'} only %}
                     </button>
                     <div class="c-nav__sub" id="nav-sub-{{ loop.index }}">
+                        <p class="c-nav__sub-kopf"><span class="c-eyebrow">{{ eintrag.label }}</span><a class="c-textlink" href="{{ nav.cta.url }}">{{ nav.cta.label }} {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></p>
                         <ul class="c-nav__sub-liste" role="list">
                             {% for kind in kinder %}
                             <li>
@@ -65,5 +66,6 @@
             Menü
             {% include 'partials/icon.html.twig' with {name: 'menue'} only %}
         </a>
+      </div>
     </div>
 </header>

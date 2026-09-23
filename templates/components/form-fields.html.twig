@@ -82,11 +82,12 @@
     <legend class="c-auswahl__legende">{{ o.legende }}{% if o.pflicht|default(false) %}<span class="c-feld__zusatz">(Pflichtfeld)</span>{% endif %}</legend>
     <div class="c-auswahlkarten{{ o.spalten|default(false) ? ' c-auswahlkarten--spalten' }}">
         {% for opt in o.optionen %}
-        <label class="c-auswahlkarte" for="{{ id }}-{{ opt.wert }}">
+        <label class="c-auswahlkarte{{ o.gross|default(false) ? ' c-auswahlkarte--gross' }}" for="{{ id }}-{{ opt.wert }}">
             <input type="radio" id="{{ id }}-{{ opt.wert }}" name="{{ o.name }}" value="{{ opt.wert }}"
                 {%- if o.wert|default(null) is same as(opt.wert) %} checked{% endif -%}
                 {%- if o.pflicht|default(false) %} required{% endif -%}
                 {%- if o.deaktiviert|default(false) or opt.deaktiviert|default(false) %} disabled{% endif %}>
+            {% if opt.icon|default('') %}<span class="c-auswahlkarte__icon" aria-hidden="true">{% include 'partials/icon.html.twig' with {name: opt.icon} only %}</span>{% endif %}
             <span class="c-auswahlkarte__titel">{{ opt.label }}</span>
             {% if opt.text|default('') %}<span class="c-auswahlkarte__text">{{ opt.text }}</span>{% endif %}
         </label>

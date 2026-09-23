@@ -46,8 +46,15 @@
     .is-dunkel {
         --fokus-innen: var(--hvm-weiss);
         --farbe-linie: var(--linie-auf-dunkel);
+        --kontur: var(--kontur-auf-dunkel);
         background: var(--hvm-ink);
         color: var(--hvm-weiss);
+    }
+    /* Punktraster als Textur auf dunklen Flächen (7 % Weiß), sonst keine Textur */
+    .l-punktraster {
+        background-image: radial-gradient(var(--punkt-auf-dunkel) 1px, transparent 1.5px);
+        background-size: 28px 28px;
+        background-position: center top;
     }
 
     .l-stack > * + * { margin-top: var(--stack, var(--abstand-5)); }

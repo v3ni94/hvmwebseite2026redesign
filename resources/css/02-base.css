@@ -21,6 +21,9 @@
         -webkit-font-smoothing: antialiased;
         padding-top: var(--header-h);
     }
+    /* Sektionsnummern (Richtung 2030): jeder Section-Head zählt hoch, Ausgabe in 20-komponenten.css */
+    body { counter-reset: sektion; }
+    main { position: relative; }
 
     h1, h2, h3, h4 {
         line-height: var(--lh-titel);
@@ -36,7 +39,7 @@
     }
 
     h1 { font-size: var(--fs-h1); letter-spacing: var(--tracking-display); line-height: var(--lh-display); }
-    h2 { font-size: var(--fs-h2); letter-spacing: var(--tracking-display); }
+    h2 { font-size: var(--fs-h2); letter-spacing: var(--tracking-display); line-height: var(--lh-titel); }
     h3 { font-size: var(--fs-h3); font-weight: var(--fw-normal); }
     h4 { font-size: var(--fs-h4); font-weight: var(--fw-halbfett); letter-spacing: 0; }
 

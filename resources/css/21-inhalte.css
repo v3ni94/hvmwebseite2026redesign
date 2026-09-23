@@ -13,9 +13,10 @@
         padding: clamp(1.5rem, 1.125rem + 1.111vw, 2.25rem);
         background: var(--karte-bg);
         color: var(--hvm-ink);
-        border: var(--haarlinie);
-        border-radius: var(--radius);
-        transition: border-color var(--dauer) var(--ease);
+        border: 0;
+        border-radius: var(--radius-karte);
+        box-shadow: var(--schatten-karte);
+        transition: box-shadow var(--dauer) var(--ease), translate var(--dauer) var(--ease);
     }
     .c-karte__eyebrow { font-size: var(--fs-label); font-weight: var(--fw-halbfett); letter-spacing: var(--tracking-label); text-transform: uppercase; }
     .c-karte__titel { font-size: var(--fs-h3); font-weight: var(--fw-normal); letter-spacing: -0.01em; line-height: 1.22; }
@@ -46,7 +47,7 @@
         transition: background-color var(--dauer) var(--ease), color var(--dauer) var(--ease), border-color var(--dauer) var(--ease);
     }
     .c-karte__pfeil .c-icon { width: 1.125rem; height: 1.125rem; transition: transform var(--dauer) var(--ease); }
-    .c-karte:has(a:focus-visible) { outline: 3px solid var(--fokus-aussen); outline-offset: 2px; box-shadow: 0 0 0 2px var(--fokus-innen); }
+    .c-karte:has(a:focus-visible) { outline: 3px solid var(--fokus-aussen); outline-offset: 2px; box-shadow: var(--schatten-karte), 0 0 0 2px var(--fokus-innen); }
     .c-karte a:focus-visible { outline: none; box-shadow: none; }
 
     /* Hover-Wischeffekt: Orangekeil läuft in der Keil-Schräge über die Karte */
@@ -60,7 +61,7 @@
         transform: translateX(-104%) skewX(calc(-1 * var(--hvm-keil-winkel)));
         transition: transform var(--dauer-wisch) var(--ease);
     }
-    .c-karte--link:hover { border-color: var(--hvm-orange); }
+    .c-karte--link:hover { box-shadow: var(--schatten-karte), var(--schatten-3); translate: 0 -2px; }
     .c-karte--link:hover::before { transform: translateX(0) skewX(calc(-1 * var(--hvm-keil-winkel))); }
     .c-karte--link:hover .c-karte__pfeil { background: var(--hvm-ink); border-color: var(--hvm-ink); color: var(--hvm-orange); }
     .c-karte--link:is(:hover, :focus-within) .c-karte__pfeil .c-icon { transform: translateX(0.1875rem); }
@@ -80,16 +81,19 @@
     .c-bento {
         display: grid;
         grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 8px;
+        gap: 0.75rem;
     }
     .c-bento > * { grid-column: span 12; display: grid; }
-    .c-bento .c-karte { border-color: transparent; min-height: 15rem; }
+    .c-bento .c-karte { min-height: 16rem; box-shadow: none; }
+    /* Innenkante: 1 px helle Linie oben als feine Tiefe auf den Graustufen */
+    .c-bento .c-karte:not(.c-karte--w) { box-shadow: inset 0 1px 0 color-mix(in srgb, var(--hvm-weiss) 35%, transparent); }
     .c-bento .c-karte--h { --karte-bg: var(--hvm-anthrazit); }
     .c-bento .c-karte--v { --karte-bg: var(--hvm-mittelgrau); }
     .c-bento .c-karte--m { --karte-bg: var(--hvm-hellgrau); }
     .c-bento .c-karte--u { --karte-bg: var(--hvm-umriss); }
-    .c-bento .c-karte--w { --karte-bg: var(--hvm-weiss); border-color: var(--hvm-hellgrau); }
-    .c-bento .c-karte--link:hover { border-color: var(--hvm-orange); }
+    .c-bento .c-karte--w { --karte-bg: var(--hvm-weiss); box-shadow: var(--schatten-karte); }
+    .c-bento .c-karte--link:hover { box-shadow: var(--schatten-3); }
+    .c-bento .c-karte--w.c-karte--link:hover { box-shadow: var(--schatten-karte), var(--schatten-3); }
     /* Nummer als feine Kopfzeile der Karte mit Haarlinie */
     .c-bento .c-karte__nummer {
         display: flex;
@@ -102,14 +106,15 @@
         max-width: none;
     }
     .c-bento .c-karte__nummer::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: 0.28; }
-    .c-bento .c-karte--gross { min-height: 24rem; }
-    .c-bento .c-karte--gross .c-karte__titel { font-size: var(--fs-h2); font-weight: var(--fw-leicht); letter-spacing: var(--tracking-display); line-height: var(--lh-titel); }
+    .c-bento .c-karte--gross { min-height: 26rem; }
+    .c-bento .c-karte--gross .c-karte__titel { font-size: var(--fs-h2); font-weight: var(--fw-leicht); letter-spacing: var(--tracking-display); line-height: 1.04; }
     .c-bento .c-karte--gross .c-karte__text { font-size: var(--fs-lead); line-height: 1.45; max-width: 32rem; }
     @media (max-width: 47.99em) {
         .c-bento .c-karte--gross { min-height: 15rem; }
         .c-bento .c-karte--gross .c-karte__text { font-size: var(--fs-text); line-height: var(--lh-text); }
     }
     .c-bento .c-karte__keil { position: absolute; top: 0; right: clamp(1.5rem, 1.125rem + 1.111vw, 2.25rem); --keil-b: 1.25rem; }
+    .c-karte--gross .c-karte__nummer { font-size: 0.875rem; }
     .c-bento .c-karte:has(.c-karte__keil) .c-karte__nummer::after { margin-right: 2.5rem; }
 
     @media (min-width: 48em) {
@@ -135,38 +140,44 @@
     .c-kennzahlen {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0;
+        gap: var(--abstand-6) var(--spalten-abstand);
         max-width: none;
-        border-top: 1px solid var(--farbe-linie);
     }
     @media (min-width: 64em) {
-        .c-kennzahlen { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .c-kennzahlen { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spalten-abstand); }
     }
+    /* Jede Kennzahl beginnt an einer Haarlinie mit einem orangen Marker (Akzentfläche), Ziffer sehr groß und leicht */
     .c-kennzahl {
+        position: relative;
+        container-type: inline-size;
         display: flex;
         flex-direction: column-reverse;
-        justify-content: flex-end;
-        gap: var(--abstand-3);
-        padding: var(--abstand-5) var(--abstand-4) var(--abstand-5) var(--abstand-5);
-        border-left: 1px solid var(--farbe-linie);
+        justify-content: flex-start;
+        gap: var(--abstand-4);
+        padding-top: var(--abstand-5);
+        border-top: 1px solid var(--farbe-linie);
         min-width: 0;
     }
-    .c-kennzahl:nth-child(odd) { border-left: 0; padding-left: 0; }
-    .c-kennzahl:nth-child(n + 3) { border-top: 1px solid var(--farbe-linie); }
-    @media (min-width: 64em) {
-        .c-kennzahl:nth-child(n) { border-left: 1px solid var(--farbe-linie); padding-left: var(--abstand-6); border-top: 0; }
-        .c-kennzahl:first-child { border-left: 0; padding-left: 0; }
+    .c-kennzahl::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 2.5rem;
+        height: 3px;
+        background: var(--hvm-orange);
     }
     .c-kennzahl__wert {
-        font-size: var(--fs-kennzahl);
+        /* an die Spaltenbreite gebunden, damit „seit 2020“ in einer Zeile bleibt */
+        font-size: min(var(--fs-kennzahl), 30cqi);
         font-weight: 200;
-        line-height: 0.95;
-        letter-spacing: -0.045em;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
         font-variant-numeric: tabular-nums lining-nums;
         white-space: nowrap;
     }
     .c-kennzahl__wert--text {
-        font-size: calc(var(--fs-kennzahl) * 0.4);
+        font-size: min(calc(var(--fs-kennzahl) * 0.34), 11cqi);
         font-weight: var(--fw-leicht);
         line-height: 1.1;
         letter-spacing: -0.02em;
@@ -177,7 +188,7 @@
         padding-bottom: 0.1em;
     }
     .c-kennzahl__wert:not(.c-kennzahl__wert--text) { min-height: 1em; }
-    .c-kennzahl__vorsatz { font-size: max(0.2em, 0.875rem); letter-spacing: 0.02em; font-weight: var(--fw-fett); margin-right: 0.4em; vertical-align: 1.9em; text-transform: uppercase; }
+    .c-kennzahl__vorsatz { font-size: max(0.16em, 0.75rem); letter-spacing: 0.12em; font-weight: var(--fw-fett); margin-right: 0.35em; vertical-align: 2.6em; text-transform: uppercase; }
     .c-kennzahl__label {
         font-size: var(--fs-label);
         font-weight: var(--fw-fett);
@@ -187,8 +198,10 @@
         max-width: 16rem;
     }
     .c-kennzahlen__stichtag {
-        margin-top: var(--abstand-5);
-        font-size: 0.875rem;
+        margin-top: var(--abstand-6);
+        font-size: 0.8125rem;
+        letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
         display: flex;
         gap: var(--abstand-3);
         align-items: center;
@@ -251,7 +264,7 @@
         height: var(--zl-marke);
         background: var(--hvm-weiss);
         border: 1.5px solid var(--hvm-ink);
-        border-radius: var(--radius-1);
+        border-radius: 50%;
     }
     .c-zeitleiste__nummer {
         font-size: 0.8125rem;
@@ -409,7 +422,13 @@
         padding-block: var(--sektion-y);
     }
     .c-cta-band__inner { position: relative; z-index: 1; display: grid; gap: var(--abstand-6); }
-    .c-cta-band__titel { font-size: var(--fs-h1); max-width: 18ch; }
+    .c-cta-band__titel { font-size: var(--fs-h1); line-height: 1.0; letter-spacing: var(--tracking-display); max-width: 16ch; }
+    @media (min-width: 64em) {
+        .c-cta-band__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--spalten-abstand); align-items: end; }
+        .c-cta-band__titel { grid-column: 1; grid-row: 1 / span 2; }
+        .c-cta-band__text { grid-column: 2; }
+        .c-cta-band .c-aktionen { grid-column: 2; }
+    }
     .c-cta-band .c-aktionen { margin-top: var(--abstand-2); }
     .c-cta-band__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.45; max-width: 36rem; }
     /* Keil an derselben Stelle wie der Sektionsübergang (60 % der Breite, Position des Orange-Segments) */
@@ -421,12 +440,24 @@
     }
 
     /* Breadcrumbs */
-    .c-breadcrumbs { padding-block: var(--abstand-4); font-size: 0.875rem; }
+    .c-breadcrumbs {
+        position: absolute;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        z-index: 2;
+        padding-block: var(--abstand-3);
+        font-size: 0.8125rem;
+        letter-spacing: 0.01em;
+        color: var(--hvm-weiss);
+        --fokus-innen: var(--hvm-weiss);
+    }
     .c-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: var(--abstand-2); list-style: none; padding: 0; max-width: none; }
     .c-breadcrumbs li { display: inline-flex; gap: var(--abstand-2); align-items: center; }
     .c-breadcrumbs li + li::before { content: "/" / ""; color: var(--hvm-mittelgrau); }
-    .c-breadcrumbs a { text-decoration-color: var(--hvm-orange); }
-    .c-breadcrumbs [aria-current="page"] { font-weight: var(--fw-halbfett); }
+    .c-breadcrumbs a { color: var(--hvm-hellgrau); text-decoration: none; }
+    .c-breadcrumbs a:hover { color: var(--hvm-weiss); text-decoration: underline; text-decoration-color: var(--hvm-orange); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+    .c-breadcrumbs [aria-current="page"] { color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
 
     /* Tabelle */
     .c-tabelle-rahmen { overflow-x: auto; max-width: 100%; }
@@ -462,8 +493,8 @@
     .c-suche { display: flex; max-width: 40rem; }
     .c-suche__feld { position: relative; flex: 1; }
     .c-suche__feld .c-icon { position: absolute; left: 1rem; top: 50%; translate: 0 -50%; pointer-events: none; }
-    .c-suche .c-eingabe { padding-left: 3rem; border-right: 0; border-radius: var(--radius-1) 0 0 var(--radius-1); }
-    .c-suche .c-button { border-radius: 0 var(--radius-1) var(--radius-1) 0; }
+    .c-suche { gap: var(--abstand-2); }
+    .c-suche .c-eingabe { padding-left: 3rem; border-radius: var(--radius-pill); }
 
     /* Hinweisbox */
     .c-hinweis {
@@ -474,7 +505,7 @@
         background: var(--hvm-umriss);
         color: var(--hvm-ink);
         border-left: 3px solid var(--hvm-anthrazit);
-        border-radius: 0 var(--radius) var(--radius) 0;
+        border-radius: var(--radius-feld);
         max-width: 48rem;
     }
     .c-hinweis--warnung { border-left-color: var(--hvm-orange); }

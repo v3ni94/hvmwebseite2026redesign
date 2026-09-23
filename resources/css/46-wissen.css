@@ -14,7 +14,7 @@
     .c-wissen-filter__link {
         padding: var(--abstand-2) var(--abstand-4);
         border: 1px solid var(--hvm-hellgrau);
-        border-radius: var(--radius-2);
+        border-radius: var(--radius-pill);
         font-size: var(--fs-klein);
         font-weight: var(--fw-halbfett);
         text-decoration: none;
@@ -53,6 +53,7 @@
         margin: var(--abstand-6) 0;
         padding: var(--abstand-5);
         background: var(--hvm-umriss);
+        border-radius: var(--radius-karte);
         max-width: var(--zeilenlaenge);
     }
     .c-inhaltsverzeichnis__titel { font-weight: var(--fw-halbfett); margin-bottom: var(--abstand-3); }

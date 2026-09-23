@@ -1,6 +1,6 @@
 # Designsystem muellerhv.de
 
-Stand: 23.09.2026 (Nachschliff und Modernisierung, siehe Abschnitt 11). Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
+Stand: 23.09.2026 (Richtung 2030, siehe Abschnitt 12). Status: Entwurf, Freigabe durch die Geschäftsführung ausstehend (MP Phase 2).
 Grundlage: `docs/architektur.md` Abschnitt 4, 6 und 7, Masterprompt (MP) Abschnitt 3, 5 und 8, CI-Skill hvm-ci, `docs/logo/geometrie.md`.
 Ansicht aller Bausteine: `/styleguide/` (nur außerhalb der Produktion).
 
@@ -32,7 +32,9 @@ Ansicht aller Bausteine: `/styleguide/` (nur außerhalb der Produktion).
 | `resources/js/modules/kopfzeile.js` | kompakter Header, Untermenüs, mobile Navigation |
 | `resources/js/modules/einblenden.js` | Fallback für scroll-getriebenes Einblenden |
 | `resources/js/modules/zaehler.js` | Zähleranimation der Kennzahlen |
-| `resources/js/modules/fortschritt.js` | Fortschrittsbalken, Lesefortschritt, Export `setzeFortschritt()` |
+| `resources/js/modules/fortschritt.js` | Fortschrittsbalken, Lesefortschritt, Scroll-Fortschritt der Seite, Export `setzeFortschritt()` |
+| `resources/js/modules/kinetik.js` | kinetische Hero-Typografie (Wörter zeitversetzt) |
+| `resources/js/modules/parallaxe.js` | dezente Parallaxe des Hausumrisses |
 | `templates/layouts/base.html.twig` | Basislayout |
 | `templates/partials/*` | header, footer, mobile-bar, draft-banner, breadcrumbs, kennlinie, hausumriss, icon |
 | `templates/components/*` | Twig-Makros (Abschnitt 6) |
@@ -70,11 +72,11 @@ Die im Logo gemessene Überlagerungsfarbe #B0B1B3 (siehe `docs/logo/nachzeichnun
 | Abstände | `--abstand-1` bis `--abstand-10` | 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px |
 | Sektionen | `--sektion-y`, `--sektion-y-kompakt`, `--block-y` | 64 px mobil, 96 bis 144 px Desktop (fluid); `--block-y` 40 bis 72 px zwischen Section-Head und Inhalt |
 | Raster | `--container-max` 1280 px, `--rand` 16 bis 40 px, `--spalten-abstand` 16 bis 32 px | |
-| Radien | `--radius-0` 0, `--radius-1` 2 px, `--radius-2` 4 px, `--radius` (= 4 px) | `--radius` ist das eine Token für Karten, Bento, Buttons, Felder, Auswahlkarten, Untermenü, Hinweise und Kästen |
+| Radien | `--radius-feld` 12 px, `--radius-karte` 16 bis 24 px, `--radius-pill`, dazu `--radius-1` 2 px, `--radius-2` 4 px | Felder und Hinweise 12 px, Karten, Panels und Auswahlkarten 16 bis 24 px, Buttons, Navigation und mobile Bar als Pill (Abschnitt 12) |
 | Linien | `--haarlinie` | 1 px Hellgrau als Strukturelement (Kartenränder, Section-Head, Footer-Spalten, Kennzahlen); auf dunklem Grund `--linie-auf-dunkel` |
 | Schatten | `--schatten-1`, `--schatten-2`, `--schatten-3` | aus `--hvm-ink` mit 8 %, 22 % bzw. 28 % (Untermenü) |
 | Bewegung | `--ease` cubic-bezier(0.2, 0.7, 0.2, 1), `--dauer-kurz` 200 ms, `--dauer` 400 ms, `--dauer-lang` 500 ms, `--dauer-wisch` 650 ms, `--versatz` 12 px | ein Easing-Token; `--dauer-wisch` für den ruhigeren Kartenwisch |
-| Kopfzeile | `--header-h`, `--header-h-kompakt`, `--logo-voll-b`, `--logo-kurz-h` | Desktop 148/64 px, mobil 112/60 px; Kurzform kompakt 32 px (mobil 28 px) hoch |
+| Kopfzeile | `--pill-abstand`, `--pill-h`, `--pill-h-kompakt`, `--header-h`, `--logo-kurz-h` | schwebende Pill 72/56 px (mobil 60/52 px) mit 16 px (mobil 12 px) Abstand zur Oberkante; `--header-h` = Abstand + Pillhöhe + 8 px ist der Platz, den der Body oben freihält; Kurzform 36/28 px hoch |
 
 ### 3.3 Typoskala (fluid zwischen 360 und 1440 px Viewport)
 
@@ -264,3 +266,35 @@ Modernisierung:
 - Keil-Übergänge einheitlich 24 bis 36 px an der 60-%-Position (Hero und CTA-Band).
 - Korrektur: FAQ-Antworten im Wissensbereich zeigten Markdown-Links als maskiertes HTML. Das FAQ-Makro nimmt jetzt `antwort_md` entgegen und wandelt selbst um.
 
+
+## 12. Richtung 2030 (Konzept, 23.09.2026)
+
+Befund der Geschäftsführung: Farben und Inhalte passen, die Gestaltung wirkt wie 2020. Antwort in zehn Zeilen, Grenzen aus MP 3 bleiben unverändert (sieben CI-Farben, Systemschrift, Logo unverändert, CSP ohne unsafe-inline, WCAG 2.2 AA):
+
+1. Typografie trägt die Seite: Display bis 96 px mit Tracking minus 0,03 em, Leitmotiv leicht/fett bleibt; Eyebrows werden technische Labels mit Sektionsnummer in tabellarischen Ziffern (CSS-Zähler, keine Templateänderung).
+2. Editoriales Raster statt zentrierter Blöcke: Section-Heads mit Nummer am rechten Rand, Einleitung und Aktionen versetzt; Kennzahlen bis 140 px in Gewicht 200 mit orangem Marker als eigenständiges Gestaltungselement.
+3. Jeder Seitenkopf ist dunkel und läuft bis an die Oberkante, die Brotkrumen liegen darin (kein weißer Streifen). Der Hausumriss steht sehr groß und angeschnitten, zeichnet sich nach und bewegt sich dezent mit dem Scrollen.
+4. Kopfzeile als schwebende Glas-Pill (92 % Weiß, backdrop-filter), beim Scrollen kompakter; aktiver Menüpunkt als orange Fläche mit Text in Ink; Untermenü als großes zweispaltiges Panel mit Kennlinie an der Oberkante. In der Pill steht die Kurzform HVM (Vollversion im Footer und in der mobilen Navigation).
+5. Kennlinie als Scroll-Fortschritt am oberen Seitenrand (Spur gedämpft, Füllung folgt dem Scrollweg), ohne JavaScript vollständig sichtbar.
+6. Flächen mit Radius 20 px (Karten, Panels, Auswahlkarten), Pill-Radius für Buttons und Navigation; Tiefe über 6 % Ink-Kontur und weichen Ink-Schatten statt harter Ränder. Graustufen H, V, M und der Orangekeil-Wisch bleiben.
+7. Textur: Punktraster aus Weiß mit 7 % Deckkraft auf dunklen Flächen, sonst nichts. Orangekeil als schräger Übergang und Marker mit dem Keilwinkel-Token.
+8. Bewegung: kinetische Hero-Typografie (Wörter gestaffelt, per JavaScript in Spans zerlegt, das h1 im HTML bleibt ohne Kindelemente), scroll-getriebene Einblendungen, View Transitions, Zähler, Parallaxe des Umrisses. Alles aus bei prefers-reduced-motion.
+9. Angebotsformular wie ein Produkt-Onboarding: Auswahlkarten als große Kacheln mit Icon, Kennlinie als Fortschritt, Felder mit 56 px Höhe, weichem Radius und einem Rand in Anthrazit (3,55 : 1 für die Kontur bleibt Pflicht).
+10. Footer als großer dunkler Abschluss mit sehr großer Wortzeile aus dem Firmennamen (leicht/fett) und Kennlinie an der Oberkante; mobile Bottom-Bar als schwebende dunkle Glas-Pill mit den drei bekannten Aktionen.
+
+### 12.1 Umsetzung und Änderungen gegenüber Abschnitt 3 bis 11
+
+- Tokens: Display 38 bis 96 px (Tracking minus 0,03 em, Zeilenhöhe 1,0), H1 38 bis 80 px, H2 32 bis 60 px, Kennzahl 64 bis 140 px (zusätzlich auf 30 cqi der Spalte begrenzt), Sektionsabstand 72 bis 168 px. Neue Ableitungen: `--glas-dunkel` (88 % Ink), `--kontur` (6 % Ink), `--kontur-auf-dunkel` (8 % Weiß), `--punkt-auf-dunkel` (7 % Weiß), `--schatten-karte`, `--schatten-pill`.
+- Kopfzeile: `partials/header.html.twig` rendert die Pill (`.c-header__pill`) mit Kurzform, Navigation und CTA; die Kennlinie sitzt nicht mehr im Header, sondern als Scroll-Fortschritt `.c-fortschritt--seite` im Basislayout (`data-seitenfortschritt`). Aktive Seite: orange Pill mit Text in Ink (8,31 : 1). Untermenü mit Kopfzeile (Eyebrow und Textlink zum Angebot) und zwei Spalten. Mobil öffnet die Navigation als weiße Vollfläche unter der Pill (Navigation liegt mit negativem z-index im Stapelkontext der Pill, ohne Glas-Effekt).
+- Seitenköpfe: `.c-hero` und `.c-seitenkopf` sind beide dunkel, ziehen sich per negativem Rand unter die Pill und tragen das Punktraster. Die Brotkrumen liegen absolut unter der Pill im Seitenkopf (`main` ist `position: relative`), weiß mit Hellgrau für Links. Dadurch gibt es keinen weißen Streifen mehr.
+- Section-Head: CSS-Zähler `sektion` nummeriert jede Sektion, Ausgabe als `::before` rechts oben mit kurzer Haarlinie. Geteilte Köpfe: Titel links, Einleitung rechts unter der Nummer.
+- Karten: keine Ränder, Kontur 6 % Ink plus weicher Schatten, Radius 16 bis 24 px, Hover hebt 2 px und verstärkt den Schatten; Orangekeil-Wisch und Pfeil-Mikrobewegung bleiben. Bento mit 12 px Fuge, Innenkante 1 px Weiß 35 % auf den Graustufen.
+- Kennzahlen: Ziffer bis 140 px in 200, jede Spalte beginnt an einer Haarlinie mit 40 × 3 px orangem Marker.
+- Formular: Felder 56 px hoch, Radius 12 px, Rand Anthrazit bleibt (3,55 : 1). Auswahlkarten als Umriss-Kacheln ohne harte Kontur (die Kontur trägt das Radio), Option `gross: true` mit Icon (`opt.icon`) für den Schritt Verwaltungsart (Icons `gebaeude`, `schluessel`, `wohnung`). Gewählt: Ink-Ring, weiße Fläche, fetter Titel.
+- Footer: Wortzeile `firma.name` ohne „GmbH“ als `Hausverwaltung *Müller*` (dekorativ, `aria-hidden`, Größe bis 160 px), darunter „GmbH, Ort“ als Label.
+- Mobile Bar: schwebende dunkle Glas-Pill (88 % Ink), Aktionen in einer Zeile mit Icon, Angebot als orange Pill.
+- Entwurfsband: schwebende Karte unten links (nur außerhalb der Produktion), damit der Seitenkopf bis an die Oberkante laufen kann.
+- Bewegung: `kinetik.js` zerlegt `[data-kinetisch]` (Hero-hgroup) zur Laufzeit in `.c-wort`-Spans mit `--i` (55 ms Staffelung); `parallaxe.js` setzt `--parallaxe` (8 % des Scrollwegs, höchstens 120 px) für `[data-parallaxe]`. Beide nur ohne `prefers-reduced-motion`.
+- Kontaktseite: „Weitere Anliegen“ nutzt `.c-karten` (auto-fit), zwei Karten füllen die Breite.
+
+Abweichungen, die die Geschäftsführung freigeben muss: Kurzform HVM statt Vollversion in der Kopfzeile (Vollversion nur noch im Footer); dunkler Seitenkopf auf allen Seiten statt heller Seitenkopf; Display bis 96 px (hebt Entscheidung 3 teilweise auf, die Begrenzung über cqi bleibt); Brotkrumen in Weiß auf Ink.

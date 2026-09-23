@@ -6,6 +6,9 @@
 <footer class="c-footer">
     {% include 'partials/kennlinie.html.twig' with {klasse: 'c-footer__kennlinie'} only %}
     <div class="l-container c-footer__inner">
+        {#- Große Wortzeile aus dem Firmennamen (Leitmotiv leicht/fett), dekorativ: der Name steht darunter in der Anschrift -#}
+        {%- import 'components/titel.html.twig' as t -%}
+        <p class="c-footer__wortzeile" aria-hidden="true" data-einblenden>{{ t.text(firma.name|replace({' GmbH': ''})|replace({'Müller': '*Müller*'})) }}<small>GmbH, {{ firma.anschrift.ort }}</small></p>
         <div class="c-footer__raster">
             <div class="c-footer__marke">
                 <a class="c-footer__logo-flaeche" href="/" aria-label="{{ firma.name }}, zur Startseite">

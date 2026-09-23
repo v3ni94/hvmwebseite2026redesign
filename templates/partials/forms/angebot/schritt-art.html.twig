@@ -3,12 +3,15 @@
 <section class="c-angebot__schritt" id="schritt-1" data-schritt="1" data-titel="Verwaltungsart" aria-labelledby="schritt-1-titel">
     <h2 class="c-angebot__titel" id="schritt-1-titel" tabindex="-1"><span class="c-angebot__nummer" aria-hidden="true">1</span> Verwaltungsart</h2>
     <div class="c-fehlerliste c-fehlerliste--schritt" data-schritt-fehler hidden tabindex="-1" role="alert"></div>
+    {% set art_icons = {weg: 'gebaeude', miet: 'schluessel', se: 'wohnung'} %}
     {{ f.auswahlkarten({
         name: 'art',
         legende: 'Welche Verwaltung suchen Sie?',
-        optionen: form.arten,
+        optionen: form.arten|map(a => a|merge({icon: art_icons[a.wert]|default('')})),
         wert: form.werte.art|default(null),
         pflicht: true,
+        spalten: true,
+        gross: true,
         fehler: form.fehler.art|default(''),
     }) }}
     {{ af.navigation(1, form.schritte|length) }}

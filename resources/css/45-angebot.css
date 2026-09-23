@@ -67,7 +67,7 @@
         padding: var(--abstand-5);
         background: var(--hvm-weiss);
         border: 1px solid var(--hvm-ink);
-        border-radius: var(--radius);
+        border-radius: var(--radius-feld);
         box-shadow: inset 6px 0 0 var(--hvm-orange);
         padding-left: calc(var(--abstand-5) + 6px);
         scroll-margin-top: calc(var(--header-h-kompakt) + var(--abstand-5));
@@ -114,12 +114,12 @@
     }
 
     /* Datenschutzhinweis */
-    .c-angebot__datenschutz { display: grid; gap: var(--abstand-4); padding: var(--abstand-5); background: var(--hvm-umriss); border-radius: var(--radius); }
+    .c-angebot__datenschutz { display: grid; gap: var(--abstand-4); padding: var(--abstand-5); background: var(--hvm-umriss); border-radius: var(--radius-karte); }
     .c-angebot__datenschutz-text { margin: 0; font-size: var(--fs-klein); line-height: 1.55; }
     .c-angebot__datenschutz-text a { color: var(--hvm-ink); }
 
     /* Preisindikation */
-    .c-angebot__indikation { display: grid; gap: var(--abstand-2); padding: var(--abstand-5); border-left: 4px solid var(--hvm-orange); background: var(--hvm-umriss); }
+    .c-angebot__indikation { display: grid; gap: var(--abstand-2); padding: var(--abstand-5); border-left: 4px solid var(--hvm-orange); background: var(--hvm-umriss); border-radius: var(--radius-feld); }
     .c-angebot__indikation[hidden] { display: none; }
     .c-angebot__indikation p { margin: 0; }
     .c-angebot__indikation-titel { font-weight: var(--fw-fett); }
@@ -130,8 +130,8 @@
     @media (min-width: 64em) {
         .c-angebot__seite { position: sticky; top: calc(var(--header-h-kompakt) + var(--abstand-5)); }
     }
-    .c-angebot__kasten { display: grid; gap: var(--abstand-4); padding: var(--abstand-6); background: var(--hvm-umriss); border-radius: var(--radius); }
-    .c-angebot__kasten--kontakt { background: var(--hvm-weiss); border: var(--haarlinie); }
+    .c-angebot__kasten { display: grid; gap: var(--abstand-4); padding: var(--abstand-6); background: var(--hvm-umriss); border-radius: var(--radius-karte); }
+    .c-angebot__kasten--kontakt { background: var(--hvm-weiss); box-shadow: var(--schatten-karte); }
     .c-angebot__kasten p { margin: 0; }
     .c-angebot__kasten a { color: var(--hvm-ink); }
     .c-angebot__kasten-titel { margin: 0; font-size: var(--fs-h4); font-weight: var(--fw-halbfett); line-height: var(--lh-titel); }

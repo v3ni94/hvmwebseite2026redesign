@@ -1,48 +1,46 @@
 /*
- * Kopfzeile (sticky, fest positioniert, beim Scrollen kompakt), Hauptnavigation, Footer, mobile Bottom-Bar.
- * Der Header ist fest positioniert und der Body hält seine volle Höhe frei. Dadurch verschiebt der
- * Wechsel in den kompakten Zustand keinen Inhalt (kein Layoutsprung).
+ * Kopfzeile als schwebende Glas-Pill (fest positioniert, beim Scrollen kompakt), Hauptnavigation,
+ * Footer, mobile Bottom-Bar. Der Body hält oben --header-h frei, Seitenköpfe ziehen sich mit negativem
+ * Rand unter die Pill (50-seiten.css), daher verschiebt der Wechsel in den kompakten Zustand keinen Inhalt.
  */
 @layer components {
     .c-header {
         position: fixed;
         inset: 0 0 auto 0;
         z-index: var(--z-header);
-        background: var(--hvm-weiss);
+        padding-top: var(--pill-abstand);
         color: var(--hvm-ink);
-        border-bottom: 1px solid transparent;
-        transition: border-color var(--dauer) var(--ease), box-shadow var(--dauer) var(--ease);
+        pointer-events: none;
     }
-    /* Glas-Effekt nur mit 92 % deckendem Weiß: Navigationstext bleibt bei jedem Untergrund über 13 : 1 */
-    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-        .c-header.is-kompakt {
-            background: var(--glas);
-            -webkit-backdrop-filter: saturate(1.4) blur(16px);
-            backdrop-filter: saturate(1.4) blur(16px);
-        }
-    }
-    .c-header.is-kompakt { border-bottom-color: var(--hvm-hellgrau); box-shadow: 0 8px 24px -20px color-mix(in srgb, var(--hvm-ink) 40%, transparent); }
-    .c-header.is-kompakt .c-nav__link,
-    .c-header.is-kompakt .c-nav__toggle { font-size: 0.9375rem; }
-
-    .c-header__inner {
+    .c-header__inner { display: flex; }
+    /* Die Pill: 92 % Weiß mit Glas-Effekt, feine Kontur, weicher Schatten. Text darauf bleibt über 13 : 1 */
+    .c-header__pill {
+        pointer-events: auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: var(--abstand-6);
-        height: calc(var(--header-h) - var(--hvm-kennlinie-hoehe));
-        transition: height var(--dauer) var(--ease);
+        gap: var(--abstand-5);
+        width: 100%;
+        height: var(--pill-h);
+        padding-inline: 1.375rem 0.625rem;
+        background: var(--hvm-weiss);
+        border-radius: var(--radius-pill);
+        box-shadow: var(--schatten-pill);
+        transition: height var(--dauer) var(--ease), box-shadow var(--dauer) var(--ease);
     }
-    .c-header.is-kompakt .c-header__inner { height: calc(var(--header-h-kompakt) - var(--hvm-kennlinie-hoehe)); }
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+        .c-header__pill {
+            background: var(--glas);
+            -webkit-backdrop-filter: saturate(1.4) blur(18px);
+            backdrop-filter: saturate(1.4) blur(18px);
+        }
+    }
+    .c-header.is-kompakt .c-header__pill { height: var(--pill-h-kompakt); box-shadow: var(--schatten-pill), var(--schatten-2); }
 
-    .c-header__marke { flex: none; display: block; border-radius: var(--radius-1); }
-    .c-header__logo--voll { width: var(--logo-voll-b); height: auto; }
-    .c-header__logo--kurz { display: none; width: auto; height: var(--logo-kurz-h); }
-    .c-header.is-kompakt .c-header__logo--voll { display: none; }
-    .c-header.is-kompakt .c-header__logo--kurz { display: block; }
-    @media (prefers-reduced-motion: no-preference) {
-        .c-header.is-kompakt .c-header__logo--kurz { animation: hvm-einblenden var(--dauer) var(--ease); }
-    }
+    .c-header__marke { flex: none; display: inline-flex; align-items: center; border-radius: var(--radius-1); }
+    .c-header__logo--kurz { display: block; width: auto; height: var(--logo-kurz-h); transition: height var(--dauer) var(--ease); }
+    .c-header.is-kompakt .c-header__logo--kurz { height: var(--logo-kurz-h-kompakt); }
+    .c-header__logo--voll { display: none; }
 
     .c-header__menue,
     .c-header__menue-link {
@@ -50,11 +48,13 @@
         align-items: center;
         gap: var(--abstand-2);
         min-height: 2.75rem;
-        padding: 0.5rem 0.75rem;
-        margin-right: -0.75rem;
-        font-size: 1rem;
+        padding: 0.5rem 0.875rem;
+        margin-right: 0.125rem;
+        font-size: 0.9375rem;
         font-weight: var(--fw-halbfett);
         text-decoration: none;
+        border-radius: var(--radius-pill);
+        background: var(--hvm-umriss);
     }
     :root.js .c-header__menue-link { display: none; }
 
@@ -66,18 +66,19 @@
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
-        min-height: 2.75rem;
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9688rem;
+        min-height: 2.5rem;
+        padding: 0.5rem 0.875rem;
+        font-size: 0.9375rem;
         font-weight: var(--fw-normal);
         line-height: 1.2;
         letter-spacing: 0.005em;
         text-decoration: none;
         white-space: nowrap;
-        transition: font-size var(--dauer) var(--ease);
+        border-radius: var(--radius-pill);
+        transition: background-color var(--dauer-kurz) var(--ease), font-size var(--dauer) var(--ease);
     }
     .c-nav__link[aria-current="page"],
-    .c-nav__toggle.is-aktiv { font-weight: var(--fw-fett); }
+    .c-nav__toggle.is-aktiv { font-weight: var(--fw-halbfett); }
     .c-nav__toggle .c-icon { width: 1rem; height: 1rem; transition: rotate var(--dauer) var(--ease); }
     .c-nav__toggle[aria-expanded="true"] .c-icon { rotate: 180deg; }
     .c-nav__sub-liste { list-style: none; padding: 0; margin: 0; max-width: none; }
@@ -85,19 +86,20 @@
         position: relative;
         display: grid;
         gap: 0.25rem;
-        padding: 0.875rem 1rem 0.875rem 1.25rem;
+        padding: 0.875rem 1rem 0.875rem 1.375rem;
         text-decoration: none;
-        border-radius: var(--radius);
+        border-radius: var(--radius-feld);
         transition: background-color var(--dauer-kurz) var(--ease);
     }
     /* Orange Kante als Fläche links, bei Hover und für die aktive Seite */
     .c-nav__sub-link::before {
         content: "";
         position: absolute;
-        left: 0.375rem;
+        left: 0.5rem;
         top: 0.875rem;
         bottom: 0.875rem;
         width: 3px;
+        border-radius: 2px;
         background: var(--hvm-orange);
         transform: scaleY(0);
         transform-origin: top;
@@ -113,40 +115,28 @@
     /* Desktop */
     @media (min-width: 72em) {
         .c-header__menue, .c-header__menue-link { display: none !important; }
-        .c-nav { display: flex; align-items: center; gap: var(--abstand-5); }
+        .c-nav { display: flex; align-items: center; gap: var(--abstand-4); }
         .c-nav__liste { display: flex; align-items: center; gap: 0.125rem; }
         .c-nav__item { position: relative; }
-        .c-nav__link::after,
-        .c-nav__toggle::after {
-            content: "";
-            position: absolute;
-            left: 0.75rem;
-            right: 0.75rem;
-            bottom: 0.3125rem;
-            height: 3px;
-            background: var(--hvm-orange);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform var(--dauer) var(--ease);
-        }
-        .c-nav__link:hover::after,
-        .c-nav__link[aria-current="page"]::after,
-        .c-nav__toggle:hover::after,
-        .c-nav__toggle[aria-expanded="true"]::after,
-        .c-nav__toggle.is-aktiv::after { transform: scaleX(1); }
+        .c-nav__link:hover,
+        .c-nav__toggle:hover,
+        .c-nav__toggle[aria-expanded="true"] { background: var(--hvm-umriss); }
+        /* Aktiver Punkt als orange Fläche, Text in Ink (8,31 : 1) */
+        .c-nav__link[aria-current="page"],
+        .c-nav__toggle.is-aktiv { background: var(--hvm-orange); }
         .c-nav__label-lang { display: none; }
 
+        /* Untermenü als großes Panel: Kennlinie an der Oberkante, zwei Spalten, weicher Schatten */
         .c-nav__sub {
             display: none;
             position: absolute;
-            top: calc(100% + 0.75rem);
-            left: -0.5rem;
-            width: min(42rem, 80vw);
-            padding: calc(var(--abstand-3) + 4px) var(--abstand-3) var(--abstand-3);
+            top: calc(100% + 1rem);
+            left: -0.75rem;
+            width: min(48rem, 84vw);
+            padding: calc(var(--abstand-5) + 4px) var(--abstand-5) var(--abstand-5);
             background: var(--hvm-weiss);
-            border: var(--haarlinie);
-            border-radius: var(--radius);
-            box-shadow: var(--schatten-3);
+            border-radius: var(--radius-karte);
+            box-shadow: var(--schatten-karte), var(--schatten-3);
             overflow: hidden;
         }
         @media (prefers-reduced-motion: no-preference) {
@@ -163,14 +153,26 @@
                 var(--hvm-anthrazit) 0 calc(40% - 1.07px), var(--hvm-mittelgrau) 0 calc(60% - 1.61px),
                 var(--hvm-orange) 0 calc(67.5% - 1.81px), var(--hvm-hellgrau) 0);
         }
+        .c-nav__sub-kopf {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: var(--abstand-4);
+            padding: 0 0.25rem var(--abstand-4);
+            margin-bottom: var(--abstand-3);
+            border-bottom: var(--haarlinie);
+        }
         .c-nav__sub-liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.25rem; }
         .c-nav__toggle[aria-expanded="true"] + .c-nav__sub { display: block; }
         :root:not(.js) .c-nav__item--sub:hover .c-nav__sub,
         :root:not(.js) .c-nav__item--sub:focus-within .c-nav__sub { display: block; }
-        .c-nav__cta { margin-left: var(--abstand-3); }
+        .c-nav__cta { margin-left: var(--abstand-2); }
+        .c-nav__sub-kopf .c-textlink { font-size: var(--fs-klein); }
     }
+    .c-nav__sub-kopf { display: none; }
+    @media (min-width: 72em) { .c-nav__sub-kopf { display: flex; } }
 
-    /* Mobil und Tablet */
+    /* Mobil und Tablet: Navigation als Vollfläche unter der Pill */
     @media (max-width: 71.99em) {
         .c-nav { display: none; }
         .c-nav__label-kurz { display: none; }
@@ -179,50 +181,80 @@
             flex-direction: column;
             gap: var(--abstand-6);
             position: fixed;
-            top: var(--header-h-kompakt);
+            top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: var(--z-nav);
-            padding: var(--abstand-5) var(--rand) var(--abstand-9);
+            padding: calc(var(--header-h) + var(--abstand-4)) var(--rand) var(--abstand-10);
             overflow-y: auto;
             overscroll-behavior: contain;
             background: var(--hvm-weiss);
-            border-top: 1px solid var(--hvm-hellgrau);
+            pointer-events: auto;
         }
         .c-nav__item { border-bottom: 1px solid var(--hvm-hellgrau); }
         .c-nav__link,
         .c-nav__toggle {
             width: 100%;
             justify-content: space-between;
-            min-height: 3.5rem;
+            min-height: 3.75rem;
             padding-inline: 0;
-            font-size: 1.25rem;
-            font-weight: var(--fw-normal);
+            font-size: 1.5rem;
+            font-weight: var(--fw-leicht);
+            letter-spacing: -0.01em;
             white-space: normal;
+            border-radius: 0;
+        }
+        .c-nav__link[aria-current="page"],
+        .c-nav__toggle.is-aktiv { font-weight: var(--fw-halbfett); }
+        .c-nav__link[aria-current="page"]::after {
+            content: "";
+            width: 0.625rem;
+            height: 0.625rem;
+            border-radius: 50%;
+            background: var(--hvm-orange);
         }
         .c-nav__sub { display: none; padding-bottom: var(--abstand-4); }
         .c-nav__toggle[aria-expanded="true"] + .c-nav__sub { display: block; }
-        .c-nav__sub-link { padding-inline: 0; }
+        .c-nav__sub-link { padding-inline: 1rem; }
         .c-nav__cta { align-self: flex-start; }
     }
     :root.has-nav-offen { overflow: hidden; }
-    /* backdrop-filter würde für die fest positionierte Navigation einen eigenen Bezugsrahmen bilden */
-    :root.has-nav-offen .c-header {
+    /*
+     * Geöffnete Navigation: backdrop-filter würde für die fest positionierte Navigation einen eigenen
+     * Bezugsrahmen bilden, daher ohne Glas. Die Pill bildet einen Stapelkontext, die Navigation liegt
+     * darin mit negativem z-index hinter der Pill und über der Seite.
+     */
+    :root.has-nav-offen .c-header__pill {
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
         background: var(--hvm-weiss);
+        isolation: isolate;
     }
+    :root.has-nav-offen .c-nav.is-offen { z-index: -1; }
 
-    /* Footer: dunkel, Kennlinie an der Oberkante */
+    /* Footer: großer dunkler Abschluss, Kennlinie an der Oberkante, sehr große Wortzeile */
     .c-footer {
         --fokus-innen: var(--hvm-weiss);
         position: relative;
         background: var(--hvm-ink);
         color: var(--hvm-weiss);
         font-size: var(--fs-klein);
+        overflow: hidden;
     }
     .c-footer__inner { padding-block: clamp(3.5rem, 2.5rem + 4.444vw, 6rem) var(--abstand-6); }
+    .c-footer__wortzeile {
+        margin: 0 0 clamp(3rem, 2rem + 4.444vw, 5.5rem);
+        max-width: none;
+        font-size: clamp(2.75rem, 0.5rem + 10vw, 10rem);
+        font-weight: var(--fw-leicht);
+        line-height: 0.92;
+        letter-spacing: -0.045em;
+        text-wrap: balance;
+        hyphens: manual;
+        overflow-wrap: anywhere;
+    }
+    .c-footer__wortzeile strong { font-weight: var(--fw-fett); }
+    .c-footer__wortzeile small { display: block; margin-top: 0.25em; font-size: 0.22em; font-weight: var(--fw-normal); letter-spacing: 0.16em; text-transform: uppercase; color: var(--hvm-hellgrau); }
     .c-footer__raster { display: grid; gap: var(--abstand-7) var(--spalten-abstand); grid-template-columns: repeat(12, minmax(0, 1fr)); }
     .c-footer__marke { grid-column: span 12; display: grid; gap: var(--abstand-5); align-content: start; }
     .c-footer__nav { grid-column: span 12; display: grid; gap: var(--abstand-7) var(--spalten-abstand); grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -236,11 +268,11 @@
     .c-footer__logo-flaeche {
         display: inline-block;
         justify-self: start;
-        padding: 1rem;
+        padding: 1.125rem;
         background: var(--hvm-weiss);
-        border-radius: var(--radius);
+        border-radius: var(--radius-feld);
     }
-    .c-footer__logo-flaeche img { width: 112px; height: auto; }
+    .c-footer__logo-flaeche img { width: 120px; height: auto; }
     .c-footer__adresse { font-style: normal; line-height: 1.7; color: var(--hvm-umriss); }
     .c-footer__adresse strong { color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
     .c-footer__titel {
@@ -271,37 +303,50 @@
     .c-footer__meta p { max-width: none; }
     .c-footer__mitglied { color: var(--hvm-umriss); }
 
-    /* Mobile Bottom-Bar mit drei Aktionen */
+    /* Mobile Bottom-Bar: schwebende dunkle Glas-Pill mit drei Aktionen */
     .c-mobilbar {
         position: fixed;
-        inset: auto 0 0 0;
+        left: var(--abstand-3);
+        right: var(--abstand-3);
+        bottom: calc(var(--abstand-3) + env(safe-area-inset-bottom));
         z-index: var(--z-mobilbar);
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.25rem;
+        padding: 0.25rem;
         background: var(--hvm-ink);
         color: var(--hvm-weiss);
-        padding-bottom: env(safe-area-inset-bottom);
+        border-radius: var(--radius-pill);
+        box-shadow: var(--schatten-3);
         --fokus-innen: var(--hvm-weiss);
+    }
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+        .c-mobilbar {
+            background: var(--glas-dunkel);
+            -webkit-backdrop-filter: saturate(1.4) blur(18px);
+            backdrop-filter: saturate(1.4) blur(18px);
+        }
     }
     .c-mobilbar__aktion {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
-        gap: 0.25rem;
-        min-height: 3.75rem;
-        padding: 0.5rem;
+        gap: 0.4rem;
+        min-height: 3.25rem;
+        padding: 0.5rem 0.75rem;
         font-size: 0.8125rem;
         font-weight: var(--fw-halbfett);
         line-height: 1.2;
         text-decoration: none;
         color: var(--hvm-weiss);
+        border-radius: var(--radius-pill);
     }
-    .c-mobilbar__aktion + .c-mobilbar__aktion { border-left: 1px solid var(--linie-auf-dunkel); }
+    .c-mobilbar__aktion .c-icon { width: 1.125rem; height: 1.125rem; }
     .c-mobilbar__aktion--primaer { background: var(--hvm-orange); color: var(--hvm-ink); }
-    .c-mobilbar__aktion:focus-visible { outline-offset: -5px; }
+    .c-mobilbar__aktion:focus-visible { outline-offset: -4px; }
     @media (max-width: 47.99em) {
-        body { padding-bottom: calc(3.75rem + env(safe-area-inset-bottom)); }
+        body { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
     }
     @media (min-width: 48em) {
         .c-mobilbar { display: none; }

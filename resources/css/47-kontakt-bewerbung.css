@@ -22,6 +22,7 @@
         gap: var(--abstand-4);
         padding: var(--abstand-5);
         background: var(--hvm-umriss);
+        border-radius: var(--radius-karte);
     }
     .c-kontakt__datenschutz-text, .c-bewerbung__datenschutz-text { margin: 0; font-size: var(--fs-klein); line-height: 1.55; }
     .c-kontakt__datenschutz-text a, .c-bewerbung__datenschutz-text a { color: var(--hvm-ink); }

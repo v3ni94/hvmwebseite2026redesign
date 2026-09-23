@@ -6,6 +6,8 @@ import { initKopfzeile } from './modules/kopfzeile.js';
 import { initEinblenden } from './modules/einblenden.js';
 import { initZaehler } from './modules/zaehler.js';
 import { initFortschritt } from './modules/fortschritt.js';
+import { initKinetik } from './modules/kinetik.js';
+import { initParallaxe } from './modules/parallaxe.js';
 import { initSuche } from './search.js';
 import { initLesefortschritt } from './lesefortschritt.js';
 
@@ -15,5 +17,7 @@ initKopfzeile();
 initEinblenden();
 initZaehler();
 initFortschritt();
+initKinetik();
+initParallaxe();
 initSuche();
 initLesefortschritt();

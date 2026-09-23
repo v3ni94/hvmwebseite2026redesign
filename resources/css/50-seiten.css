@@ -1,10 +1,23 @@
-/* Seitenbezogene Muster: Hero, Startseite, 404, Styleguide */
+/* Seitenbezogene Muster: Hero und Seitenkopf (beide dunkel, bis an die Oberkante), Startseite, 404, Styleguide */
 @layer components {
-    /* Hero: dunkel, große Headline, Hausumriss angeschnitten */
-    .c-hero {
+    /*
+     * Dunkler Seitenkopf: zieht sich um --header-h unter die schwebende Pill und hält oben Platz für
+     * Pill und Brotkrumen frei. Hausumriss sehr groß und angeschnitten, Punktraster als Textur.
+     */
+    .c-hero,
+    .c-seitenkopf {
+        --fokus-innen: var(--hvm-weiss);
+        --farbe-linie: var(--linie-auf-dunkel);
+        --kontur: var(--kontur-auf-dunkel);
         position: relative;
         overflow: hidden;
-        padding-block: clamp(3rem, 2.25rem + 3.333vw, 5.25rem) clamp(3rem, 2.25rem + 3.333vw, 5.25rem);
+        margin-top: calc(-1 * var(--header-h));
+        padding-block: calc(var(--header-h) + clamp(3.5rem, 2.5rem + 4.444vw, 6.5rem)) clamp(3rem, 2.25rem + 3.333vw, 5.25rem);
+        background-color: var(--hvm-ink);
+        background-image: radial-gradient(var(--punkt-auf-dunkel) 1px, transparent 1.5px);
+        background-size: 28px 28px;
+        background-position: center top;
+        color: var(--hvm-weiss);
     }
     .c-hero--mit-keil { overflow: visible; }
     .c-hero__umriss-rahmen {
@@ -15,19 +28,19 @@
     }
     .c-hero__umriss {
         position: absolute;
-        width: clamp(34rem, 72vw, 72rem);
-        right: -24%;
-        bottom: -22%;
+        width: clamp(40rem, 78vw, 84rem);
+        right: -22%;
+        bottom: -28%;
         height: auto;
     }
+    .c-hero .c-hausumriss,
+    .c-seitenkopf .c-hausumriss { --umriss-farbe: color-mix(in srgb, var(--hvm-umriss) 11%, transparent); }
     @media (max-width: 47.99em) {
-        .c-hero__umriss { width: 150vw; right: -70vw; bottom: -10%; }
+        .c-hero__umriss { width: 160vw; right: -74vw; bottom: -12%; }
     }
     /*
-     * Hero-Inhalt als Container (Einheit cqi für die Display-Größe). Ab 64 em zweispaltig:
-     * Eyebrow und Headline über die volle Breite, darunter Einleitung links und Aktionen rechts
-     * auf gemeinsamer Grundlinie. Das spart eine Zeile Höhe, auf 1440 x 900 bleibt der Beginn
-     * des Kennzahlenbands sichtbar.
+     * Hero-Inhalt als Container (Einheit cqi für die Display-Größe). Editorial versetzt: Eyebrow und
+     * Headline über die volle Breite, darunter Einleitung links und Aktionen rechts auf gemeinsamer Grundlinie.
      */
     .c-hero__inhalt {
         position: relative;
@@ -39,15 +52,17 @@
         justify-items: start;
     }
     .c-hero__inhalt > * { max-width: 100%; }
-    .c-hero .c-eyebrow { color: var(--hvm-hellgrau); }
+    .c-hero .c-eyebrow,
+    .c-seitenkopf .c-eyebrow { color: var(--hvm-hellgrau); }
     /* Headline als ein Satzfluss: h1 leicht, anschließend das fette Schlüsselwort (hgroup mit p) */
-    .c-hero__titel { max-width: min(15.5em, 100%); }
+    .c-hero__titel { max-width: min(14.5em, 100%); }
     @media (min-width: 64em) {
-        .c-hero__inhalt { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--spalten-abstand); row-gap: var(--abstand-6); }
+        .c-hero__inhalt { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--spalten-abstand); row-gap: var(--abstand-7); }
         .c-hero__inhalt > .c-eyebrow,
         .c-hero__inhalt > .c-hero__titel { grid-column: 1 / -1; }
-        .c-hero__inhalt > .c-eyebrow { margin-bottom: calc(-1 * var(--abstand-2)); }
-        .c-hero .c-hero__inhalt > .c-aktionen { justify-self: end; align-self: end; margin-top: 0; }
+        .c-hero__inhalt > .c-eyebrow { margin-bottom: calc(-1 * var(--abstand-3)); }
+        .c-hero__inhalt > .c-hero__lead { grid-column: 1; max-width: 36rem; }
+        .c-hero .c-hero__inhalt > .c-aktionen { grid-column: 2; justify-self: end; align-self: end; margin-top: 0; }
     }
     .c-hero__titel > h1,
     .c-hero__titel > p { display: inline; }
@@ -59,15 +74,26 @@
         max-width: 40rem;
     }
     .c-hero .c-aktionen { margin-top: var(--abstand-2); }
-    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(3rem, 2.25rem + 3.333vw, 5.25rem); }
+    .c-hero__kennzahlen { position: relative; z-index: 1; margin-top: clamp(4rem, 3rem + 4.444vw, 7rem); }
+    .c-hero__kennzahlen .c-kennzahl__label,
+    .c-hero__kennzahlen .c-kennzahlen__stichtag { color: var(--hvm-hellgrau); }
 
-    /* Seitenkopf für Inhaltsseiten (hell) */
-    .c-seitenkopf { position: relative; overflow: hidden; padding-block: clamp(2.5rem, 1.833rem + 2.963vw, 4.5rem) clamp(2.5rem, 2rem + 2vw, 4rem); }
-    .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; gap: var(--abstand-5); justify-items: start; }
-    .c-seitenkopf h1 { max-width: 20ch; }
-    .c-seitenkopf__umriss { position: absolute; width: clamp(22rem, 46vw, 44rem); right: -8%; top: 18%; height: auto; }
+    /* Seitenkopf für Inhaltsseiten: kompakter, gleiche Sprache wie der Hero */
+    .c-seitenkopf { padding-bottom: clamp(3rem, 2.25rem + 3.333vw, 5rem); }
+    .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; gap: var(--abstand-5); justify-items: start; container-type: inline-size; }
+    .c-seitenkopf__inhalt > * { max-width: 100%; }
+    .c-seitenkopf h1 { max-width: 18ch; font-size: min(var(--fs-h1), 9.2cqi); line-height: 1.0; }
+    .c-seitenkopf__umriss { position: absolute; width: clamp(26rem, 52vw, 56rem); right: -10%; top: 10%; height: auto; }
     .c-seitenkopf .c-suche { width: 100%; }
-    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; }
+    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; color: var(--hvm-umriss); }
+    .c-seitenkopf__text strong { color: var(--hvm-weiss); }
+    .c-seitenkopf .c-artikel-meta { color: var(--hvm-hellgrau); }
+    .c-seitenkopf .c-eingabe { border-color: transparent; }
+    @media (min-width: 64em) {
+        .c-seitenkopf__inhalt { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: var(--spalten-abstand); }
+        .c-seitenkopf__inhalt > * { grid-column: 1; }
+        .c-seitenkopf__inhalt > .c-seitenkopf__text { grid-column: 1 / -1; max-width: 40rem; }
+    }
 
     /* Startseite */
     .c-start-faq { display: grid; gap: var(--abstand-7) var(--spalten-abstand); }
@@ -104,7 +130,7 @@
     .c-sg-titel { font-size: var(--fs-h2); }
     .c-sg-farben { display: grid; gap: var(--spalten-abstand); grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); }
     .c-sg-farbe { display: grid; gap: var(--abstand-2); font-size: var(--fs-klein); }
-    .c-sg-farbe__flaeche { height: 7rem; box-shadow: inset 0 0 0 1px var(--hvm-hellgrau); }
+    .c-sg-farbe__flaeche { height: 7rem; border-radius: var(--radius-feld); box-shadow: inset 0 0 0 1px var(--hvm-hellgrau); }
     .c-sg-farbe__name { font-weight: var(--fw-halbfett); }
     .c-sg-farbe--orange .c-sg-farbe__flaeche { background: var(--hvm-orange); }
     .c-sg-farbe--ink .c-sg-farbe__flaeche { background: var(--hvm-ink); }
@@ -117,7 +143,7 @@
     .c-sg-typo__zeile { display: grid; gap: var(--abstand-2); padding-bottom: var(--abstand-5); border-bottom: 1px solid var(--hvm-hellgrau); }
     .c-sg-typo__meta { font-size: var(--fs-klein); font-weight: var(--fw-halbfett); }
     .c-sg-muster { display: grid; gap: var(--spalten-abstand); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); align-items: start; }
-    .c-sg-buehne { position: relative; padding: var(--abstand-6); border: 1px solid var(--hvm-hellgrau); overflow: hidden; }
+    .c-sg-buehne { position: relative; padding: var(--abstand-6); border: 1px solid var(--hvm-hellgrau); border-radius: var(--radius-karte); overflow: hidden; }
     .c-sg-buehne.is-dunkel { border-color: var(--hvm-ink); }
     .c-sg-buehne--umriss { min-height: 18rem; }
     .c-sg-buehne--umriss .c-hausumriss { position: absolute; width: 26rem; right: -4rem; bottom: -3rem; }
@@ -128,6 +154,9 @@
     .c-sg-kennlinien figure { display: grid; gap: var(--abstand-2); }
     .c-sg-kennlinien figcaption { font-size: var(--fs-klein); }
     .c-sg-keile { display: flex; gap: var(--abstand-7); align-items: flex-start; flex-wrap: wrap; }
+    /* Im Styleguide stehen Brotkrumen als Beispiel im Fluss */
+    .c-sg-buehne .c-breadcrumbs { position: static; color: inherit; }
+    .c-sg-buehne .c-breadcrumbs a { color: inherit; }
 
     /* Demonstration des Fokuszustands im Styleguide */
     .is-fokus-demo {

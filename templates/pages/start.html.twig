@@ -21,12 +21,12 @@
 {% block hero %}
 <section class="c-hero c-hero--mit-keil is-dunkel">
     <div class="c-hero__umriss-rahmen" aria-hidden="true">
-        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true} only %}
+        {% include 'partials/hausumriss.html.twig' with {klasse: 'c-hero__umriss', dunkel: true, zeichnen: true, parallaxe: true} only %}
     </div>
     <div class="l-container">
         <div class="c-hero__inhalt">
             {{ e.eyebrow('Hausverwaltung in ' ~ firma.anschrift.ort, {klasse: 'u-auftritt'}) }}
-            <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2">
+            <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2" data-kinetisch>
                 {#- h1 und Fortsetzung ohne Leerraum dazwischen, damit das Komma direkt anschließt -#}
                 <h1>Hausverwaltung für Eigentümer und Investoren</h1><p>, <strong>strukturiert</strong> und nachvollziehbar.</p>
             </hgroup>

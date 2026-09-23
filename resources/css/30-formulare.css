@@ -3,19 +3,20 @@
  * Fehler werden nie nur über Farbe vermittelt: Text mit Symbol, verknüpft über aria-describedby.
  */
 @layer components {
-    .c-formular { display: grid; gap: var(--abstand-6); max-width: 44rem; }
-    .c-formular__reihe { display: grid; gap: var(--abstand-5); }
+    .c-formular { display: grid; gap: var(--abstand-7); max-width: 44rem; }
+    .c-formular__reihe { display: grid; gap: var(--abstand-6) var(--abstand-5); }
     @media (min-width: 48em) {
         .c-formular__reihe--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .c-formular__reihe--plz { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
     }
 
-    .c-feld { display: grid; gap: var(--abstand-2); align-content: start; }
+    .c-feld { display: grid; gap: var(--abstand-3); align-content: start; }
     .c-feld__label, .c-auswahl__legende {
-        font-size: 1rem;
+        font-size: 0.9375rem;
         font-weight: var(--fw-halbfett);
         line-height: 1.35;
     }
+    .c-auswahl__legende { font-size: var(--fs-h4); font-weight: var(--fw-normal); }
     .c-feld__zusatz { font-weight: var(--fw-normal); font-size: var(--fs-klein); margin-left: 0.35em; }
     .c-feld__hinweis { font-size: var(--fs-klein); line-height: 1.45; }
     .c-feld__fehler {
@@ -32,18 +33,18 @@
     .c-eingabe {
         display: block;
         width: 100%;
-        min-height: 3.25rem;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
+        min-height: 3.5rem;
+        padding: 0.875rem 1.125rem;
+        font-size: 1.0625rem;
         line-height: 1.4;
         color: var(--hvm-ink);
         background: var(--hvm-weiss);
         border: 1px solid var(--hvm-anthrazit);
-        border-radius: var(--radius);
-        transition: border-color var(--dauer-kurz) var(--ease), box-shadow var(--dauer-kurz) var(--ease);
+        border-radius: var(--radius-feld);
+        transition: border-color var(--dauer-kurz) var(--ease), box-shadow var(--dauer-kurz) var(--ease), background-color var(--dauer-kurz) var(--ease);
     }
     .c-eingabe:hover { border-color: var(--hvm-ink); }
-    .c-eingabe:focus-visible { border-color: var(--hvm-ink); box-shadow: 0 0 0 2px var(--fokus-innen); }
+    .c-eingabe:focus-visible { border-color: var(--hvm-ink); box-shadow: 0 0 0 2px var(--fokus-innen); outline-offset: 3px; }
     .c-eingabe::placeholder { color: var(--hvm-ink); opacity: 0.62; }
     textarea.c-eingabe { min-height: 9rem; resize: vertical; }
     select.c-eingabe {
@@ -75,21 +76,50 @@
     @media (min-width: 40em) {
         .c-auswahlkarten--spalten { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
     }
+    /*
+     * Auswahlkarten als ruhige Kacheln (Umriss-Fläche, Radius, keine harte Kontur). Die Kontur des
+     * Bedienelements trägt das Radio selbst (Ink-Ring 17,4 : 1); gewählt: Ink-Ring um die Kachel und Keil.
+     */
     .c-auswahlkarte {
         position: relative;
         display: grid;
         grid-template-columns: auto minmax(0, 1fr);
         gap: var(--abstand-1) var(--abstand-4);
         align-items: start;
-        padding: 1.125rem var(--abstand-6) 1.125rem var(--abstand-5);
-        background: var(--hvm-weiss);
-        border: 1px solid var(--hvm-anthrazit);
-        border-radius: var(--radius);
+        padding: 1.25rem var(--abstand-6) 1.25rem var(--abstand-5);
+        background: var(--hvm-umriss);
+        border: 1px solid transparent;
+        border-radius: var(--radius-karte);
         cursor: pointer;
         overflow: hidden;
         transition: border-color var(--dauer-kurz) var(--ease), background-color var(--dauer-kurz) var(--ease), box-shadow var(--dauer-kurz) var(--ease);
     }
-    .c-auswahlkarte:hover { border-color: var(--hvm-ink); background: color-mix(in srgb, var(--hvm-umriss) 45%, var(--hvm-weiss)); }
+    .c-auswahlkarte:hover { background: var(--hvm-hellgrau); }
+    /* Große Kachel mit Icon (Schritt Verwaltungsart): Icon oben, Radio rechts oben, Titel groß */
+    .c-auswahlkarte--gross {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto auto auto;
+        gap: var(--abstand-2) var(--abstand-4);
+        padding: var(--abstand-5);
+        min-height: 13rem;
+        align-content: start;
+    }
+
+    .c-auswahlkarte__icon {
+        grid-column: 1;
+        grid-row: 1;
+        display: inline-grid;
+        place-items: center;
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: var(--abstand-4);
+        background: var(--hvm-weiss);
+        border-radius: 50%;
+        box-shadow: var(--schatten-karte);
+    }
+    .c-auswahlkarte__icon .c-icon { width: 1.5rem; height: 1.5rem; }
+    .c-auswahlkarte--gross .c-auswahlkarte__titel { grid-column: 1 / -1; grid-row: 2; font-size: var(--fs-h4); }
+    .c-auswahlkarte--gross .c-auswahlkarte__text { grid-column: 1 / -1; grid-row: 3; }
     /* Eigenes Radio: Kreis mit Ink-Rand (17,4 : 1), gewählt mit Ink-Punkt; natives Element bleibt bedienbar */
     .c-auswahlkarte input {
         grid-row: span 2;
@@ -120,23 +150,27 @@
     }
     .c-auswahlkarte__titel { font-weight: var(--fw-halbfett); line-height: 1.35; hyphens: auto; overflow-wrap: break-word; }
     .c-auswahlkarte__text { font-size: var(--fs-klein); line-height: 1.45; }
+    .c-auswahlkarte--gross > input { grid-column: 2; grid-row: 1; margin: 0; }
+    .c-auswahlkarte--gross .c-auswahlkarte__text { hyphens: auto; overflow-wrap: anywhere; }
+    /* Große Kachel: Auswahl über Ring, gefülltes Radio und fetten Titel, kein zusätzlicher Keil neben dem Radio */
+    .c-auswahlkarte--gross:has(input:checked)::after { display: none; }
     .c-auswahlkarte:has(input:checked) {
         border-color: var(--hvm-ink);
         box-shadow: inset 0 0 0 1px var(--hvm-ink);
-        background: var(--hvm-umriss);
+        background: var(--hvm-weiss);
     }
     .c-auswahlkarte:has(input:checked) .c-auswahlkarte__titel { font-weight: var(--fw-fett); }
     .c-auswahlkarte:has(input:checked)::after {
         content: "";
         position: absolute;
         top: 0;
-        right: var(--abstand-4);
-        width: calc(1.25rem * var(--hvm-keil-verhaeltnis));
-        height: 1.25rem;
+        right: var(--abstand-6);
+        width: calc(1.5rem * var(--hvm-keil-verhaeltnis));
+        height: 1.5rem;
         background: var(--hvm-orange);
         clip-path: polygon(0 0, 100% 0, 0 100%);
     }
-    .c-auswahlkarte:has(input:focus-visible) { outline: 3px solid var(--fokus-aussen); outline-offset: 2px; box-shadow: 0 0 0 2px var(--fokus-innen); }
+    .c-auswahlkarte:has(input:focus-visible) { outline: 3px solid var(--fokus-aussen); outline-offset: 2px; box-shadow: 0 0 0 2px var(--fokus-innen); border-radius: var(--radius-karte); }
     .c-auswahlkarte input:focus-visible { outline: none; box-shadow: none; }
     .c-auswahl[aria-invalid="true"] .c-auswahlkarte,
     .c-auswahl.is-fehler .c-auswahlkarte { border-color: var(--hvm-ink); box-shadow: inset 4px 0 0 var(--hvm-orange); }
@@ -163,7 +197,8 @@
      * Erledigt: Ink-Linie und gefüllte Ziffer, aktuell: orange Fläche (Linie und Ziffer), Text Ink.
      */
     .c-stepper { display: grid; gap: var(--abstand-4); }
-    .c-stepper__status { font-size: var(--fs-klein); font-weight: var(--fw-halbfett); }
+    .c-stepper .c-fortschritt { --kl-h: 6px; border-radius: var(--radius-pill); }
+    .c-stepper__status { font-size: var(--fs-label); font-weight: var(--fw-halbfett); letter-spacing: var(--tracking-label); text-transform: uppercase; font-variant-numeric: tabular-nums; }
     .c-stepper__liste {
         list-style: none;
         padding: 0;

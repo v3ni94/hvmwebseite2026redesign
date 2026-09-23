@@ -2,6 +2,7 @@
   Hausumriss (MP 3.4.3): offene Kontur, unten offen. Geometrie aus dem CI-Skill hvm-ci:
   Breite 115, Wandhöhe 62, Dachhöhe 42 (relative Einheiten), runde Enden und Verbindungen.
   Strichstärke 3,2 Einheiten (Verhältnis wie im Briefbogen: 9 pt bei 115 mm Breite).
-  Parameter: klasse (zusätzliche Klassen), dunkel (true auf dunklem Grund), zeichnen (true: zeichnet sich einmal nach).
+  Parameter: klasse (zusätzliche Klassen), dunkel (true auf dunklem Grund), zeichnen (true: zeichnet sich einmal nach),
+  parallaxe (true: bewegt sich dezent mit dem Scrollen, resources/js/modules/parallaxe.js).
 #}
-<svg class="c-hausumriss{% if dunkel|default(false) %} c-hausumriss--auf-dunkel{% endif %}{% if zeichnen|default(false) %} c-hausumriss--zeichnen{% endif %} {{ klasse|default('') }}" viewBox="-2 -2 119 106" aria-hidden="true" focusable="false"><path d="M0 104V42L57.5 0 115 42V104" fill="none" stroke="#ECECEC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg>
+<svg class="c-hausumriss{% if dunkel|default(false) %} c-hausumriss--auf-dunkel{% endif %}{% if zeichnen|default(false) %} c-hausumriss--zeichnen{% endif %} {{ klasse|default('') }}"{% if parallaxe|default(false) %} data-parallaxe{% endif %} viewBox="-2 -2 119 106" aria-hidden="true" focusable="false"><path d="M0 104V42L57.5 0 115 42V104" fill="none" stroke="#ECECEC" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg>

@@ -48,6 +48,8 @@
 </head>
 <body class="{% block body_class %}page-{{ page.slug }}{% endblock %}">
     <a class="u-skip-link" href="#inhalt">Zum Inhalt springen</a>
+    {# Kennlinie als Scroll-Fortschritt (dekorativ). Ohne JavaScript vollständig sichtbar. #}
+    <div class="c-fortschritt c-fortschritt--seite" data-seitenfortschritt data-wert="100" aria-hidden="true"><span class="c-fortschritt__balken"></span></div>
     {% include 'partials/header.html.twig' %}
     {% include 'partials/draft-banner.html.twig' %}
     <main id="inhalt" tabindex="-1">
