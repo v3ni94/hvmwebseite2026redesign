@@ -7,6 +7,7 @@
         color-scheme: light;
         scroll-behavior: smooth;
         scroll-padding-top: calc(var(--header-h-kompakt) + var(--abstand-4));
+        scroll-padding-bottom: 6rem; /* feste mobile Aktionsleiste */
     }
 
     body {

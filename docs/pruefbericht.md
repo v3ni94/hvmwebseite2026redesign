@@ -91,3 +91,15 @@ Nicht verändert, da außerhalb des Auftrags dieser Prüfung oder bereits an and
 Aus technischer und werbewirtschaftlicher Sicht ist die Seite freigabefähig, vorbehaltlich der in Abschnitt 7 benannten inhaltlichen und sicherheitsrelevanten offenen Punkte aus den vorangegangenen Prüfungen, die eine Freigabe durch die Geschäftsführung beziehungsweise Rücksprache mit Rechtsanwalt oder Steuerberater erfordern. Diese Prüfung selbst hat keine Freigabe-relevanten Verfahrenshandlungen ausgelöst; es wurde nichts committet.
 
 **Zu verifizieren:** Alle in diesem Bericht genannten Kennzahlen stammen aus lokalen Testläufen vom 23.09.2026 gegen `php -S`-Instanzen dieser Prüfung und sind vor Go-Live gegen die tatsächliche Staging-/Produktionsumgebung zu wiederholen.
+
+## 10. Nachtrag 23.09.2026: technische offene Punkte
+
+- Webhook: In `APP_ENV=production` nur https; http nur für interne Hosts mit `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true`. Unzulässige Adressen versenden nichts, der Outbox-Eintrag bleibt mit Hinweis ohne URL und ohne Leaddaten zurückgestellt.
+- Admin-Anmeldung: Dummy-Hash für unbekannte Konten als Konstante (Argon2id mit PHP-Standardparametern), keine Hash-Erzeugung beim ersten unbekannten Konto mehr.
+- `TRUSTED_PROXIES`: Beispiel auf das Subnetz des Traefik-Netzes eingeschränkt (`172.30.90.0/24`), internes Netz `backend` mit festem Subnetz (`BACKEND_SUBNET`), Ablauf in `docs/betrieb.md` Abschnitt 1.4.
+- E2E: neue Browsertests `tests/e2e/angebot.spec.js` (mit und ohne JavaScript) und `tests/e2e/kontakt.spec.js`, 8 Tests über zwei Projekte. Die Zeitfalle wird abgewartet (4,6 s), das Rate Limit über je Test eigene fiktive Adressen in `X-Forwarded-For` (Testserver vertraut nur 127.0.0.1) entkoppelt.
+- `bin/check-pii.php` wertet Adressen unter reservierten Beispieldomains (RFC 2606) nicht als Befund; die Beispielnummer aus den Fehlertexten der Telefonfelder steht kommentiert in `config/pii-whitelist.php`.
+- CI: `.github/workflows/ci.yml` mit den Jobs PHP 8.3, Playwright und Prüfungen, ohne Secrets.
+
+Lokale Ergebnisse nach dem Nachtrag: siehe Bericht dieser Sitzung (PHPUnit, Playwright, lint-dashes, PII). Vor Livegang in der Staging-Umgebung zu wiederholen.
+

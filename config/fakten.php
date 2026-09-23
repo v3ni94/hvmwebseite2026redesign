@@ -27,7 +27,7 @@ return [
             'stand' => '2026-09-23',
         ],
         [
-            'begriff' => 'SE-Verwaltung (Sondereigentumsverwaltung)',
+            'begriff' => 'SE-Verwaltung',
             'url' => '/se-verwaltung/',
             'definition' => 'Die Sondereigentumsverwaltung ist die Betreuung einer einzelnen vermieteten Eigentumswohnung für Kapitalanleger, also des Mietverhältnisses, der Betriebskostenabrechnung und der Schnittstelle zur WEG-Verwaltung des Objekts.',
             'stand' => '2026-09-23',
@@ -46,7 +46,7 @@ return [
         ['merkmal' => 'Eigentümerportal', 'angabe' => 'Portal für Eigentümer und Mieter mit Ticketsystem', 'url' => '/service/', 'stand' => '2026-09-23'],
         ['merkmal' => 'Rahmenverträge', 'angabe' => 'Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst', 'url' => null, 'stand' => '2026-09-23'],
         ['merkmal' => 'Aufnahmegebühr', 'angabe' => 'keine Aufnahmegebühr', 'url' => '/angebot/', 'stand' => '2026-09-23'],
-        ['merkmal' => 'Eigentümerversammlungen', 'angabe' => 'Online-Teilnahme an Eigentümerversammlungen und virtuelle Versammlungen werden angeboten', 'url' => null, 'stand' => '2026-09-23'],
+        ['merkmal' => 'Versammlungen', 'angabe' => 'Online-Teilnahme an Eigentümerversammlungen und virtuelle Versammlungen werden angeboten', 'url' => null, 'stand' => '2026-09-23'],
         ['merkmal' => 'Verwaltervertrag', 'angabe' => 'Entwurf des Verwaltervertrags wird mit dem Angebot übersandt', 'url' => '/angebot/', 'stand' => '2026-09-23'],
     ],
 ];

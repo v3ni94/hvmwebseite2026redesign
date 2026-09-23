@@ -41,7 +41,7 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | A31 | Stand-Datum der Datenschutzerklärung bei Freigabe aktualisieren | `docs/recht-offene-fragen.md` D18 | nein |
 | A32 | Freigabe des Impressums insgesamt | `docs/recht-offene-fragen.md` I13 | ja |
 | A33 | Freigabe der Datenschutzerklärung insgesamt (nach DSB) | `docs/recht-offene-fragen.md` D19 | ja |
-| A34 | Webhook-Konfiguration: n8n-Adresse bestätigen und, falls n8n nicht im internen Netz liegt, ausschließlich https zulassen (WebhookService erlaubt derzeit auch http://) | Bericht „sec“ dieser Sitzung | ja |
+| A34 | Technischer Teil erledigt (23.09.2026): `WebhookService` lässt in Produktion nur https zu, http nur für interne Hosts (Dienstname ohne Punkt, private IP) mit `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true`, sonst wartet der Outbox-Eintrag mit Fehlermeldung ohne URL (`tests/Unit/Service/WebhookServiceTest.php`, `tests/Integration/OutboxWorkerTest.php`). Offen: n8n-Adresse bestätigen und `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL` passend setzen | Bericht „sec“ dieser Sitzung, `docs/betrieb.md` Abschnitt 1.4 | ja |
 | A35 | Vorgehen bei APP_KEY-Umstellung (jetzt mindestens 32 Byte, base64:...) mit bestehenden Umgebungen abstimmen; kürzere oder nicht dekodierbare Schlüssel gelten als fehlend, Produktion startet dann nicht, ein bestehender kürzerer Schlüssel macht damit verschlüsselte TOTP-Geheimnisse und Uploads unlesbar. Lokale `.env` ist gültig | Bericht „sec“ dieser Sitzung, `docs/architektur.md` Abschnitt 5 | ja |
 
 ## B. Anwalt / Datenschutzbeauftragter
@@ -85,15 +85,16 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | C3 | Datum der letzten Überprüfung der Barrierefreiheit nach Prüfung eintragen, jährliche Wiederholung einplanen | `docs/recht-offene-fragen.md` B5 | nein |
 | C4 | Nebenbefund: doppeltes Escaping in `templates/pages/wissen.html.twig` Zeile 36 korrigieren (`&amp;q=` statt `&q=`), Suchbegriff geht im Zielgruppenfilter verloren | Bericht „sec“ dieser Sitzung | nein |
 | C5 | Keine admin-seitige Download-Route für Bewerbungsunterlagen vorhanden; bei Ergänzung Content-Disposition attachment, nosniff und Anmeldeprüfung vor `decryptToStream()` vorsehen | Bericht „sec“ dieser Sitzung | nein |
-| C6 | Playwright-Test für die Angebotsformularstrecke mit deaktiviertem JavaScript im Browser ergänzen (bisher nur serverseitig über `tests/Integration/AngebotFlowTest.php` abgedeckt) | Bericht „testsOpen“ dieser Sitzung | nein |
+| C6 | erledigt (23.09.2026): `tests/e2e/angebot.spec.js` prüft die Angebotsstrecke mit JavaScript (Schritte, Fortschritt, Prüfung, Absenden, Danke-Seite) und ohne JavaScript (einseitiges Formular, Fehlerfall, Absenden), `tests/e2e/kontakt.spec.js` das Kontaktformular mit und ohne JavaScript, jeweils Desktop und mobil | Bericht „testsOpen“ dieser Sitzung | nein |
 | C7 | Sporadische „Duplicate entry“- und Sperrzustand-Abweichungen bei parallelen Testläufen auf `hvm_test` beobachtet; eigene Testdatenbank je Lauf bei paralleler Agentenarbeit erwägen | Bericht „sec“ dieser Sitzung | nein |
 | C8 | `composer test` aktuell nicht stabil grün wegen paralleler Änderungen anderer Agenten an `src/Security`, `src/Http` und der gemeinsamen Testdatenbank; vor Livegang erneut vollständig grün prüfen | Bericht „content“ dieser Sitzung | ja |
 | C9 | Kennzahlen aus `docs/pruefbericht.md` stammen aus lokalen `php -S`-Testläufen; vor Livegang gegen echte Staging-/Produktionsumgebung wiederholen | Bericht „tests“ dieser Sitzung | ja |
-| C10 | Bekannte, in früheren Prüfungen benannte Sicherheitspunkte erneut prüfen (IP-Sperre über mehrere Konten hinweg, Timing bei unbekannten Admin-Konten, Härtung von `TRUSTED_PROXIES`) | Bericht „tests“ dieser Sitzung | ja |
+| C10 | Teilweise erledigt (23.09.2026): Timing bei unbekannten Admin-Konten (Dummy-Hash als Konstante in `src/Security/Password.php`, `tests/Unit/Security/PasswordTest.php`) und Härtung von `TRUSTED_PROXIES` (nur Subnetz des Traefik-Netzes, festes Subnetz für `backend` in `docker-compose.yml`, `docs/betrieb.md` Abschnitt 1.4). Offen: IP-Sperre über mehrere Konten hinweg; auf dem Server Subnetz des Traefik-Netzes ablesen und in `TRUSTED_PROXIES` eintragen | Bericht „tests“ dieser Sitzung | ja |
 | C11 | Lighthouse Performance liegt auf allen vier geprüften Seiten bei 99 statt 100 (geringfügiger Diagnosehinweis, über der geforderten Schwelle von 95) | Bericht „testsOpen“ dieser Sitzung | nein |
 | C12 | Bei sehr kleinen Darstellungsgrößen (Favicon, 16 bis 24 px) verliert `--hvm-hellgrau` sichtbar an Kontrast; bei Freigabe der Favicon-Variante berücksichtigen | `docs/logo/nachzeichnung-pruefung.md` Abschnitt 5 | nein |
 | C13 | Redirect `/datenschutzerklaerung/` auf `/datenschutz/` als „vermutet“ markiert, Status verifizieren | `docs/redirects.md` | nein |
 | C14 | Vier Wochen 404-Monitoring nach Livegang einplanen und durchführen | `docs/redirects.md`, MP Abschnitt 13 Phase 7 | nein |
+| C15 | erledigt (23.09.2026): CI-Workflow `.github/workflows/ci.yml` (PHP 8.3 mit Lint, Gedankenstrich-Linter und PHPUnit gegen MariaDB 10.11, Playwright unter Node 22, Platzhalter-Bericht nicht blockierend, PII-Prüfung blockierend). Beim ersten Lauf auf GitHub Ergebnis prüfen | diese Sitzung | nein |
 
 ## D. Inhalte
 
