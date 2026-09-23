@@ -37,3 +37,19 @@ fragen:
     antwort: "Über das Ticketsystem im Portal erfassen Sie Anliegen wie Schadensmeldungen oder Fragen an die Verwaltung. Jedes Anliegen wird als eigener Vorgang angelegt und ist dadurch nachvollziehbar. Notfälle melden Sie nicht über das Portal, sondern telefonisch. Zugang für Mieter: [Zugang für Mieter bestätigen]."
     artikel: eigentuemerportal
     freigabe: nein
+  - frage: "Gilt die Hausordnung auch für mich als Mieter?"
+    antwort: "In der Regel ja, wenn die Hausordnung Bestandteil Ihres Mietvertrags ist, etwa als Anlage. Unabhängig davon gilt im Haus das Gebot der gegenseitigen Rücksichtnahme. Mehr dazu im Beitrag [Die Hausordnung](/wissen/hausordnung/)."
+    artikel: hausordnung
+    freigabe: nein
+  - frage: "Wer kümmert sich um die Rauchwarnmelder in meiner Wohnung?"
+    antwort: "Das regelt die Landesbauordnung des jeweiligen Bundeslandes. Für den Einbau ist in der Regel der Eigentümer verantwortlich, die laufende Betriebsbereitschaft liegt je nach Land beim Eigentümer oder bei den Bewohnern. Entfernen oder überdecken Sie Melder nicht und melden Sie Störungen Ihrem Vermieter oder der Verwaltung."
+    artikel: rauchwarnmelder
+    freigabe: nein
+  - frage: "Was tue ich, wenn sich in meiner Wohnung Schimmel zeigt?"
+    antwort: "Melden Sie den Befall unverzüglich Ihrem Vermieter oder der von ihm beauftragten Verwaltung, am besten in Textform mit Fotos. Entfernen oder überstreichen Sie größere Flächen nicht selbst, damit die Ursache geklärt werden kann. Hinweise zur Vorbeugung im Beitrag [Feuchtigkeit und Schimmel vermeiden](/wissen/schimmel-vermeiden/)."
+    artikel: schimmel-vermeiden
+    freigabe: nein
+  - frage: "Muss ich beim Auszug renovieren?"
+    antwort: "Das richtet sich nach Ihrem Mietvertrag. Ob eine Klausel zu Schönheitsreparaturen wirksam ist, hängt von ihrem Wortlaut und den Umständen des Einzelfalls ab. Lassen Sie Ihre Klausel im Zweifel von einem Mieterverein oder Rechtsanwalt prüfen. Weitere Hinweise im Beitrag [Auszug und Rückgabe der Wohnung](/wissen/auszug-wohnungsrueckgabe/)."
+    artikel: auszug-wohnungsrueckgabe
+    freigabe: nein

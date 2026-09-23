@@ -1,0 +1,193 @@
+{#
+  Asset Management für Wohnimmobilien. ENTWURF: Die Leistung ist durch die Geschäftsführung noch nicht bestätigt
+  (docs/wissen-inhaltsplan.md Abschnitt 4). Die Seite beschreibt allgemein, was Asset Management umfasst,
+  und macht keine Aussagen zu Umfang, Referenzen oder Konditionen der Hausverwaltung Müller GmbH.
+  Grundlage: docs/architektur.md Abschnitt 9, Vorlage templates/pages/mietverwaltung.html.twig.
+  Alle Texte sind Entwürfe, keine Rechts-, Steuer- oder Anlageberatung.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/timeline.html.twig' as tl %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/notice.html.twig' as n %}
+{% import 'components/cta-band.html.twig' as cta %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Leistungen') }}
+        <h1>{{ page.heading|trennen }}</h1>
+        <p class="c-seitenkopf__text">Strategische Steuerung von Wohnimmobilien für <strong>Kapitalanleger, Family Offices und Eigentümer mehrerer Objekte</strong>: Bestandsanalyse, Objektstrategie, Investitionsplanung und ein Berichtswesen mit klaren Kennzahlen. {{ placeholder('Leistung Asset Management bestätigen') }}</p>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<section class="l-section l-section--kompakt" aria-labelledby="entwurf-titel">
+    <div class="l-container">
+        <h2 class="u-visually-hidden" id="entwurf-titel">Hinweis zum Entwurf</h2>
+        {% set entwurf_text %}Diese Seite ist ein Entwurf. Ob und in welchem Umfang die Hausverwaltung Müller GmbH Asset Management anbietet, ist noch durch die Geschäftsführung zu bestätigen {{ placeholder('Leistung Asset Management bestätigen') }}. Die folgenden Abschnitte beschreiben allgemein, was Asset Management für Wohnimmobilien umfasst.{% endset %}
+        {{ n.hinweis('Leistung in Abstimmung', entwurf_text, {typ: 'warnung'}) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="fuer-wen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Zielgruppe',
+            titel: 'Für *Eigentümer*, die ihren Bestand steuern wollen',
+            text: 'Asset Management richtet sich an Eigentümer, die ihre Immobilien als Vermögenswert betrachten und Entscheidungen über Erhalt, Investition, Vermietung und Verkauf auf eine nachvollziehbare Grundlage stellen möchten.',
+            id: 'fuer-wen-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {{ c.card({titel: 'Kapitalanleger', icon: 'wohnung', text: 'Eigentümer vermieteter Wohnungen oder Häuser, die Ertrag, Zustand und Wertentwicklung ihrer Anlage im Blick behalten möchten.'}) }}
+            {{ c.card({titel: 'Family Offices', icon: 'dokument', text: 'Vermögensverwaltungen, die Wohnimmobilien als Teil eines Gesamtvermögens halten und eine regelmäßige, strukturierte Berichterstattung benötigen.'}) }}
+            {{ c.card({titel: 'Eigentümer mehrerer Objekte', icon: 'gebaeude', text: 'Private oder institutionelle Eigentümer, die mehrere Objekte an einer oder verschiedenen Stellen halten und Prioritäten über den gesamten Bestand setzen wollen.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="leistungsumfang-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Leistungsumfang',
+            titel: 'Was Asset Management *umfasst*',
+            text: 'Asset Management verbindet kaufmännische, technische und strategische Fragen. Im Mittelpunkt steht die Frage, welche Maßnahmen dem Objekt und den Zielen des Eigentümers langfristig dienen.',
+            id: 'leistungsumfang-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten">
+            {% set bestandsanalyse %}
+            <ul class="c-leistungsliste">
+                <li>Erfassung von Mietverhältnissen, Erträgen und Kosten</li>
+                <li>Einschätzung von baulichem und technischem Zustand</li>
+                <li>Einordnung von Lage und Vermietungssituation</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Bestandsanalyse', ton: 'w', nummer: '01', zusatz: bestandsanalyse}) }}
+            {% set objektstrategie %}
+            <ul class="c-leistungsliste">
+                <li>Klärung der Ziele des Eigentümers, etwa Ertrag, Werterhalt oder Verkauf</li>
+                <li>Ableitung einer Strategie je Objekt: halten, entwickeln oder veräußern</li>
+                <li>Regelmäßige Überprüfung der Strategie</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Objektstrategie', ton: 'w', nummer: '02', zusatz: objektstrategie}) }}
+            {% set investitionsplanung %}
+            <ul class="c-leistungsliste">
+                <li>Mehrjährige Planung von Instandhaltung und Instandsetzung</li>
+                <li>Bewertung von Modernisierungen nach Aufwand und Nutzen</li>
+                <li>Priorisierung von Maßnahmen über den Bestand</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Instandhaltung und Investitionen', ton: 'w', nummer: '03', zusatz: investitionsplanung}) }}
+        </div>
+        <div class="c-karten c-karten--abstand">
+            {% set vermietungsstrategie %}
+            <ul class="c-leistungsliste">
+                <li>Mietentwicklung im gesetzlichen Rahmen</li>
+                <li>Umgang mit Leerstand und Mieterwechseln</li>
+                <li>Abstimmung von Ausstattung und Zielgruppe</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Vermietungsstrategie', ton: 'w', nummer: '04', zusatz: vermietungsstrategie}) }}
+            {% set berichtswesen %}
+            <ul class="c-leistungsliste">
+                <li>Regelmäßige Berichte zu Erträgen, Kosten und Maßnahmen</li>
+                <li>Kennzahlen wie Leerstandsquote, Mietrückstände und Instandhaltungsaufwand</li>
+                <li>Abgleich von Planung und tatsächlicher Entwicklung</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Berichtswesen und Kennzahlen', ton: 'w', nummer: '05', zusatz: berichtswesen}) }}
+            {% set schnittstellen %}
+            <ul class="c-leistungsliste">
+                <li>Steuerung des Property Managements und der laufenden Verwaltung</li>
+                <li>Abstimmung mit Vermietung und Verkauf</li>
+                <li>Einbindung externer Fachleute, etwa Sachverständige oder Steuerberater</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Schnittstellen', ton: 'w', nummer: '06', zusatz: schnittstellen}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="abgrenzung-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Abgrenzung',
+            titel: 'Asset Management und *Verwaltung* im Zusammenspiel',
+            text: 'Asset Management bereitet strategische Entscheidungen des Eigentümers vor und begleitet ihre Umsetzung. Property Management und Verwaltung setzen diese im laufenden Betrieb um: Mietverhältnisse, Abrechnungen, Instandhaltung und Kommunikation mit Mietern und Dienstleistern. Vermietung und Verkauf sind eigenständige Leistungen, die aus der Objektstrategie folgen können.',
+            id: 'abgrenzung-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Mietverwaltung', url: '/mietverwaltung/', fuss: 'Zur Mietverwaltung', text: 'Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'SE-Verwaltung', url: '/se-verwaltung/', fuss: 'Zur SE-Verwaltung', text: 'Betreuung vermieteter Eigentumswohnungen innerhalb einer WEG.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Vermietung', url: '/vermietung/', fuss: 'Zur Vermietung', text: 'Vermarktung und Neuvermietung leerstehender Einheiten.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verkauf', url: '/verkauf/', fuss: 'Zum Verkauf', text: 'Begleitung beim Verkauf einzelner Objekte oder Einheiten.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="ablauf-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Ablauf',
+            titel: 'Vom Erstgespräch zur *Steuerung*',
+            text: 'Asset Management ist ein fortlaufender Prozess. Ein typischer Ablauf gliedert sich in folgende Schritte.',
+            id: 'ablauf-titel',
+        }) }}
+        {{ tl.timeline([
+            {titel: 'Erstgespräch und Ziele', text: 'Sie schildern Ihren Bestand und Ihre Ziele, etwa laufenden Ertrag, Werterhalt oder eine spätere Veräußerung.'},
+            {titel: 'Bestandsaufnahme', text: 'Mietverhältnisse, Kosten, Zustand und Unterlagen der Objekte werden erfasst und ausgewertet.'},
+            {titel: 'Strategie und Maßnahmenplan', text: 'Aus der Analyse entstehen eine Strategie je Objekt und ein Plan für Instandhaltung, Investitionen und Vermietung.'},
+            {titel: 'Umsetzung und Steuerung', text: 'Die Maßnahmen werden mit Verwaltung, Vermietung und Dienstleistern abgestimmt und begleitet.'},
+            {titel: 'Bericht und Überprüfung', text: 'Regelmäßige Berichte zeigen den Stand, die Strategie wird bei Bedarf angepasst.'},
+        ]) }}
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="wissen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Wissen',
+            titel: 'Weiterführende *Beiträge*',
+            id: 'wissen-titel',
+            aktion: {label: 'Alle Beiträge für Vermieter und Investoren', url: '/wissen/?zielgruppe=vermieter-investoren'},
+        }) }}
+        <div class="c-karten">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Asset Management für Wohnimmobilien', url: '/wissen/asset-management-immobilien/', fuss: 'Beitrag lesen', text: 'Aufgaben, Ziele und Nutzen im Überblick.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Property, Asset und Facility Management', url: '/wissen/property-asset-facility-management/', fuss: 'Beitrag lesen', text: 'Die Unterschiede der drei Begriffe erklärt.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Kurz *erklärt*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq([
+            {frage: 'Worin unterscheidet sich Asset Management von der Hausverwaltung?', antwort: 'Die Hausverwaltung kümmert sich um den laufenden Betrieb, etwa Mietverhältnisse, Abrechnungen und Instandhaltung. Asset Management betrachtet die Immobilie als Vermögenswert und entwickelt eine Strategie für Erhalt, Investition, Vermietung und gegebenenfalls Verkauf. Beide Aufgaben ergänzen sich.'},
+            {frage: 'Lohnt sich Asset Management auch für eine einzelne Wohnung?', antwort: 'Der Nutzen steigt in der Regel mit Größe und Vielfalt des Bestands. Auch bei einzelnen Objekten können eine strukturierte Instandhaltungsplanung und ein regelmäßiger Bericht sinnvoll sein. Welcher Umfang passt, hängt von Ihren Zielen ab.'},
+            {frage: 'Ersetzt Asset Management eine Steuer- oder Rechtsberatung?', antwort: 'Nein. Steuerliche und rechtliche Fragen, etwa zur Finanzierung, zur Abschreibung oder zu Verträgen, gehören in die Hände von Steuerberatern und Rechtsanwälten. Asset Management kann diese Fachleute einbinden und die Ergebnisse in die Planung aufnehmen.'},
+        ]) }}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Gespräch zu Ihrem *Bestand*',
+    text: 'Unverbindlich und nur mit den Angaben, die für eine erste Rückmeldung erforderlich sind.',
+    primaer: {label: 'Anfrage senden', url: cta_url('/kontakt/', {anliegen: 'verwaltung'})},
+    sekundaer: {label: 'Zur Mietverwaltung', url: '/mietverwaltung/'},
+    id: 'cta-titel',
+}) }}
+{% endblock %}

@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Nicht freigegebene Seiten zeigen außerhalb der Produktion ein Entwurfsband.
  */
 $seiten = [
-    'start', 'weg-verwaltung', 'mietverwaltung', 'se-verwaltung', 'verwalterwechsel',
+    'start', 'weg-verwaltung', 'mietverwaltung', 'se-verwaltung', 'asset-management', 'verwalterwechsel',
     'vermietung', 'verkauf', 'wertgutachten', 'wissen', 'betreuungsgebiete', 'referenzen',
     'ueber-uns', 'karriere', 'karriere-bewerbung', 'bewerbung-danke', 'service', 'notfall', 'kontakt',
     'kontakt-danke', 'angebot', 'angebot-danke', 'impressum', 'datenschutz', 'barrierefreiheit',

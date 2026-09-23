@@ -37,3 +37,23 @@ fragen:
     antwort: "Für diese Verträge gibt es keine besonderen gesetzlichen Laufzeitregeln. Laufzeit und Kündigungsfristen ergeben sich aus dem Verwaltungsvertrag. Eine Kündigung aus wichtigem Grund bleibt unabhängig davon möglich."
     artikel: vertragslaufzeit-verwaltervertrag
     freigabe: nein
+  - frage: "Mit wem wird der Verwaltervertrag geschlossen?"
+    antwort: "Vertragspartner des Verwalters ist die Gemeinschaft der Wohnungseigentümer, nicht der einzelne Eigentümer. Beim Vertragsschluss wird sie vom Vorsitzenden des Verwaltungsbeirats oder von einem durch Beschluss ermächtigten Wohnungseigentümer vertreten. Grundlage ist ein Beschluss der Eigentümer über den Vertrag."
+    artikel: verwaltervertrag-inhalte
+    freigabe: nein
+  - frage: "Was sollte ein Verwaltervertrag regeln?"
+    antwort: "Typische Inhalte sind Leistungsumfang, Abgrenzung von Grund- und Sonderleistungen, Vergütung, Laufzeit, Wertgrenzen für Aufträge ohne Beschluss, Haftung, Erreichbarkeit und die Übergabe von Unterlagen bei Vertragsende. Je konkreter der Vertrag formuliert ist, desto weniger Streit entsteht im Alltag."
+    artikel: verwaltervertrag-inhalte
+    freigabe: nein
+  - frage: "Darf der Verwalter Aufträge ohne Beschluss der Eigentümer erteilen?"
+    antwort: "Ja, in begrenztem Umfang. Nach dem Gesetz darf er Maßnahmen von untergeordneter Bedeutung sowie dringende Maßnahmen zur Wahrung einer Frist oder zur Abwendung eines Nachteils selbst veranlassen. Die Eigentümer können diese Befugnisse durch Beschluss erweitern oder einschränken, etwa mit einer festen Wertgrenze."
+    artikel: verwaltervertrag-inhalte
+    freigabe: nein
+  - frage: "Wie werden Sonderleistungen vergütet?"
+    antwort: "Üblich sind Pauschalen für klar umrissene Leistungen, Stundensätze für Leistungen mit schwer vorhersehbarem Aufwand und bei größeren Baumaßnahmen eine Vergütung in Abhängigkeit von den Baukosten. Welches Modell gilt, sollte der Verwaltervertrag für jede Sonderleistung nachvollziehbar festlegen."
+    artikel: sonderleistungen-verwaltung
+    freigabe: nein
+  - frage: "Wie vermeide ich Überraschungen bei den Kosten für Sonderleistungen?"
+    antwort: "Achten Sie darauf, dass der Vertrag die Sonderleistungen abschließend aufführt und für jede die Berechnung nennt. Beziehen Sie beim Vergleich von Angeboten die absehbaren Sonderleistungen der nächsten Jahre ein, etwa geplante Baumaßnahmen. Bei größeren Maßnahmen sollte die Sondervergütung zusammen mit der Maßnahme beschlossen werden."
+    artikel: sonderleistungen-verwaltung
+    freigabe: nein

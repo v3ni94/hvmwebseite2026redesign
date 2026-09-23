@@ -27,6 +27,7 @@ return [
     $seite('/weg-verwaltung/', 'weg-verwaltung'),
     $seite('/mietverwaltung/', 'mietverwaltung'),
     $seite('/se-verwaltung/', 'se-verwaltung'),
+    $seite('/asset-management/', 'asset-management'),
     $seite('/verwalterwechsel/', 'verwalterwechsel'),
     $seite('/vermietung/', 'vermietung'),
     $seite('/verkauf/', 'verkauf'),

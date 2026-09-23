@@ -51,6 +51,16 @@ return [
         'schema' => 'Service',
         'sitemap' => true,
     ],
+    'asset-management' => [
+        // Entwurf: Leistung durch die Geschäftsführung zu bestätigen (docs/wissen-inhaltsplan.md Abschnitt 4).
+        'pfad' => '/asset-management/',
+        'titel' => 'Asset Management',
+        'seitentitel' => 'Asset Management für Wohnimmobilien | Hausverwaltung Müller GmbH',
+        'beschreibung' => 'Asset Management für Wohnimmobilien: Bestandsanalyse, Objektstrategie, Investitionsplanung und Berichtswesen für Kapitalanleger und Eigentümer mehrerer Objekte.',
+        'eltern' => null,
+        'schema' => 'Service',
+        'sitemap' => true,
+    ],
     'verwalterwechsel' => [
         'pfad' => '/verwalterwechsel/',
         'titel' => 'Verwalterwechsel',

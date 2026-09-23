@@ -41,3 +41,27 @@ fragen:
     antwort: "Grundsätzlich ja. Jeder Wohnungseigentümer kann verlangen, dass ein zertifizierter Verwalter bestellt wird. Eine Ausnahme gilt für Gemeinschaften mit weniger als neun Sondereigentumsrechten, in denen ein Eigentümer Verwalter ist und weniger als ein Drittel der Eigentümer einen zertifizierten Verwalter verlangt."
     artikel: zertifizierter-verwalter
     freigabe: nein
+  - frage: "Wie wird man Mitglied des Verwaltungsbeirats?"
+    antwort: "Die Mitglieder des Verwaltungsbeirats werden von den Wohnungseigentümern durch Beschluss bestellt. Wählbar sind nach dem Gesetz Wohnungseigentümer. Eine feste Mitgliederzahl gibt es seit der WEG-Reform nicht mehr, bei mehreren Mitgliedern sind ein Vorsitzender und ein Stellvertreter zu bestimmen. Die Gemeinschaftsordnung kann abweichende Regeln enthalten."
+    artikel: verwaltungsbeirat-aufgaben
+    freigabe: nein
+  - frage: "Wann ist das Hausgeld fällig?"
+    antwort: "Die Zahlungspflicht entsteht mit dem Beschluss der Eigentümer über die Vorschüsse auf Grundlage des Wirtschaftsplans. Wann die Vorschüsse fällig werden, können die Eigentümer beschließen, üblich ist eine monatliche Zahlung zu einem festen Termin. Viele Gemeinschaften nutzen dafür das Lastschriftverfahren."
+    artikel: hausgeld
+    freigabe: nein
+  - frage: "Wann wird eine Sonderumlage erhoben?"
+    antwort: "Eine Sonderumlage wird beschlossen, wenn ein Finanzbedarf weder durch das laufende Hausgeld noch durch die Erhaltungsrücklage gedeckt ist, etwa bei einer größeren Erhaltungsmaßnahme. Der Beschluss sollte Zweck, Gesamtbetrag, Verteilungsschlüssel und Fälligkeit klar festlegen. Eine vorausschauende Erhaltungsplanung hilft, Sonderumlagen zu vermeiden oder frühzeitig anzukündigen."
+    artikel: sonderumlage
+    freigabe: nein
+  - frage: "Darf ich ohne Beschluss ein Steckersolargerät am Balkon anbringen?"
+    antwort: "Nein. Jeder Wohnungseigentümer kann zwar angemessene bauliche Veränderungen verlangen, die der Stromerzeugung durch Steckersolargeräte dienen. Über die Durchführung entscheidet aber die Gemeinschaft durch Beschluss, etwa über Art und Ort der Befestigung. Wer ohne Beschluss baut, riskiert einen Rückbauanspruch der Gemeinschaft."
+    artikel: bauliche-veraenderungen-weg
+    freigabe: nein
+  - frage: "Kann die Gemeinschaft eine Ladestation für mein Elektroauto ablehnen?"
+    antwort: "Das Ob kann die Gemeinschaft in der Regel nicht verweigern, denn jeder Eigentümer kann angemessene bauliche Veränderungen zum Laden elektrisch betriebener Fahrzeuge verlangen. Über das Wie, etwa Fachbetrieb, Leitungsführung und Lastmanagement, entscheidet die Gemeinschaft durch Beschluss. Die Kosten trägt grundsätzlich der Eigentümer, der die Maßnahme verlangt."
+    artikel: ladestationen-e-mobilitaet
+    freigabe: nein
+  - frage: "Kann die Eigentümerversammlung ausschließlich online stattfinden?"
+    antwort: "Ja, seit Oktober 2024. Die Eigentümer müssen dies mit mindestens drei Vierteln der abgegebenen Stimmen für einen Zeitraum von längstens drei Jahren beschließen. Die virtuelle Versammlung muss hinsichtlich Teilnahme und Rechteausübung mit einer Präsenzversammlung vergleichbar sein. Alternativ kann mit einfacher Mehrheit die Online-Teilnahme an einer Präsenzversammlung beschlossen werden."
+    artikel: online-eigentuemerversammlung
+    freigabe: nein
