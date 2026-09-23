@@ -60,7 +60,7 @@
         {{ tl.timeline([
             {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern Objekt, Größe und aktuelle Situation. Sie erhalten ein schriftliches Angebot der Hausverwaltung Müller GmbH.'},
             {titel: 'Vorbereitung der Beschlussfassung', text: 'Der Verwaltungsbeirat und die Eigentümer bereiten die Abstimmung vor, unter Beachtung der geltenden Einberufungsfristen.'},
-            {titel: 'Beschluss in der Eigentümerversammlung', text: 'Die Eigentümerversammlung beschließt über die Abberufung des bisherigen und die Bestellung des neuen Verwalters.'},
+            {titel: 'Beschluss in der Eigentümerversammlung', text: 'Die Eigentümerversammlung beschließt über die Bestellung des neuen Verwalters und, soweit erforderlich, über die Abberufung des bisherigen.'},
             {titel: 'Verwaltervertrag', text: 'Die Gemeinschaft schließt den Verwaltervertrag mit der Hausverwaltung Müller GmbH.'},
             {titel: 'Übergabe der Unterlagen und Konten', text: 'Der bisherige Verwalter übergibt Unterlagen, Beschluss-Sammlung und Konten. Wir dokumentieren die Übergabe.'},
             {titel: 'Start der Verwaltung und Information der Eigentümer', text: 'Die laufende Verwaltung beginnt, Eigentümer und Dienstleister werden informiert.'},
@@ -72,10 +72,10 @@
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Zeitplan',
-            titel: 'Zeitplan ohne *erfundene* Fristen',
+            titel: 'Zeitplan nach Ihrer *Ausgangslage*',
             id: 'zeitplan-titel',
         }) }}
-        {{ n.hinweis('Maßgeblich sind Ihre Unterlagen', 'Wie lange ein Verwalterwechsel dauert, hängt von drei Punkten ab: der Beschlusslage Ihrer Gemeinschaft, der Vertragslaufzeit und den Kündigungsregeln des bisherigen Verwaltervertrags sowie den Einberufungsfristen für die Eigentümerversammlung nach Gesetz und Gemeinschaftsordnung. Wir nennen an dieser Stelle bewusst keine pauschalen Fristen. Prüfen Sie die Fristen anhand Ihrer Unterlagen, im Zweifel mit Unterstützung eines Rechtsanwalts, und tragen Sie Termine mit ausreichendem Vorlauf ein.') }}
+        {{ n.hinweis('Maßgeblich sind Ihre Unterlagen', 'Wie lange ein Verwalterwechsel dauert, hängt von drei Punkten ab: der Beschlusslage Ihrer Gemeinschaft, der Bestellungszeit des bisherigen Verwalters und den Regelungen seines Verwaltervertrags sowie den Einberufungsfristen für die Eigentümerversammlung nach Gesetz und Gemeinschaftsordnung. Wir nennen an dieser Stelle bewusst keine pauschalen Fristen. Prüfen Sie die Fristen anhand Ihrer Unterlagen, im Zweifel mit Unterstützung eines Rechtsanwalts, und tragen Sie Termine mit ausreichendem Vorlauf ein.') }}
     </div>
 </section>
 
@@ -90,11 +90,11 @@
         }) }}
         <ul class="c-checkliste">
             <li>Beschluss-Sammlung</li>
-            <li>Protokolle der Eigentümerversammlungen</li>
+            <li>Niederschriften der Eigentümerversammlungen</li>
             <li>Teilungserklärung und Gemeinschaftsordnung</li>
             <li>Verträge mit Dienstleistern</li>
             <li>Kontenunterlagen und Kontoauszüge</li>
-            <li>Wirtschaftspläne und Abrechnungen</li>
+            <li>Wirtschaftspläne, Jahresabrechnungen und Vermögensberichte</li>
             <li>Unterlagen zur Erhaltungsrücklage</li>
             <li>Versicherungsunterlagen</li>
             <li>Pläne und technische Unterlagen</li>
@@ -121,8 +121,8 @@
 <section class="l-section l-section--flaeche" aria-labelledby="mehrwerte-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Mehrwerte',
-            titel: 'Für Ihre *Gemeinschaft* inbegriffen',
+            eyebrow: 'Service und Konditionen',
+            titel: 'Portal, Notdienst und *Rahmenverträge*',
             id: 'mehrwerte-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
@@ -144,9 +144,9 @@
             id: 'faq-titel',
         }) }}
         {{ faq.faq([
-            {frage: 'Können wir den Verwalter jederzeit wechseln?', antwort: 'Die Bestellung des neuen Verwalters erfolgt durch Beschluss der Eigentümerversammlung. Ob und wann eine Abberufung des bisherigen Verwalters möglich ist, hängt von dessen Vertrag und der Beschlusslage ab.'},
+            {frage: 'Können wir den Verwalter jederzeit wechseln?', antwort: 'Grundsätzlich ja. Seit der WEG-Reform zum 01.12.2020 kann die Eigentümerversammlung den Verwalter jederzeit durch Beschluss abberufen, ein wichtiger Grund ist nicht erforderlich. Der Verwaltervertrag endet spätestens sechs Monate nach der Abberufung. Ob bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab.'},
             {frage: 'Was passiert mit laufenden Verträgen des bisherigen Verwalters?', antwort: 'Verträge mit Dienstleistern werden im Rahmen der Übergabe gesichtet. Ob sie fortgeführt, angepasst oder neu vergeben werden, entscheidet die Gemeinschaft.'},
-            {frage: 'Wie lange dauert die Übergabe?', antwort: 'Das hängt von Umfang und Vollständigkeit der Unterlagen sowie der Mitwirkung des bisherigen Verwalters ab. Eine pauschale Angabe wäre nicht seriös.'},
+            {frage: 'Wie lange dauert die Übergabe?', antwort: 'Das hängt von Umfang und Vollständigkeit der Unterlagen sowie der Mitwirkung des bisherigen Verwalters ab. Eine pauschale Angabe ist deshalb nicht möglich.'},
         ]) }}
     </div>
 </section>

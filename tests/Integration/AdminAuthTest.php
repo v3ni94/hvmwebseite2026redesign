@@ -99,6 +99,53 @@ final class AdminAuthTest extends AdminTestCase
         self::assertSame('ok', $auth->attemptPassword('admin@example.org', self::PASSWORD, '203.0.113.50')['status']);
     }
 
+    /**
+     * Parallele Fehlversuche dürfen die Kontosperre nicht überholen: Prüfung und Zählung laufen je Konto
+     * serialisiert (GET_LOCK), sonst passieren alle gleichzeitig gestarteten Versuche die Sperrprüfung.
+     */
+    public function testParallelAttemptsDoNotBypassAccountLock(): void
+    {
+        $kernel = $this->kernel();
+        $this->createAdmin($kernel);
+        $anzahl = 12;
+        $start = sprintf('%.3F', microtime(true) + 2.0);
+        $env = self::processEnv(['APP_KEY' => self::APP_KEY]);
+        $prozesse = [];
+        for ($i = 0; $i < $anzahl; $i++) {
+            // je Prozess eine andere IP, damit nur die Kontosperre greift
+            $befehl = [PHP_BINARY, self::basePath() . '/tests/fixtures/admin/login-versuch.php', 'admin@example.org', 'falsch-' . $i, '198.51.100.' . (100 + $i), $start];
+            $prozess = proc_open($befehl, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, self::basePath(), $env);
+            self::assertIsResource($prozess);
+            $prozesse[] = [$prozess, $pipes];
+        }
+        $ergebnisse = [];
+        foreach ($prozesse as [$prozess, $pipes]) {
+            $ausgabe = trim((string) stream_get_contents($pipes[1]) . (string) stream_get_contents($pipes[2]));
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            proc_close($prozess);
+            $ergebnisse[] = $ausgabe;
+        }
+        $zaehler = array_count_values($ergebnisse);
+
+        self::assertSame($anzahl, ($zaehler['invalid'] ?? 0) + ($zaehler['locked'] ?? 0), implode(' | ', $ergebnisse));
+        self::assertLessThanOrEqual(array_key_first(AdminAuth::ACCOUNT_STAGES), $zaehler['invalid'] ?? 0, 'Geprüfte Passwörter trotz Sperre: ' . json_encode($zaehler));
+    }
+
+    public function testIpv6LockCannotBeBypassedByRotatingWithinPrefix(): void
+    {
+        Clock::freeze('2026-09-23 10:00:00');
+        $kernel = $this->kernel();
+        $this->createAdmin($kernel);
+        $auth = $this->auth($kernel);
+        // Jeder Versuch mit einer anderen Adresse aus demselben /64 (typischer Privatanschluss)
+        for ($i = 0; $i < 10; $i++) {
+            $auth->attemptPassword('person' . $i . '@example.org', 'x', '2001:db8:4:7:' . dechex($i + 1) . '::1');
+        }
+        self::assertSame('locked', $auth->attemptPassword('admin@example.org', self::PASSWORD, '2001:db8:4:7:ffff::99')['status']);
+        self::assertSame('ok', $auth->attemptPassword('admin@example.org', self::PASSWORD, '2001:db8:4:8::1')['status']);
+    }
+
     public function testDelayStages(): void
     {
         self::assertSame(0, AdminAuth::delayFor(4, AdminAuth::ACCOUNT_STAGES));

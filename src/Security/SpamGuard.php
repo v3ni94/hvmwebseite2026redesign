@@ -24,6 +24,8 @@ final class SpamGuard
     public const MIN_SECONDS = 4;
     public const MAX_AGE = 86400;
     public const MAX_LINKS = 2;
+    /** Mindestlänge des APP_KEY in Byte (libsodium secretbox, docs/architektur.md Abschnitt 5) */
+    public const APP_KEY_MIN_BYTES = 32;
 
     private const LINK_PATTERN = '~(?:https?://|www\.|\[url|<a\s)~i';
 
@@ -39,26 +41,42 @@ final class SpamGuard
 
     /**
      * Leitet einen zweckgebundenen Schlüssel aus APP_KEY ab (HMAC-SHA256, Zweck als Nachricht).
-     * Ohne APP_KEY entsteht ein öffentlich bekannter Ersatzschlüssel: die Funktion bleibt erhalten,
-     * der Schutz der Signatur aber nicht. Produktion setzt APP_KEY immer (docs/architektur.md Abschnitt 5).
+     * Ohne gültigen APP_KEY entsteht außerhalb der Produktion ein öffentlich bekannter Ersatzschlüssel:
+     * die Funktion bleibt erhalten, der Schutz der Signatur aber nicht. In Produktion (app.env = production)
+     * bricht die Ableitung stattdessen mit einer Ausnahme ab, damit Uploads, TOTP-Geheimnisse und
+     * Signaturen nie mit dem Ersatzschlüssel geschützt werden.
      */
     public static function deriveKey(Config $config, string $purpose): string
     {
-        $appKey = (string) $config->get('app.key', '');
-        if (str_starts_with($appKey, 'base64:')) {
-            $decoded = base64_decode(substr($appKey, 7), true);
-            $appKey = $decoded === false ? '' : $decoded;
-        }
-        if ($appKey === '') {
+        $appKey = self::appKey($config);
+        if ($appKey === null) {
+            if ($config->get('app.env') === 'production') {
+                throw new \RuntimeException('APP_KEY fehlt oder ist ungültig. In Produktion wird kein Ersatzschlüssel verwendet.');
+            }
             $appKey = hash('sha256', 'hvm-ohne-app-key|' . (string) $config->get('app.url', ''), true);
         }
 
         return hash_hmac('sha256', $purpose, $appKey, true);
     }
 
+    /**
+     * APP_KEY als Binärwert oder null, wenn er fehlt, mit "base64:" nicht dekodierbar ist
+     * oder kürzer als APP_KEY_MIN_BYTES ist.
+     */
+    public static function appKey(Config $config): ?string
+    {
+        $appKey = trim((string) $config->get('app.key', ''));
+        if (str_starts_with($appKey, 'base64:')) {
+            $decoded = base64_decode(substr($appKey, 7), true);
+            $appKey = $decoded === false ? '' : $decoded;
+        }
+
+        return strlen($appKey) >= self::APP_KEY_MIN_BYTES ? $appKey : null;
+    }
+
     public static function hasAppKey(Config $config): bool
     {
-        return trim((string) $config->get('app.key', '')) !== '';
+        return self::appKey($config) !== null;
     }
 
     public function isConfigured(): bool

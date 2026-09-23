@@ -19,7 +19,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading }}</h1>
-        <p class="c-seitenkopf__text">Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten für <strong>Vermieter und Investoren</strong>: Mietvertragsmanagement, Mietinkasso, Betriebskostenabrechnung und Instandhaltung aus einer Hand.</p>
+        <p class="c-seitenkopf__text">Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten für <strong>Vermieter und Investoren</strong>: Mietvertragsmanagement, Mietinkasso, Betriebskostenabrechnung und Instandhaltung.</p>
     </div>
 </section>
 {% endblock %}
@@ -85,7 +85,7 @@
             titel: 'Was *nicht* enthalten ist',
             id: 'abgrenzung-titel',
         }) }}
-        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Die Mieterauswahl bei Neuvermietung sowie die Vermarktung leerstehender Einheiten sind Teil der gesonderten Leistung Vermietung. Rechtliche Vertretung in Mietstreitigkeiten und gerichtliche Mahnverfahren sind nicht Teil der laufenden Mietverwaltung, hierfür verweisen wir an Rechtsanwalt oder Gericht. Umfangreiche Instandsetzungen können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen.') }}
+        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Die Mieterauswahl bei Neuvermietung sowie die Vermarktung leerstehender Einheiten sind Teil der gesonderten Leistung Vermietung. Rechtliche Vertretung in Mietstreitigkeiten und gerichtliche Mahnverfahren sind nicht Teil der laufenden Mietverwaltung, hierfür ist ein Rechtsanwalt hinzuzuziehen. Umfangreiche Instandsetzungen können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen.') }}
     </div>
 </section>
 
@@ -99,7 +99,7 @@
         }) }}
         {{ tl.timeline([
             {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern Objekt, Mietverhältnisse und Ausgangslage, Sie erhalten ein schriftliches Angebot.'},
-            {titel: 'Verwaltervertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der Mietverwaltung.'},
+            {titel: 'Verwaltungsvertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der Mietverwaltung.'},
             {titel: 'Übergabe der Unterlagen', text: 'Mietverträge, Kontodaten und laufende Vorgänge werden übergeben.'},
             {titel: 'Start der Verwaltung', text: 'Mieterinnen und Mieter sowie Dienstleister werden informiert, die laufende Verwaltung beginnt.'},
         ]) }}
@@ -109,8 +109,8 @@
 <section class="l-section" aria-labelledby="mehrwerte-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Mehrwerte',
-            titel: 'Für Ihre *Immobilie* inbegriffen',
+            eyebrow: 'Service und Konditionen',
+            titel: 'Portal, Notdienst und *Rahmenverträge*',
             id: 'mehrwerte-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
@@ -150,7 +150,7 @@
         }) }}
         {{ faq.faq([
             {frage: 'Übernimmt die Mietverwaltung auch die Neuvermietung leerstehender Einheiten?', antwort: 'Nein, die Neuvermietung ist eine gesonderte Leistung. Informationen dazu finden Sie auf der Seite Vermietung.'},
-            {frage: 'Wer haftet bei einem Zahlungsrückstand des Mieters?', antwort: 'Wir übernehmen Mietinkasso und Mahnwesen im Rahmen der Verwaltung. Ob und in welcher Form weitere Schritte wie ein gerichtliches Mahnverfahren erfolgen, klären wir im Einzelfall mit Ihnen.'},
+            {frage: 'Was geschieht bei einem Zahlungsrückstand des Mieters?', antwort: 'Wir übernehmen Mietinkasso und Mahnwesen im Rahmen der Verwaltung. Ob und in welcher Form weitere Schritte wie ein gerichtliches Mahnverfahren erfolgen, klären wir im Einzelfall mit Ihnen.'},
             {frage: 'Wie oft erhalte ich einen Bericht zu meiner Immobilie?', antwort: 'Die Berichterstattung stimmen wir mit Ihnen ab, üblich sind regelmäßige Abrechnungen sowie eine Information bei besonderen Vorgängen.'},
         ]) }}
     </div>

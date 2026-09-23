@@ -8,5 +8,7 @@ test('404-Seite mit Suche und Kern-CTAs', async ({ page, request, baseURL }) => 
 
   await page.goto('/diese-seite-gibt-es-nicht/');
   await expect(page.locator('h1')).toHaveCount(1);
-  await expect(page.locator('a[href="/angebot/"], a[href^="/angebot/"]').first()).toBeVisible();
+  // Gezielt der Link in den Kern-CTAs der Seite, nicht die Kopfzeilen-CTA,
+  // die unterhalb von 72em per CSS (.c-nav { display: none; }) verborgen ist.
+  await expect(page.locator('.c-fehlerseite__wege a[href="/angebot/"]')).toBeVisible();
 });

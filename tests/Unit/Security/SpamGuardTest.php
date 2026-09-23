@@ -106,4 +106,30 @@ final class SpamGuardTest extends TestCase
         self::assertSame(1_790_000_000, $guard->tokenTime($token, 'angebot'));
         self::assertTrue($this->guard()->isConfigured());
     }
+
+    public function testInvalidOrShortAppKeyCountsAsMissing(): void
+    {
+        foreach (['base64:***kein-base64***', 'base64:' . base64_encode(str_repeat('k', 16)), 'zu-kurz', '   '] as $key) {
+            $config = new Config(['app' => ['key' => $key, 'url' => 'https://www.example.org', 'env' => 'development']]);
+            self::assertFalse(SpamGuard::hasAppKey($config), $key);
+            self::assertNull(SpamGuard::appKey($config), $key);
+        }
+        $raw = str_repeat('r', 32);
+        self::assertSame($raw, SpamGuard::appKey(new Config(['app' => ['key' => $raw]])));
+    }
+
+    public function testNoFallbackKeyInProduction(): void
+    {
+        foreach ([null, '', 'base64:***kein-base64***'] as $key) {
+            $config = new Config(['app' => ['key' => $key, 'url' => 'https://www.example.org', 'env' => 'production']]);
+            try {
+                SpamGuard::deriveKey($config, 'bewerbung-upload');
+                self::fail('Ersatzschlüssel in Produktion verwendet: ' . var_export($key, true));
+            } catch (\RuntimeException $e) {
+                self::assertStringContainsString('APP_KEY', $e->getMessage());
+            }
+        }
+        $valid = new Config(['app' => ['key' => 'base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=', 'env' => 'production']]);
+        self::assertSame(32, strlen(SpamGuard::deriveKey($valid, 'bewerbung-upload')));
+    }
 }

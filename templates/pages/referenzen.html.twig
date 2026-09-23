@@ -29,7 +29,7 @@
     <div class="l-container">
         <h2 class="u-visually-hidden" id="kennzahlen-titel">Kennzahlen</h2>
         {{ kz.kennzahlen([
-            {wert: kennzahlen.einheiten, zaehler: true, label: 'Verwaltete Einheiten'},
+            {wert: kennzahlen.einheiten, zaehler: true, label: 'Verwaltungseinheiten'},
             {wert: kennzahlen.objekte, zaehler: true, label: 'Objekte in der Verwaltung'},
             {wert: kennzahlen.gruendungsjahr, vorsatz: 'seit', label: 'Gründungsjahr'},
         ], {stichtag: kennzahlen.stichtag, quelle: kennzahlen.quelle}) }}

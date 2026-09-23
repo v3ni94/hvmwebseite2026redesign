@@ -38,6 +38,8 @@ final class AdminAuth
     public const PENDING_MAX_TRIES = 5;
     public const DEFAULT_MAX_LIFETIME = 28800;
     public const COUNT_WINDOW = 86400;
+    /** Wartezeit in Sekunden auf die Serialisierung paralleler Versuche desselben Kontos */
+    public const LOCK_WAIT = 10;
 
     /** Fehlversuche je Konto => Sperre in Sekunden (höchste erreichte Stufe gilt) */
     public const ACCOUNT_STAGES = [5 => 60, 10 => 300, 15 => 900, 20 => 3600];
@@ -70,9 +72,13 @@ final class AdminAuth
         return hash_hmac('sha256', 'email|' . self::normalizeEmail($email), $this->hashKey);
     }
 
+    /**
+     * IPv6-Adressen zählen je /64 (Hvm\Http\IpRange::clientKey()), sonst ließe sich die IP-Sperre
+     * durch Adresswechsel innerhalb des eigenen Anschlusses umgehen.
+     */
     public function ipHash(string $ip): string
     {
-        return hash_hmac('sha256', 'ip|' . $ip, $this->hashKey);
+        return hash_hmac('sha256', 'ip|' . IpRange::clientKey($ip), $this->hashKey);
     }
 
     /**
@@ -141,6 +147,14 @@ final class AdminAuth
         $emailHash = $this->emailHash($email);
         $ipHash = $this->ipHash($ip);
 
+        return $this->withAccountLock($emailHash, fn (): array => $this->passwordStep($email, $password, $emailHash, $ipHash));
+    }
+
+    /**
+     * @return array{status: 'ok'|'invalid'|'locked', retry_after: int}
+     */
+    private function passwordStep(string $email, string $password, string $emailHash, string $ipHash): array
+    {
         $retry = $this->lockRetryAfter($emailHash, $ipHash);
         if ($retry > 0) {
             $this->log->warning('Admin-Anmeldung während Sperre abgewiesen', ['retry_after' => $retry]);
@@ -224,6 +238,17 @@ final class AdminAuth
 
         $emailHash = $this->emailHash((string) $user['email']);
         $ipHash = $this->ipHash($ip);
+
+        return $this->withAccountLock($emailHash, fn (): array => $this->totpStep($code, $pending, $user, $emailHash, $ipHash));
+    }
+
+    /**
+     * @param array{id: int, at: int, tries: int} $pending
+     * @param array<string, mixed>                $user
+     * @return array{status: 'ok'|'invalid'|'expired'|'locked', retry_after: int}
+     */
+    private function totpStep(string $code, array $pending, array $user, string $emailHash, string $ipHash): array
+    {
         $retry = $this->lockRetryAfter($emailHash, $ipHash);
         if ($retry > 0) {
             $this->session->remove(self::SESSION_PENDING);
@@ -345,6 +370,32 @@ final class AdminAuth
         $this->session->remove('_csrf_token');
         $this->session->regenerate();
         $this->current = null;
+    }
+
+    /**
+     * Führt Sperrprüfung, Passwort- bzw. Codeprüfung und Zählung je Konto serialisiert aus (MariaDB GET_LOCK).
+     * Ohne diese Klammer passieren gleichzeitig gestartete Versuche alle die Sperrprüfung, bevor der erste
+     * Fehlversuch gezählt ist. Ist die Sperre nicht rechtzeitig frei, wird der Versuch abgewiesen.
+     *
+     * @template T of array{status: string, retry_after: int}
+     * @param callable(): T $step
+     * @return T|array{status: 'locked', retry_after: int}
+     */
+    private function withAccountLock(string $emailHash, callable $step): array
+    {
+        $name = 'hvm_admin_login_' . substr($emailHash, 0, 40);
+        $stmt = $this->pdo->prepare('SELECT GET_LOCK(?, ?)');
+        $stmt->execute([$name, self::LOCK_WAIT]);
+        if ((int) $stmt->fetchColumn() !== 1) {
+            $this->log->warning('Admin-Anmeldung: Kontosperre nicht verfügbar, Versuch abgewiesen');
+
+            return ['status' => 'locked', 'retry_after' => self::LOCK_WAIT];
+        }
+        try {
+            return $step();
+        } finally {
+            $this->pdo->prepare('SELECT RELEASE_LOCK(?)')->execute([$name]);
+        }
     }
 
     /**

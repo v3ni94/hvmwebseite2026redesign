@@ -1,6 +1,9 @@
 {#
   Startseite, Referenz-Prototyp des Designsystems (MP 3.5, 5). Alle Texte sind Entwürfe.
   Aussagen aus der Altseite ohne Beleg sind mit [bestätigen] gekennzeichnet (docs/architektur.md Abschnitt 8).
+  24/7-Notdienst, Eigentümerportal, Rahmenverträge und keine Aufnahmegebühr sind laut
+  docs/auftraggeber-angaben.md bestätigt, hauseigene Techniker nicht. Offen bleiben Notfallnummer und Portal-URL.
+  FAQ-Auszug: Wortlaut aus content/faq (weg-beirat, vermieter-investoren, kosten-vertrag, mieter), ohne Markdown-Links.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -94,7 +97,7 @@
             {titel: 'Anfrage und Bestandsaufnahme', text: 'Sie schildern Objekt, Größe und aktuelle Situation. Wir sichten die Eckdaten, etwa die Laufzeit des bestehenden Verwaltervertrags.'},
             {titel: 'Angebot und Vorstellung', text: 'Sie erhalten ein schriftliches Angebot. Auf Wunsch stellen wir uns dem Verwaltungsbeirat oder der Eigentümerversammlung vor.'},
             {titel: 'Beschluss', text: 'Die Eigentümerversammlung beschließt über die Bestellung des neuen Verwalters und über den Verwaltervertrag.'},
-            {titel: 'Übergabe', text: 'Der bisherige Verwalter übergibt Unterlagen, Beschlusssammlung, Kontenübersicht und Schlüssel. Die Übergabe wird dokumentiert.'},
+            {titel: 'Übergabe', text: 'Der bisherige Verwalter übergibt Unterlagen, Beschluss-Sammlung, Kontenübersicht und Schlüssel. Die Übergabe wird dokumentiert.'},
             {titel: 'Beginn der Verwaltung', text: 'Eigentümer, Dienstleister und Versorger werden informiert. Die laufende Verwaltung beginnt.'},
         ]) }}
     </div>
@@ -111,9 +114,9 @@
             geteilt: true,
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
-        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten {{ placeholder('24/7-Notdienst bestätigen') }}{% endset %}
+        {% set notfall_zusatz %}Notdienst rund um die Uhr, Nummer {{ firma.notfall_telefon ?: placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
         <div class="c-karten c-karten--4">
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Unterlagen und Anliegen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Unterlagen einsehen und Anliegen über das Ticketsystem übermitteln.', zusatz: portal_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schadensmeldung', icon: 'schaden', url: '/service/', fuss: 'Schaden melden', text: 'Schäden in der Wohnung oder am Gemeinschaftseigentum strukturiert melden.'}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Notfall', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Wasserrohrbruch, Heizungsausfall oder Sturmschaden: was im Notfall zu tun ist.', zusatz: notfall_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Kontakt', icon: 'kontakt', url: '/kontakt/', fuss: 'Kontakt aufnehmen', text: 'Fragen zu Verwaltung, Abrechnung oder Vertrag an unser Team.'}) }}
@@ -157,10 +160,11 @@
             aktion: {label: 'Zum Wissensbereich', url: '/wissen/'},
         }) }}
         {{ faq.faq([
-            {frage: 'Wie läuft ein Verwalterwechsel ab?', antwort: 'Die Eigentümerversammlung beschließt über die Bestellung des neuen Verwalters und den Verwaltervertrag. Danach übergibt der bisherige Verwalter die Unterlagen. Zeitpunkt und Fristen hängen vom bestehenden Vertrag ab und werden im Einzelfall geprüft.'},
-            {frage: 'Was unterscheidet WEG-Verwaltung und SE-Verwaltung?', antwort: 'Die WEG-Verwaltung betreut das gemeinschaftliche Eigentum im Auftrag der Eigentümergemeinschaft. Die SE-Verwaltung betreut das Sondereigentum eines einzelnen Eigentümers, typischerweise die vermietete Wohnung mit Mietverhältnis und Betriebskostenabrechnung.'},
-            {frage: 'Was kostet eine Hausverwaltung?', antwort: 'Die Vergütung richtet sich nach Art und Größe des Objekts, dem Zustand und dem gewünschten Leistungsumfang. Sie erhalten ein individuelles Angebot auf Grundlage Ihrer Angaben.'},
-            {frage: 'An wen wende ich mich als Mieter bei einem Schaden?', antwort: 'Melden Sie Schäden über die Serviceseite. In dringenden Fällen wie Wasserrohrbruch oder Heizungsausfall im Winter nutzen Sie die Hinweise auf der Notfallseite.'},
+            {frage: 'Wie läuft ein Verwalterwechsel ab?', antwort: 'Die Eigentümer beschließen in einer Versammlung über die Abberufung des bisherigen und die Bestellung des neuen Verwalters sowie über den Verwaltervertrag. Anschließend übergibt der bisherige Verwalter die Unterlagen, und die Verfügungsberechtigung für die Konten der Gemeinschaft wird umgestellt. Der Stichtag des Wechsels sollte im Beschluss eindeutig festgelegt sein.'},
+            {frage: 'Brauche ich neben dem WEG-Verwalter eine Sondereigentumsverwaltung?', antwort: 'Der WEG-Verwalter ist für das gemeinschaftliche Eigentum zuständig, nicht für Ihr Mietverhältnis. Mieteinzug, Betriebskostenabrechnung gegenüber dem Mieter und die Betreuung der Wohnung übernimmt die Sondereigentumsverwaltung, sofern Sie diese Aufgaben nicht selbst erledigen.'},
+            {frage: 'Was kostet eine Hausverwaltung?', antwort: 'Das hängt von Art der Verwaltung, Größe, Zustand und technischer Ausstattung des Objekts ab. Üblich ist eine monatliche Grundvergütung je Einheit und eine gesonderte Vergütung für klar beschriebene Sonderleistungen. Ein belastbarer Preis setzt Angaben zum Objekt voraus, deshalb erstellt die Hausverwaltung Müller GmbH ein individuelles Angebot.'},
+            {frage: 'Erhebt die Hausverwaltung Müller GmbH eine Aufnahmegebühr?', antwort: 'Nein. Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr bei der Übernahme einer Verwaltung.'},
+            {frage: 'Wie melde ich einen Schaden in meiner Wohnung?', antwort: 'Melden Sie den Schaden unverzüglich Ihrem Vermieter oder der von ihm beauftragten Verwaltung, am besten schriftlich mit Beschreibung, Fotos und Ihren Erreichbarkeiten. Bei der Hausverwaltung Müller GmbH nutzen Sie dafür die E-Mail oder, soweit Sie einen Zugang haben, das Portal mit Ticketsystem.'},
         ], {offen: 1}) }}
     </div>
 </section>

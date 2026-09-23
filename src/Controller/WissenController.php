@@ -162,7 +162,7 @@ final class WissenController
                     static fn (array $f): array => [
                         '@type' => 'Question',
                         'name' => $f['frage'],
-                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['antwort']],
+                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => self::klartext($f['antwort'])],
                     ],
                     $artikel->faq
                 ),
@@ -188,7 +188,7 @@ final class WissenController
                 $fragen[] = [
                     '@type' => 'Question',
                     'name' => $frage->frage,
-                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $frage->antwort],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => self::klartext($frage->antwort)],
                 ];
             }
         }
@@ -220,5 +220,13 @@ final class WissenController
         $text = mb_strtolower($text, 'UTF-8');
 
         return strtr($text, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
+    }
+
+    /** Markdown-Links und Hervorhebungen für strukturierte Daten in Klartext umwandeln. */
+    private static function klartext(string $markdown): string
+    {
+        $text = (string) preg_replace('/\[([^\]]+)\]\([^)]*\)/', '$1', $markdown);
+
+        return str_replace(['**', '__'], '', $text);
     }
 }

@@ -62,11 +62,22 @@
 
 {% include 'partials/wissen/verwandte-artikel.html.twig' with {verwandte: verwandte} only %}
 
+{# CTA-Band kontextbezogen (docs/architektur.md Abschnitt 9): Angebot nur bei Artikeln mit cta: angebot. #}
+{% if artikel.cta == 'angebot' %}
 {{ cta.cta_band({
     titel: 'Angebot für *Ihre Immobilie* anfordern',
-    text: 'Unverbindlich, nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
     primaer: {label: 'Angebot anfordern', url: '/angebot/'},
     sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
     id: 'artikel-cta-titel',
 }) }}
+{% else %}
+{{ cta.cta_band({
+    titel: 'Ihr Anliegen an die *Hausverwaltung*',
+    text: 'Nutzen Sie den passenden Kanal für Ihr Anliegen oder nehmen Sie direkt Kontakt auf.',
+    primaer: {label: ctaLabel, url: ctaUrl},
+    sekundaer: artikel.leistung != ctaUrl and ctaUrl == '/kontakt/' ? {label: leistungLabel, url: artikel.leistung} : {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'artikel-cta-titel',
+}) }}
+{% endif %}
 {% endblock %}

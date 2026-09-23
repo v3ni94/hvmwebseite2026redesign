@@ -1,0 +1,106 @@
+# Offene Punkte vor Livegang
+
+Stand: 23.09.2026. Vollständige, deduplizierte Liste aller Platzhalter und offenen Entscheidungen aus `php bin/check-placeholders.php --report` (`docs/platzhalter-report.md`), `docs/recht-offene-fragen.md`, `docs/redirects.md`, `docs/logo/nachzeichnung-pruefung.md`, MP Abschnitt 15, `docs/phase0.md` sowie den Prüfberichten dieser und vorangegangener Sitzungen. Gruppiert nach Zuständigkeit. Mehrfach an unterschiedlichen Stellen auftretende Punkte sind zu einer Zeile zusammengefasst, alle Fundstellen sind genannt.
+
+Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder Funktion nicht live gehen. **nein** = kann nachgezogen werden, ohne den Livegang zu verhindern.
+
+## A. Geschäftsführung
+
+| Nr. | Punkt | Fundstelle | Blockierend |
+|---|---|---|---|
+| A1 | Notfallnummer für den 24/7-Notdienst bestätigen | `config/unternehmen.php:27`, `content/faq/mieter.yaml:17`, `content/wissen/eigentuemerportal.md:72`, `content/wissen/erreichbarkeit.md:46`, `content/wissen/notfall-was-tun.md:82`, `docs/auftraggeber-angaben.md` | ja |
+| A2 | Portal-URL des Eigentümerportals bestätigen | `config/unternehmen.php:33`, `content/wissen/eigentuemerportal.md:22`, `content/wissen/erreichbarkeit.md:40`, `docs/auftraggeber-angaben.md` | ja |
+| A3 | USt-IdNr. ergänzen, falls vorhanden | `config/unternehmen.php:30`, `docs/recht-offene-fragen.md` I4 | nein |
+| A4 | Aufbewahrungsfrist für Anfragen ohne Vertragsschluss festlegen (`LEAD_RETENTION_DAYS`), Löschlauf `bin/retention.php` laut Architektur geplant, noch nicht vorhanden | `config/app.php:57`, `docs/architektur.md` Abschnitt 5, `docs/recht-offene-fragen.md` D13 | ja |
+| A5 | Empfängeradresse für Lead-Benachrichtigungen (`LEAD_NOTIFY_TO`) festlegen | `config/app.php:48`, `docs/architektur.md` Abschnitt 5 | ja |
+| A6 | Regionen und Betreuungsform je Region festlegen (eigene Präsenz oder Partnerbetreuung) | `config/standorte.php:9` | ja |
+| A7 | Stellenangebote für die Karriereseite ergänzen | `config/stellen.php:7` | nein |
+| A8 | Intervall der Objektbegehungen und feste Ansprechperson je Objekt festlegen | Bericht „content“ dieser Sitzung, MP Abschnitt 6/7 | nein |
+| A9 | Klären, ob Objekte außerhalb des Bestands vermittelt/verkauft werden | Bericht „content“ dieser Sitzung | nein |
+| A10 | Antwortzeit für automatische Eingangsbestätigungen festlegen (Bewerbung, Kontakt, Angebotsanfrage) | `templates/emails/bewerbung-bestaetigung.html.twig:10`, `.txt.twig:6`, `templates/emails/kontakt-bestaetigung.html.twig:10`, `.txt.twig:6`, `templates/emails/lead-bestaetigung.html.twig:30`, `.txt.twig:16` | ja |
+| A11 | Startseite und Wertgutachten-Seite: verbleibender allgemeiner Platzhalter „[bestätigen]“ auflösen | `templates/pages/start.html.twig:3`, `templates/pages/wertgutachten.html.twig:5` | ja |
+| A12 | Mapping der Altdatenbank für den Leadimport ergänzen (drei Stellen) und Status für Altbestand sowie Zeitzone der Altdatenbank festlegen | `config/legacy-mapping.php:14,19,28,36,42` | nein (Import vor Livegang nicht zwingend) |
+| A13 | Ablauf der Zugangsvergabe zum Eigentümerportal bestätigen | `content/wissen/eigentuemerportal.md:15,55` | nein |
+| A14 | Funktionsumfang des Eigentümerportals bestätigen | `content/wissen/eigentuemerportal.md:35` | nein |
+| A15 | Statusanzeige für Nutzer im Eigentümerportal bestätigen | `content/wissen/eigentuemerportal.md:43` | nein |
+| A16 | Datenschutzhinweise zum Eigentümerportal ergänzen | `content/wissen/eigentuemerportal.md:66` | ja (hängt mit Datenschutzerklärung zusammen, siehe B-Liste) |
+| A17 | Zugang für Mieter zum Portal/Funktionen bestätigen | `content/faq/mieter.yaml:37`, `content/wissen/eigentuemerportal.md:49`, `content/wissen/erreichbarkeit.md:38`, `content/wissen/schadensmeldung.md:57` | nein |
+| A18 | Sprechzeiten ergänzen | `content/faq/mieter.yaml:25`, `content/wissen/erreichbarkeit.md:28` | ja |
+| A19 | Ablauf für persönliche Termine bestätigen | `content/wissen/erreichbarkeit.md:54` | nein |
+| A20 | Leistungsumfang der Betriebskostenabrechnung bestätigen | `content/wissen/betriebskostenabrechnung.md:82` | nein |
+| A21 | Vertragslaufzeiten und Kündigungsfristen der HVM bestätigen | `content/wissen/vertragslaufzeit-verwaltervertrag.md:77` | ja |
+| A22 | Aktuelle Mitgliedschaften (VZIV, IVD) bestätigen | `content/wissen/zertifizierter-verwalter.md:74`, `docs/recht-offene-fragen.md` I9 | nein |
+| A23 | Angabe zur Zertifizierung nach § 26a WEG der betreuenden Mitarbeiter bestätigen | `content/wissen/zertifizierter-verwalter.md:74` | nein |
+| A24 | Freigabe der Logo-Nachzeichnung (Original ist kein Vektor-Freigegebenes, Ersatzlösung nicht ohne Freigabe live) und Originalvektordatei beim früheren Dienstleister anfordern | `docs/logo/nachzeichnung-pruefung.md` Titelzeile, Abschnitt 5 | ja |
+| A25 | Fachlich klären, ob die gemessene, CI-fremde Fläche `#B0B1B3` in der Logo-Nachzeichnung bewusste Gestaltung oder Kompressionsartefakt ist | `docs/logo/nachzeichnung-pruefung.md` Abschnitt 2, 5 | nein |
+| A26 | Datenquelle für Immobilienangebote (`/ff/immobilien/`) klären, danach Redirect von 302 auf 301 umstellen | `docs/redirects.md` | nein |
+| A27 | Vollständige URL-Liste der Altseite besorgen (Mirror aus Entwicklungsumgebung nicht möglich), vermutete Redirect-Einträge bestätigen oder entfernen | `docs/redirects.md`, `docs/phase0.md` | nein |
+| A28 | Meldung der betroffenen URLs des Datenlecks in der Google Search Console beantragen (Phase 0) | `docs/phase0.md` | ja |
+| A29 | Bestätigen, dass Ausgabe der Leaddaten auf der Altseite abgestellt und Cache geleert ist (Stand: in Arbeit) | `docs/phase0.md` | ja |
+| A30 | Freigabe der in vorangegangenen Prüfungen genannten Sicherheits- und Inhaltsänderungen sowie eines etwaigen Commits | Bericht „sec“ dieser Sitzung | ja |
+| A31 | Stand-Datum der Datenschutzerklärung bei Freigabe aktualisieren | `docs/recht-offene-fragen.md` D18 | nein |
+| A32 | Freigabe des Impressums insgesamt | `docs/recht-offene-fragen.md` I13 | ja |
+| A33 | Freigabe der Datenschutzerklärung insgesamt (nach DSB) | `docs/recht-offene-fragen.md` D19 | ja |
+| A34 | Webhook-Konfiguration: n8n-Adresse bestätigen und, falls n8n nicht im internen Netz liegt, ausschließlich https zulassen (WebhookService erlaubt derzeit auch http://) | Bericht „sec“ dieser Sitzung | ja |
+| A35 | Vorgehen bei APP_KEY-Umstellung (jetzt mindestens 32 Byte, base64:...) mit bestehenden Umgebungen abstimmen; kürzere oder nicht dekodierbare Schlüssel gelten als fehlend, Produktion startet dann nicht, ein bestehender kürzerer Schlüssel macht damit verschlüsselte TOTP-Geheimnisse und Uploads unlesbar. Lokale `.env` ist gültig | Bericht „sec“ dieser Sitzung, `docs/architektur.md` Abschnitt 5 | ja |
+
+## B. Anwalt / Datenschutzbeauftragter
+
+| Nr. | Punkt | Fundstelle | Blockierend |
+|---|---|---|---|
+| B1 | Rechtsgrundlage der Anbieterkennzeichnung (§ 5 TMG vs. § 5 DDG) vor Livegang verifizieren | `docs/recht-offene-fragen.md` I1 | ja |
+| B2 | Gewerberechtliche Erlaubnis nach § 34c GewO, zuständige Behörde und Impressumsangaben klären | `docs/recht-offene-fragen.md` I2 | ja |
+| B3 | Angaben zur Berufshaftpflichtversicherung prüfen | `docs/recht-offene-fragen.md` I3 | ja |
+| B4 | Aussage zur Teilnahme an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle vor Livegang prüfen | `docs/recht-offene-fragen.md` I5 | ja |
+| B5 | Hinweis zur EU-Plattform zur Online-Streitbeilegung (eingestellt 2025) verifizieren, auch in AGB/Verträgen | `docs/recht-offene-fragen.md` I6 | nein |
+| B6 | Angabe für redaktionelle Inhalte nach Medienstaatsvertrag (§ 18 Abs. 2 MStV) prüfen, ggf. Name und Anschrift ergänzen | `docs/recht-offene-fragen.md` I7 | ja |
+| B7 | Anschrift ohne „c/o“-Zusatz als ladungsfähig bestätigen | `docs/recht-offene-fragen.md` I8 | ja |
+| B8 | Datenschutzbeauftragten benennen (falls benennungspflichtig) mit Kontaktdaten | `docs/recht-offene-fragen.md` D1 | ja |
+| B9 | Auftragsverarbeitungsvertrag Hosting bestätigen, Serverstandort und Vertragspartner/Rechtsform verifizieren (IONOS Dedicated Server) | `docs/recht-offene-fragen.md` D2, `docs/betrieb.md` | ja |
+| B10 | Umfang und Speicherdauer der Server-Logfiles (Traefik, Nginx) festlegen und mit der Konfiguration abgleichen | `docs/recht-offene-fragen.md` D3 | ja |
+| B11 | TDDDG-Ausnahme für unbedingt erforderliche Speicherung (Sitzungscookie `hvm_sid`) verifizieren, Leerlaufzeit bestätigen | `docs/recht-offene-fragen.md` D4 | ja |
+| B12 | Einsatz von Google Ads und Weitergabe der Klickkennung (`gclid`) klären | `docs/recht-offene-fragen.md` D5 | nein |
+| B13 | Löschfrist für Zählwerte des Missbrauchsschutzes (`rate_limits`, `admin_login_attempts`) festlegen | `docs/recht-offene-fragen.md` D6 | nein |
+| B14 | Rechtsgrundlage des Angebotsformulars prüfen, Datenschutztext im Formular freigeben | `docs/recht-offene-fragen.md` D7 | ja |
+| B15 | Kontaktformular (Welle 2a): Felder mit Datenschutzerklärung abgleichen, Übermittlung an n8n klären | `docs/recht-offene-fragen.md` D8 | ja |
+| B16 | Rechtsgrundlage für Bewerberdaten prüfen, Aufbewahrungsfrist nach Absage festlegen, Zugriffskreis festlegen | `docs/recht-offene-fragen.md` D9 | ja |
+| B17 | SMTP-Dienstleister benennen, Auftragsverarbeitungsvertrag und Serverstandort bestätigen | `docs/recht-offene-fragen.md` D10 | ja |
+| B18 | Betrieb und Standort von n8n klären, Auftragsverarbeiter benennen, Zulässigkeit von http:// für den Webhook klären (siehe A34) | `docs/recht-offene-fragen.md` D11, Bericht „sec“ dieser Sitzung | ja |
+| B19 | Drittlandübermittlung für alle Dienstleister prüfen | `docs/recht-offene-fragen.md` D12 | ja |
+| B20 | Aufbewahrungsfristen (Anfragen, handels-/steuerrechtlich, Datensicherungen) durch Steuerberater bestätigen, Aufbewahrungsdauer der Sicherungen festlegen | `docs/recht-offene-fragen.md` D13 | ja |
+| B21 | Bezeichnung der Aufsichtsbehörde (Landesbeauftragte für Datenschutz NRW) verifizieren | `docs/recht-offene-fragen.md` D14 | nein |
+| B22 | Analysewerkzeug (Reichweitenmessung) festlegen, falls gewünscht | `docs/recht-offene-fragen.md` D15 | nein |
+| B23 | Klären, ob Informations- oder Meldepflichten aus Altdatenübernahme und Datenleck der Altseite bestehen | `docs/recht-offene-fragen.md` D16, `docs/phase0.md` | ja |
+| B24 | Verzeichnis von Verarbeitungstätigkeiten und Auftragsverarbeitungsverträge aktualisieren | `docs/recht-offene-fragen.md` D17 | nein |
+| B25 | Prüfen, ob eine Pflicht nach BFSG oder anderen Vorschriften zur Barrierefreiheit besteht, ggf. vorgeschriebene Inhalte und zuständige Behörde ergänzen | `docs/recht-offene-fragen.md` B1 | nein |
+| B26 | Werbliche Aussagen (Rahmenverträge, 24/7-Notdienst, Eigentümerportal) wettbewerbsrechtlich vor Livegang durchsehen | `docs/recht-offene-fragen.md` Abschnitt 4 | nein |
+| B27 | Prüfung Meldung Art. 33 DSGVO und Benachrichtigung Art. 34 DSGVO zum Datenleck der Altseite veranlassen, Frist von 72 Stunden verifizieren | `docs/phase0.md` | ja |
+
+## C. Technik / Hosting
+
+| Nr. | Punkt | Fundstelle | Blockierend |
+|---|---|---|---|
+| C1 | Stand der Vereinbarkeit und Prüfmethode der Barrierefreiheitserklärung nach durchgeführter Prüfung eintragen (axe-core, manuelle Prüfung) | `docs/recht-offene-fragen.md` B2 | ja |
+| C2 | Bekannte Einschränkungen der Barrierefreiheit nach Prüfung ergänzen (insbesondere PDF) | `docs/recht-offene-fragen.md` B3 | nein |
+| C3 | Datum der letzten Überprüfung der Barrierefreiheit nach Prüfung eintragen, jährliche Wiederholung einplanen | `docs/recht-offene-fragen.md` B5 | nein |
+| C4 | Nebenbefund: doppeltes Escaping in `templates/pages/wissen.html.twig` Zeile 36 korrigieren (`&amp;q=` statt `&q=`), Suchbegriff geht im Zielgruppenfilter verloren | Bericht „sec“ dieser Sitzung | nein |
+| C5 | Keine admin-seitige Download-Route für Bewerbungsunterlagen vorhanden; bei Ergänzung Content-Disposition attachment, nosniff und Anmeldeprüfung vor `decryptToStream()` vorsehen | Bericht „sec“ dieser Sitzung | nein |
+| C6 | Playwright-Test für die Angebotsformularstrecke mit deaktiviertem JavaScript im Browser ergänzen (bisher nur serverseitig über `tests/Integration/AngebotFlowTest.php` abgedeckt) | Bericht „testsOpen“ dieser Sitzung | nein |
+| C7 | Sporadische „Duplicate entry“- und Sperrzustand-Abweichungen bei parallelen Testläufen auf `hvm_test` beobachtet; eigene Testdatenbank je Lauf bei paralleler Agentenarbeit erwägen | Bericht „sec“ dieser Sitzung | nein |
+| C8 | `composer test` aktuell nicht stabil grün wegen paralleler Änderungen anderer Agenten an `src/Security`, `src/Http` und der gemeinsamen Testdatenbank; vor Livegang erneut vollständig grün prüfen | Bericht „content“ dieser Sitzung | ja |
+| C9 | Kennzahlen aus `docs/pruefbericht.md` stammen aus lokalen `php -S`-Testläufen; vor Livegang gegen echte Staging-/Produktionsumgebung wiederholen | Bericht „tests“ dieser Sitzung | ja |
+| C10 | Bekannte, in früheren Prüfungen benannte Sicherheitspunkte erneut prüfen (IP-Sperre über mehrere Konten hinweg, Timing bei unbekannten Admin-Konten, Härtung von `TRUSTED_PROXIES`) | Bericht „tests“ dieser Sitzung | ja |
+| C11 | Lighthouse Performance liegt auf allen vier geprüften Seiten bei 99 statt 100 (geringfügiger Diagnosehinweis, über der geforderten Schwelle von 95) | Bericht „testsOpen“ dieser Sitzung | nein |
+| C12 | Bei sehr kleinen Darstellungsgrößen (Favicon, 16 bis 24 px) verliert `--hvm-hellgrau` sichtbar an Kontrast; bei Freigabe der Favicon-Variante berücksichtigen | `docs/logo/nachzeichnung-pruefung.md` Abschnitt 5 | nein |
+| C13 | Redirect `/datenschutzerklaerung/` auf `/datenschutz/` als „vermutet“ markiert, Status verifizieren | `docs/redirects.md` | nein |
+| C14 | Vier Wochen 404-Monitoring nach Livegang einplanen und durchführen | `docs/redirects.md`, MP Abschnitt 13 Phase 7 | nein |
+
+## D. Inhalte
+
+| Nr. | Punkt | Fundstelle | Blockierend |
+|---|---|---|---|
+| D1 | Hauseigene Techniker: Aussage bisher nicht bestätigt, bleibt als Platzhalter markiert | `docs/auftraggeber-angaben.md` | nein |
+| D2 | Bildnachweise ergänzen, sobald Bilder Dritter eingesetzt werden | `docs/recht-offene-fragen.md` I10 | nein |
+| D3 | Weitere Portfolio-Referenzen und Exposé-Adressen nur mit Freigabe veröffentlichen | `docs/redirects.md`, MP Abschnitt 5 | nein |
+
+Hinweis: Einträge, die sowohl eine Geschäftsführungsentscheidung als auch eine rechtliche Bewertung erfordern (zum Beispiel D9, D11, D16, I2, I3, I5, I9 aus `docs/recht-offene-fragen.md`), sind zur besseren Lesbarkeit dort einsortiert, wo die abschließende Entscheidung liegt, und zusätzlich in der jeweils anderen Liste über die Fundstelle auffindbar.

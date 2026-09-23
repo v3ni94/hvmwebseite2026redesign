@@ -33,7 +33,7 @@
         <nav class="c-wissen-filter" aria-label="Nach Zielgruppe filtern" data-wissen-filter>
             <a href="/wissen/{{ suchbegriff ? '?q=' ~ suchbegriff|url_encode }}"{% if filterAktiv is null %} aria-current="page"{% endif %} class="c-wissen-filter__link">Alle</a>
             {% for zg in alleZielgruppen %}
-            <a href="/wissen/?zielgruppe={{ zg }}{{ suchbegriff ? '&amp;q=' ~ suchbegriff|url_encode }}"{% if filterAktiv == zg %} aria-current="page"{% endif %} class="c-wissen-filter__link" data-zielgruppe="{{ zg }}">{{ zielgruppeLabels[zg] }}</a>
+            <a href="/wissen/?zielgruppe={{ zg }}{{ suchbegriff ? '&q=' ~ suchbegriff|url_encode }}"{% if filterAktiv == zg %} aria-current="page"{% endif %} class="c-wissen-filter__link" data-zielgruppe="{{ zg }}">{{ zielgruppeLabels[zg] }}</a>
             {% endfor %}
         </nav>
         <div class="c-wissen-live u-visually-hidden" data-wissen-live aria-live="polite" hidden></div>
@@ -69,7 +69,7 @@
         <h3 class="c-wissen-faq-titel">Häufige Fragen: {{ abschnitt.titel }}</h3>
         {{ faq.faq(abschnitt.faq.fragen|map(fr => {
             frage: fr.frage ~ (fr.freigegeben ? '' : ' (Entwurf, nicht freigegeben)'),
-            antwort: fr.antwort,
+            antwort: fr.antwort|md_inline,
         })) }}
         {% elseif not suchbegriff %}
         {{ ph.block('FAQ folgen', 'FAQ für ' ~ abschnitt.titel ~ ' ergänzen (content/faq/' ~ abschnitt.zielgruppe ~ '.yaml)') }}

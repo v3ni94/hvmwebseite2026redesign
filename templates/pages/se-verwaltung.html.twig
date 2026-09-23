@@ -63,7 +63,7 @@
             {% set kaufmaennisch %}
             <ul class="c-leistungsliste">
                 <li>Mietinkasso und Mahnwesen für die einzelne Einheit</li>
-                <li>Prüfung der auf die Einheit entfallenden Betriebskosten</li>
+                <li>Betriebskostenabrechnung gegenüber dem Mieter auf Grundlage der WEG-Jahresabrechnung</li>
                 <li>Weiterleitung und Prüfung der WEG-Jahresabrechnung für die Einheit</li>
             </ul>
             {% endset %}
@@ -78,7 +78,7 @@
             {% set organisatorisch %}
             <ul class="c-leistungsliste">
                 <li>Schnittstelle zur WEG-Verwaltung des Objekts</li>
-                <li>Weitergabe von Beschlüssen, Wirtschaftsplan und Rücklagenstand an den Eigentümer</li>
+                <li>Weitergabe von Beschlüssen, Wirtschaftsplan und Stand der Erhaltungsrücklage an den Eigentümer</li>
                 <li>Kommunikation mit der Mieterin oder dem Mieter</li>
             </ul>
             {% endset %}
@@ -94,7 +94,7 @@
             titel: 'Zusammenarbeit mit der *WEG-Verwaltung*',
             id: 'schnittstelle-titel',
         }) }}
-        {{ n.hinweis('Schnittstelle zur WEG-Verwaltung', 'Ist die Hausverwaltung Müller GmbH auch für die WEG-Verwaltung des Objekts beauftragt, sind die Wege kurz. Führt eine andere Verwaltung die WEG, stimmen wir uns mit dieser zu Beschlüssen, Wirtschaftsplan und Rücklage ab. Eine Vertretung in der Eigentümerversammlung übernehmen wir nur mit gesonderter Vollmacht und nach Absprache.') }}
+        {{ n.hinweis('Schnittstelle zur WEG-Verwaltung', 'Ist die Hausverwaltung Müller GmbH auch für die WEG-Verwaltung des Objekts beauftragt, sind die Wege kurz. Führt eine andere Verwaltung die WEG, stimmen wir uns mit dieser zu Beschlüssen, Wirtschaftsplan und Erhaltungsrücklage ab. Eine Vertretung in der Eigentümerversammlung übernehmen wir nur mit gesonderter Vollmacht in Textform und nach Absprache.') }}
     </div>
 </section>
 
@@ -119,7 +119,7 @@
         }) }}
         {{ tl.timeline([
             {titel: 'Bestandsaufnahme und Angebot', text: 'Sie schildern die Wohnung, das Mietverhältnis und die zuständige WEG-Verwaltung, Sie erhalten ein schriftliches Angebot.'},
-            {titel: 'Verwaltervertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der SE-Verwaltung.'},
+            {titel: 'Verwaltungsvertrag', text: 'Sie beauftragen die Hausverwaltung Müller GmbH mit der SE-Verwaltung.'},
             {titel: 'Übergabe der Unterlagen', text: 'Mietvertrag, Kontodaten und WEG-Unterlagen zur Einheit werden übergeben.'},
             {titel: 'Start der Verwaltung', text: 'Mieterin oder Mieter sowie die WEG-Verwaltung werden informiert, die laufende Verwaltung beginnt.'},
         ]) }}
@@ -129,8 +129,8 @@
 <section class="l-section" aria-labelledby="mehrwerte-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Mehrwerte',
-            titel: 'Für Ihre *Wohnung* inbegriffen',
+            eyebrow: 'Service und Konditionen',
+            titel: 'Portal, Notdienst und *Rahmenverträge*',
             id: 'mehrwerte-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
@@ -169,7 +169,7 @@
             id: 'faq-titel',
         }) }}
         {{ faq.faq([
-            {frage: 'Vertritt die SE-Verwaltung mich auch in der Eigentümerversammlung?', antwort: 'Nur mit gesonderter Vollmacht und nach vorheriger Absprache. Grundsätzlich betreuen wir das Sondereigentum, nicht die Vertretung in der Gemeinschaft.'},
+            {frage: 'Vertritt die SE-Verwaltung mich auch in der Eigentümerversammlung?', antwort: 'Nur mit gesonderter Vollmacht in Textform und nach vorheriger Absprache, soweit die Gemeinschaftsordnung die Vertretung nicht beschränkt. Grundsätzlich betreuen wir das Sondereigentum, nicht die Vertretung in der Gemeinschaft.'},
             {frage: 'Kann die Hausverwaltung Müller GmbH auch die WEG-Verwaltung des Objekts übernehmen?', antwort: 'Das prüfen wir im Einzelfall. Ist die Gemeinschaft daran interessiert, kann ein Wechsel der WEG-Verwaltung gesondert beschlossen werden.'},
             {frage: 'Was passiert, wenn meine Wohnung leer steht?', antwort: 'Für die Neuvermietung bieten wir eine gesonderte Leistung an, siehe Vermietung.'},
         ]) }}

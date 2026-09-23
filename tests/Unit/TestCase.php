@@ -33,6 +33,8 @@ abstract class TestCase extends BaseTestCase
         return Kernel::create(self::basePath(), array_merge([
             'APP_ENV' => $appEnv,
             'APP_URL' => self::BASE_URL,
+            // Produktion verlangt einen gültigen APP_KEY (kein Ersatzschlüssel), nur für Tests
+            'APP_KEY' => 'base64:' . base64_encode(str_repeat('t', 32)),
             'SESSION_DRIVER' => 'array',
         ], $env));
     }

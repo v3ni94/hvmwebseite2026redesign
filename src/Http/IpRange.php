@@ -55,4 +55,26 @@ final class IpRange
 
         return (ord($ipBin[$bytes]) & $mask) === (ord($subnetBin[$bytes]) & $mask);
     }
+
+    /**
+     * Schlüssel für Rate Limiting und Sperren je Client: IPv4 unverändert, IPv4-gemappte IPv6-Adressen
+     * als IPv4, sonstige IPv6-Adressen als /64-Präfix. Ein Anschluss erhält üblicherweise ein ganzes /64,
+     * ohne Zusammenfassung könnte ein Client jedes Limit durch Wechsel der Adresse umgehen.
+     * Keine gültige IP-Adresse: Eingabe unverändert.
+     */
+    public static function clientKey(string $ip): string
+    {
+        $bin = @inet_pton(trim($ip));
+        if ($bin === false) {
+            return $ip;
+        }
+        if (strlen($bin) === 4) {
+            return (string) inet_ntop($bin);
+        }
+        if (str_starts_with($bin, str_repeat("\0", 10) . "\xff\xff")) {
+            return (string) inet_ntop(substr($bin, 12));
+        }
+
+        return inet_ntop(substr($bin, 0, 8) . str_repeat("\0", 8)) . '/64';
+    }
 }

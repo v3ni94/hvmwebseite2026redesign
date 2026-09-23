@@ -16,7 +16,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Kontakt') }}
         <h1>{{ page.heading }}</h1>
-        <p class="c-seitenkopf__text">Hauptsitz Rheinpromenade 13, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Schreiben Sie uns über das Kontaktformular oder nutzen Sie die Angaben unten.</p>
+        <p class="c-seitenkopf__text">Hauptsitz {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Schreiben Sie uns über das Kontaktformular oder nutzen Sie die Angaben unten.</p>
     </div>
 </section>
 {% endblock %}
@@ -76,8 +76,8 @@
 </section>
 
 {{ cta.cta_band({
-    titel: 'Nachricht an die *Hausverwaltung Müller*',
-    text: 'Wir melden uns nach Eingang Ihrer Nachricht zurück.',
+    titel: 'Verwaltung für Ihre *Immobilie* anfragen',
+    text: 'Für ein Angebot nutzen Sie das Angebotsformular, für laufende Anliegen den Service-Bereich.',
     primaer: {label: 'Angebot anfordern', url: cta_url('/angebot/')},
     sekundaer: {label: 'Zum Service', url: '/service/'},
     id: 'cta-titel',

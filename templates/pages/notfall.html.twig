@@ -18,7 +18,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Notfall') }}
         <h1>{{ page.heading }}</h1>
-        <p class="c-seitenkopf__text">24 Stunden am Tag, an sieben Tagen die Woche erreichbar bei einem Notfall im Objekt.</p>
+        <p class="c-seitenkopf__text">24 Stunden am Tag, an sieben Tagen in der Woche erreichbar bei einem Notfall im Objekt.</p>
         <div class="c-notfall-anruf" data-einblenden>
             {% if firma.notfall_telefon %}
             {{ b.button('Notdienst anrufen: ' ~ firma.notfall_telefon, tel_href(firma.notfall_telefon), {variante: 'primaer', icon: 'telefon', breit: true, klasse: 'c-notfall-anruf__knopf'}) }}
@@ -35,7 +35,7 @@
 
 <section class="l-section l-section--kompakt" aria-labelledby="gefahr-titel">
     <div class="l-container">
-        {{ n.hinweis('Gasgeruch, Feuer oder Gefahr für Leib und Leben', 'Wählen Sie zuerst den Notruf 112 beziehungsweise den Entstörungsdienst Ihres Gasversorgers. Betätigen Sie bei Gasgeruch keine elektrischen Schalter, öffnen Sie Fenster, verlassen Sie das Gebäude und rufen Sie erst von draußen an.', {typ: 'warnung'}) }}
+        {{ n.hinweis('Gasgeruch, Feuer oder Gefahr für Leib und Leben', 'Wählen Sie zuerst den Notruf 112 beziehungsweise bei Gasgeruch den Entstörungsdienst des örtlichen Gasnetzbetreibers. Betätigen Sie bei Gasgeruch keine elektrischen Schalter, öffnen Sie Fenster, verlassen Sie das Gebäude und rufen Sie erst von draußen an.', {typ: 'warnung'}) }}
         <h2 class="u-visually-hidden" id="gefahr-titel">Gefahr für Leib und Leben</h2>
     </div>
 </section>
@@ -53,7 +53,7 @@
                 <li>Wasserrohrbruch</li>
                 <li>Ausfall der Heizung während der Heizperiode</li>
                 <li>Sturmschäden mit Gefahr für Personen oder das Gebäude</li>
-                <li>Ausfall der Hauseingangstür</li>
+                <li>Hauseingangstür lässt sich nicht mehr schließen</li>
                 <li>Stromausfall im gesamten Gebäude</li>
             </ul>
         </div>

@@ -38,7 +38,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Regionen') }}
         <h1>{{ page.heading }}</h1>
-        <p class="c-seitenkopf__text">Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.ort }}. Darüber hinaus betreuen wir Objekte in mehreren weiteren Regionen, teils in eigener Präsenz, teils über Partnerbetreuung.</p>
+        <p class="c-seitenkopf__text">Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.ort }}. Die Übersicht nennt weitere Regionen, jeweils mit Angabe, ob die Betreuung über eine eigene Präsenz oder über Partner erfolgt. {{ placeholder('Regionen und Betreuungsform bestätigen') }}</p>
     </div>
 </section>
 {% endblock %}
@@ -62,7 +62,7 @@
         {{ sh.section_head({
             eyebrow: 'Hauptsitz',
             titel: 'Eigene Präsenz in *' ~ firma.anschrift.ort ~ '*',
-            text: firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Von hier aus wird der überwiegende Teil des Bestands unmittelbar betreut.',
+            text: firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '.',
             id: 'hauptsitz-titel',
         }) }}
     </div>
@@ -73,7 +73,7 @@
         {{ sh.section_head({
             eyebrow: 'Einordnung',
             titel: 'Eigene Präsenz oder *Partnerbetreuung*',
-            text: 'Für die übrigen Regionen wird derzeit geprüft, ob die Betreuung über eine eigene Präsenz oder über Partnerinnen und Partner vor Ort erfolgt. Bis zur Bestätigung durch die Geschäftsführung zeigt die Liste oben den Status als offenen Punkt. Anschriften und Telefonnummern einzelner Regionen veröffentlichen wir erst nach Prüfung, die entsprechenden Angaben der Altseite waren zudem uneinheitlich formatiert.',
+            text: 'Für die übrigen Regionen wird die Betreuungsform, eigene Präsenz oder Partnerbetreuung vor Ort, derzeit abgestimmt und in der Liste oben ergänzt. Anschriften und Telefonnummern einzelner Regionen veröffentlichen wir erst nach Prüfung.',
             id: 'regionen-hinweis-titel',
         }) }}
     </div>

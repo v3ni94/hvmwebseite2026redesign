@@ -27,9 +27,10 @@
 
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
+        {% set zielgruppe_text %}Die Leistung richtet sich an Eigentümer von Wohnungen und Häusern aus dem Bestand der Hausverwaltung Müller GmbH sowie an Eigentümer, die eine Immobilie außerhalb der laufenden Verwaltung verkaufen möchten {{ placeholder('Verkauf außerhalb des Verwaltungsbestands bestätigen') }}.{% endset %}
         {{ sh.section_head({
             titel: 'Für *Eigentümer*, die verkaufen möchten',
-            text: 'Die Leistung richtet sich an Eigentümer von Wohnungen und Häusern aus dem Bestand der Hausverwaltung Müller GmbH sowie an Eigentümer, die eine Immobilie außerhalb der laufenden Verwaltung verkaufen möchten.',
+            text: zielgruppe_text,
             id: 'fuer-wen-titel',
             geteilt: true,
             aktion: {label: 'Zum Wertgutachten', url: '/wertgutachten/'},
@@ -46,7 +47,7 @@
             id: 'ablauf-titel',
         }) }}
         {{ tl.timeline([
-            {titel: 'Wertermittlung', text: 'Einschätzung des Marktwerts auf Grundlage von Lage, Zustand und vergleichbaren Objekten.'},
+            {titel: 'Marktwerteinschätzung', text: 'Kaufmännische Einschätzung des Marktwerts auf Grundlage von Lage, Zustand und vergleichbaren Objekten.'},
             {titel: 'Unterlagen', text: 'Zusammenstellung der für den Verkauf erforderlichen Unterlagen.'},
             {titel: 'Vermarktung', text: 'Erstellung eines Exposés und Veröffentlichung über die üblichen Vermarktungswege.'},
             {titel: 'Besichtigungen', text: 'Koordination und Durchführung der Besichtigungstermine mit Interessenten.'},
@@ -60,10 +61,10 @@
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Abgrenzung',
-            titel: 'Wertermittlung und *Notartermin*',
+            titel: 'Marktwerteinschätzung und *Notartermin*',
             id: 'abgrenzung-titel',
         }) }}
-        {{ n.hinweis('Einschätzung, keine Rechtsberatung', 'Die genannte Wertermittlung ist eine kaufmännische Einschätzung, kein Wertgutachten im Sinne eines qualifizierten Sachverständigen, siehe Wertgutachten. Der Kaufvertrag wird ausschließlich durch den Notar beurkundet. Die Hausverwaltung Müller GmbH begleitet den Prozess, erstellt oder prüft aber keinen rechtssicheren Kaufvertrag und leistet keine Rechtsberatung. Bei rechtlichen Fragen verweisen wir an Rechtsanwalt oder Notar.', {typ: 'info'}) }}
+        {{ n.hinweis('Einschätzung, keine Rechtsberatung', 'Die Marktwerteinschätzung ist eine kaufmännische Einschätzung, kein Gutachten qualifizierter Sachverständiger, siehe Wertgutachten. Der Kaufvertrag wird ausschließlich durch den Notar beurkundet. Die Hausverwaltung Müller GmbH begleitet den Prozess, erstellt oder prüft aber keinen Kaufvertrag und leistet keine Rechtsberatung. Bei rechtlichen Fragen verweisen wir an Rechtsanwalt oder Notar.', {typ: 'info'}) }}
     </div>
 </section>
 
@@ -76,10 +77,11 @@
             titel: 'Kurz *erklärt*',
             id: 'faq-titel',
         }) }}
+        {% set ausserhalb_antwort %}Ja, die Leistung steht grundsätzlich auch Eigentümern offen, deren Immobilie nicht von der Hausverwaltung Müller GmbH verwaltet wird {{ placeholder('bestätigen') }}.{% endset %}
         {{ faq.faq([
-            {frage: 'Ist die Wertermittlung verbindlich?', antwort: 'Nein, es handelt sich um eine kaufmännische Einschätzung des Marktwerts. Für ein förmliches Gutachten verweisen wir auf die Seite Wertgutachten.'},
+            {frage: 'Ist die Marktwerteinschätzung verbindlich?', antwort: 'Nein, es handelt sich um eine kaufmännische Einschätzung des Marktwerts. Für ein förmliches Gutachten verweisen wir auf die Seite Wertgutachten.'},
             {frage: 'Wer erstellt den Kaufvertrag?', antwort: 'Der Kaufvertrag wird vom Notar erstellt und beurkundet. Wir begleiten den Verkaufsprozess bis zum Notartermin.'},
-            {frage: 'Verkaufen Sie auch Objekte außerhalb Ihres Verwaltungsbestands?', antwort: 'Ja, die Leistung steht grundsätzlich auch Eigentümern offen, deren Immobilie nicht von der Hausverwaltung Müller GmbH verwaltet wird.'},
+            {frage: 'Verkaufen Sie auch Objekte außerhalb Ihres Verwaltungsbestands?', antwort: ausserhalb_antwort},
         ]) }}
     </div>
 </section>

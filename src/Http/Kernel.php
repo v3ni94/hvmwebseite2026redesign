@@ -12,6 +12,7 @@ use Hvm\Http\Middleware\Middleware;
 use Hvm\Http\Middleware\SecurityHeaders;
 use Hvm\Http\Middleware\Session as SessionMiddleware;
 use Hvm\Http\Middleware\TrailingSlash;
+use Hvm\Security\SpamGuard;
 use Hvm\Support\Config;
 use Hvm\Support\Container;
 use Hvm\Support\Db;
@@ -46,6 +47,7 @@ final class Kernel
 
         if ($kernel->isProduction()) {
             ErrorHandler::enforceProductionIni();
+            $kernel->assertProductionSecrets();
         }
         $kernel->globalRequest = Request::fromGlobals();
 
@@ -121,6 +123,18 @@ final class Kernel
         $c->set(PDO::class, static fn (): PDO => Db::fromConfig($config));
     }
 
+    /**
+     * Produktion startet nicht ohne gültigen APP_KEY (Web und bin/-Skripte über fromGlobals()).
+     * Ohne Schlüssel würden Uploads, TOTP-Geheimnisse und Signaturen mit einem öffentlich
+     * ableitbaren Ersatzschlüssel geschützt.
+     */
+    public function assertProductionSecrets(): void
+    {
+        if ($this->isProduction() && !SpamGuard::hasAppKey($this->config)) {
+            throw new \RuntimeException('APP_KEY fehlt oder ist ungültig (mindestens 32 Byte, Format base64:...). Start in Produktion abgebrochen.');
+        }
+    }
+
     public function config(): Config
     {
         return $this->config;
@@ -165,7 +179,8 @@ final class Kernel
         return [
             new ErrorHandler(
                 $c->get(Log::class),
-                $env === 'production',
+                // Fehlerdetails nur lokal (development). Staging ist öffentlich erreichbar und zeigt die generische Seite.
+                $env !== 'development',
                 function (Throwable $e, Request $request): ?string {
                     return $this->container->get(ErrorController::class)->renderServerError($request);
                 },

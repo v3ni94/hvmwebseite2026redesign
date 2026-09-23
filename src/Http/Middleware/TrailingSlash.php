@@ -25,8 +25,11 @@ final class TrailingSlash implements Middleware
             return $next($request);
         }
 
-        // Doppelte Schrägstriche am Anfang würden als protokollrelative URL gedeutet
-        $target = '/' . ltrim($path, '/') . '/';
+        // Doppelte Schrägstriche am Anfang würden als protokollrelative URL gedeutet. Der Pfad ist bereits
+        // dekodiert: Segmente neu kodieren, sonst machen Browser aus "/\host" oder "/<Tab>/host" ein "//host"
+        // (offene Weiterleitung), und CR/LF würde die Antwort mit einer Ausnahme abbrechen.
+        $segments = explode('/', ltrim($path, '/'));
+        $target = '/' . implode('/', array_map('rawurlencode', $segments)) . '/';
         $query = $request->queryString();
         if ($query !== '') {
             $target .= '?' . $query;

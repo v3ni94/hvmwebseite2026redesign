@@ -59,7 +59,7 @@
             {% set technisch %}
             <ul class="c-leistungsliste">
                 <li>Vorbereitung und Umsetzung von Erhaltungsmaßnahmen</li>
-                <li>Regelmäßige Objektbegehungen</li>
+                <li>Objektbegehungen {{ placeholder('Turnus der Objektbegehungen bestätigen') }}</li>
                 <li>Schadensaufnahme und Schadensmanagement</li>
                 <li>Steuerung von Dienstleistern und Handwerkern, auch über Rahmenverträge</li>
             </ul>
@@ -111,8 +111,8 @@
 <section class="l-section" aria-labelledby="mehrwerte-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Mehrwerte',
-            titel: 'Für Ihre *Gemeinschaft* inbegriffen',
+            eyebrow: 'Service und Konditionen',
+            titel: 'Portal, Notdienst und *Rahmenverträge*',
             id: 'mehrwerte-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
@@ -138,7 +138,7 @@
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Eigentümerversammlung', url: '/wissen/eigentuemerversammlung/', fuss: 'Beitrag lesen', text: 'Einberufung, Ablauf und Niederschrift.'}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Wirtschaftsplan und Jahresabrechnung', url: '/wissen/wirtschaftsplan-jahresabrechnung/', fuss: 'Beitrag lesen', text: 'Wirtschaftsplan, Jahresabrechnung und Vermögensbericht im Überblick.'}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Die Erhaltungsrücklage', url: '/wissen/erhaltungsruecklage/', fuss: 'Beitrag lesen', text: 'Zweck und Bemessung der Rücklage.'}) }}
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Beschlussfassung in der Gemeinschaft', url: '/wissen/beschlussfassung-weg/', fuss: 'Beitrag lesen', text: 'Mehrheiten, Umlaufbeschluss und Niederschrift.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Beschlussfassung in der Gemeinschaft', url: '/wissen/beschlussfassung-weg/', fuss: 'Beitrag lesen', text: 'Mehrheiten, bauliche Veränderungen und Anfechtung.'}) }}
         </div>
     </div>
 </section>
@@ -151,9 +151,9 @@
             id: 'faq-titel',
         }) }}
         {{ faq.faq([
-            {frage: 'Ist der Verwalter Vertreter der Gemeinschaft oder der einzelnen Eigentümer?', antwort: 'Der Verwalter handelt als Organ der Gemeinschaft der Wohnungseigentümer und setzt deren Beschlüsse um. Einzelinteressen einzelner Eigentümer vertritt er nicht.'},
-            {frage: 'Wie oft findet eine Eigentümerversammlung statt?', antwort: 'Mindestens einmal jährlich. Die genaue Häufigkeit und Einberufungsfristen richten sich nach Gesetz und der jeweiligen Gemeinschaftsordnung.'},
-            {frage: 'Was passiert mit der Erhaltungsrücklage bei einem Verwalterwechsel?', antwort: 'Die Rücklage verbleibt bei der Gemeinschaft und wird mit den Kontenunterlagen an die neue Verwaltung übergeben.'},
+            {frage: 'Ist der Verwalter Vertreter der Gemeinschaft oder der einzelnen Eigentümer?', antwort: 'Der Verwalter handelt als Organ der Gemeinschaft der Wohnungseigentümer und setzt deren Beschlüsse um. Die Interessen einzelner Eigentümer vertritt er nicht.'},
+            {frage: 'Wie oft findet eine Eigentümerversammlung statt?', antwort: 'Mindestens einmal jährlich. Weitere Versammlungen und die Einberufungsfrist richten sich nach Gesetz und der jeweiligen Gemeinschaftsordnung.'},
+            {frage: 'Was passiert mit der Erhaltungsrücklage bei einem Verwalterwechsel?', antwort: 'Die Erhaltungsrücklage ist Vermögen der Gemeinschaft und bleibt es auch beim Wechsel. Die neue Verwaltung erhält die Kontenunterlagen und die Verfügungsberechtigung für die Konten der Gemeinschaft.'},
         ]) }}
     </div>
 </section>

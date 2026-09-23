@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Hvm\Security;
 
 use DateTimeImmutable;
+use Hvm\Http\IpRange;
 use Hvm\Support\Clock;
 use Hvm\Support\Config;
 use PDO;
@@ -24,9 +25,12 @@ final class RateLimiter
         $this->key = SpamGuard::deriveKey($config, 'ratelimit');
     }
 
+    /**
+     * IP-Adressen werden vorher zusammengefasst (IPv6 je /64, Hvm\Http\IpRange::clientKey()).
+     */
     public function hash(string $identifier): string
     {
-        return hash_hmac('sha256', $identifier, $this->key);
+        return hash_hmac('sha256', IpRange::clientKey($identifier), $this->key);
     }
 
     /**

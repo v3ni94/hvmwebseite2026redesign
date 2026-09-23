@@ -3,6 +3,9 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Tastaturbedienung der Hauptnavigation', () => {
   test('Untermenü Leistungen öffnet mit Enter und schließt mit Escape', async ({ page }) => {
+    // Die Hauptnavigation ist per CSS erst ab 72em sichtbar (darunter greifen
+    // Mobile Bottom-Bar und Fuß-Navigation), daher hier feste Desktop-Breite.
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
     const toggle = page.locator('[data-nav-toggle]').first();
     await toggle.focus();

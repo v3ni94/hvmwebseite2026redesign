@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hvm\Tests\Unit\Http;
 
+use Hvm\Http\Kernel;
 use Hvm\Http\Middleware\Csrf;
 use Hvm\Http\Middleware\ErrorHandler;
 use Hvm\Http\Request;
@@ -11,6 +12,7 @@ use Hvm\Http\Response;
 use Hvm\Http\RequestContext;
 use Hvm\Http\Router;
 use Hvm\Http\Session;
+use Hvm\Support\Env;
 use Hvm\Support\Log;
 use Hvm\Tests\Unit\Fixtures\ThrowingController;
 use Hvm\Tests\Unit\TestCase;
@@ -126,5 +128,50 @@ final class KernelTest extends TestCase
     public function testRequestContextNonceIsUrlSafe(): void
     {
         self::assertMatchesRegularExpression('/^[A-Za-z0-9_-]+$/', (new RequestContext())->nonce());
+    }
+
+    public function testProductionStartIsAbortedWithoutValidAppKey(): void
+    {
+        foreach ([null, '', 'base64:***kein-base64***', 'base64:' . base64_encode('zu-kurz')] as $key) {
+            Env::reset();
+            Env::set('APP_ENV', 'production');
+            Env::set('APP_KEY', $key);
+            try {
+                Kernel::fromGlobals(self::basePath());
+                self::fail('Produktion ohne gültigen APP_KEY gestartet: ' . var_export($key, true));
+            } catch (\RuntimeException $e) {
+                self::assertStringContainsString('APP_KEY', $e->getMessage());
+            } finally {
+                ini_set('display_errors', '1');
+            }
+        }
+    }
+
+    public function testProductionStartsWithValidAppKeyAndDevelopmentWithout(): void
+    {
+        Env::reset();
+        Env::set('APP_ENV', 'production');
+        Env::set('APP_KEY', 'base64:' . base64_encode(str_repeat('k', 32)));
+        self::assertTrue(Kernel::fromGlobals(self::basePath())->isProduction());
+        ini_set('display_errors', '1');
+
+        Env::reset();
+        Env::set('APP_ENV', 'development');
+        Env::set('APP_KEY', null);
+        self::assertFalse(Kernel::fromGlobals(self::basePath())->isProduction());
+    }
+
+    public function testStagingShowsGeneric500WithoutDetails(): void
+    {
+        $kernel = $this->kernel('staging');
+        $kernel->container()->get(Router::class)->add('GET', '/kaputt/', [ThrowingController::class, 'show']);
+        $response = $kernel->handle(Request::create('GET', '/kaputt/'));
+        ini_set('display_errors', '1');
+
+        self::assertSame(500, $response->status());
+        self::assertStringContainsString('Vorübergehende Störung', $response->body());
+        self::assertStringNotContainsString('Interner Fehler mit Details', $response->body());
+        self::assertStringNotContainsString('ThrowingController', $response->body());
+        self::assertStringNotContainsString('.php', $response->body());
     }
 }

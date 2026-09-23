@@ -53,6 +53,7 @@ final class TwigExtension extends AbstractExtension
     {
         return [
             new TwigFilter('datum', self::datum(...)),
+            new TwigFilter('md_inline', self::mdInline(...), ['is_safe' => ['html']]),
             new TwigFilter('betrag', self::betrag(...)),
             new TwigFilter('tel_href', self::telHref(...)),
             new TwigFilter('json_ld', self::jsonLd(...), ['is_safe' => ['html']]),
@@ -194,5 +195,18 @@ final class TwigExtension extends AbstractExtension
     private static function e(string $value): string
     {
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+    }
+
+    /**
+     * Einfaches Markdown (Links, Hervorhebungen) für kurze Texte wie FAQ-Antworten.
+     * HTML-Eingaben werden escaped, unsichere Links verworfen, äußere Absätze entfernt.
+     */
+    public static function mdInline(string $markdown): string
+    {
+        static $converter = null;
+        $converter ??= new \League\CommonMark\CommonMarkConverter(['html_input' => 'escape', 'allow_unsafe_links' => false]);
+        $html = trim((string) $converter->convert($markdown));
+
+        return (string) preg_replace('#^<p>(.*)</p>$#s', '$1', $html);
     }
 }

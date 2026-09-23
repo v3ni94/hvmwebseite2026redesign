@@ -20,6 +20,9 @@ x-app: &app
   environment:
     DB_HOST: db
     DB_PORT: "3306"
+    # env_file reicht die gesamte .env durch. Das Root-Passwort braucht nur der Dienst db,
+    # die Anwendung arbeitet mit DB_USER (minimale Rechte), daher hier leeren.
+    DB_ROOT_PASSWORD: ""
   restart: unless-stopped
   volumes:
     # Nur Daten, die Deployments überdauern müssen. storage/cache bleibt im Container,
@@ -90,6 +93,8 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: "3306"
+      # Sicherung läuft mit DB_USER, das Root-Passwort bleibt dem Dienst db vorbehalten
+      DB_ROOT_PASSWORD: ""
       BACKUP_DIR: /backups
       TZ: Europe/Berlin
     env_file:

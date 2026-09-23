@@ -30,7 +30,7 @@
     <div class="l-container">
         {{ sh.section_head({
             titel: 'Die Hausverwaltung Müller GmbH auf einen *Blick*',
-            text: 'Gegründet am ' ~ datum(firma.gruendung) ~ ' (' ~ firma.gruendung_text ~ '), Hauptsitz Rheinpromenade 13, ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Geschäftsführer ist ' ~ firma.geschaeftsfuehrer ~ '.',
+            text: 'Gegründet am ' ~ datum(firma.gruendung) ~ ' (' ~ firma.gruendung_text ~ '), Hauptsitz ' ~ firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Geschäftsführer ist ' ~ firma.geschaeftsfuehrer ~ '.',
             id: 'unternehmen-titel',
         }) }}
     </div>
@@ -73,8 +73,9 @@
             geteilt: true,
         }) }}
         <div class="c-karten">
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schriftlich und nachvollziehbar', text: 'Beschlüsse, Abrechnungen und Vereinbarungen halten wir schriftlich fest, damit Eigentümer und Mieter den Stand jederzeit nachvollziehen können.'}) }}
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Feste Ansprechpartner', text: 'Für jedes Objekt gibt es feste Zuständigkeiten in der Verwaltung, damit Anfragen nicht mehrfach erklärt werden müssen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schriftlich und nachvollziehbar', text: 'Beschlüsse, Abrechnungen und Vereinbarungen halten wir schriftlich fest, damit Vorgänge nachvollziehbar bleiben.'}) }}
+            {% set zustaendigkeit_zusatz %}{{ placeholder('feste Zuständigkeit je Objekt bestätigen') }}{% endset %}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Feste Ansprechpartner', text: 'Für jedes Objekt gibt es feste Zuständigkeiten in der Verwaltung, damit Anfragen nicht mehrfach erklärt werden müssen.', zusatz: zustaendigkeit_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Abgestimmte Dienstleister', text: 'Für wiederkehrende Leistungen wie Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst bestehen Rahmenverträge.'}) }}
         </div>
     </div>
