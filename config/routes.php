@@ -16,14 +16,13 @@ use Hvm\Controller\SeoController;
 $seite = static fn (string $pfad, string $schluessel, array $optionen = []): array
     => ['GET', $pfad, [PageController::class, 'show'], ['page' => $schluessel], $optionen];
 
-// Feature-Routen aus config/routes/*.php haben Vorrang (erster Treffer gewinnt).
+// Feature-Routen aus config/routes/*.php werden zuletzt registriert und ersetzen damit gleichlautende Stub-Routen.
 $feature = [];
 foreach (glob(__DIR__ . '/routes/*.php') ?: [] as $datei) {
     array_push($feature, ...(require $datei));
 }
 
 return [
-    ...$feature,
     $seite('/', 'start'),
     $seite('/weg-verwaltung/', 'weg-verwaltung'),
     $seite('/mietverwaltung/', 'mietverwaltung'),
@@ -51,4 +50,5 @@ return [
 
     ['GET', '/sitemap.xml', [SeoController::class, 'sitemap']],
     ['GET', '/robots.txt', [SeoController::class, 'robots']],
+    ...$feature,
 ];
