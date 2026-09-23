@@ -12,7 +12,7 @@ faq:
   - frage: "Wer ist in einer WEG verkehrssicherungspflichtig?"
     antwort: "Für das gemeinschaftliche Eigentum ist grundsätzlich die Gemeinschaft der Wohnungseigentümer verantwortlich. Der Verwalter organisiert die Erfüllung der Pflichten, etwa durch Beauftragung von Dienstleistern. Für das Sondereigentum ist der jeweilige Eigentümer zuständig."
   - frage: "Kann die Gemeinschaft den Winterdienst auf die Eigentümer übertragen?"
-    antwort: "Das ist rechtlich nicht einfach. Ob die Eigentümer durch Mehrheitsbeschluss zu eigener Tätigkeit verpflichtet werden können, ist umstritten. Rechtssicherer ist die Beauftragung eines Dienstleisters oder eine Regelung in der Gemeinschaftsordnung. Im Zweifel sollte die Frage anwaltlich geprüft werden."
+    antwort: "Das ist rechtlich nicht einfach. Nach der Rechtsprechung zum früheren Recht konnten Eigentümer nicht durch Mehrheitsbeschluss zu eigener Tätigkeit wie dem Winterdienst verpflichtet werden. Ob sich daran seit der WEG-Reform etwas geändert hat, ist nicht abschließend geklärt. Rechtssicherer ist die Beauftragung eines Dienstleisters oder eine Regelung in der Gemeinschaftsordnung. Im Zweifel sollte die Frage anwaltlich geprüft werden."
   - frage: "Endet die Verantwortung, wenn ein Dienstleister beauftragt ist?"
     antwort: "Nicht vollständig. Mit der sorgfältigen Auswahl und Beauftragung eines Fachbetriebs geht die Durchführung auf diesen über. Bei der Gemeinschaft verbleibt aber eine Pflicht, die Arbeit in angemessenem Umfang zu überwachen."
 ---
@@ -48,7 +48,7 @@ Die Gemeinschaft kann die Durchführung auf Dritte übertragen, etwa auf einen H
 
 ## Übertragung auf Eigentümer
 
-In manchen Anlagen sollen die Eigentümer Aufgaben wie Winterdienst oder Treppenhausreinigung selbst übernehmen. Ob eine solche Pflicht zu eigener Tätigkeit durch Mehrheitsbeschluss begründet werden kann, ist rechtlich umstritten. Eine Regelung in der Gemeinschaftsordnung ist verlässlicher. Vor einer solchen Regelung sollte anwaltlicher Rat eingeholt werden. Unabhängig davon muss die Gemeinschaft kontrollieren, ob die Aufgaben tatsächlich erfüllt werden.
+In manchen Anlagen sollen die Eigentümer Aufgaben wie Winterdienst oder Treppenhausreinigung selbst übernehmen. Nach der Rechtsprechung zum früheren Recht fehlte der Gemeinschaft die Kompetenz, eine solche Pflicht zu eigener Tätigkeit durch Mehrheitsbeschluss zu begründen. Ob das seit der WEG-Reform anders zu beurteilen ist, ist nicht abschließend geklärt [juristisch prüfen]. Eine Regelung in der Gemeinschaftsordnung ist verlässlicher. Vor einer solchen Regelung sollte anwaltlicher Rat eingeholt werden. Unabhängig davon muss die Gemeinschaft kontrollieren, ob die Aufgaben tatsächlich erfüllt werden.
 
 ## Dokumentation
 
@@ -64,7 +64,7 @@ Eine geordnete Dokumentation ist auch bei einem [Verwalterwechsel](/wissen/verwa
 
 ## Versicherung
 
-Kommt es trotz aller Sorgfalt zu einem Schaden, ist eine Haus- und Grundbesitzerhaftpflichtversicherung der Gemeinschaft wichtig. Sie gehört zu einer angemessenen Versicherung im Sinne ordnungsmäßiger Verwaltung, siehe [Versicherungen der Gemeinschaft](/wissen/gebaeudeversicherung-weg/). Die Versicherung ersetzt die Erfüllung der Pflichten nicht. Bei grober Vernachlässigung kann der Versicherungsschutz gefährdet sein.
+Kommt es trotz aller Sorgfalt zu einem Schaden, ist eine Haus- und Grundbesitzerhaftpflichtversicherung der Gemeinschaft wichtig. Sie gehört zu einer angemessenen Versicherung im Sinne ordnungsmäßiger Verwaltung, siehe [Versicherungen der Gemeinschaft](/wissen/gebaeudeversicherung-weg/). Die Versicherung ersetzt die Erfüllung der Pflichten nicht. Werden vertragliche Obliegenheiten verletzt oder Pflichten grob vernachlässigt, kann der Versicherungsschutz eingeschränkt sein.
 
 ## Hinweise für Eigentümer und Beirat
 

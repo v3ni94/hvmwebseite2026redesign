@@ -54,7 +54,7 @@ fragen:
     artikel: sonderumlage
     freigabe: nein
   - frage: "Darf ich ohne Beschluss ein Steckersolargerät am Balkon anbringen?"
-    antwort: "Nein. Jeder Wohnungseigentümer kann zwar angemessene bauliche Veränderungen verlangen, die der Stromerzeugung durch Steckersolargeräte dienen. Über die Durchführung entscheidet aber die Gemeinschaft durch Beschluss, etwa über Art und Ort der Befestigung. Wer ohne Beschluss baut, riskiert einen Rückbauanspruch der Gemeinschaft."
+    antwort: "In der Regel nicht, soweit die Anbringung das Gemeinschaftseigentum verändert, etwa durch Befestigung an Brüstung oder Fassade. Jeder Wohnungseigentümer kann zwar angemessene bauliche Veränderungen verlangen, die der Stromerzeugung durch Steckersolargeräte dienen. Über die Durchführung entscheidet aber die Gemeinschaft durch Beschluss, etwa über Art und Ort der Befestigung. Wer ohne Beschluss baut, riskiert einen Beseitigungsanspruch der Gemeinschaft."
     artikel: bauliche-veraenderungen-weg
     freigabe: nein
   - frage: "Kann die Gemeinschaft eine Ladestation für mein Elektroauto ablehnen?"
@@ -62,6 +62,6 @@ fragen:
     artikel: ladestationen-e-mobilitaet
     freigabe: nein
   - frage: "Kann die Eigentümerversammlung ausschließlich online stattfinden?"
-    antwort: "Ja, seit Oktober 2024. Die Eigentümer müssen dies mit mindestens drei Vierteln der abgegebenen Stimmen für einen Zeitraum von längstens drei Jahren beschließen. Die virtuelle Versammlung muss hinsichtlich Teilnahme und Rechteausübung mit einer Präsenzversammlung vergleichbar sein. Alternativ kann mit einfacher Mehrheit die Online-Teilnahme an einer Präsenzversammlung beschlossen werden."
+    antwort: "Ja, seit Oktober 2024. Die Eigentümer müssen dies mit mindestens drei Vierteln der abgegebenen Stimmen für einen Zeitraum von längstens drei Jahren ab Beschlussfassung beschließen. Die virtuelle Versammlung muss hinsichtlich Teilnahme und Rechteausübung mit einer Präsenzversammlung vergleichbar sein. Für Beschlüsse, die bis Ende 2028 gefasst werden, ist nach einer Übergangsregel daneben mindestens einmal im Jahr eine Präsenzversammlung durchzuführen. Alternativ kann mit einfacher Mehrheit die Online-Teilnahme an einer Präsenzversammlung beschlossen werden."
     artikel: online-eigentuemerversammlung
     freigabe: nein

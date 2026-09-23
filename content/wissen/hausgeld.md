@@ -12,7 +12,7 @@ faq:
   - frage: "Was ist im Hausgeld enthalten?"
     antwort: "Das Hausgeld deckt die laufenden Kosten der Gemeinschaft, etwa Versicherungen, Wasser, Heizung, Hausmeister, Reinigung und die Verwaltervergütung. Hinzu kommt in der Regel die Zuführung zur Erhaltungsrücklage. Die Höhe ergibt sich aus dem beschlossenen Wirtschaftsplan."
   - frage: "Kann ich das Hausgeld vollständig auf meinen Mieter umlegen?"
-    antwort: "Nein. Umlegbar sind nur die Kosten, die nach dem Mietvertrag und der Betriebskostenverordnung Betriebskosten sind. Verwaltervergütung, Erhaltungsrücklage und Instandhaltungskosten gehören bei Wohnraum nicht dazu."
+    antwort: "Bei Wohnraum nicht. Umlegbar sind nur die Kosten, die nach dem Mietvertrag und der Betriebskostenverordnung Betriebskosten sind. Verwaltervergütung, Erhaltungsrücklage und Instandhaltungskosten gehören bei Wohnraum nicht dazu."
   - frage: "Wer zahlt das Hausgeld nach einem Verkauf?"
     antwort: "Maßgeblich ist grundsätzlich, wer im Zeitpunkt der Fälligkeit im Grundbuch als Eigentümer eingetragen ist. Abweichende Absprachen im Kaufvertrag wirken nur zwischen Käufer und Verkäufer, nicht gegenüber der Gemeinschaft."
 ---
@@ -38,11 +38,11 @@ Kosten, die nur das Sondereigentum betreffen, etwa der Strom in der eigenen Wohn
 
 Die Wohnungseigentümer beschließen über die Vorschüsse auf Grundlage des Wirtschaftsplans (§ 28 Abs. 1 WEG). Erst mit diesem Beschluss entsteht die Zahlungspflicht. Der Plan selbst ist die Berechnungsgrundlage. Einzelheiten zum Verfahren im Beitrag [Wirtschaftsplan, Jahresabrechnung und Vermögensbericht](/wissen/wirtschaftsplan-jahresabrechnung/).
 
-Nach dem Gesetz werden die Kosten nach Miteigentumsanteilen verteilt (§ 16 Abs. 2 WEG). Viele Gemeinschaftsordnungen sehen für einzelne Kostenarten andere Schlüssel vor, zum Beispiel nach Wohnfläche, nach Einheiten oder nach Verbrauch. Die Eigentümer können außerdem für einzelne Kosten oder bestimmte Arten von Kosten eine abweichende Verteilung beschließen. Heiz- und Warmwasserkosten sind nach den Vorgaben der Heizkostenverordnung überwiegend nach Verbrauch zu verteilen.
+Nach dem Gesetz werden die Kosten nach Miteigentumsanteilen verteilt (§ 16 Abs. 2 WEG). Viele Gemeinschaftsordnungen sehen für einzelne Kostenarten andere Schlüssel vor, zum Beispiel nach Wohnfläche, nach Einheiten oder nach Verbrauch. Die Eigentümer können außerdem für einzelne Kosten oder bestimmte Arten von Kosten eine abweichende Verteilung beschließen. Heiz- und Warmwasserkosten sind nach den Vorgaben der Heizkostenverordnung zu einem wesentlichen Teil, mindestens zur Hälfte, nach Verbrauch zu verteilen.
 
 ## Fälligkeit und Zahlung
 
-Wann die Vorschüsse fällig werden, können die Wohnungseigentümer beschließen (§ 28 Abs. 3 WEG). Üblich ist eine monatliche Zahlung zu einem festen Termin. Viele Gemeinschaften nutzen das Lastschriftverfahren, weil es die Buchhaltung vereinfacht und Rückstände vermeidet.
+Wann die Vorschüsse fällig werden, können die Wohnungseigentümer beschließen (§ 28 Abs. 3 WEG). Üblich ist eine monatliche Zahlung zu einem festen Termin. Viele Gemeinschaften nutzen das Lastschriftverfahren, weil es die Buchhaltung vereinfacht und Rückstände verringert.
 
 Der beschlossene Wirtschaftsplan gilt in vielen Gemeinschaften fort, bis ein neuer beschlossen ist. Ob das so ist, hängt von der Gemeinschaftsordnung oder einem entsprechenden Beschluss ab. Ohne eine solche Regelung kann zu Jahresbeginn eine Lücke entstehen. Eine Fortgeltungsregelung ist deshalb sinnvoll.
 

@@ -75,6 +75,6 @@ Sonderleistungen, die die Gemeinschaft beauftragt, werden aus dem Gemeinschaftsv
 
 ## Leistungen außerhalb der Verwaltung
 
-Rechtsberatung, Steuerberatung sowie Planungs- und Bauleistungen gehören nicht zu den Aufgaben der Verwaltung, weder als Grund- noch als Sonderleistung. Hier sind Rechtsanwälte, Steuerberater, Architekten oder Fachingenieure einzubeziehen. Zum Vertrag insgesamt siehe [Der Verwaltervertrag: typische Inhalte](/wissen/verwaltervertrag-inhalte/).
+Rechtsberatung, Steuerberatung sowie Planungs- und Bauleistungen gehören grundsätzlich nicht zu den Aufgaben der Verwaltung, weder als Grund- noch als Sonderleistung. Hier sind Rechtsanwälte, Steuerberater, Architekten oder Fachingenieure einzubeziehen. Zum Vertrag insgesamt siehe [Der Verwaltervertrag: typische Inhalte](/wissen/verwaltervertrag-inhalte/).
 
 Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr. Welche Leistungen in ihrer Grundvergütung enthalten sind, ergibt sich aus dem individuellen Angebot [Leistungsverzeichnis Grund- und Sonderleistungen ergänzen]. Mehr dazu auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

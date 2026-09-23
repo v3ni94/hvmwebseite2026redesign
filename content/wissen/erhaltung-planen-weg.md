@@ -12,9 +12,9 @@ faq:
   - frage: "Was umfasst der Begriff Erhaltung?"
     antwort: "Erhaltung umfasst die Instandhaltung und die Instandsetzung des gemeinschaftlichen Eigentums. Gemeint sind Wartung, Pflege und Reparatur ebenso wie der Ersatz verschlissener Bauteile. Maßnahmen, die darüber hinausgehen, sind bauliche Veränderungen und folgen eigenen Regeln."
   - frage: "Wer entscheidet über Erhaltungsmaßnahmen?"
-    antwort: "Grundsätzlich die Eigentümerversammlung durch Beschluss. Der Verwalter darf Maßnahmen von untergeordneter Bedeutung sowie dringende Maßnahmen zur Abwendung eines Nachteils selbst veranlassen. Die Eigentümer können seine Befugnisse durch Beschluss erweitern oder einschränken."
+    antwort: "Grundsätzlich die Eigentümerversammlung durch Beschluss. Der Verwalter darf Maßnahmen von untergeordneter Bedeutung sowie Maßnahmen zur Wahrung einer Frist oder zur Abwendung eines Nachteils selbst veranlassen. Die Eigentümer können seine Befugnisse durch Beschluss erweitern oder einschränken."
   - frage: "Wie viele Angebote braucht die Gemeinschaft vor einer Beauftragung?"
-    antwort: "Eine feste gesetzliche Zahl gibt es nicht. Bei größeren Maßnahmen ist es üblich und in der Regel erforderlich, mehrere vergleichbare Angebote einzuholen, damit die Eigentümer eine fundierte Entscheidung treffen können. Wie viele Angebote im Einzelfall angemessen sind, hängt von Umfang und Art der Maßnahme ab."
+    antwort: "Eine feste gesetzliche Zahl gibt es nicht. Bei größeren Maßnahmen ist es üblich und in der Regel geboten, mehrere vergleichbare Angebote einzuholen, damit die Eigentümer eine fundierte Entscheidung treffen können. Wie viele Angebote im Einzelfall angemessen sind, hängt von Umfang und Art der Maßnahme ab."
 ---
 
 Ein Gebäude verliert ohne regelmäßige Pflege an Substanz und Wert. Wer Schäden erst behebt, wenn sie sichtbar werden, zahlt oft mehr als nötig. Eine planvolle Erhaltung verteilt die Kosten über die Jahre, macht Entscheidungen nachvollziehbar und vermeidet überraschende Sonderumlagen. Dieser Beitrag beschreibt, wie Gemeinschaften dabei vorgehen können.
@@ -29,7 +29,7 @@ Was Gemeinschaftseigentum ist und was Sondereigentum, ergibt sich aus dem Gesetz
 
 ## Zuständigkeiten
 
-Über Erhaltungsmaßnahmen beschließen grundsätzlich die Wohnungseigentümer. Der Verwalter ist berechtigt und verpflichtet, Maßnahmen von untergeordneter Bedeutung, die nicht zu erheblichen Verpflichtungen führen, und Maßnahmen zur Wahrung einer Frist oder zur Abwendung eines Nachteils selbst zu treffen (§ 27 Abs. 1 WEG). Was untergeordnet ist, hängt von Größe und Verhältnissen der Gemeinschaft ab. Die Eigentümer können die Befugnisse des Verwalters durch Beschluss konkretisieren, zum Beispiel mit einer Wertgrenze für Aufträge ohne vorherigen Beschluss.
+Über Erhaltungsmaßnahmen beschließen grundsätzlich die Wohnungseigentümer. Der Verwalter ist berechtigt und verpflichtet, Maßnahmen von untergeordneter Bedeutung, die nicht zu erheblichen Verpflichtungen führen, und Maßnahmen zur Wahrung einer Frist oder zur Abwendung eines Nachteils selbst zu treffen (§ 27 Abs. 1 WEG). Was untergeordnet ist, hängt von Größe und Verhältnissen der Gemeinschaft ab. Die Eigentümer können die Befugnisse des Verwalters durch Beschluss einschränken oder erweitern (§ 27 Abs. 2 WEG), zum Beispiel mit einer Wertgrenze für Aufträge ohne vorherigen Beschluss.
 
 Der Verwaltungsbeirat unterstützt bei der Planung und ist oft der erste Ansprechpartner für Hinweise aus der Gemeinschaft, siehe [Der Verwaltungsbeirat](/wissen/verwaltungsbeirat-aufgaben/).
 
@@ -55,7 +55,7 @@ Nicht alles muss sofort geschehen. Bewährt hat sich eine Einteilung in drei Gru
 
 ### Mehrjahresplan
 
-Die Ergebnisse fließen in einen Plan über mehrere Jahre. Er nennt Maßnahmen, voraussichtliche Zeitpunkte und grobe Kostenrahmen. Er wird jährlich fortgeschrieben und der Eigentümerversammlung vorgestellt. So erkennen alle Beteiligten, welche Belastungen auf die Gemeinschaft zukommen.
+Die Ergebnisse fließen in einen Plan über mehrere Jahre. Er nennt Maßnahmen, voraussichtliche Zeitpunkte und grobe Kostenrahmen. Er sollte jährlich fortgeschrieben und der Eigentümerversammlung vorgestellt werden. So erkennen alle Beteiligten, welche Belastungen auf die Gemeinschaft zukommen.
 
 ## Angebote und Beschluss
 

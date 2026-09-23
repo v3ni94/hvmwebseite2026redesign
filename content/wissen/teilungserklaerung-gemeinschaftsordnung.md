@@ -50,19 +50,19 @@ Die Gemeinschaftsordnung regelt das Verhältnis der Wohnungseigentümer unterein
 - Zustimmungserfordernisse bei Veräußerung
 - Regelungen zur Eigentümerversammlung und zum Verwaltungsbeirat
 
-Gegenüber einem späteren Erwerber wirken Vereinbarungen nur, wenn sie im Grundbuch eingetragen sind (§ 10 Abs. 3 WEG). Die Hausordnung ist dagegen meist durch Beschluss geregelt und kann entsprechend durch Beschluss geändert werden.
+Gegenüber einem späteren Erwerber wirken Vereinbarungen nur, wenn sie im Grundbuch eingetragen sind (§ 10 Abs. 3 WEG). Die Hausordnung wird dagegen meist durch Beschluss aufgestellt. Ist das der Fall, kann sie auch durch Beschluss geändert werden.
 
 ## Verhältnis zum Gesetz
 
-Das Wohnungseigentumsgesetz enthält zwingende und abdingbare Vorschriften. Soweit das Gesetz es zulässt, geht die Gemeinschaftsordnung den gesetzlichen Regeln vor. Zwingend sind nach verbreiteter Auffassung etwa die gesetzlichen Beschlusskompetenzen für bestimmte Maßnahmen und die jederzeitige Abberufbarkeit des Verwalters.
+Das Wohnungseigentumsgesetz enthält zwingende und abdingbare Vorschriften. Soweit das Gesetz es zulässt, geht die Gemeinschaftsordnung den gesetzlichen Regeln vor. Nicht abdingbar sind nach verbreiteter Auffassung etwa bestimmte gesetzliche Beschlusskompetenzen und die jederzeitige Abberufbarkeit des Verwalters [juristisch prüfen].
 
-Viele Gemeinschaftsordnungen stammen aus der Zeit vor dem 01.12.2020 und verwenden Begriffe des alten Rechts. Das Gesetz enthält hierzu Übergangsregeln (§ 47 WEG). Danach stehen ältere Vereinbarungen, die von durch die Reform geänderten Vorschriften abweichen, der Anwendung der neuen Vorschriften nicht entgegen, soweit sich aus der Vereinbarung nicht ein anderer Wille ergibt. Wie eine einzelne Klausel heute zu verstehen ist, ist oft eine Auslegungsfrage und im Zweifel anwaltlich zu klären.
+Viele Gemeinschaftsordnungen stammen aus der Zeit vor dem 01.12.2020 und verwenden Begriffe des alten Rechts. Das Gesetz enthält hierzu Übergangsregeln (§ 47 WEG). Danach stehen ältere Vereinbarungen, die von durch die Reform geänderten Vorschriften abweichen, der Anwendung der neuen Vorschriften nicht entgegen, soweit sich aus der Vereinbarung nicht ein anderer Wille ergibt. Ein solcher Wille ist nach dem Gesetz in der Regel nicht anzunehmen. Wie eine einzelne Klausel heute zu verstehen ist, ist oft eine Auslegungsfrage und im Zweifel anwaltlich zu klären.
 
 ## Änderung
 
 Vereinbarungen können grundsätzlich nur durch eine neue Vereinbarung aller Wohnungseigentümer geändert werden. Enthält die Gemeinschaftsordnung eine Öffnungsklausel, sind Änderungen auch durch Beschluss möglich. Zudem kann ein Eigentümer eine Anpassung verlangen, wenn ein Festhalten an der geltenden Regelung aus schwerwiegenden Gründen unbillig erscheint (§ 10 Abs. 2 WEG). Für einzelne Kostenverteilungen gibt das Gesetz eine eigene Beschlusskompetenz, siehe [Das Hausgeld](/wissen/hausgeld/).
 
-Änderungen der Teilungserklärung, etwa die Umwandlung von Teileigentum in Wohnungseigentum, erfordern in der Regel notarielle Mitwirkung und eine Eintragung im Grundbuch.
+Änderungen der Teilungserklärung, etwa die Umwandlung von Teileigentum in Wohnungseigentum, erfordern in der Regel die Mitwirkung der betroffenen Eigentümer, soweit keine Öffnungsklausel besteht, sowie notarielle Mitwirkung und eine Eintragung im Grundbuch.
 
 ## Hinweise für Käufer
 

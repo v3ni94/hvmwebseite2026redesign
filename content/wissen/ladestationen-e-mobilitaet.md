@@ -10,14 +10,14 @@ leistung: /weg-verwaltung/
 cta: angebot
 faq:
   - frage: "Habe ich als Eigentümer einen Anspruch auf eine Wallbox?"
-    antwort: "Jeder Wohnungseigentümer kann angemessene bauliche Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen. Über die Art der Durchführung entscheidet die Gemeinschaft durch Beschluss. Ohne Beschluss darf die Ladestation nicht installiert werden."
+    antwort: "Jeder Wohnungseigentümer kann angemessene bauliche Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen. Über die Art der Durchführung entscheidet die Gemeinschaft durch Beschluss. Soweit Gemeinschaftseigentum betroffen ist, was praktisch fast immer der Fall ist, sollte vor dem Beschluss nicht installiert werden."
   - frage: "Wer bezahlt die Ladestation?"
     antwort: "Grundsätzlich trägt der Eigentümer, der die Maßnahme verlangt, die Kosten der Errichtung und die Folgekosten. Beschließt die Gemeinschaft eine gemeinsame Ladeinfrastruktur, richtet sich die Kostenverteilung nach den gesetzlichen Regeln für bauliche Veränderungen und nach dem Beschluss."
   - frage: "Können auch Mieter eine Ladestation verlangen?"
-    antwort: "Mieter können von ihrem Vermieter die Erlaubnis zu baulichen Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen, sofern dem keine überwiegenden Interessen entgegenstehen. In einer WEG braucht der vermietende Eigentümer zusätzlich die Gestattung durch die Gemeinschaft."
+    antwort: "Mieter können von ihrem Vermieter die Erlaubnis zu baulichen Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen, es sei denn, die Maßnahme ist dem Vermieter auch unter Würdigung der Interessen des Mieters nicht zumutbar. In einer WEG braucht der vermietende Eigentümer für Eingriffe in das Gemeinschaftseigentum zusätzlich einen Beschluss der Gemeinschaft."
 ---
 
-Immer mehr Eigentümer und Mieter fahren elektrisch und möchten ihr Fahrzeug am eigenen Stellplatz laden. Der Gesetzgeber hat dies mit der WEG-Reform zum 01.12.2020 erleichtert. Für Gemeinschaften stellen sich dennoch rechtliche, technische und wirtschaftliche Fragen, die vor dem ersten Ladepunkt geklärt werden sollten.
+Zunehmend fahren Eigentümer und Mieter elektrisch und möchten ihr Fahrzeug am eigenen Stellplatz laden. Der Gesetzgeber hat dies mit der WEG-Reform zum 01.12.2020 erleichtert. Für Gemeinschaften stellen sich dennoch rechtliche, technische und wirtschaftliche Fragen, die vor dem ersten Ladepunkt geklärt werden sollten.
 
 ## Der Anspruch des einzelnen Eigentümers
 
@@ -28,7 +28,7 @@ Jeder Wohnungseigentümer kann angemessene bauliche Veränderungen verlangen, di
 - welche technischen Anforderungen gelten, etwa zu Leistung, Messung und Lastmanagement
 - wer Wartung, Versicherung und Rückbau übernimmt
 
-Ein Beschluss ist in jedem Fall erforderlich, bevor mit der Installation begonnen wird. Die allgemeinen Regeln zu baulichen Veränderungen erläutert der Beitrag [Bauliche Veränderungen in der WEG](/wissen/bauliche-veraenderungen-weg/).
+Da Leitungen und Anschluss praktisch immer Gemeinschaftseigentum berühren, ist in aller Regel ein Beschluss erforderlich, bevor mit der Installation begonnen wird. Die allgemeinen Regeln zu baulichen Veränderungen erläutert der Beitrag [Bauliche Veränderungen in der WEG](/wissen/bauliche-veraenderungen-weg/).
 
 ## Wo der Stellplatz liegt
 
@@ -44,7 +44,7 @@ Die Zuordnung ergibt sich aus der [Teilungserklärung und Gemeinschaftsordnung](
 
 Nach der gesetzlichen Grundregel trägt der Eigentümer, der die Maßnahme verlangt, die Kosten der Errichtung und die Folgekosten. Ihm stehen dann auch die Nutzungen zu (§ 21 Abs. 1 WEG). Zu den Folgekosten zählen etwa Wartung, Prüfungen, Versicherung und Stromkosten. Der Stromverbrauch sollte über einen eigenen Zähler oder eine mess- und eichrechtskonforme Messeinrichtung erfasst werden, damit er dem Nutzer zugeordnet werden kann.
 
-Beschließt die Gemeinschaft selbst eine gemeinsame Ladeinfrastruktur, richten sich die Kosten nach den allgemeinen Regeln für bauliche Veränderungen. Je nach Mehrheit und Wirtschaftlichkeit tragen dann alle Eigentümer oder nur die zustimmenden die Kosten. Die Eigentümer können eine abweichende Verteilung beschließen.
+Beschließt die Gemeinschaft selbst eine gemeinsame Ladeinfrastruktur, richten sich die Kosten nach den allgemeinen Regeln für bauliche Veränderungen. Je nach Mehrheit und Wirtschaftlichkeit tragen dann alle Eigentümer oder nur die zustimmenden die Kosten. Die Eigentümer können eine abweichende Verteilung beschließen, dürfen dabei aber Eigentümern, die nach dem Gesetz keine Kosten zu tragen haben, keine Kosten auferlegen.
 
 ## Einzellösung oder Gesamtkonzept
 
@@ -65,7 +65,7 @@ Ob öffentliche Förderprogramme verfügbar sind, ändert sich häufig. Eine Pr�
 
 ## Vermietete Wohnungen
 
-Mieter können vom Vermieter die Erlaubnis zu baulichen Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen, sofern keine überwiegenden Interessen entgegenstehen (§ 554 BGB). In einer Eigentumswohnanlage kann der vermietende Eigentümer diese Erlaubnis nur erteilen, wenn die Gemeinschaft die Maßnahme gestattet. Er sollte daher zunächst den Beschluss der Gemeinschaft herbeiführen. Bei Fragen zur Gestaltung im Einzelfall empfiehlt sich anwaltlicher Rat.
+Mieter können vom Vermieter die Erlaubnis zu baulichen Veränderungen verlangen, die dem Laden elektrisch betriebener Fahrzeuge dienen (§ 554 BGB). Der Anspruch besteht nicht, wenn die Maßnahme dem Vermieter auch unter Würdigung der Interessen des Mieters nicht zugemutet werden kann. In einer Eigentumswohnanlage kann der vermietende Eigentümer die Maßnahme am Gemeinschaftseigentum nur umsetzen lassen, wenn die Gemeinschaft sie beschlossen oder gestattet hat. Er sollte daher zunächst den Beschluss der Gemeinschaft herbeiführen. Bei Fragen zur Gestaltung im Einzelfall empfiehlt sich anwaltlicher Rat.
 
 ## Ablauf in der Praxis
 

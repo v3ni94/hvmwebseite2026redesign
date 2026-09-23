@@ -14,7 +14,7 @@ faq:
   - frage: "Wer zahlt die Sonderumlage, wenn die Wohnung verkauft wird?"
     antwort: "Gegenüber der Gemeinschaft schuldet grundsätzlich derjenige die Sonderumlage, der bei Fälligkeit als Eigentümer im Grundbuch eingetragen ist. Käufer und Verkäufer können im Kaufvertrag eine andere Lastenverteilung vereinbaren, die aber nur zwischen ihnen gilt."
   - frage: "Kann die Sonderumlage auf Mieter umgelegt werden?"
-    antwort: "Nein. Eine Sonderumlage dient in der Regel der Finanzierung von Erhaltungs- oder Baumaßnahmen. Solche Kosten sind keine Betriebskosten und können bei Wohnraum nicht über die Betriebskostenabrechnung auf Mieter umgelegt werden. Ob eine Modernisierungsmieterhöhung in Betracht kommt, ist gesondert zu prüfen."
+    antwort: "Bei Wohnraum in der Regel nicht. Eine Sonderumlage dient in der Regel der Finanzierung von Erhaltungs- oder Baumaßnahmen. Solche Kosten sind keine Betriebskosten und können bei Wohnraum nicht über die Betriebskostenabrechnung auf Mieter umgelegt werden. Ob eine Modernisierungsmieterhöhung in Betracht kommt, ist gesondert zu prüfen."
 ---
 
 Eine Sonderumlage ist eine einmalige Zahlung, die die Wohnungseigentümer zusätzlich zum laufenden [Hausgeld](/wissen/hausgeld/) leisten. Sie wird notwendig, wenn ein Finanzbedarf entsteht, der weder durch die laufenden Vorschüsse noch durch die [Erhaltungsrücklage](/wissen/erhaltungsruecklage/) gedeckt ist. Für viele Eigentümer kommt sie überraschend. Mit einer vorausschauenden Planung lässt sie sich oft vermeiden oder zumindest frühzeitig ankündigen.
@@ -63,7 +63,7 @@ Wird die Sonderumlage nicht vollständig benötigt, entscheiden die Eigentümer 
 
 ## Hinweise für Käufer und Verkäufer
 
-Beim Kauf einer Eigentumswohnung sollten Sie die Niederschriften der letzten Jahre auf beschlossene oder angekündigte Sonderumlagen prüfen. Gegenüber der Gemeinschaft haftet grundsätzlich, wer bei Fälligkeit Eigentümer ist. Wer eine bereits beschlossene, aber erst später fällige Sonderumlage tragen soll, sollte im Kaufvertrag ausdrücklich geregelt werden. Bei Fragen zur Vertragsgestaltung ist der beurkundende Notar oder ein Rechtsanwalt der richtige Ansprechpartner.
+Beim Kauf einer Eigentumswohnung sollten Sie die Niederschriften der letzten Jahre auf beschlossene oder angekündigte Sonderumlagen prüfen. Gegenüber der Gemeinschaft haftet grundsätzlich, wer bei Fälligkeit Eigentümer ist. Wer im Innenverhältnis eine bereits beschlossene, aber erst später fällige Sonderumlage tragen soll, sollte der Kaufvertrag ausdrücklich regeln. Bei Fragen zur Vertragsgestaltung ist der beurkundende Notar oder ein Rechtsanwalt der richtige Ansprechpartner.
 
 ## Hinweise für vermietende Eigentümer
 

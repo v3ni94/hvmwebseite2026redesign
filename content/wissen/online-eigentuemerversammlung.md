@@ -12,7 +12,7 @@ faq:
   - frage: "Was ist der Unterschied zwischen Online-Teilnahme und virtueller Versammlung?"
     antwort: "Bei der Online-Teilnahme findet die Versammlung weiterhin an einem Ort statt, einzelne Eigentümer können aber elektronisch teilnehmen und abstimmen. Die virtuelle Versammlung findet dagegen ausschließlich online statt, einen Versammlungsort gibt es nicht."
   - frage: "Welche Mehrheit ist für eine virtuelle Versammlung erforderlich?"
-    antwort: "Die Wohnungseigentümer müssen mit mindestens drei Vierteln der abgegebenen Stimmen beschließen, dass Versammlungen ausschließlich virtuell abgehalten werden. Der Beschluss gilt für einen begrenzten Zeitraum von längstens drei Jahren."
+    antwort: "Die Wohnungseigentümer müssen mit mindestens drei Vierteln der abgegebenen Stimmen beschließen, dass Versammlungen ausschließlich virtuell abgehalten werden. Der Beschluss gilt für einen Zeitraum von längstens drei Jahren ab Beschlussfassung. Für Beschlüsse, die bis Ende 2028 gefasst werden, ist nach einer Übergangsregel daneben mindestens einmal im Jahr eine Präsenzversammlung durchzuführen."
   - frage: "Darf die Versammlung aufgezeichnet werden?"
     antwort: "Eine Aufzeichnung berührt die Persönlichkeitsrechte und den Datenschutz der Teilnehmer. Sie sollte nur nach vorheriger datenschutzrechtlicher Prüfung und mit Einverständnis der Beteiligten erfolgen. Für die Dokumentation der Beschlüsse genügt die Niederschrift."
 ---
@@ -27,15 +27,15 @@ Für diesen Beschluss genügt die einfache Mehrheit. Die Präsenzversammlung ble
 
 ## Die virtuelle Versammlung
 
-Seit Oktober 2024 ist auch die rein virtuelle Eigentümerversammlung zulässig (§ 23 Abs. 1a WEG). Die Wohnungseigentümer können mit mindestens drei Vierteln der abgegebenen Stimmen beschließen, dass Versammlungen für einen Zeitraum von längstens drei Jahren ausschließlich virtuell abgehalten werden.
+Seit Oktober 2024 ist auch die rein virtuelle Eigentümerversammlung zulässig (§ 23 Abs. 1a WEG). Die Wohnungseigentümer können mit mindestens drei Vierteln der abgegebenen Stimmen beschließen, dass Versammlungen innerhalb eines Zeitraums von längstens drei Jahren ab Beschlussfassung ausschließlich virtuell abgehalten werden.
 
-Die virtuelle Versammlung muss hinsichtlich der Teilnahme und der Rechteausübung mit einer Präsenzversammlung vergleichbar sein. Jeder Eigentümer muss also teilnehmen, sich äußern, Fragen stellen und abstimmen können. Für eine Übergangszeit enthält das Gesetz ergänzende Vorgaben zur Durchführung von Präsenzversammlungen. Die genauen Voraussetzungen sollten vor der Beschlussfassung im Einzelfall geprüft werden, da Fehler die Anfechtbarkeit der in der Versammlung gefassten Beschlüsse zur Folge haben können.
+Die virtuelle Versammlung muss hinsichtlich der Teilnahme und der Rechteausübung mit einer Präsenzversammlung vergleichbar sein. Jeder Eigentümer muss also teilnehmen, sich äußern, Fragen stellen und abstimmen können. Für Beschlüsse, die bis Ende 2028 gefasst werden, sieht eine Übergangsregel vor, dass daneben mindestens einmal im Jahr eine Präsenzversammlung stattfinden muss. Die genauen Voraussetzungen sollten vor der Beschlussfassung im Einzelfall geprüft werden, da Fehler die Anfechtbarkeit der in der Versammlung gefassten Beschlüsse zur Folge haben können.
 
 ## Was bleibt gleich
 
 Auch bei Online-Teilnahme und virtueller Versammlung gelten die allgemeinen Regeln:
 
-- Einberufung in Textform mit der üblichen Frist und bezeichneten Beschlussgegenständen
+- Einberufung in Textform mit der gesetzlichen Frist und bezeichneten Beschlussgegenständen
 - Feststellung der Anwesenden und Vertretenen
 - Verkündung der Beschlussergebnisse durch den Vorsitzenden
 - Niederschrift und Eintragung in die Beschluss-Sammlung

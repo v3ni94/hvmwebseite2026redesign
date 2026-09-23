@@ -37,3 +37,27 @@ fragen:
     antwort: "Grundsteuer, Versicherungen, Grundgebühren und bei Eigentumswohnungen das Hausgeld laufen weiter. Die auf die leere Wohnung entfallenden Betriebskosten trägt grundsätzlich der Vermieter selbst. Hinzu kommt der Mietausfall, deshalb sollte die Anschlussvermietung bereits mit Eingang der Kündigung vorbereitet werden."
     artikel: leerstand-vermeiden
     freigabe: nein
+  - frage: "Wann kann ich die Miete an die ortsübliche Vergleichsmiete anpassen?"
+    antwort: "Die Miete muss zum Zeitpunkt der Erhöhung seit 15 Monaten unverändert sein, das Erhöhungsverlangen kann frühestens ein Jahr nach der letzten Erhöhung gestellt werden. Zusätzlich gilt eine Kappungsgrenze, die in Gebieten mit angespanntem Wohnungsmarkt durch Landesverordnung abgesenkt sein kann. Einzelheiten im Beitrag [Mieterhöhung bis zur ortsüblichen Vergleichsmiete](/wissen/mieterhoehung-vergleichsmiete/)."
+    artikel: mieterhoehung-vergleichsmiete
+    freigabe: nein
+  - frage: "Was unterscheidet Indexmiete und Staffelmiete?"
+    antwort: "Bei der Staffelmiete werden künftige Mieterhöhungen als Geldbetrag im Vertrag festgelegt. Bei der Indexmiete folgt die Miete dem Verbraucherpreisindex und wird durch Erklärung in Textform angepasst. Bei beiden Modellen sind Erhöhungen bis zur Vergleichsmiete ausgeschlossen, Modernisierungsumlagen weitgehend."
+    artikel: index-staffelmiete
+    freigabe: nein
+  - frage: "Wie hoch darf die Mietkaution sein?"
+    antwort: "Bei Wohnraum höchstens das Dreifache der monatlichen Miete ohne die als Pauschale oder Vorauszahlung ausgewiesenen Betriebskosten. Der Mieter darf eine Geldkaution in drei gleichen monatlichen Teilzahlungen leisten. Der Vermieter hat sie getrennt von seinem Vermögen anzulegen."
+    artikel: mietkaution
+    freigabe: nein
+  - frage: "Muss ich als Vermieter CO2-Kosten der Heizung tragen?"
+    antwort: "Bei Heizungen mit Brennstoffen wie Heizöl oder Erdgas werden die CO2-Kosten seit 2023 zwischen Vermieter und Mieter aufgeteilt. Bei Wohngebäuden richtet sich der Anteil des Vermieters nach einem Stufenmodell, das auf den CO2-Ausstoß des Gebäudes je Quadratmeter Wohnfläche abstellt. Je schlechter die energetische Qualität, desto höher der Vermieteranteil."
+    artikel: co2-kostenaufteilung
+    freigabe: nein
+  - frage: "Wie lange vorher muss ich eine Modernisierung ankündigen?"
+    antwort: "Spätestens drei Monate vor Beginn der Maßnahme in Textform. Die Ankündigung enthält Art und voraussichtlichen Umfang, Beginn und Dauer sowie die zu erwartende Mieterhöhung und die künftigen Betriebskosten. Einzelheiten im Beitrag [Modernisierung im vermieteten Bestand](/wissen/modernisierung-vermieter/)."
+    artikel: modernisierung-vermieter
+    freigabe: nein
+  - frage: "Mietverwaltung oder SE-Verwaltung: was brauche ich?"
+    antwort: "Das hängt davon ab, ob das Gebäude in Wohnungseigentum aufgeteilt ist. Für ein nicht aufgeteiltes Mietshaus ist die Mietverwaltung die passende Form, für vermietete Eigentumswohnungen die Sondereigentumsverwaltung. Einzelheiten im Beitrag [Mietverwaltung oder SE-Verwaltung: was passt?](/wissen/mietverwaltung-oder-se-verwaltung/)."
+    artikel: mietverwaltung-oder-se-verwaltung
+    freigabe: nein

@@ -14,7 +14,7 @@ faq:
   - frage: "Welche Maßnahmen kann jeder Eigentümer verlangen?"
     antwort: "Das Gesetz nennt privilegierte Maßnahmen: angemessene bauliche Veränderungen für die Nutzung durch Menschen mit Behinderungen, für das Laden elektrisch betriebener Fahrzeuge, für den Einbruchsschutz, für den Anschluss an ein Telekommunikationsnetz mit sehr hoher Kapazität und für Steckersolargeräte. Über das Wie entscheidet die Gemeinschaft."
   - frage: "Wer trägt die Kosten einer baulichen Veränderung?"
-    antwort: "Grundsätzlich trägt der Eigentümer die Kosten, dem die Maßnahme gestattet wurde oder der sie verlangt hat. Wurde die Maßnahme mit einer qualifizierten Mehrheit beschlossen oder amortisiert sie sich in angemessener Zeit, tragen alle Eigentümer die Kosten. Andernfalls tragen in der Regel die Eigentümer die Kosten, die zugestimmt haben."
+    antwort: "Grundsätzlich trägt der Eigentümer die Kosten, dem die Maßnahme gestattet wurde oder der sie verlangt hat. Wurde die Maßnahme mit einer qualifizierten Mehrheit beschlossen und verursacht sie keine unverhältnismäßigen Kosten oder amortisiert sie sich in angemessener Zeit, tragen alle Eigentümer die Kosten. Andernfalls tragen in der Regel die Eigentümer die Kosten, die zugestimmt haben."
 ---
 
 Ob Balkonverglasung, Wallbox, Aufzug oder neue Fenster in einem anderen Format: Viele Wünsche von Eigentümern betreffen das gemeinschaftliche Eigentum. Die WEG-Reform zum 01.12.2020 hat die Regeln für bauliche Veränderungen grundlegend neu gefasst. Maßnahmen sind seitdem leichter durchzusetzen. Zugleich sind die Kostenfolgen für die Eigentümer genauer geregelt. Die zentralen Vorschriften sind §§ 20 und 21 WEG.
@@ -27,7 +27,7 @@ Maßgeblich ist, ob gemeinschaftliches Eigentum betroffen ist. Was dazu gehört,
 
 ## Beschluss statt Zustimmung aller
 
-Bauliche Veränderungen können mit einfacher Mehrheit der abgegebenen Stimmen beschlossen oder einem einzelnen Eigentümer durch Beschluss gestattet werden (§ 20 Abs. 1 WEG). Eine Zustimmung aller Eigentümer ist nicht mehr erforderlich. Ein Beschluss bleibt aber immer notwendig, auch wenn ein Anspruch auf die Maßnahme besteht.
+Bauliche Veränderungen können beschlossen oder einem einzelnen Eigentümer durch Beschluss gestattet werden (§ 20 Abs. 1 WEG). Dafür genügt die einfache Mehrheit der abgegebenen Stimmen (§ 25 Abs. 1 WEG). Eine Zustimmung aller Eigentümer ist nicht mehr erforderlich. Ein Beschluss bleibt aber immer notwendig, auch wenn ein Anspruch auf die Maßnahme besteht.
 
 ### Grenzen
 
@@ -54,9 +54,9 @@ Die Kostenverteilung regelt § 21 WEG. Vereinfacht gilt:
 1. **Gestattete oder verlangte Maßnahmen:** Die Kosten trägt der Eigentümer, dem die Maßnahme gestattet wurde oder der sie verlangt hat. Ihm stehen auch die Nutzungen zu.
 2. **Qualifizierte Mehrheit:** Wird eine Maßnahme mit mehr als zwei Dritteln der abgegebenen Stimmen und der Hälfte aller Miteigentumsanteile beschlossen, tragen alle Eigentümer die Kosten, es sei denn, die Maßnahme ist mit unverhältnismäßigen Kosten verbunden.
 3. **Amortisation:** Alle Eigentümer tragen die Kosten auch dann, wenn sich die Maßnahme innerhalb eines angemessenen Zeitraums amortisiert.
-4. **Übrige Fälle:** Die Kosten tragen die Eigentümer, die für die Maßnahme gestimmt haben. Nur sie sind dann auch zur Nutzung berechtigt.
+4. **Übrige Fälle:** Die Kosten tragen die Eigentümer, die für die Maßnahme gestimmt haben. Ihnen stehen dann auch die Nutzungen zu.
 
-Die Eigentümer können eine abweichende Verteilung der Kosten und Nutzungen beschließen. Die Einzelheiten sind komplex. Wer eine Maßnahme plant, sollte die Kostenfolgen vor der Abstimmung klären und dem Beschlussvorschlag zugrunde legen.
+Die Eigentümer können eine abweichende Verteilung der Kosten und Nutzungen beschließen (§ 21 Abs. 5 WEG). Einem Eigentümer, der nach den gesetzlichen Regeln keine Kosten zu tragen hat, dürfen dadurch aber keine Kosten auferlegt werden. Die Einzelheiten sind komplex. Wer eine Maßnahme plant, sollte die Kostenfolgen vor der Abstimmung klären und dem Beschlussvorschlag zugrunde legen.
 
 ## Praktischer Ablauf
 

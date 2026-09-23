@@ -74,6 +74,10 @@ Bei vermieteten Immobilien tritt der Käufer in die bestehenden Mietverhältniss
 
 Mieterdaten sind personenbezogene Daten. Sie sollten schrittweise und nur im erforderlichen Umfang offengelegt werden, zunächst anonymisiert und vollständig erst gegenüber ernsthaften Kaufinteressenten, in der Regel vor der Beurkundung. Einzelheiten im Beitrag [Eine vermietete Wohnung verkaufen](/wissen/vermietete-wohnung-verkaufen/).
 
+## Typische Lücken
+
+In der Praxis fehlen häufig dieselben Unterlagen: eine belastbare Wohnflächenberechnung, Genehmigungen für spätere Umbauten wie Dachausbau oder Wintergarten, Nachweise über durchgeführte Modernisierungen und bei Eigentumswohnungen die vollständigen Niederschriften. Fehlen Genehmigungen, sollte vor der Vermarktung geklärt werden, ob eine nachträgliche Genehmigung möglich ist. Offene Fragen wirken sich sonst auf die Finanzierung und den Kaufpreis aus.
+
 ## Zeitplan
 
 Planen Sie für die Beschaffung ausreichend Zeit ein. Behördliche Auskünfte und Unterlagen des WEG-Verwalters stehen nicht immer kurzfristig zur Verfügung, ältere Baupläne müssen gegebenenfalls beim Bauarchiv angefragt werden. Ein vollständiger Unterlagensatz vor Beginn der Vermarktung vermeidet Verzögerungen bei Finanzierungszusage und Notartermin. Den Gesamtablauf beschreibt der Beitrag [Eine Immobilie verkaufen: der Ablauf](/wissen/immobilie-verkaufen-ablauf/).

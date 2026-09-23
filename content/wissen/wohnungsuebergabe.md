@@ -58,7 +58,7 @@ Beim Einzug hat der Wohnungsgeber zudem bei der Anmeldung des Mieters bei der Me
 
 Der Mieter ist verpflichtet, die Wohnung nach Beendigung des Mietverhältnisses zurückzugeben (§ 546 BGB). Dazu gehört die Rückgabe aller Schlüssel, auch selbst nachgemachter. Ob und in welchem Umfang der Mieter renovieren muss, richtet sich nach dem Mietvertrag und dessen Wirksamkeit. Übliche Abnutzung durch vertragsgemäßen Gebrauch hat der Mieter nicht zu vertreten.
 
-Bei zentraler Heizung ist bei einem Nutzerwechsel eine Zwischenablesung vorgesehen, damit die Heizkosten richtig zugeordnet werden können (§ 9b HeizkostenV). Den Termin stimmen Sie am besten frühzeitig mit dem Messdienstleister ab. Die Zählerstände für Strom und Gas sollten auch den Versorgern mitgeteilt werden, soweit die Verträge auf den Mieter laufen.
+Bei zentraler Heizung ist bei einem Nutzerwechsel eine Zwischenablesung vorgesehen, damit die Heizkosten richtig zugeordnet werden können (§ 9b HeizkostenV). Den Termin stimmen Sie frühzeitig mit dem Messdienstleister ab. Die Zählerstände für Strom und Gas sollten auch den Versorgern mitgeteilt werden, soweit die Verträge auf den Mieter laufen.
 
 ## Nach der Übergabe
 

@@ -10,7 +10,7 @@ leistung: /weg-verwaltung/
 cta: angebot
 faq:
   - frage: "Welche Versicherungen muss eine WEG haben?"
-    antwort: "Zur ordnungsmäßigen Verwaltung gehört nach dem Gesetz eine angemessene Versicherung des gemeinschaftlichen Eigentums zum Neuwert sowie eine angemessene Haftpflichtversicherung. In der Praxis sind das vor allem die Wohngebäudeversicherung und die Haus- und Grundbesitzerhaftpflichtversicherung. Welche weiteren Bausteine sinnvoll sind, hängt vom Objekt ab."
+    antwort: "Zur ordnungsmäßigen Verwaltung gehört nach dem Gesetz eine angemessene Versicherung des gemeinschaftlichen Eigentums zum Neuwert sowie der Haus- und Grundbesitzerhaftpflicht. In der Praxis sind das vor allem die Wohngebäudeversicherung und die Haus- und Grundbesitzerhaftpflichtversicherung. Welche weiteren Bausteine sinnvoll sind, hängt vom Objekt ab."
   - frage: "Ist meine Wohnung über die Gebäudeversicherung der Gemeinschaft versichert?"
     antwort: "Das hängt vom Versicherungsvertrag ab. Häufig ist auch das Sondereigentum in die Wohngebäudeversicherung einbezogen. Die eigene Einrichtung, also Möbel und Hausrat, ist dagegen nicht versichert. Dafür ist eine eigene Hausratversicherung erforderlich."
   - frage: "Was passiert bei vielen Leitungswasserschäden?"
@@ -21,7 +21,7 @@ Ein Brand, ein Sturm oder ein Rohrbruch können eine Gemeinschaft finanziell sta
 
 ## Rechtliche Grundlage
 
-Zur ordnungsmäßigen Verwaltung gehört nach § 19 Abs. 2 Nr. 3 WEG die angemessene Versicherung des gemeinschaftlichen Eigentums zum Neuwert sowie eine angemessene Haftpflichtversicherung. Jeder Wohnungseigentümer kann verlangen, dass dieser Schutz besteht. Versicherungsnehmerin ist die Gemeinschaft der Wohnungseigentümer. Die Prämien werden über das [Hausgeld](/wissen/hausgeld/) finanziert.
+Zur ordnungsmäßigen Verwaltung gehört nach § 19 Abs. 2 Nr. 3 WEG die angemessene Versicherung des gemeinschaftlichen Eigentums zum Neuwert sowie der Haus- und Grundbesitzerhaftpflicht. Jeder Wohnungseigentümer kann verlangen, dass dieser Schutz besteht. Versicherungsnehmerin ist die Gemeinschaft der Wohnungseigentümer. Die Prämien werden über das [Hausgeld](/wissen/hausgeld/) finanziert.
 
 ## Die wichtigsten Versicherungen
 
@@ -69,6 +69,6 @@ Häufen sich Schäden, insbesondere Leitungswasserschäden in älteren Gebäuden
 
 ## Verträge regelmäßig prüfen
 
-Versicherungsverträge sollten in regelmäßigen Abständen überprüft werden: Stimmen Versicherungssumme, Umfang und Selbstbehalt noch? Sind neue Anlagen, etwa Ladestationen oder eine Photovoltaikanlage, gemeldet? Ist der Beitrag marktgerecht? Ein Wechsel des Versicherers oder eine Vertragsänderung, die über Maßnahmen von untergeordneter Bedeutung hinausgeht, bedarf eines Beschlusses der Eigentümer.
+Versicherungsverträge sollten in regelmäßigen Abständen überprüft werden: Stimmen Versicherungssumme, Umfang und Selbstbehalt noch? Sind neue Anlagen, etwa Ladestationen oder eine Photovoltaikanlage, gemeldet? Ist der Beitrag marktgerecht? Ein Wechsel des Versicherers oder eine Vertragsänderung, die über Maßnahmen von untergeordneter Bedeutung hinausgeht, bedarf in der Regel eines Beschlusses der Eigentümer.
 
 Die Hausverwaltung Müller GmbH unterhält unter anderem Rahmenverträge im Bereich Versicherung. Ob ein Rahmenvertrag für eine Gemeinschaft in Betracht kommt, wird im Einzelfall geprüft. Mehr dazu auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

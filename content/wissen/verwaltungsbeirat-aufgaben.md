@@ -17,7 +17,7 @@ faq:
     antwort: "Wer unentgeltlich im Beirat tätig ist, haftet nach dem Gesetz nur für Vorsatz und grobe Fahrlässigkeit. Wird eine Vergütung gezahlt, kann ein strengerer Maßstab gelten. Ob eine Vermögensschadenhaftpflichtversicherung für den Beirat sinnvoll ist, sollte die Gemeinschaft im Einzelfall prüfen."
 ---
 
-Der Verwaltungsbeirat ist das Bindeglied zwischen den Wohnungseigentümern und dem Verwalter. Er kennt das Objekt, bündelt Anliegen aus der Gemeinschaft und prüft die Zahlen, bevor sie der Versammlung vorgelegt werden. Die Einrichtung eines Beirats ist freiwillig. In den meisten größeren Gemeinschaften hat sie sich bewährt. Die gesetzliche Grundlage ist § 29 WEG.
+Der Verwaltungsbeirat ist das Bindeglied zwischen den Wohnungseigentümern und dem Verwalter. Er kennt das Objekt, bündelt Anliegen aus der Gemeinschaft und prüft die Zahlen, bevor sie der Versammlung vorgelegt werden. Die Einrichtung eines Beirats ist freiwillig. In vielen Gemeinschaften hat sie sich bewährt. Die gesetzliche Grundlage ist § 29 WEG.
 
 ## Bestellung und Zusammensetzung
 
@@ -39,13 +39,13 @@ Wirtschaftsplan und Jahresabrechnung sollen vor der Beschlussfassung vom Beirat 
 
 Das Gesetz weist dem Beirat und insbesondere seinem Vorsitzenden einzelne weitere Befugnisse zu:
 
-- **Vertretung gegenüber dem Verwalter:** Der Vorsitzende des Beirats vertritt die Gemeinschaft gegenüber dem Verwalter, sofern die Eigentümer keinen anderen Eigentümer dazu ermächtigen (§ 9b Abs. 2 WEG). Das betrifft vor allem den Abschluss des [Verwaltervertrags](/wissen/verwaltervertrag-inhalte/).
-- **Einberufung der Versammlung:** Fehlt ein Verwalter oder weigert er sich pflichtwidrig, kann der Vorsitzende des Beirats oder sein Vertreter die Versammlung einberufen (§ 24 Abs. 3 WEG).
+- **Vertretung gegenüber dem Verwalter:** Gegenüber dem Verwalter wird die Gemeinschaft vom Vorsitzenden des Beirats oder von einem durch Beschluss dazu ermächtigten Wohnungseigentümer vertreten (§ 9b Abs. 2 WEG). Das betrifft vor allem den Abschluss des [Verwaltervertrags](/wissen/verwaltervertrag-inhalte/).
+- **Einberufung der Versammlung:** Fehlt ein Verwalter oder weigert er sich pflichtwidrig, kann die Versammlung auch durch den Vorsitzenden des Beirats, dessen Vertreter oder einen durch Beschluss ermächtigten Wohnungseigentümer einberufen werden (§ 24 Abs. 3 WEG).
 - **Niederschrift:** Ist ein Beirat bestellt, unterschreibt dessen Vorsitzender oder sein Vertreter die Niederschrift über die Versammlung mit (§ 24 Abs. 6 WEG). Mehr dazu im Beitrag [Die Eigentümerversammlung](/wissen/eigentuemerversammlung/).
 
 ## Was der Beirat nicht ist
 
-Der Beirat ist kein Entscheidungsgremium. Er kann dem Verwalter keine Weisungen erteilen und keine Beschlüsse anstelle der Eigentümerversammlung fassen. Die Eigentümer können dem Beirat durch Beschluss einzelne Entscheidungen übertragen, etwa die Auswahl eines Angebots innerhalb eines festgelegten Kostenrahmens. Wie weit eine solche Übertragung gehen darf, ist im Einzelfall zu prüfen. Grundlegende Entscheidungen muss die Versammlung selbst treffen.
+Der Beirat ist kein Entscheidungsgremium. Er kann dem Verwalter keine Weisungen erteilen und keine Beschlüsse anstelle der Eigentümerversammlung fassen. Die Eigentümer können dem Beirat durch Beschluss einzelne Entscheidungen übertragen, etwa die Auswahl eines Angebots innerhalb eines festgelegten Kostenrahmens. Wie weit eine solche Übertragung gehen darf, ist rechtlich nicht abschließend geklärt und im Einzelfall zu prüfen [juristisch prüfen]. Grundlegende Entscheidungen muss die Versammlung selbst treffen.
 
 ## Haftung und Vergütung
 

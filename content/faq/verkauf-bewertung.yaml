@@ -1,0 +1,35 @@
+zielgruppe: verkauf-bewertung
+titel: "Verkauf und Bewertung"
+fragen:
+  - frage: "Wer erstellt den Kaufvertrag beim Immobilienverkauf?"
+    antwort: "Ein Kaufvertrag über ein Grundstück oder eine Eigentumswohnung muss notariell beurkundet werden. Den Entwurf erstellt in der Regel der Notar, der zur Neutralität verpflichtet ist und beide Seiten belehrt. Rechtliche Fragen zum Vertrag klären Sie mit dem Notar oder einem Rechtsanwalt. Einzelheiten im Beitrag [Eine Immobilie verkaufen: der Ablauf](/wissen/immobilie-verkaufen-ablauf/)."
+    artikel: immobilie-verkaufen-ablauf
+    freigabe: nein
+  - frage: "Welche Unterlagen brauche ich für den Verkauf?"
+    antwort: "Grundlage sind unter anderem Grundbuchauszug, Flurkarte, Grundrisse, Wohnflächenberechnung und Energieausweis. Bei Eigentumswohnungen kommen Teilungserklärung, Niederschriften, Wirtschaftsplan, Jahresabrechnung und Vermögensbericht hinzu, bei vermieteten Objekten die Mietunterlagen. Eine Übersicht gibt der Beitrag [Unterlagen für den Immobilienverkauf](/wissen/unterlagen-immobilienverkauf/)."
+    artikel: unterlagen-immobilienverkauf
+    freigabe: nein
+  - frage: "Muss ich beim Verkauf einen Energieausweis vorlegen?"
+    antwort: "Ja, grundsätzlich spätestens bei der Besichtigung, nach Vertragsschluss ist er dem Käufer zu übergeben. Liegt ein Ausweis vor, sind bestimmte Angaben daraus bereits in Immobilienanzeigen zu machen. Für einzelne Gebäude, etwa Baudenkmäler, gelten Ausnahmen."
+    artikel: energieausweis
+    freigabe: nein
+  - frage: "Ist eine Marktwerteinschätzung dasselbe wie ein Gutachten?"
+    antwort: "Nein. Eine kaufmännische Marktwerteinschätzung dient der Orientierung, etwa für den Angebotspreis. Ein Verkehrswertgutachten erstellen qualifizierte Sachverständige oder der Gutachterausschuss nach den Verfahren der ImmoWertV. Gegenüber Gerichten, Finanzämtern oder in Streitfällen wird in der Regel ein Gutachten benötigt."
+    artikel: wertermittlung-verfahren
+    freigabe: nein
+  - frage: "Welche Verfahren der Wertermittlung gibt es?"
+    antwort: "Die Immobilienwertermittlungsverordnung kennt das Vergleichswertverfahren, das Ertragswertverfahren und das Sachwertverfahren. Welches Verfahren geeignet ist, hängt von der Objektart ab, etwa ob die Immobilie selbst genutzt oder vermietet wird. Häufig werden Ergebnisse mehrerer Verfahren zur Plausibilisierung herangezogen."
+    artikel: wertermittlung-verfahren
+    freigabe: nein
+  - frage: "Kann ich eine vermietete Wohnung verkaufen?"
+    antwort: "Ja. Der Käufer tritt mit dem Eigentumswechsel in das bestehende Mietverhältnis ein, der Mietvertrag bleibt unverändert. Der Verkauf ist kein Kündigungsgrund. Der Käuferkreis besteht vor allem aus Kapitalanlegern, die auf Miethöhe, Mietentwicklung und Zustand der Wohnung achten."
+    artikel: vermietete-wohnung-verkaufen
+    freigabe: nein
+  - frage: "Hat mein Mieter beim Verkauf ein Vorkaufsrecht?"
+    antwort: "Ein gesetzliches Vorkaufsrecht besteht, wenn an der vermieteten Wohnung nach der Überlassung an den Mieter Wohnungseigentum begründet wurde und die Wohnung an einen Dritten verkauft wird. In anderen Fällen besteht grundsätzlich kein gesetzliches Vorkaufsrecht. Ob es im Einzelfall greift, prüft der Notar."
+    artikel: vermietete-wohnung-verkaufen
+    freigabe: nein
+  - frage: "Welche WEG-Unterlagen sollte ich vor dem Kauf einer Eigentumswohnung prüfen?"
+    antwort: "Wichtig sind Teilungserklärung und Gemeinschaftsordnung, die Niederschriften der letzten Jahre und die Beschluss-Sammlung, Wirtschaftsplan, Jahresabrechnung und Vermögensbericht mit dem Stand der Erhaltungsrücklage. Achten Sie auf beschlossene Maßnahmen, Sonderumlagen und wiederkehrende Schäden. Einzelheiten im Beitrag [Eigentumswohnung kaufen: Unterlagen der WEG prüfen](/wissen/eigentumswohnung-kaufen-pruefen/)."
+    artikel: eigentumswohnung-kaufen-pruefen
+    freigabe: nein
