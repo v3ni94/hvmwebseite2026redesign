@@ -3,7 +3,7 @@ titel: "Der Verwaltervertrag: typische Inhalte"
 slug: verwaltervertrag-inhalte
 zielgruppe: kosten-vertrag
 beschreibung: "Bestellung und Vertrag, Vertragspartner, Laufzeit, Vergütung, Haftung und Beendigung: welche Regelungen ein WEG-Verwaltervertrag typischerweise enthält."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /weg-verwaltung/
@@ -81,4 +81,20 @@ Die Wohnungseigentümer können den Verwalter jederzeit abberufen. Der Verwalter
 
 Bei Zweifeln an der Wirksamkeit einzelner Klauseln sollte vor der Beschlussfassung anwaltlicher Rat eingeholt werden.
 
-Einen Vertragsentwurf erhalten Sie mit dem Angebot der Hausverwaltung Müller GmbH. Informationen zur Leistung finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).
+## Der Verwaltervertrag der Hausverwaltung Müller GmbH
+
+Einen Vertragsentwurf erhalten Sie mit dem Angebot der Hausverwaltung Müller GmbH, zusammen mit einem Muster der Verwaltervollmacht. Der WEG-Verwaltervertrag regelt in der Regel:
+
+- **Laufzeit:** Der Vertrag wird für die Dauer der Bestellung geschlossen. Bei einer vorzeitigen Abberufung endet er spätestens sechs Monate danach, die Kündigung aus wichtigem Grund bleibt für beide Seiten möglich.
+- **Aufgaben und Befugnisse:** nach Wohnungseigentumsgesetz, Teilungserklärung, Gemeinschaftsordnung und den Beschlüssen der Eigentümer.
+- **Grundvergütung:** monatlich je Einheit, unterschieden nach Wohnungen, Gewerbeeinheiten und Stellplätzen, zuzüglich gesetzlicher Umsatzsteuer.
+- **Variable Vergütung:** ein Leistungs- und Preisverzeichnis weist aus, welche Leistungen inklusive sind und welche nach Zeitaufwand oder pauschal vergütet werden. Eine variable Vergütung fällt nur an, wenn die Leistung erforderlich war und der Verwalter dies nicht zu vertreten hat.
+- **Aufwendungsersatz:** nur in wenigen, im Vertrag genannten Fällen, etwa bei erneuter Zusendung von Unterlagen.
+- **Wertgrenzen:** laufende Erhaltungsmaßnahmen bis zu einer festgelegten Wertgrenze je Einzelmaßnahme sind in der Grundvergütung enthalten. Bei Gefahr im Verzug handelt die Verwaltung unabhängig davon.
+- **Vergütungsanpassung:** eine Anpassung zum Jahresende wird schriftlich mitgeteilt, die Gemeinschaft kann innerhalb einer im Vertrag genannten Frist widersprechen.
+- **Haftung und Versicherung:** Regelungen zur Haftung sowie der Nachweis der Vermögensschadenhaftpflicht- und der Betriebshaftpflichtversicherung auf Verlangen.
+- **Kommunikation und Datenschutz:** Mitteilungen in Textform und ein digitales Eigentümerportal, über das Abrechnungen, Wirtschaftspläne, Protokolle und Belege bereitgestellt werden. Die digitale Bereitstellung ersetzt den Postversand, sofern nicht schriftlich widersprochen wird.
+- **Beendigung:** Rechnungslegung und Herausgabe aller Unterlagen in der vorhandenen Aufbewahrungsform, ohne Zurückbehaltungsrecht an Originalunterlagen.
+- **Schlichtung:** bei Streitigkeiten zunächst der Versuch einer Schlichtung oder Mediation vor einer Klage.
+
+Maßgeblich ist der individuelle Vertrag. Informationen zur Leistung finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

@@ -36,7 +36,8 @@ final class PlaceholderScanner
             static fn (string $w): string => preg_quote($w, '/'),
             self::SCHLUESSELWOERTER
         ));
-        $pattern = '/\[([^\[\]\n]{1,200})\]/u';
+        // Markdown-Links [Text](/pfad/) sind keine Platzhalter, auch wenn der Linktext ein Schlüsselwort enthält
+        $pattern = '/\[([^\[\]\n]{1,200})\](?!\()/u';
 
         $funde = [];
         foreach (self::dateien($ziele, $root) as $datei) {

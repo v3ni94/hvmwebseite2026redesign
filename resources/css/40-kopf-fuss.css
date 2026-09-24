@@ -280,6 +280,8 @@
     .c-footer__adresse { font-style: normal; line-height: 1.7; color: var(--hvm-umriss); }
     .c-footer__adresse strong { color: var(--hvm-weiss); font-weight: var(--fw-halbfett); }
     .c-footer__titel {
+        hyphens: auto;
+        overflow-wrap: break-word;
         margin-bottom: var(--abstand-5);
         font-size: var(--fs-label);
         font-weight: var(--fw-halbfett);

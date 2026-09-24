@@ -1,5 +1,6 @@
 {#
   WEG-Verwaltung: Leistungsumfang, Abgrenzung und Ablauf für Wohnungs­eigentümer­gemeinschaften und Beiräte.
+  Leistungsumfang: docs/leistungsverzeichnis.md (aus den Muster-Angeboten, Stand 24.09.2026).
   Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
   Rechtsstand: WEMoG. Alle Texte sind Entwürfe, keine Rechtsberatung, Normen bewusst allgemein formuliert.
 #}
@@ -44,53 +45,93 @@
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Leistungsumfang',
-            titel: 'Aufgaben als *Verwaltungsorgan*',
-            text: 'Seit der WEG-Reform (WEMoG) handelt der Verwalter als Organ der Gemeinschaft der Wohnungseigentümer. Die Aufgaben gliedern sich kaufmännisch, technisch und organisatorisch.',
+            titel: 'Grundleistungen als *Verwaltungsorgan*',
+            text: 'Seit der WEG-Reform (WEMoG) handelt der Verwalter als Organ der Gemeinschaft der Wohnungseigentümer. Die folgenden Leistungen sind in der Regel mit der monatlichen Grundvergütung abgegolten. Maßgeblich ist der individuelle Verwaltervertrag, dessen Entwurf Sie mit dem Angebot erhalten.',
             id: 'leistungsumfang-titel',
             geteilt: true,
         }) }}
         <div class="c-karten">
             {% set kaufmaennisch %}
             <ul class="c-leistungsliste">
-                <li>Aufstellung des Wirtschaftsplans</li>
-                <li>Erstellung der Jahresabrechnung</li>
-                <li>Erstellung des Vermögensberichts</li>
-                <li>Verwaltung und Überwachung der Erhaltungsrücklage</li>
-                <li>Hausgeldinkasso und Mahnwesen gegenüber Eigentümern</li>
+                <li>Führung der Konten der Gemeinschaft und Abwicklung des Zahlungsverkehrs</li>
+                <li>Sachliche und rechnerische Rechnungsprüfung</li>
+                <li>Einzug des Hausgelds im SEPA-Lastschriftverfahren und Überwachung der Zahlungseingänge</li>
+                <li>Aufstellung des Gesamt- und Einzelwirtschaftsplans</li>
+                <li>Erstellung der Gesamt- und Einzelabrechnung (Jahresabrechnung)</li>
+                <li>Mahnwesen bei Zahlungsrückständen</li>
+                <li>Jährliche Kassenprüfung und Bereithaltung der Abrechnungsunterlagen zur Einsicht</li>
+                <li>Bearbeitung von Eigentümerwechseln</li>
             </ul>
             {% endset %}
             {{ c.card({titel: 'Kaufmännisch', ton: 'w', nummer: '01', zusatz: kaufmaennisch}) }}
+            {% set versammlung %}
+            <ul class="c-leistungsliste">
+                <li>Einladung und Durchführung der ordentlichen jährlichen Eigentümerversammlung einschließlich Versammlungsvorsitz</li>
+                <li>Niederschrift und Führung der Beschluss-Sammlung</li>
+                <li>Entscheidungsvorschläge für den Verwaltungsbeirat und Mitwirkung bei der Prüfung von Wirtschaftsplan und Jahresabrechnung</li>
+                <li>Teilnahme an Beiratssitzungen in einem vereinbarten Stundenumfang je Jahr</li>
+                <li>Überwachung der Haus- und Gemeinschaftsordnung</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Versammlung und Beirat', ton: 'w', nummer: '02', zusatz: versammlung}) }}
             {% set technisch %}
             <ul class="c-leistungsliste">
-                <li>Vorbereitung und Umsetzung von Erhaltungsmaßnahmen</li>
-                <li>Objektbegehungen {{ placeholder('Turnus der Objektbegehungen bestätigen') }}</li>
-                <li>Schadensaufnahme und Schadensmanagement</li>
-                <li>Steuerung von Dienstleistern und Handwerkern, auch über Rahmenverträge</li>
+                <li>Bedarfsgerechte Objektbegehungen zur Überwachung des baulichen Zustands</li>
+                <li>Kaufmännische Betreuung laufender Erhaltungsmaßnahmen bis zu einer vertraglich festgelegten Wertgrenze je Einzelmaßnahme</li>
+                <li>Abschluss und Kündigung von Liefer-, Wartungs-, Dienstleistungs- und Versicherungsverträgen</li>
+                <li>Überwachung von Dienstleistern wie Hausmeister, Reinigung und Gartenpflege</li>
+                <li>Abwicklung von Schäden über die Gebäudeversicherungen der Gemeinschaft</li>
             </ul>
             {% endset %}
-            {{ c.card({titel: 'Technisch', ton: 'w', nummer: '02', zusatz: technisch}) }}
-            {% set organisatorisch %}
-            <ul class="c-leistungsliste">
-                <li>Einberufung und Durchführung der Eigentümerversammlung</li>
-                <li>Durchführung der gefassten Beschlüsse</li>
-                <li>Führung der Beschluss-Sammlung</li>
-                <li>Kommunikation mit Eigentümern und Verwaltungsbeirat</li>
-            </ul>
-            {% endset %}
-            {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
+            {{ c.card({titel: 'Technisch und Verträge', ton: 'w', nummer: '03', zusatz: technisch}) }}
         </div>
         {{ hvm.zwischen_cta('Passt der Leistungsumfang zu Ihrer Gemeinschaft? Sie erhalten ein schriftliches Angebot mit Vertragsentwurf, ohne Aufnahmegebühr.', {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'weg'})}, {label: 'Verwalterwechsel ansehen', url: '/verwalterwechsel/'}) }}
     </div>
 </section>
 
-<section class="l-section" aria-labelledby="abgrenzung-titel">
+<section class="l-section" aria-labelledby="sonderleistungen-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Abgrenzung',
-            titel: 'Was *nicht* enthalten ist',
-            id: 'abgrenzung-titel',
+            eyebrow: 'Sonderleistungen',
+            titel: 'Was *gesondert* vergütet wird',
+            text: 'Leistungen, die nicht in jedem Jahr oder nicht in jeder Gemeinschaft anfallen, werden in der Regel gesondert vergütet, je nach Leistung nach Zeitaufwand, als Pauschale oder nach Vergütungsbeschluss der Eigentümerversammlung. Die Einzelheiten regelt das Leistungsverzeichnis des Verwaltervertrags.',
+            id: 'sonderleistungen-titel',
+            geteilt: true,
+            aktion: {label: 'Grund- und Sonderleistungen erklärt', url: '/wissen/sonderleistungen-verwaltung/'},
         }) }}
-        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Rechtsberatung und steuerliche Beratung sind nicht Teil der Verwaltungsleistung, hierfür verweisen wir an Rechtsanwalt oder Steuerberater. Umfangreiche Sanierungsvorhaben und Sonderprojekte können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen. Die Betreuung des Sondereigentums einzelner vermieteter Wohnungen ist gesondert geregelt, siehe SE-Verwaltung.') }}
+        <div class="c-karten">
+            {% set sonder_versammlung %}
+            <ul class="c-leistungsliste">
+                <li>Zusätzliche Eigentümerversammlungen</li>
+                <li>Umlaufbeschlüsse</li>
+                <li>Online-Teilnahme an Eigentümerversammlungen nach Beschluss</li>
+                <li>Beiratssitzungen über den vereinbarten Stundenumfang hinaus</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Versammlungen', ton: 'm', zusatz: sonder_versammlung}) }}
+            {% set sonder_finanzen %}
+            <ul class="c-leistungsliste">
+                <li>Erstellung des Vermögensberichts</li>
+                <li>Umsetzung von Sonderumlagen</li>
+                <li>Zusätzliche Rücklagen und Abrechnungskreise</li>
+                <li>Erteilung der Verwalterzustimmung, soweit die Gemeinschaftsordnung sie vorsieht</li>
+                <li>Bescheinigungen für Steuerermäßigungen</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Finanzen und Verwaltung', ton: 'm', zusatz: sonder_finanzen}) }}
+            {% set sonder_bau %}
+            <ul class="c-leistungsliste">
+                <li>Größere Erhaltungsmaßnahmen oberhalb der Wertgrenze, von der Beschlussvorbereitung bis zur Abnahmebegleitung</li>
+                <li>Beschlüsse über Darlehen und Fördermittel</li>
+                <li>Bearbeitung von Gewährleistungsansprüchen</li>
+                <li>Begleitung von Rechtsstreitigkeiten und Zwangsvollstreckungsverfahren</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Bau und Recht', ton: 'm', zusatz: sonder_bau}) }}
+        </div>
+        <div class="c-karten--abstand">
+            {{ n.hinweis('Abgrenzung', 'Rechtsberatung, steuerliche Beratung und bautechnische Beratung sind nicht Teil der Verwaltungsleistung, hierfür verweisen wir an Rechtsanwalt, Steuerberater oder Fachplaner. Übernimmt ein Architekt oder Sachverständiger die Begleitung einer größeren Maßnahme, fallen dafür beim Verwalter in der Regel keine zusätzlichen Kosten an. Die Betreuung des Sondereigentums einzelner vermieteter Wohnungen ist gesondert geregelt, siehe SE-Verwaltung.') }}
+        </div>
     </div>
 </section>
 
@@ -123,7 +164,7 @@
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
         {% set notfall_zusatz %}Erreichbarkeit außerhalb der Bürozeiten, Nummer {{ firma.notfall_telefon ?: placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
         <div class="c-karten c-karten--4">
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Abrechnungen, Wirtschaftspläne, Protokolle und Belege digital abrufen, Anliegen online übermitteln.', zusatz: portal_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
@@ -160,6 +201,7 @@
         {{ faq.faq([
             {frage: 'Ist der Verwalter Vertreter der Gemeinschaft oder der einzelnen Eigentümer?', antwort: 'Der Verwalter handelt als Organ der Gemeinschaft der Wohnungseigentümer und setzt deren Beschlüsse um. Die Interessen einzelner Eigentümer vertritt er nicht.'},
             {frage: 'Wie oft findet eine Eigentümerversammlung statt?', antwort: 'Mindestens einmal jährlich. Weitere Versammlungen und die Einberufungsfrist richten sich nach Gesetz und der jeweiligen Gemeinschaftsordnung.'},
+            {frage: 'Wie lange läuft der Verwaltervertrag?', antwort: 'In der Regel wird der Verwaltervertrag für die Dauer der Bestellung geschlossen. Wird der Verwalter vorzeitig abberufen, endet der Vertrag spätestens sechs Monate danach. Die Kündigung aus wichtigem Grund bleibt für beide Seiten möglich.'},
             {frage: 'Was passiert mit der Erhaltungsrücklage bei einem Verwalterwechsel?', antwort: 'Die Erhaltungsrücklage ist Vermögen der Gemeinschaft und bleibt es auch beim Wechsel. Die neue Verwaltung erhält die Kontenunterlagen und die Verfügungsberechtigung für die Konten der Gemeinschaft.'},
         ]) }}
     </div>

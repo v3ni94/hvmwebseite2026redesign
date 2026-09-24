@@ -51,7 +51,8 @@ Weitere Pakete nur nach Eintrag mit Begründung in `docs/entscheidungen.md`.
   /emails            Mailtexte (HTML und Text)
 /content/wissen      Markdown-Artikel mit Frontmatter
 /content/faq         FAQ als YAML je Zielgruppe
-/config              app.php, unternehmen.php, kennzahlen.php, standorte.php, redirects.php, routes.php, navigation.php, freigaben.php, kundenstimmen.php, seiten.php (Meta je Seite)
+/content/staedte     Stadtseiten als Markdown mit Frontmatter (je Stadt aus config/staedte.php)
+/config              app.php, unternehmen.php, kennzahlen.php, staedte.php, redirects.php, routes.php, navigation.php, freigaben.php, kundenstimmen.php, seiten.php (Meta je Seite)
 /migrations          NNNN_beschreibung.sql, fortlaufend, nie nachträglich ändern
 /bin                 migrate.php, deploy-post.sh, worker.php, build-assets.php, build-search-index.php, build-og-images.php, check-pii.php, lint-dashes.php, check-placeholders.php, import-legacy-leads.php, admin-user.php, retention.php, legacy-mirror.sh
 /tests               Unit (PHPUnit), Integration (MariaDB-Testdatenbank), e2e (Playwright)
@@ -152,7 +153,8 @@ Layout `templates/layouts/base.html.twig` stellt Blöcke bereit: `title`, `meta`
 | `/wertgutachten/` | pages/wertgutachten | `/kontakt/?anliegen=gutachten` |
 | `/wissen/` | pages/wissen (Übersicht, Suche, FAQ nach Zielgruppen) | kontextbezogen |
 | `/wissen/{slug}/` | pages/wissen-artikel | kontextbezogen |
-| `/betreuungsgebiete/` | pages/betreuungsgebiete | `/angebot/` mit Region |
+| `/betreuungsgebiete/` | pages/betreuungsgebiete (StadtController::index) | `/angebot/` mit Region |
+| `/hausverwaltung-{slug}/` | pages/stadt (StadtController::show, content/staedte/{slug}.md, 42 Städte aus config/staedte.php) | `/angebot/?region=<Stadt>` |
 | `/referenzen/` | pages/referenzen | `/angebot/` |
 | `/ueber-uns/` | pages/ueber-uns | `/kontakt/` |
 | `/karriere/` | pages/karriere | `/karriere/bewerbung/` |

@@ -1,6 +1,6 @@
 # Technisches SEO, GEO und Performance
 
-Stand: 23.09.2026. Umfang: alle öffentlichen Seiten aus `config/seiten.php` (23 Seiten inkl. `/fakten/`) und alle 53 Wissensartikel.
+Stand: 24.09.2026. Umfang: alle öffentlichen Seiten aus `config/seiten.php` (23 Seiten inkl. `/fakten/`), alle 53 Wissensartikel und die 42 Stadtseiten (Abschnitt 8).
 GEO steht für Generative Engine Optimization: Sichtbarkeit in KI-Suchen und Antwortmaschinen (Google AI Overviews, ChatGPT, Perplexity, Claude).
 
 ## 1. Ergebnis in Kürze
@@ -30,12 +30,13 @@ Aufbau je indexierbarer Seite (`src/View/SchemaBuilder.php`), Entitäten über f
 
 | Entität | @id | Inhalt |
 |---|---|---|
-| Organization, RealEstateAgent (Unterart von LocalBusiness) | `/#organisation` | Name, legalName, alternateName HVM, Anschrift, Telefon +49 2431 9550300, E-Mail, ContactPoint, foundingDate 2020-03-04, Handelsregister als identifier, memberOf VZIV und IVD, knowsAbout (Leistungen), areaServed nur bestätigte Orte (derzeit Monheim am Rhein), Logo. `sameAs` nur über optionales `same_as` in `config/unternehmen.php`, derzeit weggelassen. Keine vatID, keine Öffnungszeiten, keine Preisspanne (nicht belegt) |
+| Organization, RealEstateAgent (Unterart von LocalBusiness) | `/#organisation` | Name, legalName, alternateName HVM, Anschrift, Telefon +49 2431 9550300, E-Mail, ContactPoint, foundingDate 2020-03-04, Handelsregister als identifier, memberOf VZIV und IVD, knowsAbout (Leistungen), areaServed Hauptsitz Monheim am Rhein (City) und Deutschland (Country, 42 PLZ-Bereiche laut `config/staedte.php`), openingHoursSpecification Montag bis Freitag 08:00 bis 16:00 (`oeffnungszeiten` in `config/unternehmen.php`, bestätigt 24.09.2026), Logo. `sameAs` nur über optionales `same_as` in `config/unternehmen.php`, derzeit weggelassen. Keine vatID, keine Preisspanne (nicht belegt) |
 | WebSite | `/#website` | SearchAction auf `/wissen/?q={search_term_string}` (serverseitige Suche im WissenController) |
 | WebPage, AboutPage, ContactPage, CollectionPage | `{url}#webseite` | isPartOf WebSite, publisher Organisation, breadcrumb |
-| Service (8 Leistungsseiten inkl. Asset Management) | `{url}#leistung` | name, serviceType, provider Organisation, areaServed bestätigt |
+| Service (8 Leistungsseiten inkl. Asset Management) | `{url}#leistung` | name, serviceType, provider Organisation, areaServed wie Organisation |
+| Service (Stadtseiten `/hausverwaltung-{slug}/`) | `{url}#leistung` | name „Hausverwaltung <Stadt>“, serviceType WEG-, Miet- und SE-Verwaltung, provider Organisation, areaServed City (mit Bundesland) und DefinedRegion mit PostalCodeRangeSpecification (PLZ von bis). Kein LocalBusiness und keine PostalAddress je Stadt |
 | Article (Wissensartikel) | `{url}#artikel` | headline, description, datePublished und dateModified aus `stand`, author und publisher Organisation, image, mainEntityOfPage |
-| FAQPage | | nur mit freigegebenen Fragen: `/wissen/` aus `content/faq/*.yaml` (`freigabe`), Artikel-FAQ nur bei `freigabe: ja` |
+| FAQPage | | nur mit freigegebenen Fragen: `/wissen/` aus `content/faq/*.yaml` (`freigabe`), Artikel- und Stadtseiten-FAQ nur bei `freigabe: ja` |
 | BreadcrumbList | `{url}#brotkrumen` | jede Unterseite |
 
 Nicht verwendet: DefinedTerm, Dataset (keine belastbare Grundlage).
@@ -60,7 +61,7 @@ Screenshots: `docs/screenshots/fakten-desktop.png`, `docs/screenshots/fakten-mob
 
 ### 4.2 /llms.txt
 
-Dynamisch aus der Konfiguration (`SeoController::llms`), Markdown nach llmstxt.org: H1, Kurzbeschreibung als Zitat, Kernfakten mit Stand, Abschnitte Leistungen, Unternehmen und Kontakt, Wissen, Optional (Rechtliches). Wissensartikel nur mit `freigabe: ja`, in keiner Umgebung Entwürfe; ohne freigegebene Artikel steht dort der Link auf `/wissen/`. `/llms-full.txt` wird nicht angeboten.
+Dynamisch aus der Konfiguration (`SeoController::llms`), Markdown nach llmstxt.org: H1, Kurzbeschreibung als Zitat, Kernfakten mit Stand, Abschnitte Leistungen, Unternehmen und Kontakt, Wissen, Optional (Rechtliches). Wissensartikel nur mit `freigabe: ja`, in keiner Umgebung Entwürfe; ohne freigegebene Artikel steht dort der Link auf `/wissen/`. Abschnitt „Betreuungsgebiete“: Link auf `/betreuungsgebiete/` und nur die indexierbaren Stadtseiten (freigegeben und mit lokalem Bezug), dazu in den Kernfakten die Zeile „Betreuungsgebiete: bundesweit in 42 Postleitzahlbereichen“. `/llms-full.txt` wird nicht angeboten.
 
 ### 4.3 robots.txt und KI-Crawler (Entscheidung)
 
@@ -76,7 +77,7 @@ Die Geschäftsführung kann das jederzeit abschalten: `AI_CRAWLERS=false` in der
 
 ## 5. Sitemap
 
-Alle Seiten mit `sitemap => true`, deren Pfad in der Umgebung registriert ist (inkl. `/fakten/`, `/asset-management/`, `/wissen/`, `/kontakt/`, `/angebot/`), dazu freigegebene Wissensartikel. `lastmod`: Freigabedatum aus `config/freigaben.php`, bei `/wissen/` zusätzlich das neueste Stand-Datum freigegebener Artikel, bei Artikeln das Stand-Datum. Das Dateidatum der Vorlage wird nicht mehr verwendet, weil es nach Checkout und Container-Build nur das Build-Datum zeigt. Ohne Freigabedatum entfällt `lastmod` (korrekter als ein falsches Datum). Keine Bilder-Sitemap.
+Alle Seiten mit `sitemap => true`, deren Pfad in der Umgebung registriert ist (inkl. `/fakten/`, `/asset-management/`, `/wissen/`, `/kontakt/`, `/angebot/`, `/betreuungsgebiete/`), dazu freigegebene Wissensartikel und indexierbare Stadtseiten (`StadtSitemapProvider`: `freigabe: ja` und `indexierbar` in `config/staedte.php`, `lastmod` aus `stand`). `lastmod`: Freigabedatum aus `config/freigaben.php`, bei `/wissen/` zusätzlich das neueste Stand-Datum freigegebener Artikel, bei Artikeln das Stand-Datum. Das Dateidatum der Vorlage wird nicht mehr verwendet, weil es nach Checkout und Container-Build nur das Build-Datum zeigt. Ohne Freigabedatum entfällt `lastmod` (korrekter als ein falsches Datum). Keine Bilder-Sitemap.
 
 ## 6. Performance
 
@@ -123,6 +124,28 @@ Empfehlungen für Nginx (`docker/nginx/default.conf`, nur gelesen):
 
 - Freigabedaten in `config/freigaben.php` setzen, damit die Sitemap `lastmod` für statische Seiten liefert.
 - `sameAs`: eigene Profile (z. B. Verbandsverzeichnis VZIV, Google Unternehmensprofil) nur nach Bestätigung in `config/unternehmen.php` als `same_as` ergänzen.
-- IVD-Langform, Öffnungszeiten und Notfallnummer fehlen in den Stammdaten; werden erst nach Bestätigung in Schema und Faktenseite übernommen.
+- IVD-Langform fehlt in den Stammdaten. Öffnungszeiten (Montag bis Freitag, 8 bis 16 Uhr) sind seit 24.09.2026 im Organization-Schema; Notfallnummer ist bestätigt, auf der Faktenseite bei Bedarf ergänzen.
+- Stadtseiten: vor Livegang freigeben (mindestens die Ziele der Altseiten-Weiterleitungen, `docs/redirects.md`), weitere Städte erst bei echtem lokalem Bezug auf `indexierbar` setzen (Abschnitt 8).
 - Twig-Cache (`storage/cache/twig`) wird in Produktion nicht automatisch erneuert; bei Deployments ohne neuen Container leeren.
 - Rich-Results-Test gegen Staging vor Livegang (Abschnitt 3).
+
+## 8. Stadtseiten und lokale Präsenz
+
+Umsetzung: 42 Betreuungsgebiete (PLZ-Bereiche) in `config/staedte.php`, je Stadt eine Seite `/hausverwaltung-<slug>/` mit eigenständigem Text aus `content/staedte/<slug>.md` (`Hvm\Controller\StadtController`, `templates/pages/stadt.html.twig`). Zentrale, indexierbare Übersicht ist `/betreuungsgebiete/` mit allen 42 Städten nach Bundesland, PLZ-Bereich, Karte und normalen (follow) Links. Im Footer steht nur der Link auf die Übersicht, kein Linkblock mit allen Städten. Jede Stadtseite verlinkt nur die drei nächstgelegenen Stadtseiten (Luftlinie der Stadtzentren) und die Übersicht.
+
+Regeln (Entscheidung der Geschäftsführung vom 24.09.2026, `docs/auftraggeber-angaben.md`):
+
+| Regel | Umsetzung |
+|---|---|
+| Indexierung nur mit echtem lokalem Bezug | `indexierbar` in `config/staedte.php`: true nur für den Hauptsitz Monheim am Rhein und Städte mit bereits verwalteten Objekten (`bestand_orte`: Berlin, Köln, Erkelenz, Essen, Aachen, Ulm). Übrige Stadtseiten: `noindex, follow`, nicht in `sitemap.xml`, nicht in `llms.txt`, Canonical auf sich selbst. Test: `tests/Unit/Content/StadtRepositoryTest.php`, `tests/Unit/Controller/StadtControllerTest.php` |
+| Freigabe wie Wissensartikel | `freigabe: ja` im Frontmatter; Entwürfe in Produktion 404, auf Staging mit `SHOW_DRAFTS=true` sichtbar mit Entwurfsband, nie in Sitemap oder llms.txt |
+| Kein vorgetäuschter Standort | Keine Anschrift, kein Telefon und kein Ansprechpartner je Stadt, kein LocalBusiness und keine PostalAddress außer dem Hauptsitz. Der Kontaktblock jeder Stadtseite nennt „Betreuung durch die Hausverwaltung Müller GmbH mit Sitz in Monheim am Rhein. Termine vor Ort nach Absprache.“ |
+| Strukturierte Daten | Service mit areaServed (City und PLZ-Bereich), BreadcrumbList Start > Betreuungsgebiete > Stadt, FAQPage nur bei Freigabe |
+| Freischaltung weiterer Städte | sobald dort ein Objekt verwaltet wird: Ort in `bestand_orte` ergänzen und `indexierbar: true` setzen, Stadttext freigeben |
+
+Begründung (Einschätzung, keine Rechtsberatung):
+
+- Google-Richtlinien zu Spam, Abschnitt Doorway-Seiten: Viele fast gleichartige Seiten, die nur für einzelne Orte ranken sollen und Nutzer auf dieselbe Leistung weiterleiten, gelten als Doorway-Seiten und können die Sichtbarkeit der gesamten Website mindern. Deshalb eigenständige Texte je Stadt, Indexierung nur dort, wo ein belegbarer lokaler Bezug besteht, und eine starke zentrale Übersicht.
+- Google-Unternehmensprofile: Ein Profil setzt nach den Richtlinien von Google einen Standort mit persönlichem Kundenkontakt während der angegebenen Zeiten voraus; virtuelle Büros oder reine Postanschriften ohne eigenes Personal sind nicht zulässig. Für die Absenderadressen der Verwaltungssoftware ist offen, ob es eigene Büros sind (`docs/offene-punkte.md` A6). Daher keine Unternehmensprofile und keine Anschriften je Stadt.
+- Wettbewerbsrecht: Die Angabe von Standorten, die tatsächlich nicht bestehen, kann als irreführende geschäftliche Handlung nach dem UWG (§ 5 UWG) angreifbar sein, etwa durch Mitbewerber oder Verbände. Die ausdrückliche Nennung des Sitzes in Monheim am Rhein auf jeder Stadtseite schließt diesen Eindruck aus. Formulierungen vor Livegang anwaltlich gegenprüfen lassen (`docs/offene-punkte.md` B26).
+

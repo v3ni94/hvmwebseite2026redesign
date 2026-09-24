@@ -3,7 +3,7 @@ titel: "Grundleistungen und Sonderleistungen der Verwaltung"
 slug: sonderleistungen-verwaltung
 zielgruppe: kosten-vertrag
 beschreibung: "Was Grundleistungen und Sonderleistungen sind, welche Vergütungsmodelle üblich sind und wie Eigentümer Angebote nachvollziehbar vergleichen."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /weg-verwaltung/
@@ -77,4 +77,45 @@ Sonderleistungen, die die Gemeinschaft beauftragt, werden aus dem Gemeinschaftsv
 
 Rechtsberatung, Steuerberatung sowie Planungs- und Bauleistungen gehören grundsätzlich nicht zu den Aufgaben der Verwaltung, weder als Grund- noch als Sonderleistung. Hier sind Rechtsanwälte, Steuerberater, Architekten oder Fachingenieure einzubeziehen. Zum Vertrag insgesamt siehe [Der Verwaltervertrag: typische Inhalte](/wissen/verwaltervertrag-inhalte/).
 
-Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr. Welche Leistungen in ihrer Grundvergütung enthalten sind, ergibt sich aus dem individuellen Angebot [Leistungsverzeichnis Grund- und Sonderleistungen ergänzen]. Mehr dazu auf der Seite [WEG-Verwaltung](/weg-verwaltung/).
+## So gliedert die Hausverwaltung Müller GmbH ihre Leistungen
+
+Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr, die Einrichtung der Verwaltung ist Teil der Grundleistungen. Das Angebot enthält ein Leistungsverzeichnis, das jede Leistung entweder der Grundvergütung zuordnet oder eine gesonderte Vergütung ausweist. Die folgende Übersicht gibt die übliche Gliederung wieder. Maßgeblich ist stets der individuelle Vertrag.
+
+### WEG-Verwaltung
+
+In der Regel mit der Grundvergütung abgegolten:
+
+- Einrichtung der Verwaltung und Einarbeitung, einschließlich Erstbegehung der Wohnanlage
+- ordentliche jährliche Eigentümerversammlung mit Einladung, Versammlungsvorsitz, Niederschrift und Beschluss-Sammlung
+- Kontoführung, Zahlungsverkehr, Rechnungsprüfung und Hausgeldeinzug
+- Wirtschaftsplan und Jahresabrechnung
+- Bearbeitung von Eigentümerwechseln und Pflege der Eigentümerdaten
+- Abschluss und Kündigung von Liefer-, Wartungs-, Dienstleistungs- und Versicherungsverträgen
+- bedarfsgerechte Objektbegehungen
+- kaufmännische Betreuung laufender Erhaltungsmaßnahmen bis zu einer vertraglich festgelegten Wertgrenze je Einzelmaßnahme
+- Abwicklung von Schäden über die Gebäudeversicherungen der Gemeinschaft
+- Unterstützung des Verwaltungsbeirats, Teilnahme an Beiratssitzungen in einem vereinbarten Stundenumfang
+
+In der Regel gesondert vergütet, überwiegend nach Zeitaufwand:
+
+- zusätzliche Eigentümerversammlungen und Umlaufbeschlüsse
+- Online-Teilnahme an Eigentümerversammlungen, soweit beschlossen
+- Vermögensbericht, Sonderumlagen, zusätzliche Rücklagen und Abrechnungskreise
+- größere Erhaltungsmaßnahmen oberhalb der Wertgrenze, nach Zeitaufwand oder nach Vergütungsbeschluss der Eigentümerversammlung
+- Beschlüsse über Darlehen und Fördermittel, Gewährleistungsansprüche
+- Begleitung von Rechtsstreitigkeiten und Zwangsvollstreckungsverfahren
+- Bescheinigungen für Steuerermäßigungen und Mitwirkung an Grundbucheintragungen
+- Verwalterzustimmung, soweit die Gemeinschaftsordnung sie vorsieht
+- neue Leistungsanforderungen, die sich nach Vertragsschluss etwa durch Gesetzesänderungen ergeben
+
+### Miet- und Sondereigentumsverwaltung
+
+In der Regel mit der Grundvergütung abgegolten sind die laufende Mietverwaltung mit Buchung der Mieteingänge, Mahnwesen und Nebenkostenabrechnung, die Überprüfung des Mietniveaus, die Betreuung der Mietverträge, Wohnungsabnahmen und Übergaben, die Überwachung technischer Anlagen, die kaufmännische Betreuung von Instandhaltungsmaßnahmen bis zu einer Wertgrenze sowie der 24-Stunden-Notruf.
+
+Gesondert vergütet werden in der Regel die Neuvermietung (nur bei erfolgreicher Vermittlung), größere Bau- und Erhaltungsmaßnahmen, außergewöhnliche Schadensfälle, die Zuarbeit bei Rechtsstreitigkeiten und sonstige Arbeiten außerhalb der üblichen Verwaltertätigkeit. In der Sondereigentumsverwaltung gehört dazu auch die Vorbereitung und Durchführung von Mieterhöhungen.
+
+### Abrechnung nach Zeitaufwand
+
+Wird nach Zeitaufwand abgerechnet, weist die Rechnung die Leistung und den ausführenden Mitarbeiter aus. Die Stundensätze sind im Vertrag genannt. In der WEG-Verwaltung wird eine gesonderte Vergütung nur berechnet, wenn die Leistung erforderlich war und der Verwalter die Erforderlichkeit nicht zu vertreten hat.
+
+Mehr dazu auf den Seiten [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/).

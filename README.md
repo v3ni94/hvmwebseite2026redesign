@@ -66,7 +66,7 @@ Die Seite läuft unter http://127.0.0.1:8081/. Der eingebaute Server liefert vor
 |---|---|
 | `public/` | Front Controller `index.php`, statische Dateien, Build-Ausgabe (`assets/build`, nicht im Repository) |
 | `src/` | Namespace `Hvm\`: `Http` (Kernel, Router, Middleware), `Controller`, `View` (Twig), `Support` (Env, Config, Db, Log, Clock, Uuid, Container) |
-| `config/` | Stammdaten und Einstellungen als PHP-Arrays: `app`, `unternehmen`, `kennzahlen`, `seiten`, `routes`, `navigation`, `redirects`, `standorte`, `freigaben`, `kundenstimmen` |
+| `config/` | Stammdaten und Einstellungen als PHP-Arrays: `app`, `unternehmen`, `kennzahlen`, `seiten`, `routes`, `navigation`, `redirects`, `staedte`, `freigaben`, `kundenstimmen` |
 | `templates/` | Twig: `layouts`, `partials`, `components`, `pages` |
 | `resources/` | CSS- und JS-Quellen für den Build |
 | `content/` | Wissensartikel (Markdown) und FAQ (YAML) |

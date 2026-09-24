@@ -3,7 +3,7 @@ titel: "Vertragslaufzeit und Beendigung des Verwaltervertrags"
 slug: vertragslaufzeit-verwaltervertrag
 zielgruppe: kosten-vertrag
 beschreibung: "Bestellungszeit, Vertragslaufzeit und Beendigung: was für WEG-Verwalter gesetzlich gilt und was bei Miet- und Sondereigentumsverwaltung der Vertrag regelt."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /verwalterwechsel/
@@ -74,6 +74,16 @@ Ausführliche Hinweise für Eigentümergemeinschaften enthält der Beitrag [Verw
 
 Fragen zur Vergütung nach einer Abberufung, zur Wirksamkeit einzelner Vertragsklauseln oder zum Vorliegen eines wichtigen Grundes lassen sich nur anhand der konkreten Unterlagen beurteilen. In solchen Fällen empfiehlt sich die Beratung durch einen Rechtsanwalt.
 
-Laufzeit und Kündigungsregeln der Verträge der Hausverwaltung Müller GmbH: [Vertragslaufzeiten und Kündigungsfristen der HVM bestätigen]
+## Laufzeiten bei der Hausverwaltung Müller GmbH
+
+Die Verträge der Hausverwaltung Müller GmbH sehen in der Regel folgende Laufzeiten vor. Maßgeblich ist der individuelle Vertrag.
+
+- **WEG-Verwaltung:** Der Verwaltervertrag wird für die Dauer des Bestellungszeitraums geschlossen. Bei einer vorzeitigen Abberufung endet er spätestens sechs Monate danach. Die Kündigung aus wichtigem Grund bleibt für beide Seiten möglich.
+- **Miet- und Sondereigentumsverwaltung:** Nach einer festen Anfangslaufzeit verlängert sich der Vertrag jeweils um ein Jahr, sofern er nicht mit einer Frist von drei Monaten zum Vertragsende in Textform gekündigt wird. In der Sondereigentumsverwaltung ist nach zwei automatischen Verlängerungen ein neuer Vertrag abzuschließen.
+- **Kennenlernphase:** Im ersten Vertragsjahr der Miet- und Sondereigentumsverwaltung steht dem Eigentümer ein monatliches Sonderkündigungsrecht mit einer Frist von einem Monat zum Monatsende zu.
+- **Festschreibung der Kosten:** Auf Wunsch kann die Vergütung für eine vereinbarte Vertragslaufzeit festgeschrieben werden.
+- **Verkauf der Immobilie:** Übernimmt der Erwerber den Miet- oder Sondereigentumsverwaltungsvertrag nicht, endet er drei Monate nach dem Eigentumsübergang.
+
+Bei Vertragsende gibt die Hausverwaltung Müller GmbH sämtliche Unterlagen, Schlüssel und Vollmachten heraus, ein Zurückbehaltungsrecht an Originalunterlagen besteht nicht.
 
 Informationen zur Übernahme einer Verwaltung durch die Hausverwaltung Müller GmbH finden Sie auf der Seite [Verwalterwechsel](/verwalterwechsel/).

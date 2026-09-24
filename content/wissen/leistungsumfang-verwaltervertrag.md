@@ -3,7 +3,7 @@ titel: "Was ist in der Verwaltung enthalten?"
 slug: leistungsumfang-verwaltervertrag
 zielgruppe: kosten-vertrag
 beschreibung: "Welche Aufgaben ein WEG-Verwalter nach dem Gesetz hat, was im Verwaltervertrag zusätzlich geregelt wird und wie Grund- und Sonderleistungen abgegrenzt werden."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /weg-verwaltung/
@@ -85,6 +85,18 @@ Für die Mietverwaltung und die Sondereigentumsverwaltung gibt es keinen gesetzl
 
 Manche Verwaltungen verfügen über Rahmenverträge mit Dienstleistern und Versorgern. Die Hausverwaltung Müller GmbH unterhält Rahmenverträge in den Bereichen Versicherung, Gas, Strom, Hausmeister und Messdienst. Ob ein Rahmenvertrag für eine Gemeinschaft in Betracht kommt, wird im Einzelfall geprüft. Verträge, die über Maßnahmen von untergeordneter Bedeutung hinausgehen, bedürfen eines Beschlusses der Eigentümer.
 
-## Hinweis
+## Leistungsumfang bei der Hausverwaltung Müller GmbH
 
-Informationen zum Leistungsumfang der Hausverwaltung Müller GmbH finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).
+Die Verwalterverträge der Hausverwaltung Müller GmbH enthalten ein Leistungsverzeichnis, das jede Leistung der Grundvergütung zuordnet oder als gesondert vergütet ausweist. In der WEG-Verwaltung umfasst die Grundvergütung in der Regel:
+
+- die Einrichtung der Verwaltung einschließlich Einarbeitung und Erstbegehung
+- eine ordentliche Eigentümerversammlung im Jahr mit Einladung, Versammlungsvorsitz, Niederschrift und Beschluss-Sammlung
+- Kontoführung, Zahlungsverkehr, Hausgeldeinzug, Wirtschaftsplan und Jahresabrechnung
+- bedarfsgerechte Objektbegehungen und die Verwaltung der Liefer-, Wartungs-, Dienstleistungs- und Versicherungsverträge
+- die kaufmännische Betreuung laufender Erhaltungsmaßnahmen bis zu einer vertraglich festgelegten Wertgrenze je Einzelmaßnahme; die technische Verwaltung ist dabei kaufmännische Betreuung, keine bautechnische Beratung
+- die Abwicklung von Schäden über die Gebäudeversicherungen der Gemeinschaft
+- die Unterstützung des Verwaltungsbeirats, einschließlich Beiratssitzungen in einem vereinbarten Stundenumfang
+
+Gesondert vergütet werden in der Regel unter anderem zusätzliche Eigentümerversammlungen, Umlaufbeschlüsse, der Vermögensbericht, Sonderumlagen, größere Erhaltungsmaßnahmen oberhalb der Wertgrenze und die Begleitung von Rechtsstreitigkeiten. Bei Gefahr im Verzug handelt die Verwaltung unabhängig von Wertgrenzen und informiert die Gemeinschaft unverzüglich. Maßgeblich ist stets der individuelle Vertrag, dessen Entwurf Sie mit dem Angebot erhalten.
+
+Eine Übersicht aller Grund- und Sonderleistungen, auch für Miet- und Sondereigentumsverwaltung, enthält der Beitrag [Grundleistungen und Sonderleistungen der Verwaltung](/wissen/sonderleistungen-verwaltung/). Informationen zur Leistung finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/).

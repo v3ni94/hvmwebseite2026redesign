@@ -1,6 +1,7 @@
 {#
   SE-Verwaltung (Sondereigentumsverwaltung): Betreuung der einzelnen vermieteten Eigentumswohnung
   für Kapitalanleger, Abgrenzung und Schnittstelle zur WEG-Verwaltung.
+  Leistungsumfang: docs/leistungsverzeichnis.md (aus den Muster-Angeboten, Stand 24.09.2026).
   Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
   Alle Texte sind Entwürfe, keine Rechtsberatung.
 #}
@@ -58,35 +59,42 @@
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Leistungsumfang',
-            titel: 'Aufgaben in der *SE-Verwaltung*',
-            text: 'Die Aufgaben gliedern sich kaufmännisch, technisch und organisatorisch.',
+            titel: 'Grundleistungen der *SE-Verwaltung*',
+            text: 'Die folgenden laufenden Leistungen für Ihr Sondereigentum sind in der Regel mit der monatlichen Grundvergütung abgegolten. Maßgeblich ist der individuelle Verwaltervertrag.',
             id: 'leistungsumfang-titel',
             geteilt: true,
         }) }}
         <div class="c-karten">
             {% set kaufmaennisch %}
             <ul class="c-leistungsliste">
-                <li>Mietinkasso und Mahnwesen für die einzelne Einheit</li>
-                <li>Betriebskostenabrechnung gegenüber dem Mieter auf Grundlage der WEG-Jahresabrechnung</li>
-                <li>Weiterleitung und Prüfung der WEG-Jahresabrechnung für die Einheit</li>
+                <li>Mietverwaltung einschließlich Buchführung und Belegsammlung</li>
+                <li>Erfassung und Buchung der Mietzahlungen, Abwicklung des Zahlungsverkehrs</li>
+                <li>Mahnwesen bei Mietrückständen einschließlich Einleitung weiterführender Schritte</li>
+                <li>Erstellung und fristgerechte Zustellung der Betriebskostenabrechnung gegenüber dem Mieter</li>
+                <li>Regelmäßige Überprüfung des Mietniveaus mit Anpassungsvorschlägen</li>
             </ul>
             {% endset %}
             {{ c.card({titel: 'Kaufmännisch', ton: 'w', nummer: '01', zusatz: kaufmaennisch}) }}
             {% set technisch %}
             <ul class="c-leistungsliste">
-                <li>Instandhaltung innerhalb der Wohnung (Sondereigentum)</li>
-                <li>Abstimmung mit der WEG-Verwaltung bei Schäden am Gemeinschaftseigentum</li>
+                <li>Überwachung technischer Anlagen im Sondereigentum, soweit nicht Gemeinschaftseigentum</li>
+                <li>Ermittlung des Instandhaltungsbedarfs und Planung der Maßnahmen</li>
+                <li>Kaufmännische Betreuung von Instandhaltungsmaßnahmen bis zu einer vertraglich festgelegten Wertgrenze je Einzelmaßnahme</li>
+                <li>Koordination und Kontrolle von Dienstleistern</li>
+                <li>Jährliche Wohnungsbegehung</li>
             </ul>
             {% endset %}
             {{ c.card({titel: 'Technisch', ton: 'w', nummer: '02', zusatz: technisch}) }}
             {% set organisatorisch %}
             <ul class="c-leistungsliste">
-                <li>Schnittstelle zur WEG-Verwaltung des Objekts</li>
-                <li>Weitergabe von Beschlüssen, Wirtschaftsplan und Stand der Erhaltungsrücklage an den Eigentümer</li>
-                <li>Kommunikation mit der Mieterin oder dem Mieter</li>
+                <li>Abschluss, Änderung und Kündigung von Mietverträgen</li>
+                <li>Wohnungsabnahmen und Übergaben bei Mieterwechseln mit Protokoll</li>
+                <li>Kommunikation mit Mietern, Behörden und Dienstleistern</li>
+                <li>Erster Ansprechpartner für die Mieterin oder den Mieter</li>
+                <li>24-Stunden-Notruf</li>
             </ul>
             {% endset %}
-            {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
+            {{ c.card({titel: 'Mieterbetreuung', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
         </div>
         {{ hvm.zwischen_cta('Sie vermieten eine Eigentumswohnung und möchten die Betreuung abgeben? Sie erhalten ein schriftliches Angebot für Ihre Wohnung.', {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'se'})}, {label: 'Zur WEG-Verwaltung', url: '/weg-verwaltung/'}) }}
     </div>
@@ -103,14 +111,45 @@
     </div>
 </section>
 
-<section class="l-section" aria-labelledby="abgrenzung-titel">
+<section class="l-section" aria-labelledby="sonderleistungen-titel">
     <div class="l-container">
         {{ sh.section_head({
-            eyebrow: 'Abgrenzung',
-            titel: 'Was *nicht* enthalten ist',
-            id: 'abgrenzung-titel',
+            eyebrow: 'Sonderleistungen',
+            titel: 'Was *gesondert* vergütet wird',
+            text: 'Leistungen außerhalb der laufenden Verwaltung werden in der Regel gesondert vergütet, meist nach Zeitaufwand mit Nachweis. Die Einzelheiten regelt der Verwaltervertrag.',
+            id: 'sonderleistungen-titel',
+            geteilt: true,
+            aktion: {label: 'Grund- und Sonderleistungen erklärt', url: '/wissen/sonderleistungen-verwaltung/'},
         }) }}
-        {{ n.hinweis('Sonderleistungen und Abgrenzung', 'Die Verwaltung des Gemeinschaftseigentums ist nicht Teil der SE-Verwaltung, hierfür siehe WEG-Verwaltung. Die Neuvermietung einer leerstehenden Einheit ist eine gesonderte Leistung, siehe Vermietung. Umfangreiche Instandsetzungen innerhalb der Wohnung können als Sonderleistung vereinbart werden, ohne dass wir an dieser Stelle Preise nennen.', {typ: 'info'}) }}
+        <div class="c-karten">
+            {% set sonder_vermietung %}
+            <ul class="c-leistungsliste">
+                <li>Ermittlung des marktgerechten Mietpreises</li>
+                <li>Inserat, Organisation und Durchführung von Besichtigungen</li>
+                <li>Prüfung der Mietinteressenten</li>
+                <li>Mietvertrag und Wohnungsübergabe mit Protokoll</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Neuvermietung', text: 'Vergütung nur bei erfolgreicher Vermittlung.', ton: 'm', zusatz: sonder_vermietung}) }}
+            {% set sonder_miete %}
+            <ul class="c-leistungsliste">
+                <li>Vorbereitung und Durchführung von Mieterhöhungen</li>
+                <li>Größere Bau- und Erhaltungsmaßnahmen oberhalb der Wertgrenze</li>
+                <li>Außergewöhnliche Schadensfälle mit mehreren Begehungen und Handwerkerterminen</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Mieterhöhung, Bau und Schäden', ton: 'm', zusatz: sonder_miete}) }}
+            {% set sonder_recht %}
+            <ul class="c-leistungsliste">
+                <li>Koordination und Zuarbeit bei Rechtsstreitigkeiten, die grundsätzlich an Rechtsanwälte vergeben werden</li>
+                <li>Sonstige Arbeiten außerhalb der üblichen Verwaltertätigkeit</li>
+            </ul>
+            {% endset %}
+            {{ c.card({titel: 'Recht und Sonderarbeiten', ton: 'm', zusatz: sonder_recht}) }}
+        </div>
+        <div class="c-karten--abstand">
+            {{ n.hinweis('Vertragsbedingungen und Abgrenzung', 'Die Verwaltung des Gemeinschaftseigentums ist nicht Teil der SE-Verwaltung, hierfür siehe WEG-Verwaltung. Rechtsberatung und Prozessführung sind nicht geschuldet. Im ersten Vertragsjahr besteht in der Regel ein monatliches Sonderkündigungsrecht, danach verlängert sich der Vertrag jeweils um ein Jahr, sofern er nicht fristgerecht gekündigt wird. Die Vergütung kann auf Wunsch für eine vereinbarte Laufzeit festgeschrieben werden.', {typ: 'info'}) }}
+        </div>
     </div>
 </section>
 
@@ -141,7 +180,7 @@
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
         {% set notfall_zusatz %}Erreichbarkeit außerhalb der Bürozeiten, Nummer {{ firma.notfall_telefon ?: placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
         <div class="c-karten c-karten--4">
-            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Abrechnungen, Belege und Unterlagen digital abrufen, Anliegen online übermitteln.', zusatz: portal_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Rahmenverträge', icon: 'dokument', text: 'Abgestimmte Rahmenverträge für Versicherung, Gas, Strom, Hausmeisterdienste und Messdienst.'}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Keine Aufnahmegebühr', icon: 'info', text: 'Für den Wechsel zur Hausverwaltung Müller GmbH fällt keine Aufnahmegebühr an.'}) }}
@@ -177,7 +216,7 @@
         {{ faq.faq([
             {frage: 'Vertritt die SE-Verwaltung mich auch in der Eigentümerversammlung?', antwort: 'Nur mit gesonderter Vollmacht in Textform und nach vorheriger Absprache, soweit die Gemeinschaftsordnung die Vertretung nicht beschränkt. Grundsätzlich betreuen wir das Sondereigentum, nicht die Vertretung in der Gemeinschaft.'},
             {frage: 'Kann die Hausverwaltung Müller GmbH auch die WEG-Verwaltung des Objekts übernehmen?', antwort: 'Das prüfen wir im Einzelfall. Ist die Gemeinschaft daran interessiert, kann ein Wechsel der WEG-Verwaltung gesondert beschlossen werden.'},
-            {frage: 'Was passiert, wenn meine Wohnung leer steht?', antwort: 'Für die Neuvermietung bieten wir eine gesonderte Leistung an, siehe Vermietung.'},
+            {frage: 'Was passiert, wenn meine Wohnung leer steht?', antwort: 'Bei einem Mieterwechsel übernehmen wir die Neuvermietung von der Mietpreisermittlung bis zur Wohnungsübergabe. Sie ist nicht in der Grundvergütung enthalten und wird in der Regel nur bei erfolgreicher Vermittlung vergütet, siehe auch Vermietung.'},
         ]) }}
     </div>
 </section>

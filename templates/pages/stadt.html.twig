@@ -3,7 +3,9 @@
   seite: Hvm\Content\StadtSeite (Text aus content/staedte/{slug}.md), stadt/nachbarn/hauptsitz: Arrays aus
   config/staedte.php (url nur, wenn die Stadtseite in der Umgebung erreichbar ist).
   Keine Anschrift, kein Büro und keine Ansprechpartner je Stadt: offen, ob die Absenderadressen der
-  Verwaltungssoftware eigene Büros sind (docs/offene-punkte.md A6). Kontakt ausschließlich über den Hauptsitz.
+  Verwaltungssoftware eigene Büros sind (docs/offene-punkte.md A6). Kontakt ausschließlich über den Hauptsitz,
+  der Kontaktblock nennt ausdrücklich die Betreuung durch die HVM mit Sitz in Monheim am Rhein (kein vorgetäuschter
+  Standort). Indexierung nur bei lokalem Bezug (config/staedte.php indexierbar), sonst noindex, follow.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -105,7 +107,7 @@
         {{ sh.section_head({
             eyebrow: 'Kontakt',
             titel: 'So erreichen *Sie uns*',
-            text: 'Anfragen aus ' ~ stadt.name ~ ' und Umgebung bearbeiten wir zentral. Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.',
+            text: 'Betreuung durch die ' ~ firma.name ~ ' mit Sitz in ' ~ firma.anschrift.ort ~ '. Termine vor Ort nach Absprache. Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.',
             id: 'kontakt-titel',
             geteilt: true,
         }) }}

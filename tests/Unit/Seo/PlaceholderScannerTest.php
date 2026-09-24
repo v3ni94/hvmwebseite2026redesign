@@ -89,6 +89,18 @@ final class PlaceholderScannerTest extends TestCase
         self::assertTrue($funde[0]['freigegeben']);
     }
 
+    public function testMarkdownLinksSindKeinePlatzhalter(): void
+    {
+        file_put_contents(
+            $this->verzeichnis . '/config/links.php',
+            "<?php\n// [Unterlagen der WEG prüfen](/wissen/eigentumswohnung-kaufen-pruefen/) und [Portal-Adresse bestätigen]\n"
+        );
+
+        $funde = PlaceholderScanner::scan(['config'], $this->verzeichnis);
+
+        self::assertSame(['Portal-Adresse bestätigen'], array_column($funde, 'text'));
+    }
+
     public function testUeberspringtBinaerdateien(): void
     {
         file_put_contents($this->verzeichnis . '/templates/logo.png', "\x89PNG [bestätigen]");
