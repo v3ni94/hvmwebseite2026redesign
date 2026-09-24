@@ -9,7 +9,7 @@
         "ext-mbstring": "*",
         "ext-sodium": "*",
         "twig/twig": "^3",
-        "phpmailer/phpmailer": "^6",
+        "phpmailer/phpmailer": "^7",
         "league/commonmark": "^2",
         "symfony/yaml": "^7"
     },
