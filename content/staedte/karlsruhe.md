@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Karlsruhe: sauber vorbereitete Beschlüsse"
-beschreibung: "WEG-Verwaltung für Karlsruhe, Pforzheim, Baden-Baden und die Südpfalz: Beschlüsse sauber vorbereiten, Rechtsprechung im Blick. Betreuung aus Monheim."
+beschreibung: "WEG-Verwaltung für Karlsruhe, Pforzheim, Baden-Baden und die Südpfalz: Beschlüsse sauber vorbereiten, Rechtsprechung im Blick. Betreuung auch vor Ort."
 stadt: Karlsruhe
 slug: karlsruhe
 bundesland: Baden-Württemberg
@@ -38,8 +38,8 @@ Wir kennen die Regeln, nach denen wir verwalten, und berücksichtigen die Rechts
 
 Der PLZ-Bereich 75 bis 76 reicht von Karlsruhe über Pforzheim, Rastatt und Baden-Baden bis in die Südpfalz mit Landau und Germersheim. Für die badischen Orte gilt die Landesbauordnung Baden-Württemberg, für die pfälzischen die Landesbauordnung Rheinland-Pfalz, jeweils mit eigenen Vorgaben zu Rauchwarnmeldern. Auch Mieterschutzverordnungen unterscheiden sich nach Land.
 
-## Betreuung aus der Ferne, Termine vor Ort
+## Mitarbeiter vor Ort, Verwaltung zentral
 
-Die HVM betreut Karlsruhe von ihrem Sitz in Monheim am Rhein aus. Eigentümer erreichen uns über das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine vereinbaren wir nach Absprache.
+Die HVM betreut Objekte in Karlsruhe mit Mitarbeitern in der Region, Buchhaltung und Abrechnung laufen an ihrem Sitz in Monheim am Rhein. Eigentümer erreichen uns über das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine vereinbaren wir nach Absprache.
 
 Weiter zur [WEG-Verwaltung](/weg-verwaltung/) oder zum [Verwalterwechsel](/verwalterwechsel/). [Angebot anfordern](/angebot/)

@@ -1,14 +1,14 @@
 ---
 titel: "Hausverwaltung Dresden: WEG-, Miet- und SE-Verwaltung"
-beschreibung: "WEG-Verwaltung in Dresden und im Elbtal mit Fokus auf Erhaltungsplanung und Rücklage. Betreuung aus Monheim am Rhein, Ortstermine nach Absprache."
+beschreibung: "WEG-Verwaltung in Dresden und im Elbtal mit Fokus auf Erhaltungsplanung und Rücklage. Mitarbeiter vor Ort, Buchhaltung zentral."
 stadt: Dresden
 slug: dresden
 bundesland: Sachsen
 stand: 2026-09-24
 freigabe: nein
 faq:
-  - frage: "Kann eine Dresdner Eigentümergemeinschaft von Monheim am Rhein aus verwaltet werden?"
-    antwort: "Ja. Buchhaltung, Abrechnung und Schriftverkehr laufen über unsere Zentrale in Monheim am Rhein und das Eigentümerportal. Begehungen, Abnahmen oder die Eigentümerversammlung stimmen wir mit dem Verwaltungsbeirat ab und nehmen sie vor Ort wahr."
+  - frage: "Wie wird eine Dresdner Eigentümergemeinschaft betreut, wenn der Sitz der HVM in Monheim am Rhein liegt?"
+    antwort: "Buchhaltung, Abrechnung und Schriftverkehr laufen über unsere Zentrale in Monheim am Rhein und das Eigentümerportal. Begehungen, Abnahmen oder die Eigentümerversammlung stimmen wir mit dem Verwaltungsbeirat ab, vor Ort nehmen sie Mitarbeiter der HVM in der Region wahr."
   - frage: "Wie bereiten Sie eine größere Erhaltungsmaßnahme vor?"
     antwort: "Wir erfassen den Zustand des Bauteils, holen vergleichbare Angebote ein und legen der Eigentümerversammlung eine Beschlussvorlage mit Finanzierungsvorschlag vor. Technische Bewertungen übernehmen bei Bedarf Fachplaner oder Sachverständige."
 ---
@@ -33,11 +33,11 @@ Die Postleitzahlen, die mit 01 beginnen, umfassen neben Dresden auch Radebeul, M
 
 ## Zusammenarbeit mit Gemeinschaften in und um Dresden
 
-Die Hausverwaltung Müller GmbH hat ihren Sitz in Monheim am Rhein. Die laufende Verwaltung organisieren wir von dort aus mit digitalen Abläufen:
+Die Hausverwaltung Müller GmbH hat ihren Sitz in Monheim am Rhein. Dort liegt die kaufmännische Verwaltung, im Elbtal sind Mitarbeiter für Termine am Objekt tätig:
 
 - Eigentümer rufen Unterlagen ab und melden Anliegen über das Eigentümerportal mit Ticketsystem.
 - Handwerker und Dienstleister beauftragen und steuern wir zentral, auch über Rahmenverträge für Versicherung, Energie, Hausmeisterdienste und Messdienst.
-- Für Begehungen, Abnahmen und Versammlungen vereinbaren wir Termine vor Ort.
+- Begehungen, Abnahmen und Versammlungen finden vor Ort statt, begleitet von Mitarbeitern aus der Region.
 
 Bei einem Notfall im Gebäude ist der 24/7-Notdienst über die zentrale Rufnummer erreichbar.
 

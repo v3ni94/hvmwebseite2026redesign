@@ -10,7 +10,7 @@ faq:
   - frage: "Ein Eigentümer möchte eine Wallbox in der Tiefgarage. Wie geht die Gemeinschaft vor?"
     antwort: "Der Einbau einer Ladestation ist eine bauliche Veränderung, über die die Eigentümerversammlung beschließt. Wir bereiten den Beschluss vor, holen technische Informationen ein und achten darauf, dass Kostentragung und Durchführung klar geregelt sind."
   - frage: "Betreut die HVM Gemeinschaften in Köln von einem Kölner Büro aus?"
-    antwort: "Nein. Wir verwalten bereits Objekte in Köln, die Betreuung erfolgt aber vom Hauptsitz in Monheim am Rhein. Versammlungen und Begehungen in Köln vereinbaren wir nach Absprache."
+    antwort: "Nein. Ein Kölner Büro gibt es nicht. Objekte in Köln betreuen Mitarbeiter der HVM vor Ort, Versammlungen und Begehungen vereinbaren wir nach Absprache; die Verwaltung sitzt in Monheim am Rhein."
 ---
 
 Wer in Köln Wohnungseigentum besitzt, teilt sich Haus und Entscheidungen mit anderen. Ob eine Fassade gedämmt, ein Aufzug nachgerüstet oder ein Fahrradraum geschaffen wird, entscheidet die Gemeinschaft durch Beschluss. Die Hausverwaltung Müller GmbH verwaltet bereits Objekte in Köln und bereitet solche Entscheidungen so vor, dass sie rechtssicher gefasst und anschließend umgesetzt werden können.
@@ -39,8 +39,8 @@ Nicht jeder Eigentümer einer Kölner Wohnung lebt in Köln. Für Gemeinschaften
 
 Im PLZ-Bereich 50 bis 51 liegen neben Köln unter anderem Leverkusen, Bergisch Gladbach, Hürth, Frechen und Pulheim. Für alle diese Orte gilt nordrhein-westfälisches Landesrecht, also die Landesbauordnung NRW einschließlich der Regeln zu Rauchwarnmeldern. Ob die Mieterschutzverordnung des Landes auf eine vermietete Wohnung anwendbar ist, prüfen wir für den jeweiligen Ort.
 
-## Organisation aus Monheim am Rhein
+## Organisation zwischen Köln und Monheim
 
-Köln liegt rheinaufwärts von unserem Hauptsitz in Monheim am Rhein. Ein Büro in Köln haben wir nicht; Versammlungen, Begehungen und Gespräche mit dem Beirat finden nach Absprache vor Ort statt. Zwischen den Terminen erreichen Eigentümer uns über das Portal mit Ticketsystem, bei Notfällen über den 24/7-Notdienst.
+Köln liegt rheinaufwärts von unserem Hauptsitz in Monheim am Rhein. Ein Büro in Köln haben wir nicht; Versammlungen, Begehungen und Gespräche mit dem Beirat übernehmen Mitarbeiter in der Region, die Buchhaltung bleibt in Monheim. Zwischen den Terminen erreichen Eigentümer uns über das Portal mit Ticketsystem, bei Notfällen über den 24/7-Notdienst.
 
 Den gesamten Leistungsumfang für Gemeinschaften finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/). Für vermietete Einheiten ergänzt die [SE-Verwaltung](/se-verwaltung/). [Angebot für Ihre Gemeinschaft anfordern](/angebot/).

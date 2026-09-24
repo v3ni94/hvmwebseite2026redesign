@@ -13,7 +13,7 @@ faq:
     antwort: "Im Portal unter portal.muellerhv.de stellen wir Unterlagen der Gemeinschaft bereit, dort melden Sie auch Anliegen über das Ticketsystem. Den Bearbeitungsstand können Sie dort nachverfolgen."
 ---
 
-Wo Verwaltung und Eigentümer nicht in derselben Stadt sitzen, entscheidet die Organisation darüber, ob die Zusammenarbeit funktioniert. Die Hausverwaltung Müller GmbH betreut Objekte in Chemnitz von Monheim am Rhein aus. Damit das zuverlässig gelingt, sind die Abläufe von der Schadensmeldung bis zur Versammlung auf digitale Wege ausgelegt, ergänzt um Termine vor Ort nach Absprache.
+Wo Verwaltung und Eigentümer nicht in derselben Stadt sitzen, entscheidet die Organisation darüber, ob die Zusammenarbeit funktioniert. Bei der Hausverwaltung Müller GmbH übernehmen Mitarbeiter in der Region die Termine an den Objekten, während Buchhaltung, Abrechnung und Portal in Monheim am Rhein geführt werden. Damit das zuverlässig gelingt, sind die Abläufe von der Schadensmeldung bis zur Versammlung auf digitale Wege ausgelegt.
 
 ## Das Eigentümerportal als gemeinsamer Arbeitsplatz
 

@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Passau: Verwaltung an Donau, Inn und Ilz"
-beschreibung: "Hausverwaltung für Passau, Deggendorf, Straubing und den Bayerischen Wald: Versicherungsschutz, Notdienst und Verkehrssicherung im Blick. Aus Monheim."
+beschreibung: "Hausverwaltung für Passau, Deggendorf, Straubing und den Bayerischen Wald: Versicherungsschutz, Notdienst und Verkehrssicherung im Blick. Betreuung vor Ort."
 stadt: Passau
 slug: passau
 bundesland: Bayern
@@ -37,6 +37,6 @@ Zum Gebiet gehören neben Passau auch Deggendorf, Straubing, Freyung und Zwiesel
 
 ## Wie die HVM Passau betreut
 
-Die HVM betreut Niederbayern von ihrem Hauptsitz in Monheim am Rhein aus. Die laufende Verwaltung erfolgt digital, Begehungen, Schadensaufnahmen und Versammlungen in Präsenz vereinbaren wir nach Absprache. An Versammlungen können Eigentümer auf Beschluss der Gemeinschaft online teilnehmen.
+In Niederbayern betreuen Mitarbeiter der HVM die Objekte vor Ort; Begehungen, Schadensaufnahmen und Versammlungen in Präsenz vereinbaren wir nach Absprache. Die laufende Verwaltung erfolgt digital vom Hauptsitz in Monheim am Rhein. An Versammlungen können Eigentümer auf Beschluss der Gemeinschaft online teilnehmen.
 
 Wir übernehmen die [WEG-Verwaltung](/weg-verwaltung/), die [Mietverwaltung](/mietverwaltung/) und die [SE-Verwaltung](/se-verwaltung/). [Angebot anfordern](/angebot/)

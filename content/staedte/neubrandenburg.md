@@ -13,7 +13,7 @@ faq:
     antwort: "Nicht zwingend. Einzelne Angelegenheiten lassen sich im Umlaufverfahren beschließen, wenn die gesetzlichen Voraussetzungen erfüllt sind. Ob das im konkreten Fall passt, besprechen wir vorab mit dem Beirat."
 ---
 
-Neubrandenburg, die Stadt der vier Tore am Tollensesee, ist Zentrum der Mecklenburgischen Seenplatte. Viele Eigentümergemeinschaften hier sind überschaubar groß, und oft übernimmt ein engagierter Verwaltungsbeirat einen Teil der Abstimmung im Haus. Genau auf diese Konstellation ist unsere Arbeitsweise ausgerichtet: Die Hausverwaltung Müller GmbH verwaltet von Monheim am Rhein aus und arbeitet dafür eng mit dem Beirat zusammen.
+Neubrandenburg, die Stadt der vier Tore am Tollensesee, ist Zentrum der Mecklenburgischen Seenplatte. Viele Eigentümergemeinschaften hier sind überschaubar groß, und oft übernimmt ein engagierter Verwaltungsbeirat einen Teil der Abstimmung im Haus. Genau auf diese Konstellation ist unsere Arbeitsweise ausgerichtet: Mitarbeiter der Hausverwaltung Müller GmbH betreuen die Häuser in der Region und arbeiten eng mit dem Beirat zusammen, Buchhaltung und Abrechnung laufen in Monheim am Rhein.
 
 ## Der Beirat als Bindeglied
 

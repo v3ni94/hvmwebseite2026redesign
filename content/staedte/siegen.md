@@ -35,7 +35,7 @@ Wechselt eine bislang selbst verwaltete Gemeinschaft zu einem Verwalter, bestell
 
 ## So arbeiten wir mit Südwestfalen
 
-Die Hausverwaltung Müller GmbH betreut Objekte in dieser Region von Monheim am Rhein aus, ein Büro in Siegen gibt es nicht. Eigentümer nutzen das Portal mit Ticketsystem und können an Versammlungen online teilnehmen, wenn die Gemeinschaft das beschließt. Termine vor Ort vereinbaren wir nach Absprache.
+Objekte in dieser Region betreuen Mitarbeiter der Hausverwaltung Müller GmbH vor Ort, ein Büro in Siegen gibt es nicht; Buchhaltung und Abrechnung laufen über Monheim am Rhein. Eigentümer nutzen das Portal mit Ticketsystem und können an Versammlungen online teilnehmen, wenn die Gemeinschaft das beschließt. Termine vor Ort vereinbaren wir nach Absprache.
 
 ## Landesrecht beachten
 

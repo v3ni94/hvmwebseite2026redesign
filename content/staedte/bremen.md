@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Bremen: Verwaltervertrag und Kosten klar"
-beschreibung: "Hausverwaltung für Bremen, Bremerhaven und Umland: Angebot mit Vertragsentwurf, keine Aufnahmegebühr, klare Laufzeit. Betreuung aus Monheim am Rhein."
+beschreibung: "Hausverwaltung für Bremen, Bremerhaven und Umland: Angebot mit Vertragsentwurf, keine Aufnahmegebühr, klare Laufzeit. Betreuung vor Ort in der Region."
 stadt: Bremen
 slug: bremen
 bundesland: Bremen
@@ -12,7 +12,7 @@ faq:
   - frage: "Welche Kosten entstehen beim Wechsel zu Ihnen?"
     antwort: "Eine Aufnahmegebühr erheben wir nicht. Die laufende Vergütung und etwaige Sonderleistungen ergeben sich aus dem schriftlichen Angebot und dem Vertragsentwurf für Ihr Objekt."
   - frage: "Betreuen Sie auch Objekte in Bremerhaven?"
-    antwort: "Ja. Bremerhaven gehört zum Land Bremen und liegt in dem Gebiet, das wir von Monheim am Rhein aus betreuen. Ortstermine vereinbaren wir nach Absprache."
+    antwort: "Ja. Bremerhaven gehört zum Land Bremen und liegt in unserem Betreuungsgebiet. Termine im Objekt nehmen Mitarbeiter vor Ort nach Absprache wahr."
 ---
 
 Bevor eine Eigentümergemeinschaft oder ein Vermieter in Bremen eine Verwaltung beauftragt, stehen meist dieselben Fragen im Raum: Was ist im Preis enthalten, was kostet extra, wie lange bindet der Vertrag, und wie kommt man wieder heraus? Diese Seite beantwortet sie für die Hausverwaltung Müller GmbH so konkret, wie es ohne Kenntnis Ihres Objekts möglich ist.
@@ -45,7 +45,7 @@ Die Freie Hansestadt Bremen besteht aus den Städten Bremen und Bremerhaven und 
 
 ## Was Sie nach Vertragsschluss erwarten
 
-Die Verwaltung erfolgt aus Monheim am Rhein. Dazu gehören:
+Mitarbeiter der HVM kümmern sich vor Ort um das Objekt, Abrechnung und Buchhaltung erfolgen in Monheim am Rhein. Dazu gehören:
 
 - Eigentümerportal mit Ticketsystem
 - 24/7-Notdienst über die zentrale Rufnummer

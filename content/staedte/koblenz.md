@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Koblenz und Mittelrhein"
-beschreibung: "WEG-Verwaltung für Koblenz, Mainz und das nördliche Rheinland-Pfalz mit Online-Teilnahme an Eigentümerversammlungen und Portal. Betreuung aus Monheim."
+beschreibung: "WEG-Verwaltung für Koblenz, Mainz und das nördliche Rheinland-Pfalz mit Online-Teilnahme an Eigentümerversammlungen und Portal. Mitarbeiter in der Region."
 stadt: Koblenz
 slug: koblenz
 bundesland: Rheinland-Pfalz
@@ -31,9 +31,9 @@ Die rechtlichen Grundlagen erläutern die Beiträge [Die Eigentümerversammlung]
 
 Über das Eigentümerportal mit Ticketsystem erhalten Eigentümer Protokolle und Abrechnungen und reichen Anliegen ein. Der Verwaltungsbeirat sieht, welche Vorgänge offen sind. Wichtige Entscheidungen, die nicht bis zur nächsten Versammlung warten können, lassen sich unter Umständen im [Umlaufverfahren](/wissen/umlaufbeschluss/) beschließen.
 
-## Ehrlich zur Entfernung
+## Vor Ort und zentral
 
-Koblenz liegt ein gutes Stück von unserem Hauptsitz in Monheim am Rhein entfernt. Deshalb setzen wir auf digitale Abläufe und planen Ortstermine gezielt: für Begehungen, Schadensaufnahmen oder Versammlungen in Präsenz, jeweils nach Absprache. Für Notfälle außerhalb der Bürozeiten steht der 24/7-Notdienst zur Verfügung. Für Hausmeisterdienste und Messdienst kann die Gemeinschaft auf die Rahmenverträge der HVM zurückgreifen.
+Koblenz liegt ein gutes Stück von unserem Hauptsitz in Monheim am Rhein entfernt. Dort bleiben Buchhaltung und Abrechnung, für Begehungen, Schadensaufnahmen oder Versammlungen in Präsenz sind Mitarbeiter in der Region nach Absprache vor Ort. Für Notfälle außerhalb der Bürozeiten steht der 24/7-Notdienst zur Verfügung. Für Hausmeisterdienste und Messdienst kann die Gemeinschaft auf die Rahmenverträge der HVM zurückgreifen.
 
 ## Rheinland-pfälzisches Landesrecht
 

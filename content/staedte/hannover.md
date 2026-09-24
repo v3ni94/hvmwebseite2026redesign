@@ -41,6 +41,6 @@ Asset Management richtet sich an Eigentümer mit mehreren Objekten, an Familien,
 
 ## Laufende Verwaltung als Datengrundlage
 
-Asset Management ist nur so gut wie die Zahlen, auf denen es aufbaut. Deshalb verbinden viele Eigentümer es mit der Mietverwaltung oder der [SE-Verwaltung](/se-verwaltung/) durch uns. Für Eigentumswohnungen in Gemeinschaften übernehmen wir zudem die [WEG-Verwaltung](/weg-verwaltung/). Die Betreuung erfolgt aus Monheim am Rhein, über das Portal mit Ticketsystem und mit Terminen vor Ort nach Absprache.
+Asset Management ist nur so gut wie die Zahlen, auf denen es aufbaut. Deshalb verbinden viele Eigentümer es mit der Mietverwaltung oder der [SE-Verwaltung](/se-verwaltung/) durch uns. Für Eigentumswohnungen in Gemeinschaften übernehmen wir zudem die [WEG-Verwaltung](/weg-verwaltung/). Die Betreuung übernehmen Mitarbeiter vor Ort in der Region, die Verwaltung erfolgt in Monheim am Rhein, über das Portal mit Ticketsystem.
 
 [Gespräch zum Asset Management vereinbaren](/kontakt/)

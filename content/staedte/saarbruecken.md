@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Saarbrücken: Hausgeld und Abrechnung"
-beschreibung: "WEG-Verwaltung für Saarbrücken und das Saarland: nachvollziehbares Hausgeld, pünktliche Jahresabrechnung, Portal. Betreuung aus Monheim am Rhein."
+beschreibung: "WEG-Verwaltung für Saarbrücken und das Saarland: nachvollziehbares Hausgeld, pünktliche Jahresabrechnung, Portal. Mitarbeiter vor Ort."
 stadt: Saarbrücken
 slug: saarbruecken
 bundesland: Saarland
@@ -43,8 +43,8 @@ Ein Teil des Hausgelds entfällt auf Verträge der Gemeinschaft. Die HVM verfüg
 
 Im Saarland gelten die Landesbauordnung des Saarlandes und deren Vorgaben zu Rauchwarnmeldern. Der PLZ-Bereich 65 bis 66 umfasst neben dem Saarland auch hessische Orte wie Wiesbaden und Limburg sowie rheinland-pfälzische wie Pirmasens und Zweibrücken. Für diese Objekte berücksichtigen wir das jeweilige Landesrecht, bei vermieteten Wohnungen auch etwaige Mieterschutzverordnungen.
 
-## Betreuung aus Monheim am Rhein
+## Mitarbeiter vor Ort, Abrechnung in Monheim
 
-Ein Büro im Saarland hat die HVM nicht. Wir verwalten vom Hauptsitz in Monheim am Rhein aus, Versammlungen sind mit Online-Teilnahme möglich, sofern die Gemeinschaft das beschließt. Begehungen und Präsenzversammlungen vereinbaren wir nach Absprache.
+Ein Büro im Saarland hat die HVM nicht. Die Gemeinschaften betreuen Mitarbeiter in der Region, Hausgeld und Jahresabrechnung bearbeitet der Hauptsitz in Monheim am Rhein. Versammlungen sind mit Online-Teilnahme möglich, sofern die Gemeinschaft das beschließt. Begehungen und Präsenzversammlungen vereinbaren wir nach Absprache.
 
 Mehr zur [WEG-Verwaltung](/weg-verwaltung/). [Angebot anfordern](/angebot/)

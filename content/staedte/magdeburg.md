@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Magdeburg: neue und bestehende WEG"
-beschreibung: "WEG-Verwaltung in Magdeburg und der Altmark: Teilungserklärung, Gemeinschaftsordnung und Start neuer Gemeinschaften. Betreuung aus Monheim am Rhein."
+beschreibung: "WEG-Verwaltung in Magdeburg und der Altmark: Teilungserklärung, Gemeinschaftsordnung und Start neuer Gemeinschaften. Betreuung durch Mitarbeiter vor Ort."
 stadt: Magdeburg
 slug: magdeburg
 bundesland: Sachsen-Anhalt
@@ -47,6 +47,6 @@ Magdeburg liegt an der Elbe und ist Universitätsstadt. Zum Postleitzahlbereich 
 
 ## Betreuung
 
-Die Hausverwaltung Müller GmbH verwaltet von Monheim am Rhein aus, mit Eigentümerportal und Ticketsystem, 24/7-Notdienst und Ortsterminen nach Absprache. Neben der [WEG-Verwaltung](/weg-verwaltung/) bieten wir [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/) an, ohne Aufnahmegebühr.
+Mitarbeiter der Hausverwaltung Müller GmbH sind in der Region für Ortstermine tätig, Buchhaltung und Eigentümerportal mit Ticketsystem laufen über Monheim am Rhein, dazu der 24/7-Notdienst. Neben der [WEG-Verwaltung](/weg-verwaltung/) bieten wir [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/) an, ohne Aufnahmegebühr.
 
 [Angebot anfordern](/angebot/)

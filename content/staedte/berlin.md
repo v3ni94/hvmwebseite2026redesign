@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Berlin und Brandenburg: WEG und Miete"
-beschreibung: "Die HVM verwaltet bereits in Berlin und Bernau bei Berlin. WEG-, Miet- und SE-Verwaltung für Hauptstadt und Umland, gesteuert aus Monheim am Rhein."
+beschreibung: "Die HVM verwaltet bereits in Berlin und Bernau bei Berlin. WEG-, Miet- und SE-Verwaltung für Hauptstadt und Umland, mit Betreuung vor Ort."
 stadt: Berlin
 slug: berlin
 bundesland: Berlin
@@ -8,12 +8,12 @@ stand: 2026-09-24
 freigabe: nein
 faq:
   - frage: "Verwaltet die Hausverwaltung Müller GmbH bereits Objekte in Berlin?"
-    antwort: "Ja, wir verwalten bereits Objekte in Berlin und in Bernau bei Berlin. Die Betreuung erfolgt aus Monheim am Rhein, Termine vor Ort vereinbaren wir nach Absprache."
+    antwort: "Ja, wir verwalten bereits Objekte in Berlin und in Bernau bei Berlin. Mitarbeiter der HVM betreuen die Objekte vor Ort, die Abrechnung erfolgt zentral in Monheim am Rhein."
   - frage: "Beachten Sie die Berliner Regelungen zum Mieterschutz?"
     antwort: "Ja. Vor Mieterhöhungen und Neuvermietungen prüfen wir, welche Verordnungen des Landes Berlin oder des Landes Brandenburg für die jeweilige Gemeinde aktuell gelten. Bei streitigen Fragen empfehlen wir anwaltliche Beratung."
 ---
 
-Die Hausverwaltung Müller GmbH verwaltet bereits Objekte in Berlin und in Bernau bei Berlin. Wer in der Hauptstadt oder im nördlichen Umland nach einer Verwaltung sucht, trifft also auf eine Organisation, die die Abläufe für diese Region schon eingerichtet hat. Gesteuert wird die Verwaltung von unserem Sitz in Monheim am Rhein.
+Die Hausverwaltung Müller GmbH verwaltet bereits Objekte in Berlin und in Bernau bei Berlin. Wer in der Hauptstadt oder im nördlichen Umland nach einer Verwaltung sucht, trifft also auf eine Organisation, die die Abläufe für diese Region schon eingerichtet hat. In der Region sind Mitarbeiter der HVM für Termine im Objekt tätig; Buchhaltung, Abrechnungen und Portal führen wir an unserem Sitz in Monheim am Rhein.
 
 ## Zwei Länder in einem Postleitzahlbereich
 

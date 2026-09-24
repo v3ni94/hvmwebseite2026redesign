@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Gera: Verwalterwechsel für Ihre WEG"
-beschreibung: "Verwalterwechsel für Eigentümergemeinschaften in Gera, Jena und Ostthüringen: Übergabe, Unterlagen, Start. Ohne Aufnahmegebühr, betreut aus Monheim."
+beschreibung: "Verwalterwechsel für Eigentümergemeinschaften in Gera, Jena und Ostthüringen: Übergabe, Unterlagen, Start. Ohne Aufnahmegebühr, betreut in der Region."
 stadt: Gera
 slug: gera
 bundesland: Thüringen
@@ -39,7 +39,7 @@ Gera liegt an der Weißen Elster im Osten Thüringens. Zum Postleitzahlbereich 0
 
 ## Nach dem Wechsel
 
-Die Hausverwaltung Müller GmbH verwaltet von ihrem Sitz in Monheim am Rhein aus. Eigentümer nutzen das Portal mit Ticketsystem für Anliegen und Unterlagen. Versammlungen führen wir vor Ort oder mit Online-Teilnahme durch, Ortstermine im Objekt legen wir gemeinsam mit dem Beirat fest. Für Notfälle besteht ein 24/7-Notdienst.
+Die Buchhaltung der Hausverwaltung Müller GmbH sitzt in Monheim am Rhein, in der Region betreuen Mitarbeiter die Objekte. Eigentümer nutzen das Portal mit Ticketsystem für Anliegen und Unterlagen. Versammlungen führen wir vor Ort oder mit Online-Teilnahme durch, Ortstermine im Objekt legen wir gemeinsam mit dem Beirat fest. Für Notfälle besteht ein 24/7-Notdienst.
 
 Den vollen Umfang der laufenden Betreuung beschreibt die Seite [WEG-Verwaltung](/weg-verwaltung/).
 

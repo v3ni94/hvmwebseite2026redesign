@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Nürnberg: Mietanpassung und Verwaltung"
-beschreibung: "Miet- und SE-Verwaltung in Nürnberg, Fürth und Erlangen: Mieterhöhung, Index- und Staffelmiete sorgfältig vorbereitet. Betreuung aus Monheim am Rhein."
+beschreibung: "Miet- und SE-Verwaltung in Nürnberg, Fürth und Erlangen: Mieterhöhung, Index- und Staffelmiete sorgfältig vorbereitet. Mitarbeiter vor Ort in der Region."
 stadt: Nürnberg
 slug: nuernberg
 bundesland: Bayern
@@ -44,6 +44,6 @@ Nürnberg ist die zweitgrößte Stadt Bayerns und Mittelpunkt der Metropolregion
 
 ## Zusammenarbeit
 
-Wir betreuen Nürnberger Objekte von Monheim am Rhein aus. Mieterkorrespondenz und Abrechnungen laufen digital, Mieter erreichen uns über das Portal mit Ticketsystem und im Notfall rund um die Uhr. Termine vor Ort vereinbaren wir nach Absprache. Für Gemeinschaften übernehmen wir die [WEG-Verwaltung](/weg-verwaltung/). Eine Aufnahmegebühr fällt nicht an.
+Nürnberger Objekte betreuen Mitarbeiter der HVM in der Region. Mieterkorrespondenz und Abrechnungen laufen digital über Monheim am Rhein, Mieter erreichen uns über das Portal mit Ticketsystem und im Notfall rund um die Uhr. Termine vor Ort vereinbaren wir nach Absprache. Für Gemeinschaften übernehmen wir die [WEG-Verwaltung](/weg-verwaltung/). Eine Aufnahmegebühr fällt nicht an.
 
 [Angebot anfordern](/angebot/)

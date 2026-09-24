@@ -2,10 +2,10 @@
   Stadtseite /hausverwaltung-{slug}/ (Controller: Hvm\Controller\StadtController::show()).
   seite: Hvm\Content\StadtSeite (Text aus content/staedte/{slug}.md), stadt/nachbarn/hauptsitz: Arrays aus
   config/staedte.php (url nur, wenn die Stadtseite in der Umgebung erreichbar ist).
-  Keine Anschrift, kein Büro und keine Ansprechpartner je Stadt: offen, ob die Absenderadressen der
-  Verwaltungssoftware eigene Büros sind (docs/offene-punkte.md A6). Kontakt ausschließlich über den Hauptsitz,
-  der Kontaktblock nennt ausdrücklich die Betreuung durch die HVM mit Sitz in Monheim am Rhein (kein vorgetäuschter
-  Standort). Indexierung nur bei lokalem Bezug (config/staedte.php indexierbar), sonst noindex, follow.
+  Büro ausschließlich in Monheim am Rhein, die übrigen Städte sind Betreuungsgebiete mit Mitarbeitern vor Ort
+  (Angabe der Geschäftsführung vom 24.09.2026, docs/auftraggeber-angaben.md). Daher keine Anschrift, kein Büro und
+  keine Ansprechpartner je Stadt; der Kontaktblock nennt die Betreuung durch Mitarbeiter vor Ort und das Büro am
+  Verwaltungssitz (kein vorgetäuschter Standort). Indexierung über config/staedte.php indexierbar, sonst noindex, follow.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -102,12 +102,18 @@
 </section>
 {% endif %}
 
+{% set sitz = firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort %}
+{% if stadt.hauptsitz %}
+{% set kontakt_text = 'Büro am Hauptsitz der ' ~ firma.name ~ ': ' ~ sitz ~ '. Termine nach Absprache.' %}
+{% else %}
+{% set kontakt_text = 'Betreuung durch Mitarbeiter der ' ~ firma.name ~ ' vor Ort in der Region. Büro und Verwaltungssitz: ' ~ sitz ~ '. Termine nach Absprache.' %}
+{% endif %}
 <section class="l-section" aria-labelledby="kontakt-titel">
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Kontakt',
             titel: 'So erreichen *Sie uns*',
-            text: 'Betreuung durch die ' ~ firma.name ~ ' mit Sitz in ' ~ firma.anschrift.ort ~ '. Termine vor Ort nach Absprache. Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.',
+            text: kontakt_text ~ ' Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.',
             id: 'kontakt-titel',
             geteilt: true,
         }) }}
@@ -115,7 +121,7 @@
         <div class="c-karten">
             {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Telefon', titel: firma.telefon ?: 'Telefon', icon: 'telefon', url: firma.telefon ? tel_href(firma.telefon) : '/kontakt/', fuss: firma.telefon ? 'Anrufen' : 'Zum Kontakt', text: 'Für Anfragen zur Verwaltung und für laufende Anliegen.', zusatz: buerozeiten}) }}
             {{ c.card({klasse: 'c-karte--kompakt c-karte--umbruch', eyebrow: 'E-Mail', titel: firma.email, icon: 'kontakt', url: 'mailto:' ~ firma.email, fuss: 'E-Mail schreiben', text: 'Schriftliche Anfragen, gern mit Angaben zu Ihrem Objekt.'}) }}
-            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Hauptsitz', titel: firma.anschrift.ort, icon: 'haus', url: '/kontakt/', fuss: 'Kontakt und Anfahrt', text: firma.name ~ ', ' ~ firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Besuche nach vorheriger Terminabstimmung.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Büro und Verwaltungssitz', titel: firma.anschrift.ort, icon: 'haus', url: '/kontakt/', fuss: 'Kontakt und Anfahrt', text: firma.name ~ ', ' ~ sitz ~ '. Besuche nach vorheriger Terminabstimmung.'}) }}
         </div>
     </div>
 </section>

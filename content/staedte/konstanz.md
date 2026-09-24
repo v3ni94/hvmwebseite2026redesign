@@ -47,6 +47,6 @@ Der PLZ-Bereich 77 bis 79 umfasst neben Konstanz auch Singen, Villingen-Schwenni
 
 ## Ehrlich zur Entfernung
 
-Die HVM betreut den Bodensee von ihrem Hauptsitz in Monheim am Rhein aus. Unsere Abläufe sind darauf ausgelegt, dass Verwaltung digital funktioniert. Wo ein persönlicher Termin nötig ist, etwa bei einer Begehung, einer Übergabe oder einer Versammlung in Präsenz, stimmen wir ihn mit Ihnen ab.
+Am Bodensee betreuen Mitarbeiter der HVM die Objekte vor Ort, der Hauptsitz in Monheim am Rhein übernimmt Buchhaltung, Abrechnung und Portal. Unsere Abläufe sind darauf ausgelegt, dass die Verwaltung digital funktioniert. Wo ein persönlicher Termin nötig ist, etwa bei einer Begehung, einer Übergabe oder einer Versammlung in Präsenz, stimmen wir ihn mit Ihnen ab.
 
 [Angebot anfordern](/angebot/) oder [Kontakt aufnehmen](/kontakt/)

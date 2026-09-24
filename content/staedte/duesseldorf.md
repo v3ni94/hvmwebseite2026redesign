@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Düsseldorf: WEG-, Miet- und SE-Verwaltung"
-beschreibung: "Verwalterwechsel und WEG-Verwaltung für Düsseldorf aus dem benachbarten Monheim am Rhein. Schriftliches Angebot mit Vertragsentwurf, ohne Aufnahmegebühr."
+beschreibung: "Verwalterwechsel und WEG-Verwaltung für Düsseldorf, Sitz im benachbarten Monheim am Rhein. Schriftliches Angebot mit Vertragsentwurf, ohne Aufnahmegebühr."
 stadt: Düsseldorf
 slug: duesseldorf
 bundesland: Nordrhein-Westfalen
@@ -8,14 +8,14 @@ stand: 2026-09-24
 freigabe: nein
 faq:
   - frage: "Hat die Hausverwaltung Müller GmbH ein Büro in Düsseldorf?"
-    antwort: "Nein. Die Verwaltung erfolgt vom Hauptsitz in Monheim am Rhein, das rheinaufwärts an Düsseldorf grenzt. Ortstermine in Ihrem Objekt, etwa Begehungen oder Eigentümerversammlungen, vereinbaren wir nach Absprache."
+    antwort: "Nein. Büro und Buchhaltung befinden sich am Hauptsitz in Monheim am Rhein, das rheinaufwärts an Düsseldorf grenzt. Ortstermine in Ihrem Objekt, etwa Begehungen oder Eigentümerversammlungen, übernehmen nach Absprache Mitarbeiter in der Region."
   - frage: "Was muss unsere Gemeinschaft für einen Verwalterwechsel vorbereiten?"
     antwort: "Zunächst genügen Angaben zum Objekt, zur Zahl der Einheiten und zum Ende des laufenden Verwaltervertrags. Über die Bestellung entscheidet die Eigentümerversammlung durch Beschluss. Die Abstimmung der Übergabe mit dem bisherigen Verwalter übernehmen danach wir."
   - frage: "Fällt beim Wechsel eine Aufnahmegebühr an?"
     antwort: "Nein, eine Aufnahmegebühr berechnen wir nicht. Die Vergütung ergibt sich aus dem Angebot und dem Verwaltervertrag, dessen Entwurf wir mit dem Angebot übersenden."
 ---
 
-Zwischen der Landeshauptstadt und unserem Hauptsitz in Monheim am Rhein liegen nur wenige Kilometer am Rhein entlang. Ein eigenes Büro in Düsseldorf unterhalten wir nicht, und wir geben auch keines vor. Gemeinschaften, Vermieter und Kapitalanleger aus Düsseldorf betreuen wir von Monheim aus, mit digitalen Abläufen und mit Ortsterminen, die wir nach Absprache vereinbaren.
+Zwischen der Landeshauptstadt und unserem Hauptsitz in Monheim am Rhein liegen nur wenige Kilometer am Rhein entlang. Ein eigenes Büro in Düsseldorf unterhalten wir nicht, und wir geben auch keines vor. Gemeinschaften, Vermieter und Kapitalanleger aus Düsseldorf betreuen unsere Mitarbeiter vor Ort, Abrechnung und Portal laufen über Monheim.
 
 ## Anlass Nummer eins: der Wechsel der Verwaltung
 

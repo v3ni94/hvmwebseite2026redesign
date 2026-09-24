@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Leipzig: SE-Verwaltung für Kapitalanleger"
-beschreibung: "SE-Verwaltung für vermietete Eigentumswohnungen in Leipzig, Halle und Umgebung, dazu WEG- und Mietverwaltung. Betreuung aus Monheim am Rhein."
+beschreibung: "SE-Verwaltung für vermietete Eigentumswohnungen in Leipzig, Halle und Umgebung, dazu WEG- und Mietverwaltung. Vor Ort betreut, digital verwaltet."
 stadt: Leipzig
 slug: leipzig
 bundesland: Sachsen
@@ -43,7 +43,7 @@ Beschließt die Eigentümergemeinschaft eine Maßnahme, die Ihre Wohnung betriff
 
 ## Transparenz für Eigentümer auf Distanz
 
-Die Hausverwaltung Müller GmbH arbeitet von Monheim am Rhein aus. Abrechnungen, Mieterkorrespondenz und Belege stehen im Eigentümerportal bereit, Mieter melden Anliegen über das Ticketsystem. Wohnungsübergaben und andere Termine im Objekt vereinbaren wir mit Ihnen. So behalten Sie den Überblick, ohne für jede Kleinigkeit nach Leipzig reisen zu müssen.
+Die Hausverwaltung Müller GmbH erstellt die Abrechnungen in Monheim am Rhein, vor Ort betreuen Mitarbeiter in der Region die Wohnungen. Abrechnungen, Mieterkorrespondenz und Belege stehen im Eigentümerportal bereit, Mieter melden Anliegen über das Ticketsystem. Wohnungsübergaben und andere Termine im Objekt vereinbaren wir mit Ihnen. So behalten Sie den Überblick, ohne für jede Kleinigkeit nach Leipzig reisen zu müssen.
 
 ## Wenn Sie verkaufen oder bewerten lassen möchten
 

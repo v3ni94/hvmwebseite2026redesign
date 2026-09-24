@@ -41,8 +41,8 @@ Eine ausführliche Darstellung mit Unterlagenliste bietet der Beitrag [Verwalter
 
 Danach übernehmen wir die [WEG-Verwaltung](/weg-verwaltung/) mit Wirtschaftsplan, Jahresabrechnung, Versammlungen und Erhaltung. Eigentümer, die ihre Wohnung vermieten, können zusätzlich die [SE-Verwaltung](/se-verwaltung/) beauftragen.
 
-## Bayerisches Recht, Betreuung aus Monheim
+## Bayerisches Recht, Betreuung vor Ort
 
-Für Objekte in Augsburg und Schwaben gelten die Bayerische Bauordnung mit ihrer Rauchwarnmelderpflicht und gegebenenfalls die Mieterschutzverordnung des Freistaats. Ein Büro in Bayern hat die HVM nicht; verwaltet wird vom Hauptsitz in Monheim am Rhein. Versammlungen und Begehungen vor Ort vereinbaren wir nach Absprache, die Online-Teilnahme an Versammlungen ist nach Beschluss der Gemeinschaft möglich.
+Für Objekte in Augsburg und Schwaben gelten die Bayerische Bauordnung mit ihrer Rauchwarnmelderpflicht und gegebenenfalls die Mieterschutzverordnung des Freistaats. Ein Büro in Bayern hat die HVM nicht. Versammlungen und Begehungen nehmen Mitarbeiter wahr, die für uns in der Region unterwegs sind, Buchhaltung und Portal werden von Monheim am Rhein aus geführt. Termine vereinbaren wir nach Absprache, die Online-Teilnahme an Versammlungen ist nach Beschluss der Gemeinschaft möglich.
 
 [Angebot für den Verwalterwechsel anfordern](/angebot/)

@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Stuttgart: Erhaltung planen, Werte sichern"
-beschreibung: "WEG- und Mietverwaltung für Stuttgart, Ludwigsburg, Esslingen und Heilbronn mit Schwerpunkt Erhaltungsplanung und Modernisierung. Betreuung aus Monheim."
+beschreibung: "WEG- und Mietverwaltung für Stuttgart, Ludwigsburg, Esslingen und Heilbronn mit Schwerpunkt Erhaltungsplanung und Modernisierung. Betreuung vor Ort."
 stadt: Stuttgart
 slug: stuttgart
 bundesland: Baden-Württemberg
@@ -41,8 +41,8 @@ Für Eigentümer vermieteter Häuser gilt eine eigene Logik: Modernisierungen m�
 
 Für Objekte in Stuttgart gelten die Landesbauordnung Baden-Württemberg mit der Rauchwarnmelderpflicht und, für vermietete Wohnungen, gegebenenfalls die Mieterschutzverordnung des Landes. Im PLZ-Bereich 70 bis 74 betrifft das auch Ludwigsburg, Esslingen, Böblingen, Reutlingen, Tübingen und Heilbronn.
 
-## Verwaltung aus Monheim am Rhein
+## Vor Ort betreut, zentral verwaltet
 
-Verwaltet wird vom Hauptsitz in Monheim am Rhein; Begehungen und Versammlungen vor Ort vereinbaren wir nach Absprache, auf Wunsch der Gemeinschaft mit Online-Teilnahme. Eigentümer verfolgen laufende Maßnahmen und Unterlagen im Portal.
+Buchhaltung und Abrechnung laufen am Hauptsitz in Monheim am Rhein; Begehungen und Versammlungen vor Ort begleiten Mitarbeiter aus der Region nach Absprache, auf Wunsch der Gemeinschaft mit Online-Teilnahme. Eigentümer verfolgen laufende Maßnahmen und Unterlagen im Portal.
 
 Den Leistungsumfang für Gemeinschaften finden Sie unter [WEG-Verwaltung](/weg-verwaltung/). [Angebot anfordern](/angebot/)

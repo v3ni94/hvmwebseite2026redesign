@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Kiel: Hausgeld, Abrechnung, WEG-Finanzen"
-beschreibung: "WEG-Verwaltung für Kiel, Lübeck und Schleswig-Holstein: Wirtschaftsplan, Hausgeld und Jahresabrechnung nachvollziehbar. Betreut aus Monheim am Rhein."
+beschreibung: "WEG-Verwaltung für Kiel, Lübeck und Schleswig-Holstein: Wirtschaftsplan, Hausgeld und Jahresabrechnung nachvollziehbar. Vor Ort betreut, zentral abgerechnet."
 stadt: Kiel
 slug: kiel
 bundesland: Schleswig-Holstein
@@ -45,6 +45,6 @@ Kiel ist Landeshauptstadt Schleswig-Holsteins und Universitätsstadt. Zum Postle
 
 ## Wie wir arbeiten
 
-Die Hausverwaltung Müller GmbH verwaltet von Monheim am Rhein aus. Buchhaltung und Abrechnung laufen zentral, Eigentümer greifen digital auf Unterlagen zu, und Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine in Kiel und Umgebung vereinbaren wir nach Absprache.
+Buchhaltung und Abrechnung laufen zentral in Monheim am Rhein, am Sitz der Hausverwaltung Müller GmbH, Eigentümer greifen digital auf Unterlagen zu, und Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine in Kiel und Umgebung nehmen Mitarbeiter der HVM in der Region nach Absprache wahr.
 
 Weitere Leistungen: [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/), [SE-Verwaltung](/se-verwaltung/). Ohne Aufnahmegebühr. [Angebot anfordern](/angebot/)

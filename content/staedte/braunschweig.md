@@ -35,7 +35,7 @@ Gehwege, Treppen, Spielplätze und Beleuchtung müssen so beschaffen sein, dass 
 
 ## Für Eigentümer und Vermieter
 
-Hinter dem Service für Bewohner steht die laufende Verwaltung aus Monheim am Rhein. Wir übernehmen die [WEG-Verwaltung](/weg-verwaltung/) für Gemeinschaften, die [Mietverwaltung](/mietverwaltung/) für Vermieter und die [SE-Verwaltung](/se-verwaltung/) für einzelne Wohnungen. Handwerker beauftragen wir auch über Rahmenverträge, unter anderem für Hausmeisterdienste. Ortstermine im Objekt legen wir nach Absprache fest. Eine Aufnahmegebühr fällt nicht an.
+Hinter dem Service für Bewohner stehen Mitarbeiter, die das Objekt in der Region betreuen, und die laufende Buchhaltung in Monheim am Rhein. Wir übernehmen die [WEG-Verwaltung](/weg-verwaltung/) für Gemeinschaften, die [Mietverwaltung](/mietverwaltung/) für Vermieter und die [SE-Verwaltung](/se-verwaltung/) für einzelne Wohnungen. Handwerker beauftragen wir auch über Rahmenverträge, unter anderem für Hausmeisterdienste. Ortstermine im Objekt legen wir nach Absprache fest. Eine Aufnahmegebühr fällt nicht an.
 
 ## Braunschweig und die Region zwischen Harz und Heide
 

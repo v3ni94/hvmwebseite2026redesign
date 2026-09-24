@@ -15,15 +15,22 @@ declare(strict_types=1);
  *               Objektadresse, dient nur der Karte und der Auswahl benachbarter Stadtseiten.
  * bestand_orte  Orte, in denen die HVM bereits Objekte verwaltet (nur Ortsnamen, Angabe der Geschäftsführung)
  * hauptsitz     nur Monheim am Rhein (Sitz laut Handelsregister, config/unternehmen.php)
- * indexierbar   true nur bei echtem lokalem Bezug: Hauptsitz und Städte mit bereits verwalteten Objekten
- *               (bestand_orte). Übrige Stadtseiten: noindex, follow, nicht in sitemap.xml und llms.txt, Canonical
- *               auf sich selbst (docs/seo-geo.md Abschnitt „Stadtseiten und lokale Präsenz“). Eine Stadt wird
- *               indexierbar, sobald dort ein Objekt verwaltet wird (bestand_orte ergänzen, indexierbar true).
+ * indexierbar   true für alle 42 Städte (Entscheidung vom 24.09.2026): Büro nur in Monheim am Rhein, alle übrigen
+ *               Städte sind Betreuungsgebiete mit Mitarbeitern vor Ort, die Stadttexte sind eigenständig
+ *               (docs/seo-geo.md Abschnitt „Stadtseiten und lokale Präsenz“). Städte mit ausdrücklichem
+ *               indexierbar: true (Hauptsitz und bestand_orte) bleiben auch nach einem Zurücksetzen indexierbar.
  *
- * Bewusst keine Anschriften, Telefonnummern oder Ansprechpartner je Stadt: Ob die Absenderadressen eigene Büros,
- * Partnerbüros oder Postanschriften sind, ist offen (docs/offene-punkte.md A6). Kein LocalBusiness je Stadt.
+ * Schalter zum Zurücksetzen: $standardIndexierbar auf false setzen. Dann sind nur Hauptsitz und Städte mit
+ * bestand_orte indexierbar, alle übrigen Stadtseiten noindex, follow, nicht in sitemap.xml und llms.txt, Canonical
+ * auf sich selbst (Stand vor dem 24.09.2026).
+ *
+ * Bewusst keine Anschriften, Telefonnummern oder Ansprechpartner je Stadt: Es gibt dort keine Büros (Angabe der
+ * Geschäftsführung vom 24.09.2026, docs/auftraggeber-angaben.md). Kein LocalBusiness je Stadt, nur Service mit
+ * areaServed.
  */
-$stadt = static fn (string $slug, string $name, string $bundesland, string $von, string $bis, float $lon, float $lat, array $bestand = [], bool $hauptsitz = false, bool $indexierbar = false): array => [
+$standardIndexierbar = true;
+
+$stadt = static fn (string $slug, string $name, string $bundesland, string $von, string $bis, float $lon, float $lat, array $bestand = [], bool $hauptsitz = false, ?bool $indexierbar = null): array => [
     'slug' => $slug,
     'name' => $name,
     'bundesland' => $bundesland,
@@ -32,7 +39,7 @@ $stadt = static fn (string $slug, string $name, string $bundesland, string $von,
     'geo' => [$lon, $lat],
     'bestand_orte' => $bestand,
     'hauptsitz' => $hauptsitz,
-    'indexierbar' => $indexierbar,
+    'indexierbar' => $indexierbar ?? $standardIndexierbar,
 ];
 
 return [

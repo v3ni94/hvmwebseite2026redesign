@@ -14,21 +14,26 @@ use Hvm\Tests\Unit\TestCase;
 
 /**
  * Stadtseiten und Übersicht Betreuungsgebiete mit festen Testinhalten (tests/fixtures/staedte):
- * koeln (freigegeben, indexierbar), dresden und bonn (freigegeben, ohne lokalen Bezug), berlin (Entwurf).
+ * koeln und bonn (freigegeben, indexierbar), dresden (freigegeben, indexierbar ausgeschaltet wie nach einem
+ * Zurücksetzen des Schalters in config/staedte.php), berlin (Entwurf).
  */
 final class StadtControllerTest extends TestCase
 {
     /**
      * @param array<string, string|null> $env
      */
-    private function app(string $appEnv = 'production', array $env = []): Kernel
+    private function app(string $appEnv = 'production', array $env = [], ?string $verzeichnis = null, array $nichtIndexierbar = ['dresden']): Kernel
     {
         $kernel = $this->kernel($appEnv, $env);
         $config = $kernel->container()->get(Config::class);
+        $config->set('staedte', array_map(
+            static fn (array $s): array => in_array($s['slug'], $nichtIndexierbar, true) ? ['indexierbar' => false] + $s : $s,
+            $config->array('staedte')
+        ));
         $kernel->container()->instance(StadtRepository::class, new StadtRepository(
             $config,
             $kernel->container()->get(Log::class),
-            self::basePath() . '/tests/fixtures/staedte'
+            $verzeichnis ?? self::basePath() . '/tests/fixtures/staedte'
         ));
 
         return $kernel;
@@ -83,7 +88,8 @@ final class StadtControllerTest extends TestCase
         self::assertStringContainsString('region=K%C3%B6ln', $html);
         self::assertStringContainsString('02431 9550300', $html);
         self::assertStringContainsString('Montag bis Freitag, 8 bis 16 Uhr', $html);
-        self::assertStringContainsString('Betreuung durch die Hausverwaltung Müller GmbH mit Sitz in Monheim am Rhein. Termine vor Ort nach Absprache.', $html);
+        self::assertStringContainsString('Betreuung durch Mitarbeiter der Hausverwaltung Müller GmbH vor Ort in der Region. Büro und Verwaltungssitz: Rheinpromenade 13, 40789 Monheim am Rhein. Termine nach Absprache.', $html);
+        self::assertStringNotContainsString('Büro am Hauptsitz', $html);
         foreach (['/weg-verwaltung/', '/mietverwaltung/', '/se-verwaltung/', '/wertgutachten/'] as $leistung) {
             self::assertStringContainsString('href="' . $leistung . '"', $html);
         }
@@ -123,6 +129,27 @@ final class StadtControllerTest extends TestCase
         self::assertSame('Monheim am Rhein', $lokal[0]['address']['addressLocality']);
         self::assertSame(1, substr_count(json_encode($schemas, JSON_UNESCAPED_UNICODE), '"PostalAddress"'), 'keine Anschrift je Stadt');
         self::assertCount(1, self::typ($schemas, 'FAQPage'));
+    }
+
+    public function testHauptsitzseiteNenntDasBueroAmHauptsitz(): void
+    {
+        $html = $this->app('production', [], self::basePath() . '/content/staedte')->handle(Request::create('GET', '/hausverwaltung-monheim-am-rhein/'))->body();
+
+        self::assertStringContainsString('Büro am Hauptsitz der Hausverwaltung Müller GmbH: Rheinpromenade 13, 40789 Monheim am Rhein. Termine nach Absprache.', $html);
+        self::assertStringNotContainsString('Betreuung durch Mitarbeiter der', $html);
+    }
+
+    public function testOhneLokalenBezugIndexierbarMitStandardkonfiguration(): void
+    {
+        $response = $this->app('production', [], null, [])->handle(Request::create('GET', '/hausverwaltung-dresden/'));
+        self::assertSame(200, $response->status());
+        self::assertStringContainsString('<meta name="robots" content="index, follow', $response->body());
+
+        $sitemap = $this->app('production', [], null, [])->handle(Request::create('GET', '/sitemap.xml'))->body();
+        foreach (['koeln', 'bonn', 'dresden'] as $slug) {
+            self::assertStringContainsString('<loc>' . self::BASE_URL . '/hausverwaltung-' . $slug . '/</loc>', $sitemap);
+        }
+        self::assertStringNotContainsString('/hausverwaltung-berlin/', $sitemap, 'Entwurf nie in der Sitemap');
     }
 
     public function testStadtOhneLokalenBezugIstNoindexMitCanonicalAufSichSelbst(): void

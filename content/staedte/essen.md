@@ -8,7 +8,7 @@ stand: 2026-09-24
 freigabe: nein
 faq:
   - frage: "Verwaltet die HVM bereits im Ruhrgebiet?"
-    antwort: "Ja, im PLZ-Bereich 45 bis 47 verwalten wir bereits in Gelsenkirchen. Objekte in Essen und den umliegenden Städten betreuen wir von unserem Hauptsitz in Monheim am Rhein aus."
+    antwort: "Ja, im PLZ-Bereich 45 bis 47 verwalten wir bereits in Gelsenkirchen. Objekte in Essen und den umliegenden Städten betreuen Mitarbeiter der HVM vor Ort, Abrechnung und Portal laufen über den Hauptsitz in Monheim am Rhein."
   - frage: "Wie lässt sich eine Sonderumlage vermeiden?"
     antwort: "Ganz ausschließen lässt sie sich nicht, etwa bei unvorhergesehenen Schäden. Eine vorausschauende Erhaltungsplanung und eine angemessen bemessene Erhaltungsrücklage verringern aber das Risiko, dass größere Maßnahmen kurzfristig über eine Sonderumlage finanziert werden müssen."
 ---
@@ -29,7 +29,7 @@ Die Jahresabrechnung und der Vermögensbericht zeigen anschließend, wie sich R�
 
 ## Unsere Präsenz in der Region
 
-Im PLZ-Bereich 45 bis 47, zu dem neben Essen auch Gelsenkirchen, Bottrop, Oberhausen, Mülheim an der Ruhr, Duisburg und Krefeld gehören, verwaltet die Hausverwaltung Müller GmbH bereits in Gelsenkirchen. Ein Büro im Ruhrgebiet unterhalten wir nicht. Die Verwaltung erfolgt aus Monheim am Rhein, Begehungen und Versammlungen vor Ort stimmen wir mit Beirat und Eigentümern ab.
+Im PLZ-Bereich 45 bis 47, zu dem neben Essen auch Gelsenkirchen, Bottrop, Oberhausen, Mülheim an der Ruhr, Duisburg und Krefeld gehören, verwaltet die Hausverwaltung Müller GmbH bereits in Gelsenkirchen. Ein Büro im Ruhrgebiet unterhalten wir nicht. Mitarbeiter in der Region nehmen Begehungen und Versammlungen wahr, die wir mit Beirat und Eigentümern abstimmen; die Buchhaltung wird in Monheim am Rhein geführt.
 
 ## Kosten der Bewirtschaftung im Griff
 

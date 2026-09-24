@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Kassel: Verwalten, bewerten, verkaufen"
-beschreibung: "Verkaufsbegleitung und Wertermittlung für Eigentümer in Kassel und Nordhessen, dazu WEG-, Miet- und SE-Verwaltung. Betreuung aus Monheim am Rhein."
+beschreibung: "Verkaufsbegleitung und Wertermittlung für Eigentümer in Kassel und Nordhessen, dazu WEG-, Miet- und SE-Verwaltung. Ortstermine durch Mitarbeiter in der Region."
 stadt: Kassel
 slug: kassel
 bundesland: Hessen
@@ -43,6 +43,6 @@ Die documenta-Stadt Kassel liegt an der Fulda im Norden Hessens. Zum Postleitzah
 
 ## Verwaltung, solange Sie halten
 
-Wer nicht verkauft, dem bieten wir die laufende Betreuung: [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/) oder [SE-Verwaltung](/se-verwaltung/), ohne Aufnahmegebühr. Die Verwaltung erfolgt aus Monheim am Rhein, Besichtigungen und Ortstermine in Kassel vereinbaren wir nach Absprache.
+Wer nicht verkauft, dem bieten wir die laufende Betreuung: [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/) oder [SE-Verwaltung](/se-verwaltung/), ohne Aufnahmegebühr. Besichtigungen und Ortstermine in Kassel übernehmen Mitarbeiter vor Ort nach Absprache, die Abrechnung kommt aus Monheim am Rhein.
 
 [Marktwerteinschätzung anfragen](/kontakt/)

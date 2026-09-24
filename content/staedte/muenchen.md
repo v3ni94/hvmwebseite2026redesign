@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung München: Miet- und SE-Verwaltung"
-beschreibung: "Mietverwaltung oder SE-Verwaltung? Betreuung vermieteter Wohnungen in München, Rosenheim und Landshut unter bayerischem Landesrecht. Aus Monheim am Rhein."
+beschreibung: "Mietverwaltung oder SE-Verwaltung? Betreuung vermieteter Wohnungen in München, Rosenheim und Landshut unter bayerischem Landesrecht. Mit Betreuung vor Ort."
 stadt: München
 slug: muenchen
 bundesland: Bayern
@@ -46,8 +46,8 @@ Für Objekte in München gelten die Bayerische Bauordnung und deren Regelung zu 
 
 Der PLZ-Bereich 80 bis 84 umfasst neben München unter anderem Starnberg, Garmisch-Partenkirchen, Rosenheim, Traunstein und Landshut. Die landesrechtlichen Grundlagen sind überall dieselben, die Anwendbarkeit einer Mieterschutzverordnung kann jedoch von Gemeinde zu Gemeinde verschieden sein.
 
-## Betreuung aus Monheim am Rhein
+## Betreuung vor Ort, Buchhaltung in Monheim
 
-Wir verwalten vom Hauptsitz in Monheim am Rhein aus, Mieter und Eigentümer erreichen uns über das Portal mit Ticketsystem und im Notfall über den 24/7-Notdienst. Übergaben und Termine vor Ort vereinbaren wir nach Absprache.
+Mitarbeiter der HVM betreuen die Wohnungen in der Region, Mietkonten und Abrechnungen führen wir am Hauptsitz in Monheim am Rhein. Mieter und Eigentümer erreichen uns über das Portal mit Ticketsystem und im Notfall über den 24/7-Notdienst. Übergaben und Termine vor Ort vereinbaren wir nach Absprache.
 
 Wenn Sie wissen möchten, welches Modell zu Ihrer Immobilie passt, [fordern Sie ein Angebot an](/angebot/).

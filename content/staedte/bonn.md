@@ -37,7 +37,7 @@ Wir begleiten den Verkauf bis zum Notartermin; die Beurkundung selbst nimmt der 
 
 ## Laufende Verwaltung in Bonn
 
-Wer nicht verkaufen will, sondern eine Verwaltung sucht, erhält bei uns [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/). Die Betreuung erfolgt aus Monheim am Rhein, ein Büro in Bonn haben wir nicht. Ortstermine, etwa für Begehungen, Versammlungen oder Besichtigungen im Rahmen eines Verkaufs, vereinbaren wir nach Absprache.
+Wer nicht verkaufen will, sondern eine Verwaltung sucht, erhält bei uns [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/). Ein Büro in Bonn haben wir nicht. Ortstermine, etwa für Begehungen, Versammlungen oder Besichtigungen im Rahmen eines Verkaufs, übernehmen nach Absprache unsere Mitarbeiter in der Region, die Verwaltung selbst wird in Monheim am Rhein geführt.
 
 ## Zwei Länder im PLZ-Bereich 53 bis 54
 

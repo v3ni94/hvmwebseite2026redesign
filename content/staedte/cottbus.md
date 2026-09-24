@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Cottbus und Lausitz: Miete, WEG, SE"
-beschreibung: "Mietverwaltung für Mehrfamilienhäuser in Cottbus und der Lausitz, dazu WEG- und SE-Verwaltung. Digital betreut aus Monheim am Rhein."
+beschreibung: "Mietverwaltung für Mehrfamilienhäuser in Cottbus und der Lausitz, dazu WEG- und SE-Verwaltung. Vor Ort betreut, digital abgerechnet."
 stadt: Cottbus
 slug: cottbus
 bundesland: Brandenburg
@@ -39,7 +39,7 @@ Beim Wechsel in die Verwaltung übernehmen wir Mietverträge, Kautionsnachweise,
 
 ## Wie die Zusammenarbeit läuft
 
-Unser Sitz ist Monheim am Rhein. Von dort führen wir die Mietkonten, erstellen Abrechnungen und koordinieren Handwerker, bei Bedarf über unsere Rahmenverträge für Hausmeisterdienste, Messdienst, Versicherung, Gas und Strom. Mieter erreichen uns über das Portal oder telefonisch. Übergaben, Besichtigungen und Abnahmen in Cottbus und Umgebung legen wir nach Absprache mit Ihnen fest.
+Unser Sitz ist Monheim am Rhein. Dort führen wir die Mietkonten, erstellen Abrechnungen und koordinieren Handwerker, bei Bedarf über unsere Rahmenverträge für Hausmeisterdienste, Messdienst, Versicherung, Gas und Strom. Mieter erreichen uns über das Portal oder telefonisch. Übergaben, Besichtigungen und Abnahmen in Cottbus und Umgebung übernehmen unsere Mitarbeiter vor Ort, den Termin legen wir mit Ihnen fest.
 
 Neben ganzen Häusern betreuen wir auch Eigentumswohnungen: als [WEG-Verwaltung](/weg-verwaltung/) für die Gemeinschaft oder als [SE-Verwaltung](/se-verwaltung/) für die einzelne vermietete Einheit.
 

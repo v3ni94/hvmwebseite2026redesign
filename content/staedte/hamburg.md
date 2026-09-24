@@ -44,6 +44,6 @@ Hamburg ist Stadtstaat mit eigener Landesbauordnung und eigenen Vorgaben etwa zu
 
 ## So betreuen wir Hamburger Objekte
 
-Die Verwaltung erfolgt vom Sitz der Hausverwaltung Müller GmbH in Monheim am Rhein. Eigentümer nutzen das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Für Begehungen und Präsenzversammlungen vereinbaren wir Termine in Hamburg. Neben der [WEG-Verwaltung](/weg-verwaltung/) bieten wir [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/) an.
+Abrechnung und Buchhaltung erledigt die Hausverwaltung Müller GmbH an ihrem Sitz in Monheim am Rhein, am Objekt sind Mitarbeiter aus der Region für Sie da. Eigentümer nutzen das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Für Begehungen und Präsenzversammlungen vereinbaren wir Termine im Objekt. Neben der [WEG-Verwaltung](/weg-verwaltung/) bieten wir [Mietverwaltung](/mietverwaltung/) und [SE-Verwaltung](/se-verwaltung/) an.
 
 Ein Angebot erhalten Sie schriftlich, zusammen mit dem Entwurf des Verwaltervertrags und ohne Aufnahmegebühr. [Angebot anfordern](/angebot/)

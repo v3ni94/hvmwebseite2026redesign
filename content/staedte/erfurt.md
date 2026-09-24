@@ -46,7 +46,7 @@ Erfurt ist Landeshauptstadt Thüringens. Zum Postleitzahlbereich 99 gehören au�
 
 ## Zwischen den Versammlungen
 
-Die laufende Verwaltung erfolgt aus Monheim am Rhein. Eigentümer erreichen uns über das Portal mit Ticketsystem, im Notfall rund um die Uhr über die zentrale Nummer. Für Begehungen und Präsenzversammlungen sind wir nach Absprache vor Ort. Dringende Einzelfragen lassen sich unter Umständen per [Umlaufbeschluss](/wissen/umlaufbeschluss/) klären.
+Die kaufmännische Verwaltung erfolgt in Monheim am Rhein, vor Ort in der Region sind Mitarbeiter der HVM tätig. Eigentümer erreichen uns über das Portal mit Ticketsystem, im Notfall rund um die Uhr über die zentrale Nummer. Begehungen und Präsenzversammlungen stimmen wir mit Ihnen ab. Dringende Einzelfragen lassen sich unter Umständen per [Umlaufbeschluss](/wissen/umlaufbeschluss/) klären.
 
 Unsere Leistungen: [WEG-Verwaltung](/weg-verwaltung/), [Mietverwaltung](/mietverwaltung/), [SE-Verwaltung](/se-verwaltung/). Keine Aufnahmegebühr, Angebot mit Vertragsentwurf.
 

@@ -14,11 +14,18 @@ final class StadtRepositoryTest extends TestCase
 {
     private const FIXTURES = __DIR__ . '/../../fixtures/staedte';
 
-    private function repository(string $env = 'production', bool $entwuerfe = false, ?string $verzeichnis = self::FIXTURES): StadtRepository
+    /**
+     * @param list<string> $nichtIndexierbar Städte mit indexierbar false (simuliert den zurückgesetzten Schalter)
+     */
+    private function repository(string $env = 'production', bool $entwuerfe = false, ?string $verzeichnis = self::FIXTURES, array $nichtIndexierbar = []): StadtRepository
     {
         $config = Config::fromDirectory(dirname(__DIR__, 3) . '/config');
         $config->set('app.env', $env);
         $config->set('app.show_drafts', $entwuerfe);
+        $config->set('staedte', array_map(
+            static fn (array $s): array => in_array($s['slug'], $nichtIndexierbar, true) ? ['indexierbar' => false] + $s : $s,
+            $config->array('staedte')
+        ));
 
         return new StadtRepository($config, new Log(sys_get_temp_dir(), 'hvm-test.log'), $verzeichnis);
     }
@@ -38,15 +45,29 @@ final class StadtRepositoryTest extends TestCase
         self::assertSame('monheim-am-rhein', $hauptsitz[0]->slug);
     }
 
-    public function testIndexierbarNurHauptsitzUndStaedteMitBestand(): void
+    public function testAlle42StaedteSindIndexierbar(): void
     {
-        $indexierbar = [];
         foreach ($this->repository()->staedte() as $stadt) {
-            if ($stadt->indexierbar) {
-                $indexierbar[] = $stadt->slug;
-            }
-            self::assertSame($stadt->hauptsitz || $stadt->bestandOrte !== [], $stadt->indexierbar, $stadt->slug);
+            self::assertTrue($stadt->indexierbar, $stadt->slug);
         }
+    }
+
+    public function testSchalterZumZuruecksetzenLaesstNurHauptsitzUndStaedteMitBestandIndexierbar(): void
+    {
+        $quelle = (string) file_get_contents(dirname(__DIR__, 3) . '/config/staedte.php');
+        self::assertStringContainsString('$standardIndexierbar = true;', $quelle);
+
+        $datei = sys_get_temp_dir() . '/hvm-staedte-zurueckgesetzt-' . getmypid() . '.php';
+        file_put_contents($datei, str_replace('$standardIndexierbar = true;', '$standardIndexierbar = false;', $quelle));
+        try {
+            $zurueckgesetzt = require $datei;
+        } finally {
+            unlink($datei);
+        }
+        $indexierbar = array_values(array_map(
+            static fn (array $s): string => $s['slug'],
+            array_filter($zurueckgesetzt, static fn (array $s): bool => $s['indexierbar'] === true)
+        ));
         sort($indexierbar);
 
         self::assertSame(['aachen', 'berlin', 'erkelenz', 'essen', 'koeln', 'monheim-am-rhein', 'ulm'], $indexierbar);
@@ -95,7 +116,8 @@ final class StadtRepositoryTest extends TestCase
         self::assertStringStartsWith('<h2 id="erster-abschnitt">', $seite->inhaltHtml);
         self::assertSame([['frage' => 'Testfrage Köln?', 'antwort' => 'Testantwort Köln.']], $seite->faq);
         self::assertTrue($seite->indexierbar());
-        self::assertFalse($this->repository()->seite('dresden')?->indexierbar(), 'freigegeben, aber ohne lokalen Bezug');
+        self::assertTrue($this->repository()->seite('dresden')?->indexierbar());
+        self::assertFalse($this->repository('production', false, self::FIXTURES, ['dresden'])->seite('dresden')?->indexierbar(), 'freigegeben, Schalter aus');
     }
 
     public function testNachbarnSindDieNaechstenSichtbarenSeiten(): void
@@ -144,9 +166,11 @@ final class StadtRepositoryTest extends TestCase
 
     public function testSitemapEnthaeltNurFreigegebeneIndexierbareSeiten(): void
     {
-        $urls = iterator_to_array((new StadtSitemapProvider($this->repository('staging', true)))->sitemapUrls(), false);
+        $locs = static fn (StadtRepository $r): array => array_column(iterator_to_array((new StadtSitemapProvider($r))->sitemapUrls(), false), 'loc');
 
-        self::assertSame([['loc' => '/hausverwaltung-koeln/', 'lastmod' => '2026-09-24']], $urls);
+        // Fixtures: koeln, bonn, dresden freigegeben, berlin Entwurf (nie in der Sitemap)
+        self::assertSame(['/hausverwaltung-dresden/', '/hausverwaltung-koeln/', '/hausverwaltung-bonn/'], $locs($this->repository('staging', true)));
+        self::assertSame(['/hausverwaltung-koeln/'], $locs($this->repository('staging', true, self::FIXTURES, ['dresden', 'bonn'])));
     }
 
     public function testEchteStadttexteSindGueltig(): void

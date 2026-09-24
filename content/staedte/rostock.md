@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Rostock: WEG, Versicherung und Schadensfall"
-beschreibung: "Hausverwaltung für Rostock, Stralsund und die Ostseeküste: Versicherungen der Gemeinschaft, Schadensmanagement, Notdienst. Betreuung aus Monheim."
+beschreibung: "Hausverwaltung für Rostock, Stralsund und die Ostseeküste: Versicherungen der Gemeinschaft, Schadensmanagement, Notdienst. Vor Ort betreut."
 stadt: Rostock
 slug: rostock
 bundesland: Mecklenburg-Vorpommern
@@ -23,7 +23,7 @@ Bewohner melden einen Schaden über das Portal mit Ticketsystem, per Foto dokume
 
 ### Beheben
 
-Wir beauftragen einen geeigneten Handwerksbetrieb, auf Wunsch aus unseren Rahmenverträgen, und stimmen den Termin mit den Betroffenen ab. Die Steuerung erfolgt von unserem Sitz in Monheim am Rhein aus. Wo eine Begutachtung vor Ort erforderlich ist, vereinbaren wir einen Termin im Objekt.
+Wir beauftragen einen geeigneten Handwerksbetrieb, auf Wunsch aus unseren Rahmenverträgen, und stimmen den Termin mit den Betroffenen ab. Die Abwicklung mit dem Versicherer steuern wir von unserem Sitz in Monheim am Rhein. Wo eine Begutachtung vor Ort erforderlich ist, sehen sich Mitarbeiter der HVM aus der Region das Objekt an.
 
 ### Regulieren
 

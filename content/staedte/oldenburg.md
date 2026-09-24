@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Oldenburg: Mietshäuser instand halten"
-beschreibung: "Mietverwaltung in Oldenburg und Ostfriesland mit Instandhaltungsplanung, Modernisierung und CO2-Kostenaufteilung. Betreuung aus Monheim am Rhein."
+beschreibung: "Mietverwaltung in Oldenburg und Ostfriesland mit Instandhaltungsplanung, Modernisierung und CO2-Kostenaufteilung. Betreuung durch Mitarbeiter in der Region."
 stadt: Oldenburg
 slug: oldenburg
 bundesland: Niedersachsen
@@ -39,8 +39,8 @@ In welchem Rhythmus Sie Auswertungen zu Mieteingang, Ausgaben und anstehenden Ma
 
 Oldenburg ist Universitätsstadt im Nordwesten Niedersachsens. Zum Postleitzahlbereich 26 gehören auch Wilhelmshaven, Emden, Leer, Aurich, Norden, Jever, Varel, Westerstede und Papenburg. Für Gebäude dort gelten die Niedersächsische Bauordnung und die landesrechtlichen Vorgaben zu Rauchwarnmeldern.
 
-## Zusammenarbeit über die Entfernung
+## Zusammenarbeit vor Ort und im Portal
 
-Die Betreuung erfolgt vom Sitz der Hausverwaltung Müller GmbH in Monheim am Rhein. Mieter erreichen uns über Portal und Telefon, bei Notfällen rund um die Uhr. Besichtigungen, Abnahmen und Übergaben vereinbaren wir vor Ort nach Absprache. Für Eigentumswohnungen bieten wir [WEG-Verwaltung](/weg-verwaltung/) und [SE-Verwaltung](/se-verwaltung/) an.
+Vor Ort sind Mitarbeiter der HVM für Ihr Objekt tätig, die Buchhaltung erfolgt am Sitz der Hausverwaltung Müller GmbH in Monheim am Rhein. Mieter erreichen uns über Portal und Telefon, bei Notfällen rund um die Uhr. Besichtigungen, Abnahmen und Übergaben vereinbaren wir nach Absprache. Für Eigentumswohnungen bieten wir [WEG-Verwaltung](/weg-verwaltung/) und [SE-Verwaltung](/se-verwaltung/) an.
 
 [Angebot für Ihr Mietshaus anfordern](/angebot/)

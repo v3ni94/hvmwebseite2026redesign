@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Regensburg und Oberpfalz"
-beschreibung: "WEG-Verwaltung für Regensburg, Amberg und die Oberpfalz: enge Zusammenarbeit mit dem Beirat, Erhaltung auch bei Denkmalschutz. Betreuung aus Monheim."
+beschreibung: "WEG-Verwaltung für Regensburg, Amberg und die Oberpfalz: enge Zusammenarbeit mit dem Beirat, Erhaltung auch bei Denkmalschutz. Betreuung vor Ort."
 stadt: Regensburg
 slug: regensburg
 bundesland: Bayern
@@ -36,8 +36,8 @@ Bei Gebäuden, die unter Denkmalschutz stehen, sind Erhaltung und Modernisierung
 
 Neben Regensburg gehören Amberg, Weiden in der Oberpfalz, Neumarkt, Schwandorf, Cham und Kelheim zum Gebiet. Für alle Objekte gelten die Bayerische Bauordnung mit der Rauchwarnmelderpflicht und, für vermietete Wohnungen, gegebenenfalls die Mieterschutzverordnung des Freistaats, deren Anwendbarkeit wir je Gemeinde prüfen.
 
-## Betreuung aus Monheim am Rhein
+## Betreuung in der Oberpfalz
 
-Wir verwalten vom Hauptsitz in Monheim am Rhein aus. Versammlungen führen wir nach Absprache vor Ort oder mit Online-Teilnahme durch, wenn die Gemeinschaft dies beschlossen hat. Begehungen und Termine mit dem Beirat vereinbaren wir gezielt.
+Mitarbeiter der HVM sind in der Region für die Gemeinschaften tätig, Buchhaltung und Abrechnung liegen am Hauptsitz in Monheim am Rhein. Versammlungen führen wir nach Absprache vor Ort oder mit Online-Teilnahme durch, wenn die Gemeinschaft dies beschlossen hat. Begehungen und Termine mit dem Beirat vereinbaren wir gezielt.
 
 Den Leistungsumfang finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/). Für vermietete Wohnungen ergänzt die [SE-Verwaltung](/se-verwaltung/). [Angebot anfordern](/angebot/)

@@ -10,7 +10,7 @@ faq:
   - frage: "Ich wohne in Belgien oder den Niederlanden und besitze eine Wohnung in Aachen. Wie läuft die Kommunikation?"
     antwort: "Unterlagen, Abrechnungen und Anliegen laufen über das Eigentümerportal mit Ticketsystem. An Eigentümerversammlungen können Sie online teilnehmen, wenn die Gemeinschaft das beschlossen hat. So bleiben Sie auch aus dem Ausland handlungsfähig."
   - frage: "In welchen Orten der Region ist die HVM bereits tätig?"
-    antwort: "Im PLZ-Bereich 52 verwalten wir bereits Objekte in Düren, Stolberg, Eschweiler und Linnich. Die Betreuung erfolgt vom Hauptsitz in Monheim am Rhein, Termine vor Ort nach Absprache."
+    antwort: "Im PLZ-Bereich 52 verwalten wir bereits Objekte in Düren, Stolberg, Eschweiler und Linnich. Vor Ort betreuen Mitarbeiter der HVM die Objekte in der Region, Buchhaltung und Abrechnung laufen zentral über Monheim am Rhein."
   - frage: "Prüft die Verwaltung auch den Versicherungsschutz der Gemeinschaft?"
     antwort: "Ja. Wir prüfen die bestehenden Versicherungen der Gemeinschaft und legen der Eigentümerversammlung bei Bedarf Angebote vor, auch über unsere Rahmenverträge. Über Umfang und Abschluss entscheidet die Gemeinschaft."
 ---
@@ -19,9 +19,9 @@ Aachen liegt an der Grenze zu Belgien und den Niederlanden. Die Hochschulstadt m
 
 ## Wo wir in der Region bereits verwalten
 
-Im PLZ-Bereich 52, der von Aachen über die Städteregion bis in den Kreis Düren und Teile des Kreises Heinsberg reicht, betreut die Hausverwaltung Müller GmbH bereits Objekte in **Düren, Stolberg, Eschweiler und Linnich**. Ein Büro in der Region haben wir nicht. Verwaltet wird vom Hauptsitz in Monheim am Rhein, Begehungen, Versammlungen und Übergaben finden nach Absprache vor Ort statt.
+Im PLZ-Bereich 52, der von Aachen über die Städteregion bis in den Kreis Düren und Teile des Kreises Heinsberg reicht, betreut die Hausverwaltung Müller GmbH bereits Objekte in **Düren, Stolberg, Eschweiler und Linnich**. Ein Büro in der Region haben wir nicht. Begehungen, Versammlungen und Übergaben übernehmen nach Absprache Mitarbeiter, die in der Region für uns tätig sind; die kaufmännische Verwaltung sitzt in Monheim am Rhein.
 
-## Verwaltung, die ohne Anfahrt funktioniert
+## Was zwischen den Ortsterminen digital läuft
 
 ### Eigentümerportal mit Ticketsystem
 

@@ -41,6 +41,6 @@ Würzburg liegt am Main und ist Sitz der Regierung von Unterfranken. Der Postlei
 
 ## Organisation
 
-Die Verwaltung erfolgt vom Sitz der Hausverwaltung Müller GmbH in Monheim am Rhein. Übergaben und Besichtigungen in Würzburg und Umgebung vereinbaren wir nach Absprache vor Ort. Mieter nutzen das Portal mit Ticketsystem und den 24/7-Notdienst. Eine Aufnahmegebühr erheben wir nicht.
+Übergaben und Besichtigungen in Würzburg und Umgebung erledigen Mitarbeiter der HVM vor Ort nach Absprache, die Verwaltung erfolgt am Sitz in Monheim am Rhein. Mieter nutzen das Portal mit Ticketsystem und den 24/7-Notdienst. Eine Aufnahmegebühr erheben wir nicht.
 
 [Angebot für die Mietverwaltung anfordern](/angebot/)

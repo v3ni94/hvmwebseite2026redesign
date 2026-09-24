@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Frankfurt: Asset und Property Management"
-beschreibung: "Asset Management, Miet- und SE-Verwaltung für Investoren in Frankfurt am Main, Offenbach und Darmstadt. Kaufmännische Betreuung aus Monheim am Rhein."
+beschreibung: "Asset Management, Miet- und SE-Verwaltung für Investoren in Frankfurt am Main, Offenbach und Darmstadt. Kaufmännische Verwaltung in Monheim, Termine vor Ort."
 stadt: Frankfurt am Main
 slug: frankfurt-am-main
 bundesland: Hessen
@@ -42,6 +42,6 @@ Für Objekte in Frankfurt gelten neben Bundesrecht die Hessische Bauordnung, die
 
 ## Zusammenarbeit über die Distanz
 
-Ein Büro in Frankfurt unterhält die HVM nicht. Wir arbeiten vom Hauptsitz in Monheim am Rhein, Berichte, Abrechnungen und Vorgänge stehen im Portal bereit. Objektbesichtigungen und Gespräche vor Ort vereinbaren wir nach Absprache.
+Ein Büro in Frankfurt unterhält die HVM nicht. Berichte, Abrechnungen und Vorgänge entstehen am Hauptsitz in Monheim am Rhein und stehen im Portal bereit. Objektbesichtigungen und Gespräche vor Ort führen nach Absprache Mitarbeiter, die in der Region für uns tätig sind.
 
 [Gespräch zum Asset Management anfragen](/kontakt/)

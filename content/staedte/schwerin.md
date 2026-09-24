@@ -35,9 +35,9 @@ Schwerin liegt am Schweriner See und ist Sitz der Landesregierung. Der Postleitz
 
 Liegt die Wohnung in einer Eigentümergemeinschaft, sind bei der Vermietung zusätzlich die Hausordnung und die Regeln der Gemeinschaftsordnung zu beachten. Wir geben diese Unterlagen an den neuen Mieter weiter und stimmen Ein- und Auszugstermine, falls nötig, mit der WEG-Verwaltung ab.
 
-## Organisation aus Monheim am Rhein
+## Organisation und Termine vor Ort
 
-Unser Sitz ist Monheim am Rhein. Anzeigen, Anfragen von Interessenten und Vertragsunterlagen bearbeiten wir zentral, Besichtigungen und Übergaben in Schwerin und Umgebung stimmen wir terminlich mit Ihnen ab. Mieter nutzen im Anschluss das Portal mit Ticketsystem und erreichen im Notfall den 24/7-Notdienst.
+Unser Sitz ist Monheim am Rhein. Anzeigen, Anfragen von Interessenten und Vertragsunterlagen bearbeiten wir zentral, Besichtigungen und Übergaben in Schwerin und Umgebung übernehmen Mitarbeiter vor Ort, den Termin stimmen wir mit Ihnen ab. Mieter nutzen im Anschluss das Portal mit Ticketsystem und erreichen im Notfall den 24/7-Notdienst.
 
 Für Eigentumswohnungen bieten wir zusätzlich [WEG-Verwaltung](/weg-verwaltung/) und [SE-Verwaltung](/se-verwaltung/) an.
 

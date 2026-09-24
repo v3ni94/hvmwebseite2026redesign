@@ -8,7 +8,7 @@ stand: 2026-09-24
 freigabe: nein
 faq:
   - frage: "Wo ist die HVM in der Region bereits als Verwalter tätig?"
-    antwort: "Im PLZ-Bereich 88 bis 89 verwalten wir bereits Objekte in Friedrichshafen und Tettnang. Die Betreuung erfolgt vom Hauptsitz in Monheim am Rhein, Ortstermine vereinbaren wir nach Absprache."
+    antwort: "Im PLZ-Bereich 88 bis 89 verwalten wir bereits Objekte in Friedrichshafen und Tettnang. Ortstermine übernehmen Mitarbeiter in der Region nach Absprache, verwaltet wird am Hauptsitz in Monheim am Rhein."
   - frage: "Worauf sollte ich beim Kauf einer Eigentumswohnung achten?"
     antwort: "Neben Lage und Zustand der Wohnung sind die Unterlagen der Gemeinschaft entscheidend: Teilungserklärung, Protokolle der letzten Versammlungen, Wirtschaftsplan, Jahresabrechnung und die Höhe der Erhaltungsrücklage. Sie zeigen, welche Maßnahmen anstehen und wie die Gemeinschaft wirtschaftet."
   - frage: "Gilt in Neu-Ulm dasselbe Recht wie in Ulm?"
@@ -46,6 +46,6 @@ Für baden-württembergische Objekte gilt die Landesbauordnung Baden-Württember
 
 ## Organisation
 
-Die HVM betreut Ulm und den Bodensee von ihrem Sitz in Monheim am Rhein aus. Begehungen, Übergaben und Besichtigungen vor Ort stimmen wir mit Ihnen ab.
+Zwischen Donau und Bodensee sind Mitarbeiter der HVM für Begehungen, Übergaben und Besichtigungen vor Ort tätig, die Termine stimmen wir mit Ihnen ab. Buchhaltung und Abrechnung erfolgen an unserem Sitz in Monheim am Rhein.
 
 [Kontakt aufnehmen](/kontakt/) oder [Angebot anfordern](/angebot/)

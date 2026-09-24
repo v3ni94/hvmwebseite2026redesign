@@ -1,6 +1,6 @@
 ---
 titel: "Hausverwaltung Münster: SE-Verwaltung für Kapitalanleger"
-beschreibung: "SE- und Mietverwaltung für vermietete Eigentumswohnungen in Münster und Osnabrück: Mieterwechsel, Kaution, Übergabe. Betreuung aus Monheim am Rhein."
+beschreibung: "SE- und Mietverwaltung für vermietete Eigentumswohnungen in Münster und Osnabrück: Mieterwechsel, Kaution, Übergabe. Betreuung in der Region."
 stadt: Münster
 slug: muenster
 bundesland: Nordrhein-Westfalen
@@ -13,7 +13,7 @@ faq:
     antwort: "Wir übernehmen die Wohnungsübergabe mit Protokoll, die Abrechnung der Kaution und die Vorbereitung der Neuvermietung. Über die Auswahl neuer Mieter entscheiden Sie als Eigentümer."
 ---
 
-Münster ist Universitätsstadt und zugleich Oberzentrum für das Münsterland. Wer hier eine Eigentumswohnung als Kapitalanlage hält, kennt die Besonderheit: Mietverhältnisse mit Studierenden enden oft mit dem Studium, Übergaben und Neuvermietungen gehören dann zum Alltag der Vermietung. Die Hausverwaltung Müller GmbH übernimmt für Kapitalanleger die Betreuung dieser Wohnungen. Die Verwaltung erfolgt aus Monheim am Rhein, Übergaben und Besichtigungen vor Ort planen wir nach Absprache.
+Münster ist Universitätsstadt und zugleich Oberzentrum für das Münsterland. Wer hier eine Eigentumswohnung als Kapitalanlage hält, kennt die Besonderheit: Mietverhältnisse mit Studierenden enden oft mit dem Studium, Übergaben und Neuvermietungen gehören dann zum Alltag der Vermietung. Die Hausverwaltung Müller GmbH übernimmt für Kapitalanleger die Betreuung dieser Wohnungen. Übergaben und Besichtigungen vor Ort nehmen nach Absprache Mitarbeiter in der Region wahr, die Verwaltung erfolgt in Monheim am Rhein.
 
 ## Sondereigentum ist nicht Gemeinschaftseigentum
 
