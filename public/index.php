@@ -17,6 +17,25 @@ if (PHP_SAPI === 'cli-server') {
     }
 }
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+$autoload = dirname(__DIR__) . '/vendor/autoload.php';
 
-Hvm\Http\Kernel::fromGlobals(dirname(__DIR__))->handle()->send();
+try {
+    if (!is_file($autoload)) {
+        throw new RuntimeException('vendor/autoload.php fehlt: composer install --no-dev ausführen.');
+    }
+    require $autoload;
+    $kernel = Hvm\Http\Kernel::fromGlobals(dirname(__DIR__));
+} catch (Throwable $e) {
+    // Startfehler (fehlende .env, ungültiger APP_KEY, fehlende Abhängigkeiten): Details nur ins Server-Log.
+    error_log('HVM Startfehler: ' . get_class($e) . ': ' . $e->getMessage() . ' (Diagnose: php bin/diagnose.php)');
+    http_response_code(503);
+    header('Content-Type: text/html; charset=utf-8');
+    header('Retry-After: 300');
+    header('X-Robots-Tag: noindex');
+    echo '<!doctype html><html lang="de"><meta charset="utf-8"><title>Wartung</title>'
+        . '<h1>Die Seite ist vorübergehend nicht erreichbar.</h1>'
+        . '<p>Bitte versuchen Sie es in wenigen Minuten erneut. Hausverwaltung Müller GmbH, Telefon 02431 9550300.</p></html>';
+    exit;
+}
+
+$kernel->handle()->send();
