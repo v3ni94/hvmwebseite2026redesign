@@ -37,6 +37,6 @@ Zum Gebiet gehören neben Passau auch Deggendorf, Straubing, Freyung und Zwiesel
 
 ## Wie die HVM Passau betreut
 
-Die HVM hat ihren Hauptsitz in Monheim am Rhein und kein Büro in Niederbayern. Die laufende Verwaltung erfolgt digital, Begehungen, Schadensaufnahmen und Versammlungen in Präsenz vereinbaren wir nach Absprache. An Versammlungen können Eigentümer auf Beschluss der Gemeinschaft online teilnehmen.
+Die HVM betreut Niederbayern von ihrem Hauptsitz in Monheim am Rhein aus. Die laufende Verwaltung erfolgt digital, Begehungen, Schadensaufnahmen und Versammlungen in Präsenz vereinbaren wir nach Absprache. An Versammlungen können Eigentümer auf Beschluss der Gemeinschaft online teilnehmen.
 
 Wir übernehmen die [WEG-Verwaltung](/weg-verwaltung/), die [Mietverwaltung](/mietverwaltung/) und die [SE-Verwaltung](/se-verwaltung/). [Angebot anfordern](/angebot/)

@@ -22,6 +22,7 @@ final class Stadt
         public readonly array $geo,
         public readonly array $bestandOrte,
         public readonly bool $hauptsitz,
+        public readonly bool $indexierbar = false,
     ) {
     }
 
@@ -41,6 +42,7 @@ final class Stadt
             geo: [(float) ($geo[0] ?? 0.0), (float) ($geo[1] ?? 0.0)],
             bestandOrte: array_values(array_map('strval', (array) ($eintrag['bestand_orte'] ?? []))),
             hauptsitz: ($eintrag['hauptsitz'] ?? false) === true,
+            indexierbar: ($eintrag['indexierbar'] ?? false) === true,
         );
     }
 

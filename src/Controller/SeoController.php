@@ -241,7 +241,8 @@ final class SeoController
     }
 
     /**
-     * Betreuungsgebiete: Übersicht, freigegebene Stadtseiten als Links (nie Entwürfe), alle PLZ-Bereiche als Text.
+     * Betreuungsgebiete: Übersicht und indexierbare Stadtseiten (freigegeben und mit lokalem Bezug laut
+     * config/staedte.php) als Links. Entwürfe und Städte ohne lokalen Bezug erscheinen nicht.
      *
      * @return list<string>
      */
@@ -249,7 +250,7 @@ final class SeoController
     {
         $base = $this->baseUrl();
         $zeilen = ['- [Betreuungsgebiete](' . $base . '/betreuungsgebiete/): Übersicht aller Postleitzahlbereiche nach Bundesland mit Karte'];
-        foreach ($this->staedte->freigegebeneSeiten() as $seite) {
+        foreach ($this->staedte->indexierbareSeiten() as $seite) {
             $zeilen[] = sprintf(
                 '- [Hausverwaltung %s](%s%s): Postleitzahlen %s bis %s, %s',
                 $seite->stadt->name,
@@ -260,15 +261,6 @@ final class SeoController
                 $seite->beschreibung
             );
         }
-        $bereiche = array_map(
-            static fn ($s): string => sprintf('%s (%s bis %s)', $s->name, $s->plzVon, $s->plzBis),
-            $this->staedte->staedte()
-        );
-        if ($bereiche !== []) {
-            $zeilen[] = '';
-            $zeilen[] = 'Postleitzahlbereiche: ' . implode(', ', $bereiche) . '.';
-        }
-
         return $zeilen;
     }
 

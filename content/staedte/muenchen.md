@@ -48,6 +48,6 @@ Der PLZ-Bereich 80 bis 84 umfasst neben München unter anderem Starnberg, Garmis
 
 ## Betreuung aus Monheim am Rhein
 
-Die HVM hat kein Büro in München oder Oberbayern. Wir verwalten vom Hauptsitz in Monheim am Rhein aus, Mieter und Eigentümer erreichen uns über das Portal mit Ticketsystem und im Notfall über den 24/7-Notdienst. Übergaben und Termine vor Ort vereinbaren wir nach Absprache.
+Wir verwalten vom Hauptsitz in Monheim am Rhein aus, Mieter und Eigentümer erreichen uns über das Portal mit Ticketsystem und im Notfall über den 24/7-Notdienst. Übergaben und Termine vor Ort vereinbaren wir nach Absprache.
 
 Wenn Sie wissen möchten, welches Modell zu Ihrer Immobilie passt, [fordern Sie ein Angebot an](/angebot/).

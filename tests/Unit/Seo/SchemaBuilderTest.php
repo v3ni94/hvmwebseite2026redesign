@@ -134,7 +134,7 @@ final class SchemaBuilderTest extends TestCase
 
     public function testEchteStammdatenEnthaltenBuerozeitenMontagBisFreitag(): void
     {
-        $config = \Hvm\Support\Config::fromDirectory(self::basePath() . '/config');
+        $config = Config::fromDirectory(dirname(__DIR__, 3) . '/config');
         $config->set('app.url', 'https://www.muellerhv.de');
         $organisation = (new SchemaBuilder($config))->organization();
 

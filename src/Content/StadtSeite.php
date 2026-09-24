@@ -24,4 +24,13 @@ final class StadtSeite
         public readonly array $faq,
     ) {
     }
+
+    /**
+     * Darf in Suchmaschinen, sitemap.xml und llms.txt erscheinen: freigegeben und mit lokalem Bezug
+     * (config/staedte.php indexierbar). Sonst noindex, follow (docs/seo-geo.md, Stadtseiten und lokale Präsenz).
+     */
+    public function indexierbar(): bool
+    {
+        return $this->freigegeben && $this->stadt->indexierbar;
+    }
 }

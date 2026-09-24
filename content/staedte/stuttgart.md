@@ -43,6 +43,6 @@ Für Objekte in Stuttgart gelten die Landesbauordnung Baden-Württemberg mit der
 
 ## Verwaltung aus Monheim am Rhein
 
-Die HVM unterhält kein Büro in Stuttgart. Verwaltet wird vom Hauptsitz in Monheim am Rhein; Begehungen und Versammlungen vor Ort vereinbaren wir nach Absprache, auf Wunsch der Gemeinschaft mit Online-Teilnahme. Eigentümer verfolgen laufende Maßnahmen und Unterlagen im Portal.
+Verwaltet wird vom Hauptsitz in Monheim am Rhein; Begehungen und Versammlungen vor Ort vereinbaren wir nach Absprache, auf Wunsch der Gemeinschaft mit Online-Teilnahme. Eigentümer verfolgen laufende Maßnahmen und Unterlagen im Portal.
 
 Den Leistungsumfang für Gemeinschaften finden Sie unter [WEG-Verwaltung](/weg-verwaltung/). [Angebot anfordern](/angebot/)

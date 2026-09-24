@@ -33,7 +33,7 @@ Die rechtlichen Grundlagen erläutern die Beiträge [Die Eigentümerversammlung]
 
 ## Ehrlich zur Entfernung
 
-Koblenz liegt ein gutes Stück von unserem Hauptsitz in Monheim am Rhein entfernt, und wir haben kein Büro in Rheinland-Pfalz. Deshalb setzen wir auf digitale Abläufe und planen Ortstermine gezielt: für Begehungen, Schadensaufnahmen oder Versammlungen in Präsenz, jeweils nach Absprache. Für Notfälle außerhalb der Bürozeiten steht der 24/7-Notdienst zur Verfügung. Für Hausmeisterdienste und Messdienst kann die Gemeinschaft auf die Rahmenverträge der HVM zurückgreifen.
+Koblenz liegt ein gutes Stück von unserem Hauptsitz in Monheim am Rhein entfernt. Deshalb setzen wir auf digitale Abläufe und planen Ortstermine gezielt: für Begehungen, Schadensaufnahmen oder Versammlungen in Präsenz, jeweils nach Absprache. Für Notfälle außerhalb der Bürozeiten steht der 24/7-Notdienst zur Verfügung. Für Hausmeisterdienste und Messdienst kann die Gemeinschaft auf die Rahmenverträge der HVM zurückgreifen.
 
 ## Rheinland-pfälzisches Landesrecht
 

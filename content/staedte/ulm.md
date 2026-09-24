@@ -46,6 +46,6 @@ Für baden-württembergische Objekte gilt die Landesbauordnung Baden-Württember
 
 ## Organisation
 
-Die HVM hat ihren Sitz in Monheim am Rhein und kein Büro in Ulm oder am Bodensee. Begehungen, Übergaben und Besichtigungen vor Ort stimmen wir mit Ihnen ab.
+Die HVM betreut Ulm und den Bodensee von ihrem Sitz in Monheim am Rhein aus. Begehungen, Übergaben und Besichtigungen vor Ort stimmen wir mit Ihnen ab.
 
 [Kontakt aufnehmen](/kontakt/) oder [Angebot anfordern](/angebot/)

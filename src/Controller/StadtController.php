@@ -75,7 +75,8 @@ final class StadtController
             'description' => $seite->beschreibung,
             // Stadtseiten ohne eigenes Bild: Open-Graph-Bild der Übersicht Betreuungsgebiete
             'og_image' => rtrim((string) $this->config->get('app.url', ''), '/') . '/og/betreuungsgebiete.png',
-            'robots' => $seite->freigegeben ? PageMeta::ROBOTS_INDEX : 'noindex, follow',
+            // indexierbar nur mit Freigabe und lokalem Bezug (config/staedte.php), Canonical bleibt auf sich selbst
+            'robots' => $seite->indexierbar() ? PageMeta::ROBOTS_INDEX : 'noindex, follow',
         ]);
         $page['heading'] = $seite->titel;
         $page['freigabe'] = ['status' => $seite->freigegeben ? 'freigegeben' : 'entwurf', 'datum' => $seite->stand, 'durch' => null];
@@ -107,6 +108,7 @@ final class StadtController
             'hauptsitz' => $stadt->hauptsitz,
             'karte' => $stadt->karte(),
             'url' => $this->staedte->hatSichtbareSeite($stadt->slug) ? $stadt->pfad() : null,
+            'indexierbar' => $stadt->indexierbar,
         ];
     }
 

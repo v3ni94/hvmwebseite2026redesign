@@ -48,6 +48,6 @@ Neben der Miethöhe entscheidet die Betriebskostenabrechnung über das Verhältn
 
 ## Wie wir arbeiten
 
-Die Hausverwaltung Müller GmbH hat kein Büro in Mannheim. Die Verwaltung erfolgt aus Monheim am Rhein, Übergaben und Besichtigungen vor Ort stimmen wir mit Ihnen ab. Vermieter einzelner Eigentumswohnungen finden das passende Angebot in der [SE-Verwaltung](/se-verwaltung/), Wohnungseigentümergemeinschaften in der [WEG-Verwaltung](/weg-verwaltung/).
+Die Verwaltung erfolgt durch die Hausverwaltung Müller GmbH mit Sitz in Monheim am Rhein, Übergaben und Besichtigungen vor Ort stimmen wir mit Ihnen ab. Vermieter einzelner Eigentumswohnungen finden das passende Angebot in der [SE-Verwaltung](/se-verwaltung/), Wohnungseigentümergemeinschaften in der [WEG-Verwaltung](/weg-verwaltung/).
 
 [Angebot für die Mietverwaltung anfordern](/angebot/)

@@ -142,13 +142,23 @@ final class StadtRepository
     }
 
     /**
-     * Freigegebene Seiten (Sitemap, llms.txt), unabhängig von SHOW_DRAFTS.
+     * Freigegebene Seiten, unabhängig von SHOW_DRAFTS.
      *
      * @return list<StadtSeite>
      */
     public function freigegebeneSeiten(): array
     {
         return array_values(array_filter($this->sichtbareSeiten(), static fn (StadtSeite $s): bool => $s->freigegeben));
+    }
+
+    /**
+     * Freigegebene Seiten mit lokalem Bezug (config/staedte.php indexierbar): sitemap.xml und llms.txt.
+     *
+     * @return list<StadtSeite>
+     */
+    public function indexierbareSeiten(): array
+    {
+        return array_values(array_filter($this->sichtbareSeiten(), static fn (StadtSeite $s): bool => $s->indexierbar()));
     }
 
     /**

@@ -7,8 +7,9 @@ namespace Hvm\Content;
 use Hvm\Support\SitemapProvider;
 
 /**
- * Trägt die freigegebenen Stadtseiten (/hausverwaltung-{slug}/) in die XML-Sitemap ein.
- * Entwürfe werden nie aufgenommen, auch wenn sie wegen SHOW_DRAFTS sichtbar sind (wie Wissensartikel).
+ * Trägt die indexierbaren Stadtseiten (/hausverwaltung-{slug}/) in die XML-Sitemap ein: freigegeben und mit
+ * lokalem Bezug (config/staedte.php indexierbar). Entwürfe werden nie aufgenommen, auch wenn sie wegen
+ * SHOW_DRAFTS sichtbar sind (wie Wissensartikel), Städte ohne lokalen Bezug ebenfalls nicht (noindex).
  */
 final class StadtSitemapProvider implements SitemapProvider
 {
@@ -21,7 +22,7 @@ final class StadtSitemapProvider implements SitemapProvider
      */
     public function sitemapUrls(): iterable
     {
-        foreach ($this->staedte->freigegebeneSeiten() as $seite) {
+        foreach ($this->staedte->indexierbareSeiten() as $seite) {
             yield ['loc' => $seite->stadt->pfad(), 'lastmod' => $seite->stand];
         }
     }

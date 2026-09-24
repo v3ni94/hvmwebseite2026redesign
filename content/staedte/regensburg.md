@@ -38,6 +38,6 @@ Neben Regensburg gehören Amberg, Weiden in der Oberpfalz, Neumarkt, Schwandorf,
 
 ## Betreuung aus Monheim am Rhein
 
-Die HVM hat kein Büro in Regensburg. Wir verwalten vom Hauptsitz in Monheim am Rhein aus. Versammlungen führen wir nach Absprache vor Ort oder mit Online-Teilnahme durch, wenn die Gemeinschaft dies beschlossen hat. Begehungen und Termine mit dem Beirat vereinbaren wir gezielt.
+Wir verwalten vom Hauptsitz in Monheim am Rhein aus. Versammlungen führen wir nach Absprache vor Ort oder mit Online-Teilnahme durch, wenn die Gemeinschaft dies beschlossen hat. Begehungen und Termine mit dem Beirat vereinbaren wir gezielt.
 
 Den Leistungsumfang finden Sie auf der Seite [WEG-Verwaltung](/weg-verwaltung/). Für vermietete Wohnungen ergänzt die [SE-Verwaltung](/se-verwaltung/). [Angebot anfordern](/angebot/)

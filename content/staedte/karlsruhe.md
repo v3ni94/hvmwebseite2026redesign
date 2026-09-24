@@ -40,6 +40,6 @@ Der PLZ-Bereich 75 bis 76 reicht von Karlsruhe über Pforzheim, Rastatt und Bade
 
 ## Betreuung aus der Ferne, Termine vor Ort
 
-Die HVM hat ihren Sitz in Monheim am Rhein und kein Büro in Karlsruhe. Eigentümer erreichen uns über das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine vereinbaren wir nach Absprache.
+Die HVM betreut Karlsruhe von ihrem Sitz in Monheim am Rhein aus. Eigentümer erreichen uns über das Portal mit Ticketsystem, Versammlungen sind auch mit Online-Teilnahme möglich. Ortstermine vereinbaren wir nach Absprache.
 
 Weiter zur [WEG-Verwaltung](/weg-verwaltung/) oder zum [Verwalterwechsel](/verwalterwechsel/). [Angebot anfordern](/angebot/)
