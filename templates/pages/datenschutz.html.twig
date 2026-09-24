@@ -4,6 +4,9 @@
   Entwurf ohne Anspruch auf Vollständigkeit, finale Fassung durch Datenschutzbeauftragten oder Rechtsanwalt.
   Rechtsgrundlagen sind Vorschläge zur Prüfung. Offene Punkte: docs/recht-offene-fragen.md.
   Bei neuen Diensten, Formularfeldern oder Empfängern ist diese Seite anzupassen.
+  Stand der Technik: Betrieb ohne Datenbank der Webseite (STORAGE_MODE=datei, Entscheidung der Geschäftsführung vom
+  24.09.2026, docs/n8n-webhook.md). Wird der Datenbankmodus aktiviert, sind die Abschnitte Hosting, Formulare,
+  Interne Weiterverarbeitung und Speicherdauer anzupassen.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -100,7 +103,7 @@
                 <p>Die Verbindung zu dieser Webseite ist per TLS verschlüsselt. Sie erkennen das an der Adresse, die mit https:// beginnt.</p>
 
                 <h2 id="hosting">Hosting</h2>
-                <p>Die Webseite wird auf einem eigenen Server betrieben, den die {{ firma.name }} bei der IONOS SE {{ placeholder('Vertragspartner und Rechtsform verifizieren') }} angemietet hat. Der Serverstandort ist {{ placeholder('Serverstandort bestätigen') }}. Die Datenbank mit Ihren Anfragen liegt auf demselben Server.</p>
+                <p>Die Webseite wird auf einem eigenen Server betrieben, den die {{ firma.name }} bei der IONOS SE {{ placeholder('Vertragspartner und Rechtsform verifizieren') }} angemietet hat. Der Serverstandort ist {{ placeholder('Serverstandort bestätigen') }}. Die Webseite betreibt keine eigene Datenbank. Anfragen werden auf dem Server nur kurz und verschlüsselt zwischengespeichert, bis sie an unsere internen Systeme übermittelt sind (siehe <a href="#formulare-ablauf">Übermittlung und Zwischenspeicherung</a>).</p>
                 <p>Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO {{ placeholder('Vertrag zur Auftragsverarbeitung bestätigen') }}.</p>
                 <p>Rechtsgrundlage: berechtigtes Interesse an einem sicheren und zuverlässigen Betrieb der Webseite, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
@@ -121,7 +124,7 @@
 
                 <h2 id="cookies">Cookies und Sitzung</h2>
                 <p>Beim Aufruf der Informationsseiten werden keine Cookies gesetzt und keine Informationen auf Ihrem Endgerät gespeichert.</p>
-                <p>Nutzen Sie ein Formular (Angebot, Kontakt, Bewerbung), setzt der Server ein Sitzungscookie mit dem Namen <code>hvm_sid</code>. Es enthält nur eine zufällige Kennung und dient dazu, das Formular vor Fremdzugriffen zu schützen (Schutz gegen gefälschte Anfragen) und mehrstufige Eingaben zusammenzuhalten. Das Cookie wird beim Schließen des Browsers gelöscht, die Sitzung auf dem Server endet spätestens nach {{ placeholder('Dauer der Sitzung bei Inaktivität bestätigen') }} ohne Aktivität. Dasselbe Cookie nutzt der interne Verwaltungsbereich für angemeldete Mitarbeiter.</p>
+                <p>Nutzen Sie ein Formular (Angebot, Kontakt, Bewerbung), setzt der Server ein Sitzungscookie mit dem Namen <code>hvm_sid</code>. Es enthält nur eine zufällige Kennung und dient dazu, das Formular vor Fremdzugriffen zu schützen (Schutz gegen gefälschte Anfragen) und mehrstufige Eingaben zusammenzuhalten. Das Cookie wird beim Schließen des Browsers gelöscht, die Sitzung auf dem Server endet spätestens nach {{ placeholder('Dauer der Sitzung bei Inaktivität bestätigen') }} ohne Aktivität.</p>
                 <p>Rechtsgrundlage: Die Speicherung ist für den von Ihnen gewünschten Dienst unbedingt erforderlich und bedarf daher keiner Einwilligung {{ placeholder('Vorschrift des TDDDG zur Ausnahme für unbedingt erforderliche Speicherung verifizieren') }}. Die weitere Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
                 <h2 id="missbrauchsschutz">Schutz vor Missbrauch</h2>
@@ -130,15 +133,23 @@
                 <p>Rechtsgrundlage: berechtigtes Interesse an der Abwehr von Missbrauch, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
                 <h2 id="herkunft">Herkunft von Anfragen</h2>
-                <p>Um zu erkennen, über welchen Weg Anfragen zu uns gelangen, übernehmen wir bei einer Anfrage folgende Angaben, sofern sie vorhanden sind: Kampagnenparameter aus der Adresszeile (utm-Parameter), eine Klickkennung aus Anzeigen bei Google (gclid), die zuerst aufgerufene Seite und den Namen der verweisenden Webseite ohne weitere Adressbestandteile. Diese Angaben werden nicht in Cookies oder im Speicher Ihres Browsers abgelegt, sondern nur über die Adresszeile an das Formular weitergereicht und zusammen mit Ihrer Anfrage gespeichert. Es wird kein Skript von Google oder einem anderen Anbieter geladen.</p>
+                <p>Um zu erkennen, über welchen Weg Anfragen zu uns gelangen, übernehmen wir bei einer Anfrage folgende Angaben, sofern sie vorhanden sind: Kampagnenparameter aus der Adresszeile (utm-Parameter), eine Klickkennung aus Anzeigen bei Google (gclid), die zuerst aufgerufene Seite und den Namen der verweisenden Webseite ohne weitere Adressbestandteile. Diese Angaben werden nicht in Cookies oder im Speicher Ihres Browsers abgelegt, sondern nur über die Adresszeile an das Formular weitergereicht und zusammen mit Ihrer Anfrage übermittelt. Es wird kein Skript von Google oder einem anderen Anbieter geladen.</p>
                 <p>{{ placeholder('Einsatz von Google Ads und Weitergabe der Klickkennung klären') }}</p>
                 <p>Rechtsgrundlage: berechtigtes Interesse an der Auswertung der Wirksamkeit unserer Werbung, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
+
+                <h2 id="formulare-ablauf">Formulare: Übermittlung und Zwischenspeicherung</h2>
+                <p>Die Webseite speichert Anfragen aus dem Angebots-, Kontakt- und Bewerbungsformular nicht in einer eigenen Datenbank. Nach dem Absenden wird Ihre Anfrage auf dem Server der Webseite verschlüsselt und nur so lange zwischengespeichert, bis sie übermittelt ist, im Regelfall wenige Sekunden. Übermittelt wird sie</p>
+                <ul>
+                    <li>verschlüsselt und signiert an unser System zur Automatisierung interner Abläufe (n8n), das die Anfrage in unserer Unternehmensdatenbank zur Bearbeitung ablegt (siehe <a href="#weiterverarbeitung">Interne Weiterverarbeitung</a>),</li>
+                    <li>per E-Mail an die zuständigen Mitarbeiter der {{ firma.name }} sowie als Eingangsbestätigung an Sie (siehe <a href="#e-mail-versand">Versand von E-Mails</a>).</li>
+                </ul>
+                <p>Nach erfolgreicher Übermittlung wird die Zwischenspeicherung auf dem Server der Webseite gelöscht. Ist eine Übermittlung vorübergehend nicht möglich, versucht der Server sie mehrfach über einige Stunden erneut. Scheitert sie endgültig, bleibt die Anfrage verschlüsselt auf dem Server und wird nach {{ placeholder('Aufbewahrungsfrist für fehlgeschlagene Übermittlungen bestätigen, technisch höchstens 30 Tage') }} gelöscht. Zugriff darauf haben nur mit dem Betrieb der Webseite betraute Personen.</p>
 
                 <h2 id="angebotsformular">Angebotsformular</h2>
                 <p>Über das <a href="/angebot/">Angebotsformular</a> können Sie ein Angebot für die Verwaltung Ihrer Immobilie anfordern. Wir verarbeiten dabei:</p>
                 <ul>
                     <li>Angaben zur Immobilie: Verwaltungsart, Anschrift des Objekts, Baujahr, Anzahl der Wohn- und Gewerbeeinheiten und Stellplätze, gewünschter Verwaltungsbeginn, Angabe zu einem bisherigen Verwalter</li>
-                    <li>Kontaktdaten: Anrede, Vor- und Nachname, E-Mail-Adresse, optional Telefonnummer und Anschrift, Ihre Rolle (zum Beispiel Eigentümer oder Beirat)</li>
+                    <li>Kontaktdaten: Anrede, Vor- und Nachname, E-Mail-Adresse, optional Telefonnummer, Ihre Rolle (zum Beispiel Eigentümer oder Beirat)</li>
                     <li>Ihre Nachricht, sofern Sie eine angeben</li>
                     <li>Zeitpunkt der Anfrage und Version des bestätigten Datenschutzhinweises</li>
                     <li>Angaben zur Herkunft der Anfrage (siehe <a href="#herkunft">Herkunft von Anfragen</a>)</li>
@@ -151,7 +162,7 @@
                 <p>Rechtsgrundlage: bei Anfragen im Zusammenhang mit einem Vertrag oder dessen Anbahnung Art. 6 Abs. 1 lit. b DSGVO, im Übrigen berechtigtes Interesse an der Beantwortung von Anfragen, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
                 <h2 id="bewerbungen">Bewerbungen</h2>
-                <p>Über das <a href="/karriere/bewerbung/">Bewerbungsformular</a> können Sie sich bei uns bewerben. Wir verarbeiten die angegebene Stelle, Ihren Namen, Ihre E-Mail-Adresse, optional Ihre Telefonnummer, Ihre Nachricht und die hochgeladenen Unterlagen. Hochgeladene Dateien werden außerhalb des öffentlich erreichbaren Bereichs des Servers verschlüsselt abgelegt. Zugriff haben nur die mit dem Bewerbungsverfahren befassten Personen.</p>
+                <p>Über das <a href="/karriere/bewerbung/">Bewerbungsformular</a> können Sie sich bei uns bewerben. Wir verarbeiten die angegebene Stelle, Ihren Namen, Ihre E-Mail-Adresse, optional Ihre Telefonnummer, Ihre Nachricht und die hochgeladenen Unterlagen. Hochgeladene Unterlagen werden bis zum Versand außerhalb des öffentlich erreichbaren Bereichs des Servers verschlüsselt zwischengespeichert, per E-Mail an die mit dem Bewerbungsverfahren befassten Personen übermittelt und danach auf dem Server der Webseite gelöscht. An unser internes System (n8n) werden nur Angaben zur Bewerbung (Stelle, Name, Kontaktdaten, Art und Größe der Datei) übermittelt, nicht die Unterlagen selbst und nicht Ihre Nachricht.</p>
                 <p>Zweck ist die Durchführung des Bewerbungsverfahrens. Kommt kein Arbeitsverhältnis zustande, werden die Unterlagen nach {{ placeholder('Aufbewahrungsfrist für Bewerbungsunterlagen festlegen') }} gelöscht, sofern Sie nicht in eine längere Speicherung eingewilligt haben.</p>
                 <p>Rechtsgrundlage: Anbahnung eines Beschäftigungsverhältnisses {{ placeholder('Rechtsgrundlage für Bewerberdaten prüfen') }}.</p>
 
@@ -160,7 +171,7 @@
                 <p>Rechtsgrundlage: wie bei der jeweiligen Anfrage, Art. 6 Abs. 1 lit. b oder lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
                 <h2 id="weiterverarbeitung">Interne Weiterverarbeitung</h2>
-                <p>Angebotsanfragen werden nach dem Eingang zusätzlich an ein System zur Automatisierung interner Abläufe (n8n) übermittelt, zum Beispiel zur Anlage eines Vorgangs. Die Übermittlung erfolgt verschlüsselt und signiert. {{ placeholder('Betrieb und Standort von n8n klären, gegebenenfalls Auftragsverarbeiter benennen') }}</p>
+                <p>Anfragen aus dem Angebots-, Kontakt- und Bewerbungsformular werden nach dem Eingang an ein System zur Automatisierung interner Abläufe (n8n) übermittelt, das sie in unserer Unternehmensdatenbank zur Bearbeitung ablegt, zum Beispiel zur Anlage eines Vorgangs. Die Übermittlung erfolgt verschlüsselt und signiert. {{ placeholder('Betrieb n8n und Speicherort der Unternehmensdatenbank klären: eigener Server oder Dienstleister, Standort, gegebenenfalls Auftragsverarbeiter benennen') }}</p>
                 <p>Rechtsgrundlage: wie bei der Anfrage, Art. 6 Abs. 1 lit. b DSGVO, sowie berechtigtes Interesse an effizienten internen Abläufen, Art. 6 Abs. 1 lit. f DSGVO {{ placeholder('Rechtsgrundlage prüfen') }}.</p>
 
                 <h2 id="empfaenger">Empfänger und Drittländer</h2>
@@ -168,8 +179,8 @@
                 <p>Eine Übermittlung in Länder außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums ist nicht vorgesehen {{ placeholder('für alle Dienstleister verifizieren') }}.</p>
 
                 <h2 id="speicherdauer">Speicherdauer</h2>
-                <p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Anfragen, aus denen kein Vertrag entsteht, werden nach {{ placeholder('Aufbewahrungsfrist für Anfragen festlegen') }} gelöscht. Entsteht ein Vertrag, gelten die handels- und steuerrechtlichen Aufbewahrungsfristen {{ placeholder('Fristen durch Steuerberater bestätigen') }}.</p>
-                <p>Datensicherungen der Datenbank werden verschlüsselt und nach {{ placeholder('Aufbewahrungsdauer der Datensicherungen festlegen') }} überschrieben.</p>
+                <p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Auf dem Server der Webseite werden Anfragen nur bis zur Übermittlung zwischengespeichert (siehe <a href="#formulare-ablauf">Übermittlung und Zwischenspeicherung</a>). In unserer Unternehmensdatenbank werden Anfragen, aus denen kein Vertrag entsteht, nach {{ placeholder('Aufbewahrungsfrist für Anfragen festlegen') }} gelöscht. Entsteht ein Vertrag, gelten die handels- und steuerrechtlichen Aufbewahrungsfristen {{ placeholder('Fristen durch Steuerberater bestätigen') }}.</p>
+                <p>Datensicherungen der Unternehmensdatenbank werden nach {{ placeholder('Sicherung und Aufbewahrungsdauer der Datensicherungen der Unternehmensdatenbank festlegen') }} überschrieben.</p>
 
                 <h2 id="rechte">Ihre Rechte</h2>
                 <p>Sie haben nach der Datenschutz-Grundverordnung gegenüber uns folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>

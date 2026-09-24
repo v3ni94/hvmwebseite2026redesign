@@ -28,6 +28,9 @@ use Throwable;
  * Dateien (funktioniert vor den Migrationen), CSRF über die globale Middleware, Sitzung mit neuer ID nach
  * erfolgreicher Anmeldung. Die Sitzung bleibt an den Token gebunden: ein geänderter Token meldet ab.
  *
+ * STORAGE_MODE=datei (Standard): nur Diagnose, Hash-Hilfe und Abschluss, keine Migrationen, kein Admin, kein
+ * Datenbankzugriff.
+ *
  * Funktionen: Diagnose ohne Geheimnisse, Migrationen, erster Admin (TOTP-Geheimnis, otpauth-URI und
  * Wiederherstellungscodes einmalig in der Antwort, nie gespeichert oder protokolliert), Hash-Hilfe für
  * STAGING_BASIC_AUTH, Abschluss (schreibt storage/setup.lock). Nie in Sitemap, robots.txt oder llms.txt.
@@ -121,6 +124,10 @@ final class EinrichtungController
             return $this->anmeldung('Bitte zuerst mit dem Einrichtungs-Token anmelden.', 403);
         }
 
+        if ($this->dateiModus() && in_array($aktion, ['migrieren', 'admin'], true)) {
+            return $this->uebersicht(['fehler' => 'Im Dateimodus (STORAGE_MODE=datei) gibt es keine Datenbank, keine Migrationen und keinen Admin-Bereich.'], 404);
+        }
+
         return match ($aktion) {
             'migrieren' => $this->migrieren(),
             'admin' => $this->adminAnlegen($request),
@@ -174,8 +181,16 @@ final class EinrichtungController
         return self::sicher(Response::redirect(self::PFAD, 303));
     }
 
+    private function dateiModus(): bool
+    {
+        return $this->config->get('app.storage_mode', 'datei') === 'datei';
+    }
+
     private function pdo(): ?PDO
     {
+        if ($this->dateiModus()) {
+            return null;
+        }
         try {
             return $this->container->get(PDO::class);
         } catch (Throwable $e) {
@@ -275,7 +290,9 @@ final class EinrichtungController
     private function abschliessen(Request $request): Response
     {
         if ($request->postValue('bestaetigung') !== 'ja') {
-            return $this->uebersicht(['fehler' => 'Bitte bestätigen, dass Admin-Zugang und Wiederherstellungscodes gesichert sind.'], 422);
+            return $this->uebersicht(['fehler' => $this->dateiModus()
+                ? 'Bitte bestätigen, dass die Diagnose geprüft und das Webhook-Geheimnis in n8n hinterlegt ist.'
+                : 'Bitte bestätigen, dass Admin-Zugang und Wiederherstellungscodes gesichert sind.'], 422);
         }
         $datei = $this->storage() . '/' . self::LOCK_DATEI;
         $inhalt = 'Einrichtung abgeschlossen am ' . gmdate('Y-m-d H:i:s') . " UTC\n";
@@ -286,7 +303,7 @@ final class EinrichtungController
         $this->session->regenerate();
         $this->log->info('Einrichtung abgeschlossen');
 
-        return self::sicher($this->render('einrichtung/abgeschlossen.html.twig', ['titel' => 'Einrichtung abgeschlossen']));
+        return self::sicher($this->render('einrichtung/abgeschlossen.html.twig', ['titel' => 'Einrichtung abgeschlossen', 'datei_modus' => $this->dateiModus()]));
     }
 
     private function anmeldung(?string $fehler, int $status = 200): Response
@@ -323,6 +340,7 @@ final class EinrichtungController
             'titel' => 'Einrichtung',
             'diagnose' => $diagnose->ergebnisse(),
             'diagnose_fehler' => $diagnose->fehlerAnzahl(),
+            'datei_modus' => $this->dateiModus(),
             'datenbank' => $pdo !== null,
             'migrationen_offen' => $offen,
             'admin_anzahl' => $adminAnzahl,

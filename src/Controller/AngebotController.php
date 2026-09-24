@@ -7,9 +7,10 @@ namespace Hvm\Controller;
 use Hvm\Http\Request;
 use Hvm\Http\Response;
 use Hvm\Http\Session;
-use Hvm\Security\RateLimiter;
+use Hvm\Security\FormRateLimiter;
 use Hvm\Security\SpamGuard;
 use Hvm\Service\Attribution;
+use Hvm\Service\DateiAnfrageService;
 use Hvm\Service\LeadService;
 use Hvm\Service\PriceIndication;
 use Hvm\Support\Clock;
@@ -24,6 +25,7 @@ use Throwable;
 /**
  * Angebotsformular (MP 6.1 bis 6.6): Anzeige, Verarbeitung mit PRG, Danke-Seite.
  *
+ * STORAGE_MODE=datei: keine Datenbank, DateiAnfrageService legt Outbox-Dateien an, Rate Limit über Dateien.
  * Datenbankdienste (Rate Limiter, LeadService, Preisindikation) werden erst bei Bedarf aus dem
  * Container geholt, damit die Formularseite auch ohne Datenbankverbindung ausgeliefert wird.
  */
@@ -257,6 +259,12 @@ final class AngebotController
             'region' => $hidden['region'] ?? null,
         ];
         try {
+            if ($this->config->get('app.storage_mode', 'datei') === 'datei') {
+                /** @var DateiAnfrageService $datei */
+                $datei = $this->container->get(DateiAnfrageService::class);
+
+                return $datei->angebot($data, $attribution, $spam, Clock::now());
+            }
             /** @var LeadService $service */
             $service = $this->container->get(LeadService::class);
 
@@ -268,10 +276,10 @@ final class AngebotController
         }
     }
 
-    private function limiter(): ?RateLimiter
+    private function limiter(): ?FormRateLimiter
     {
         try {
-            return $this->container->get(RateLimiter::class);
+            return $this->container->get(FormRateLimiter::class);
         } catch (Throwable $e) {
             $this->log->error('Angebotsformular: Rate Limiter nicht verfügbar', ['fehler' => get_class($e)]);
 
@@ -282,7 +290,7 @@ final class AngebotController
     /**
      * @return array{allowed: bool, hits: int, limit: int, retry_after: int}|null
      */
-    private function safeHit(RateLimiter $limiter, string $bucket, string $ip, int $limit): ?array
+    private function safeHit(FormRateLimiter $limiter, string $bucket, string $ip, int $limit): ?array
     {
         try {
             return $limiter->hit($bucket, $ip, $limit, self::LIMIT_WINDOW);
@@ -295,7 +303,8 @@ final class AngebotController
 
     private function clientPrices(): ?string
     {
-        if (!(bool) $this->config->get('app.price_indication', false)) {
+        // Preisindikation braucht die Staffeln aus der Datenbank, im Dateimodus daher nie
+        if (!(bool) $this->config->get('app.price_indication', false) || $this->config->get('app.storage_mode', 'datei') === 'datei') {
             return null;
         }
         try {

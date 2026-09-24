@@ -7,9 +7,10 @@ namespace Hvm\Controller;
 use Hvm\Http\Request;
 use Hvm\Http\Response;
 use Hvm\Http\Session;
-use Hvm\Security\RateLimiter;
+use Hvm\Security\FormRateLimiter;
 use Hvm\Security\SpamGuard;
 use Hvm\Service\ApplicationService;
+use Hvm\Service\DateiAnfrageService;
 use Hvm\Support\Clock;
 use Hvm\Support\Config;
 use Hvm\Support\Container;
@@ -26,6 +27,7 @@ use Throwable;
  * Die Datei wird nie in old-Werten zurückgegeben (Sicherheit, Praxis bei Datei-Uploads):
  * bei einem Fehler muss die PDF-Datei erneut ausgewählt werden, die übrigen Angaben bleiben erhalten.
  *
+ * STORAGE_MODE=datei: keine Datenbank, DateiAnfrageService legt Outbox-Dateien an, Rate Limit über Dateien.
  * Datenbankdienste (Rate Limiter, ApplicationService) werden erst bei Bedarf aus dem Container geholt,
  * damit die Formularseite auch ohne Datenbankverbindung ausgeliefert wird.
  */
@@ -217,6 +219,14 @@ final class BewerbungController
     private function store(array $data, array $upload, ?array $spam): ?array
     {
         try {
+            if ($this->config->get('app.storage_mode', 'datei') === 'datei') {
+                /** @var DateiAnfrageService $datei */
+                $datei = $this->container->get(DateiAnfrageService::class);
+                /** @var array{tmp_name: string, groesse: int, mime: string} $pruefung */
+                $pruefung = $upload;
+
+                return $datei->bewerbung($data, $pruefung, $spam, Clock::now());
+            }
             $service = $this->application();
             if ($service === null) {
                 return null;
@@ -244,10 +254,10 @@ final class BewerbungController
         }
     }
 
-    private function limiter(): ?RateLimiter
+    private function limiter(): ?FormRateLimiter
     {
         try {
-            return $this->container->get(RateLimiter::class);
+            return $this->container->get(FormRateLimiter::class);
         } catch (Throwable $e) {
             $this->log->error('Bewerbungsformular: Rate Limiter nicht verfügbar', ['fehler' => get_class($e)]);
 
@@ -258,7 +268,7 @@ final class BewerbungController
     /**
      * @return array{allowed: bool, hits: int, limit: int, retry_after: int}|null
      */
-    private function safeHit(RateLimiter $limiter, string $bucket, string $ip, int $limit): ?array
+    private function safeHit(FormRateLimiter $limiter, string $bucket, string $ip, int $limit): ?array
     {
         try {
             return $limiter->hit($bucket, $ip, $limit, self::LIMIT_WINDOW);

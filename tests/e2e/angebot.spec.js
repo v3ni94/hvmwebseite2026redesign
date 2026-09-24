@@ -1,7 +1,7 @@
 // @ts-check
 // Angebotsstrecke im Browser (docs/offene-punkte.md C6): einmal schrittweise mit JavaScript,
-// einmal als einseitiges Formular ohne JavaScript. Speichert fiktive Anfragen (example.org) in der
-// Entwicklungsdatenbank; die Danke-Seite nennt die Verwaltungsart nur nach echter Speicherung
+// einmal als einseitiges Formular ohne JavaScript. Fiktive Anfragen (example.org) gehen im Dateimodus
+// (playwright.config.js) an die lokalen Fake-Empfänger; die Danke-Seite nennt die Verwaltungsart nur nach echter Speicherung
 // (bei Spamverdacht oder Fehler fehlt sie), das dient als Nachweis des erfolgreichen Absendens.
 const { test, expect } = require('@playwright/test');
 const { testIp, testEmail, warteZeitfalle, klicke } = require('./helpers/formular');

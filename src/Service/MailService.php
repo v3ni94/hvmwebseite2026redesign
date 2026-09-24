@@ -11,11 +11,12 @@ use PHPMailer\PHPMailer\PHPMailer;
  * Mailversand über SMTP (PHPMailer, TLS). Wird ausschließlich vom Outbox-Worker aufgerufen.
  *
  * Der Transport ist austauschbar (Tests): callable(array{to: string, subject: string, html: string, text: string,
- * from: string, from_name: string}): void, wirft bei Fehlern eine Ausnahme.
+ * from: string, from_name: string, attachments?: list<array{name: string, mime: string, content: string}>}): void,
+ * wirft bei Fehlern eine Ausnahme.
  */
 final class MailService
 {
-    /** @var (callable(array<string, string>): void)|null */
+    /** @var (callable(array<string, mixed>): void)|null */
     private $transport;
 
     public function __construct(private readonly Config $config, ?callable $transport = null)
@@ -59,7 +60,20 @@ final class MailService
         return filter_var($address, FILTER_VALIDATE_EMAIL) === false ? null : $address;
     }
 
-    public function send(string $to, string $subject, string $html, string $text): void
+    /**
+     * Empfänger der Bewerbungen (BEWERBUNG_NOTIFY_TO), ersatzweise LEAD_NOTIFY_TO, null wenn beides fehlt.
+     */
+    public function bewerbungNotifyAddress(): ?string
+    {
+        $address = trim((string) $this->config->get('app.bewerbung_notify_to', ''));
+
+        return filter_var($address, FILTER_VALIDATE_EMAIL) === false ? $this->leadNotifyAddress() : $address;
+    }
+
+    /**
+     * @param list<array{name: string, mime: string, content: string}> $attachments Anhänge im Klartext (nur im Speicher)
+     */
+    public function send(string $to, string $subject, string $html, string $text, array $attachments = []): void
     {
         if (filter_var($to, FILTER_VALIDATE_EMAIL) === false) {
             throw new \InvalidArgumentException('Ungültige Empfängeradresse.');
@@ -76,6 +90,9 @@ final class MailService
             'from' => (string) $this->config->get('app.mail.from'),
             'from_name' => (string) $this->config->get('app.mail.from_name', 'Hausverwaltung Müller GmbH'),
         ];
+        if ($attachments !== []) {
+            $message['attachments'] = $attachments;
+        }
 
         if ($this->transport !== null) {
             ($this->transport)($message);
@@ -86,7 +103,7 @@ final class MailService
     }
 
     /**
-     * @param array<string, string> $message
+     * @param array<string, mixed> $message
      */
     private function sendSmtp(array $message): void
     {
@@ -119,6 +136,9 @@ final class MailService
         $mail->isHTML(true);
         $mail->Body = $message['html'];
         $mail->AltBody = $message['text'];
+        foreach ((array) ($message['attachments'] ?? []) as $anhang) {
+            $mail->addStringAttachment((string) $anhang['content'], (string) $anhang['name'], PHPMailer::ENCODING_BASE64, (string) $anhang['mime']);
+        }
         $mail->send();
     }
 }

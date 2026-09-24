@@ -91,11 +91,13 @@ Weitere Pakete nur nach Eintrag mit Begründung in `docs/entscheidungen.md`.
 APP_ENV=development|staging|production
 APP_URL=https://www.muellerhv.de
 APP_KEY=base64:...            # 32 Byte, für Verschlüsselung (sodium)
+STORAGE_MODE=datei            # datei (Standard seit 24.09.2026: keine Datenbank, Leads per Webhook an n8n, docs/n8n-webhook.md) oder datenbank
 SHOW_DRAFTS=false             # true nur auf Staging: unfreigegebene Wissensartikel mit Entwurfskennzeichnung zeigen
 PRICE_INDICATION_ENABLED=false
-DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD   # nur bei STORAGE_MODE=datenbank
 MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_ENCRYPTION=tls, MAIL_FROM, MAIL_FROM_NAME
 LEAD_NOTIFY_TO=               # [Empfängeradresse Leads festlegen]
+BEWERBUNG_NOTIFY_TO=          # optional, Bewerbungen im Dateimodus (mit PDF), leer = LEAD_NOTIFY_TO
 N8N_WEBHOOK_URL=, N8N_WEBHOOK_SECRET=
 TRUSTED_PROXIES=172.30.90.0/24  # nur Subnetz des Traefik-Netzes, siehe docs/betrieb.md 1.4
 N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=false  # Produktion: nur https, true erlaubt http an interne Hosts
@@ -173,6 +175,11 @@ Layout `templates/layouts/base.html.twig` stellt Blöcke bereit: `title`, `meta`
 Alte URLs werden über `config/redirects.php` per 301 umgeleitet (Liste und Begründung in `docs/redirects.md`).
 
 ## 10. Datenbank
+
+Gilt nur bei `STORAGE_MODE=datenbank`. Im Standardbetrieb (`STORAGE_MODE=datei`, Entscheidung vom 24.09.2026) hat
+die Webseite keine Datenbank: Formulare legen verschlüsselte Aufträge in `storage/outbox` an
+(`Hvm\Service\DateiAnfrageService`, `Hvm\Service\FileOutbox`), die per signiertem Webhook an n8n und per Mail
+versendet und danach gelöscht werden; Rate Limit über `storage/ratelimit`, kein Admin-Bereich (404).
 
 - Migrationen: `migrations/NNNN_name.sql`, ausgeführt von `bin/migrate.php`, Protokoll in Tabelle `schema_migrations`. Bestehende Migrationen nie ändern, immer neue anlegen.
 - Engine InnoDB, `utf8mb4_unicode_ci`, Zeitstempel als `DATETIME` in UTC.

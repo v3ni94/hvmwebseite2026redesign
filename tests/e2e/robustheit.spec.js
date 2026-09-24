@@ -95,5 +95,6 @@ test('security.txt und /health', async ({ request }) => {
 
   const health = await request.get('/health', { maxRedirects: 0 });
   expect(health.status()).toBe(200);
-  expect(await health.json()).toEqual({ status: 'ok', datenbank: 'ja' });
+  // E2E läuft im Dateimodus (playwright.config.js): keine Datenbank der Webseite
+  expect(await health.json()).toEqual({ status: 'ok', datenbank: 'nicht_verwendet' });
 });

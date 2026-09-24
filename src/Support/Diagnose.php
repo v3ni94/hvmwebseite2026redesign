@@ -102,16 +102,67 @@ final class Diagnose
         $this->pruefeDateien();
         $this->pruefeKonfiguration();
         $this->pruefeSpeicher();
-        $this->pruefeDatenbank();
+        if ($this->dateiModus()) {
+            $this->pruefeDateimodus();
+        } else {
+            $this->pruefeDatenbank();
+        }
 
         return $this;
+    }
+
+    /**
+     * STORAGE_MODE: datei (Standard, keine Datenbank) oder datenbank.
+     */
+    public function dateiModus(): bool
+    {
+        return $this->wert('STORAGE_MODE') !== 'datenbank';
+    }
+
+    /**
+     * Dateimodus: statt der Datenbank die Wege, über die Anfragen die Webseite verlassen (n8n und Mail).
+     */
+    private function pruefeDateimodus(): void
+    {
+        $this->pruefe(true, 'STORAGE_MODE=datei (keine Datenbank, Anfragen per Webhook an n8n und per E-Mail)');
+        $pfad = $this->basis . '/storage/outbox';
+        if (!is_dir($pfad)) {
+            @mkdir($pfad, 0700, true);
+        }
+        $this->pruefe(is_dir($pfad) && is_writable($pfad), 'storage/outbox beschreibbar', 'Ordner storage/outbox anlegen und für den Webserver beschreibbar machen (Rechte 700 bzw. 755).');
+
+        $url = $this->wert('N8N_WEBHOOK_URL');
+        $https = strtolower((string) parse_url($url, PHP_URL_SCHEME)) === 'https' && filter_var($url, FILTER_VALIDATE_URL) !== false;
+        $this->pruefe(
+            $https,
+            'N8N_WEBHOOK_URL ' . ($url === '' ? 'nicht gesetzt' : ($https ? 'gesetzt (https)' : 'ohne https oder ungültig')),
+            'Produktions-URL des n8n-Webhooks mit https:// in .env eintragen. Ohne Webhook werden Anfragen nirgends dauerhaft gespeichert, sie warten in storage/outbox.'
+        );
+        $this->pruefe(
+            strlen($this->wert('N8N_WEBHOOK_SECRET')) >= 32,
+            'N8N_WEBHOOK_SECRET gesetzt (mindestens 32 Zeichen)',
+            'Das Release-Paket enthält ein frisch erzeugtes Geheimnis. Denselben Wert in n8n für die Signaturprüfung hinterlegen (docs/n8n-webhook.md).'
+        );
+        $smtp = array_values(array_filter(['MAIL_HOST', 'MAIL_FROM'], fn (string $k): bool => $this->wert($k) === ''));
+        $this->pruefe(
+            $smtp === [],
+            'SMTP konfiguriert' . ($smtp === [] ? '' : ' (fehlt: ' . implode(', ', $smtp) . ')'),
+            'SMTP-Zugang (MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_FROM) in .env eintragen. Bis dahin bleiben Mails in storage/outbox.'
+        );
+        $this->pruefe(
+            filter_var($this->wert('LEAD_NOTIFY_TO'), FILTER_VALIDATE_EMAIL) !== false,
+            'LEAD_NOTIFY_TO gesetzt',
+            'Empfängeradresse für neue Anfragen in .env eintragen (optional BEWERBUNG_NOTIFY_TO für Bewerbungen).'
+        );
     }
 
     private function pruefePhp(): void
     {
         $this->pruefe(PHP_VERSION_ID >= 80300, 'PHP-Version ' . PHP_VERSION . ' (mindestens 8.3)', 'PHP 8.3 oder neuer im Hosting-Panel für diese Domain bzw. im Container einstellen.');
         foreach (self::ERWEITERUNGEN as $ext) {
-            $this->pruefe(extension_loaded($ext), "PHP-Erweiterung $ext", "Erweiterung $ext im Hosting aktivieren.");
+            // pdo_mysql nur mit Datenbank nötig
+            $optional = $ext === 'pdo_mysql' && $this->dateiModus();
+            $this->pruefe(extension_loaded($ext), "PHP-Erweiterung $ext" . ($optional ? ' (nur bei STORAGE_MODE=datenbank)' : ''), "Erweiterung $ext im Hosting aktivieren.", $optional);
         }
         foreach (self::ERWEITERUNGEN_OPTIONAL as $ext => $grund) {
             $this->pruefe(extension_loaded($ext), "PHP-Erweiterung $ext (optional)", $grund, true);
@@ -150,12 +201,15 @@ final class Diagnose
         $this->pruefe(in_array($modus, ['inline', 'worker'], true), 'OUTBOX_MODE (' . $modus . ')', 'OUTBOX_MODE=inline (ohne Cronjob) oder worker (Dienst bzw. Cronjob mit bin/worker.php) setzen.');
 
         $mailFehlt = array_values(array_filter(['MAIL_HOST', 'MAIL_FROM', 'LEAD_NOTIFY_TO'], fn (string $k): bool => $this->wert($k) === ''));
-        $this->pruefe(
-            $mailFehlt === [],
-            'Mailversand konfiguriert' . ($mailFehlt === [] ? '' : ' (fehlt: ' . implode(', ', $mailFehlt) . ')'),
-            'SMTP-Zugang (MAIL_*) und LEAD_NOTIFY_TO in .env eintragen. Bis dahin bleiben Benachrichtigungen in der Warteschlange.',
-            true
-        );
+        // Im Dateimodus prüft pruefeDateimodus() SMTP und LEAD_NOTIFY_TO als Fehler
+        if (!$this->dateiModus()) {
+            $this->pruefe(
+                $mailFehlt === [],
+                'Mailversand konfiguriert' . ($mailFehlt === [] ? '' : ' (fehlt: ' . implode(', ', $mailFehlt) . ')'),
+                'SMTP-Zugang (MAIL_*) und LEAD_NOTIFY_TO in .env eintragen. Bis dahin bleiben Benachrichtigungen in der Warteschlange.',
+                true
+            );
+        }
 
         $basic = $this->wert('STAGING_BASIC_AUTH');
         if ($basic !== '') {
@@ -183,7 +237,7 @@ final class Diagnose
 
     private function pruefeSpeicher(): void
     {
-        foreach (['storage', 'storage/logs', 'storage/cache', 'storage/cache/twig', 'storage/uploads', 'storage/ratelimit'] as $ordner) {
+        foreach (['storage', 'storage/logs', 'storage/cache', 'storage/cache/twig', 'storage/uploads', 'storage/ratelimit', 'storage/outbox'] as $ordner) {
             $pfad = $this->basis . '/' . $ordner;
             if (!is_dir($pfad)) {
                 @mkdir($pfad, 0775, true);

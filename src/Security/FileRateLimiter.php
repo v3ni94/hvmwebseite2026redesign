@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hvm\Security;
 
 /**
- * Rate Limiting ohne Datenbank (Web-Einrichtung, bevor Migrationen gelaufen sind).
+ * Rate Limiting ohne Datenbank (Web-Einrichtung vor den Migrationen, Formulare bei STORAGE_MODE=datei).
  *
  * Je Bucket und Schlüssel eine kleine JSON-Datei in storage/ratelimit mit festem Zeitfenster.
  * Der Dateiname ist ein HMAC des Schlüssels (keine IP-Adressen im Klartext). Zugriff mit flock.
@@ -53,6 +53,16 @@ final class FileRateLimiter
      */
     public function hit(string $bucket, string $identifier, int $windowSeconds, ?int $now = null): int
     {
+        return $this->hitWindow($bucket, $identifier, $windowSeconds, $now)['hits'];
+    }
+
+    /**
+     * Zählt einen Zugriff. Liefert Anzahl und Beginn (Unixzeit) des laufenden Fensters.
+     *
+     * @return array{hits: int, start: int}
+     */
+    public function hitWindow(string $bucket, string $identifier, int $windowSeconds, ?int $now = null): array
+    {
         $now ??= time();
         if (!is_dir($this->directory) && !@mkdir($this->directory, 0775, true) && !is_dir($this->directory)) {
             throw new \RuntimeException('storage/ratelimit ist nicht beschreibbar.');
@@ -77,7 +87,7 @@ final class FileRateLimiter
             fclose($handle);
         }
 
-        return (int) $data['hits'];
+        return ['hits' => (int) $data['hits'], 'start' => (int) $data['start']];
     }
 
     public function reset(string $bucket, string $identifier): void

@@ -11,12 +11,15 @@ declare(strict_types=1);
  *   php bin/worker.php --limit=50    Einträge je Durchlauf (Standard 20)
  *   php bin/worker.php --sleep=10    Pause in Sekunden bei leerer Warteschlange (Standard 5)
  *
+ * STORAGE_MODE=datei: verarbeitet die verschlüsselten Aufträge in storage/outbox (Hvm\Service\FileOutbox).
+ *
  * Beenden über SIGTERM oder SIGINT: der laufende Durchlauf wird abgeschlossen.
  * Fehlende Konfiguration (SMTP, LEAD_NOTIFY_TO, N8N_WEBHOOK_URL) führt nicht zum Abbruch:
  * die Einträge bleiben pending, der Log enthält einen Hinweis.
  */
 
 use Hvm\Http\Kernel;
+use Hvm\Service\FileOutbox;
 use Hvm\Service\OutboxWorker;
 use Hvm\Support\Log;
 
@@ -42,7 +45,12 @@ $build = static function () use ($root): array {
     $kernel = Kernel::fromGlobals($root);
     $container = $kernel->container();
 
-    return [$container->get(OutboxWorker::class), $container->get(Log::class)];
+    // STORAGE_MODE=datei: storage/outbox statt Tabelle outbox (gleiche Rückgabe von runOnce)
+    $worker = $kernel->config()->get('app.storage_mode', 'datei') === 'datei'
+        ? $container->get(FileOutbox::class)
+        : $container->get(OutboxWorker::class);
+
+    return [$worker, $container->get(Log::class)];
 };
 
 $log = null;

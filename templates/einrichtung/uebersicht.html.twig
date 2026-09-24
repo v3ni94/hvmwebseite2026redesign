@@ -64,6 +64,7 @@
         </ul>
     </section>
 
+    {% if not datei_modus %}
     <section class="c-admin-karte" aria-labelledby="titel-migrationen">
         <h2 id="titel-migrationen" class="c-admin-untertitel">2. Datenbank-Migrationen</h2>
         {% if not datenbank %}
@@ -108,8 +109,16 @@
         {% endif %}
     </section>
 
+    {% else %}
+    <section class="c-admin-karte" aria-labelledby="titel-dateimodus">
+        <h2 id="titel-dateimodus" class="c-admin-untertitel">Betrieb ohne Datenbank</h2>
+        <p>STORAGE_MODE=datei: Die Webseite speichert Anfragen nicht selbst. Formulare legen verschlüsselte Aufträge in <code>storage/outbox</code> ab, die direkt nach dem Absenden an n8n (<code>N8N_WEBHOOK_URL</code>) und per E-Mail an <code>LEAD_NOTIFY_TO</code> gehen und danach gelöscht werden. Migrationen und Admin-Bereich entfallen.</p>
+        <p class="c-admin-hinweistext">Den Wert von <code>N8N_WEBHOOK_SECRET</code> aus der <code>.env</code> in n8n für die Signaturprüfung hinterlegen.</p>
+    </section>
+    {% endif %}
+
     <section class="c-admin-karte" aria-labelledby="titel-hash">
-        <h2 id="titel-hash" class="c-admin-untertitel">4. Hash-Hilfe für den Staging-Schutz (optional)</h2>
+        <h2 id="titel-hash" class="c-admin-untertitel">{{ datei_modus ? 2 : 4 }}. Hash-Hilfe für den Staging-Schutz (optional)</h2>
         <p class="c-admin-hinweistext">Erzeugt die Zeile <code>STAGING_BASIC_AUTH</code> für die <code>.env</code>. Danach fragt der Browser auf der gesamten Staging-Seite nach Benutzer und Passwort (außer <code>/health</code>).</p>
         <form class="c-admin-formular" method="post" action="/_einrichtung/" novalidate>
             {{ csrf_field() }}
@@ -121,12 +130,12 @@
     </section>
 
     <section class="c-admin-karte" aria-labelledby="titel-abschluss">
-        <h2 id="titel-abschluss" class="c-admin-untertitel">5. Einrichtung abschließen</h2>
+        <h2 id="titel-abschluss" class="c-admin-untertitel">{{ datei_modus ? 3 : 5 }}. Einrichtung abschließen</h2>
         <p class="c-admin-hinweistext">Schreibt <code>storage/setup.lock</code>. Danach ist diese Seite nicht mehr erreichbar (404).</p>
         <form class="c-admin-formular" method="post" action="/_einrichtung/">
             {{ csrf_field() }}
             <input type="hidden" name="aktion" value="abschliessen">
-            {{ f.checkbox({name: 'bestaetigung', wert: 'ja', label: 'Admin-Zugang, Authenticator-App und Wiederherstellungscodes sind gesichert.'}) }}
+            {{ f.checkbox({name: 'bestaetigung', wert: 'ja', label: datei_modus ? 'Diagnose geprüft, Webhook-Geheimnis in n8n hinterlegt.' : 'Admin-Zugang, Authenticator-App und Wiederherstellungscodes sind gesichert.'}) }}
             <button class="c-button c-button--primaer" type="submit">Einrichtung abschließen</button>
         </form>
     </section>

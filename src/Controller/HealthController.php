@@ -15,7 +15,8 @@ use Throwable;
 /**
  * Betriebs-Endpunkt /health für den Docker-Healthcheck und externes Monitoring (docs/betrieb.md Abschnitt 4).
  *
- * Antwort immer 200, solange Nginx und PHP-FPM antworten: {"status": "ok"|"eingeschraenkt", "datenbank": "ja"|"nein"}.
+ * Antwort immer 200, solange Nginx und PHP-FPM antworten: {"status": "ok"|"eingeschraenkt", "datenbank": "ja"|"nein"},
+ * bei STORAGE_MODE=datei {"status": "ok", "datenbank": "nicht_verwendet"}.
  * Ein Datenbankausfall macht den Container bewusst nicht "unhealthy": Traefik nimmt ungesunde Container aus dem
  * Routing, die Inhaltsseiten funktionieren aber auch ohne Datenbank. Keine Versions-, Pfad- oder Fehlerangaben.
  */
@@ -35,12 +36,18 @@ final class HealthController
      */
     public function show(Request $request, array $params = []): Response
     {
-        $datenbank = $this->databaseReachable();
+        if ($this->config->get('app.storage_mode', 'datei') === 'datei') {
+            // Dateimodus: keine Datenbank der Webseite, kein Verbindungsversuch
+            $body = ['status' => 'ok', 'datenbank' => 'nicht_verwendet'];
+        } else {
+            $datenbank = $this->databaseReachable();
+            $body = [
+                'status' => $datenbank ? 'ok' : 'eingeschraenkt',
+                'datenbank' => $datenbank ? 'ja' : 'nein',
+            ];
+        }
 
-        return Response::json([
-            'status' => $datenbank ? 'ok' : 'eingeschraenkt',
-            'datenbank' => $datenbank ? 'ja' : 'nein',
-        ])
+        return Response::json($body)
             ->withHeader('Cache-Control', 'no-store')
             ->withHeader('X-Robots-Tag', 'noindex, nofollow');
     }

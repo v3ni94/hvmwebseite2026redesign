@@ -32,6 +32,17 @@ final class Crypto
     }
 
     /**
+     * Verschlüsselt im Speicher. Ergebnis: Nonce (24 Byte) gefolgt vom Chiffretext, Gegenstück decrypt().
+     */
+    public static function encrypt(string $plaintext, string $key): string
+    {
+        self::assertKey($key);
+        $nonce = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+
+        return $nonce . sodium_crypto_secretbox($plaintext, $nonce, $key);
+    }
+
+    /**
      * Entschlüsselt den Inhalt einer mit encryptToFile() angelegten Datei.
      */
     public static function decryptFile(string $path, string $key): string

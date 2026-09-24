@@ -19,6 +19,9 @@ use Throwable;
  * - bei GET-Anfragen höchstens alle GET_INTERVAL Sekunden, damit Wiederholungen (Backoff) auch ohne neue
  *   Formulare nachgeholt werden.
  *
+ * STORAGE_MODE=datei: verarbeitet storage/outbox (FileOutbox, Sperre zusätzlich je Datei) und räumt höchstens stündlich
+ * fehlgeschlagene Aufträge nach Frist auf. STORAGE_MODE=datenbank: Tabelle outbox (OutboxWorker).
+ *
  * Sperre gegen Doppelverarbeitung: nicht blockierendes flock auf storage/cache/outbox-inline.lock (ein Lauf je
  * Server) und zusätzlich der Status-Claim in OutboxRepository::claim (auch über mehrere Server hinweg).
  * Fehler landen nur im Log, nie in der Antwort.
@@ -26,6 +29,8 @@ use Throwable;
 final class InlineOutbox
 {
     public const LIMIT = 5;
+    /** Dateimodus: je Anfrage entstehen drei Aufträge, daher mehr je Lauf */
+    public const LIMIT_DATEI = 15;
     public const GET_INTERVAL = 300;
 
     public function __construct(
@@ -36,10 +41,23 @@ final class InlineOutbox
     ) {
     }
 
+    public const CLEANUP_INTERVAL = 3600;
+
+    public function fileMode(): bool
+    {
+        return $this->config->get('app.storage_mode', 'datei') === 'datei';
+    }
+
     public function enabled(): bool
     {
-        return $this->config->get('app.outbox_mode') === 'inline'
-            && ((string) $this->config->get('app.db.name', '') !== '' || (string) $this->config->get('app.db.socket', '') !== '');
+        if ($this->config->get('app.outbox_mode') !== 'inline') {
+            return false;
+        }
+
+        // Dateimodus: storage/outbox, keine Datenbank nötig
+        return $this->fileMode()
+            || (string) $this->config->get('app.db.name', '') !== ''
+            || (string) $this->config->get('app.db.socket', '') !== '';
     }
 
     public function due(Request $request, ?int $now = null): bool
@@ -78,9 +96,16 @@ final class InlineOutbox
             }
             @touch($this->stateDirectory . '/outbox-inline.stamp');
             try {
-                /** @var OutboxWorker $worker */
-                $worker = $this->container->get(OutboxWorker::class);
-                $stats = $worker->runOnce(self::LIMIT);
+                if ($this->fileMode()) {
+                    /** @var FileOutbox $files */
+                    $files = $this->container->get(FileOutbox::class);
+                    $stats = $files->runOnce(self::LIMIT_DATEI);
+                    $this->cleanup($files);
+                } else {
+                    /** @var OutboxWorker $worker */
+                    $worker = $this->container->get(OutboxWorker::class);
+                    $stats = $worker->runOnce(self::LIMIT);
+                }
                 if ($stats['claimed'] > 0) {
                     $this->log->info('Outbox inline verarbeitet', $stats);
                 }
@@ -95,6 +120,22 @@ final class InlineOutbox
             }
         } finally {
             fclose($handle);
+        }
+    }
+
+    /**
+     * Aufräumen im Dateimodus (fehlgeschlagene Aufträge nach Frist), höchstens einmal je CLEANUP_INTERVAL.
+     */
+    private function cleanup(FileOutbox $files): void
+    {
+        $stamp = $this->stateDirectory . '/outbox-cleanup.stamp';
+        if (is_file($stamp) && time() - (int) @filemtime($stamp) < self::CLEANUP_INTERVAL) {
+            return;
+        }
+        @touch($stamp);
+        $result = $files->cleanup();
+        if (array_sum($result) > 0) {
+            $this->log->info('Outbox-Dateien aufgeräumt', $result);
         }
     }
 }

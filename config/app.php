@@ -19,6 +19,12 @@ return [
     'timezone' => 'Europe/Berlin',
     'locale' => 'de_DE',
 
+    // Speicherung der Formulare (Entscheidung der Geschäftsführung vom 24.09.2026, docs/n8n-webhook.md):
+    // datei = keine Datenbank der Webseite, Anfragen gehen als verschlüsselte Outbox-Dateien (storage/outbox) per
+    // signiertem Webhook an n8n und per Mail an LEAD_NOTIFY_TO, danach wird die Datei gelöscht (Standard).
+    // datenbank = bisheriger Betrieb mit MariaDB, Admin-Bereich und Migrationen.
+    'storage_mode' => in_array(Env::string('STORAGE_MODE', 'datei'), ['datei', 'datenbank'], true) ? Env::string('STORAGE_MODE', 'datei') : 'datei',
+
     'db' => [
         'host' => Env::string('DB_HOST', '127.0.0.1'),
         'port' => Env::int('DB_PORT', 3306),
@@ -47,6 +53,8 @@ return [
     ],
     // [Empfängeradresse Leads festlegen]
     'lead_notify_to' => Env::get('LEAD_NOTIFY_TO'),
+    // Empfänger der Bewerbungen (Dateimodus, mit PDF-Anhang), leer = LEAD_NOTIFY_TO
+    'bewerbung_notify_to' => Env::get('BEWERBUNG_NOTIFY_TO'),
     'n8n' => [
         'webhook_url' => Env::get('N8N_WEBHOOK_URL'),
         'webhook_secret' => Env::get('N8N_WEBHOOK_SECRET'),

@@ -25,7 +25,7 @@ use Throwable;
 final class ApplicationService
 {
     /** Version des Einwilligungshinweises im Bewerbungsformular. Bei jeder Textänderung erhöhen. [Freigabe Datenschutztext] */
-    public const CONSENT_TEXT_VERSION = 'bewerbung-2026-09-entwurf-1';
+    public const CONSENT_TEXT_VERSION = 'bewerbung-2026-09-entwurf-2';
 
     public const MAX_FILE_BYTES = 10 * 1024 * 1024;
     public const ALLOWED_MIME = 'application/pdf';

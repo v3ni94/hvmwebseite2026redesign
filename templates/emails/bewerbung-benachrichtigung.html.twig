@@ -1,5 +1,6 @@
 {#
-  Interne Benachrichtigung an LEAD_NOTIFY_TO. Ohne Anhang, ohne Namen oder Kontaktdaten, auch nicht
+  Interne Benachrichtigung. Dateimodus (datei_modus): an BEWERBUNG_NOTIFY_TO bzw. LEAD_NOTIFY_TO mit PDF-Anhang
+  und Kontaktangaben im Inhalt. Datenbankmodus: an LEAD_NOTIFY_TO ohne Anhang, ohne Namen oder Kontaktdaten, auch nicht
   im Betreff (ApplicationService::notifySubject). Die Datei liegt verschlüsselt in storage/uploads,
   Download nur im Admin-Bereich nach Anmeldung.
 #}
@@ -22,5 +23,24 @@
     </tr>
     {% endfor %}
 </table>
+{% if datei_modus|default(false) %}
+<p style="margin:24px 0 8px 0;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Angaben zur Bearbeitung</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:15px;">
+    {% set details = [
+        ['Name', bewerbung.name],
+        ['E-Mail', bewerbung.email],
+        ['Telefon', bewerbung.telefon ?: 'keine Angabe'],
+        ['Nachricht', bewerbung.nachricht ?: 'keine'],
+    ] %}
+    {% for z in details %}
+    <tr>
+        <td style="padding:8px 12px 8px 0;border-bottom:1px solid #D7D8DA;width:42%;font-weight:600;vertical-align:top;">{{ z[0] }}</td>
+        <td style="padding:8px 0;border-bottom:1px solid #D7D8DA;vertical-align:top;">{{ z[1]|nl2br }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p style="margin:16px 0 0 0;font-size:13px;">Die Bewerbungsunterlagen sind als PDF angehängt. Die Webseite hat die Datei nach dem Versand gelöscht. Nur an die mit dem Bewerbungsverfahren befassten Personen weitergeben.</p>
+{% else %}
 <p style="margin:16px 0 0 0;font-size:13px;">Name, Kontaktdaten, Nachricht und die Bewerbungsunterlagen selbst stehen aus Datenschutzgründen nur im Admin-Bereich zum Download bereit.</p>
+{% endif %}
 {% endblock %}

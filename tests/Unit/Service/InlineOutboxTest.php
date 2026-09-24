@@ -37,6 +37,15 @@ final class InlineOutboxTest extends TestCase
         self::assertFalse($inline->due(Request::create('POST', '/angebot/')));
     }
 
+    public function testFileModeIsDueWithoutDatabase(): void
+    {
+        $kernel = $this->kernel('staging', ['OUTBOX_MODE' => 'inline', 'STORAGE_MODE' => 'datei', 'DB_NAME' => null]);
+        $inline = new InlineOutbox($kernel->container(), $kernel->config(), $kernel->container()->get(\Hvm\Support\Log::class), sys_get_temp_dir() . '/hvm-inline-' . bin2hex(random_bytes(4)));
+        self::assertTrue($inline->enabled());
+        self::assertTrue($inline->due(Request::create('POST', '/kontakt/')));
+        self::assertFalse($inline->due(Request::create('POST', '/_einrichtung/')));
+    }
+
     public function testInlineWithoutDatabaseIsNotDue(): void
     {
         $inline = $this->inline('inline', null);

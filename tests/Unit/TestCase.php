@@ -36,6 +36,8 @@ abstract class TestCase extends BaseTestCase
             // Produktion verlangt einen gültigen APP_KEY (kein Ersatzschlüssel), nur für Tests
             'APP_KEY' => 'base64:' . base64_encode(str_repeat('t', 32)),
             'SESSION_DRIVER' => 'array',
+            // Bestehende Tests beschreiben den Datenbankmodus, Dateimodus explizit mit STORAGE_MODE=datei
+            'STORAGE_MODE' => 'datenbank',
         ], $env));
     }
 

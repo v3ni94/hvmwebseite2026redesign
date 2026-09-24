@@ -7,6 +7,10 @@
     <h1 id="titel-abgeschlossen" class="c-admin-titel">Einrichtung abgeschlossen</h1>
     <p>Die Datei <code>storage/setup.lock</code> wurde geschrieben. Die Einrichtungsseite ist ab sofort nicht mehr erreichbar.</p>
     <p>Empfehlung: <code>SETUP_TOKEN</code> aus der <code>.env</code> entfernen. Für eine erneute Einrichtung <code>storage/setup.lock</code> per SFTP löschen und einen neuen Token setzen.</p>
+    {% if not datei_modus|default(false) %}
     <p><a class="c-admin-link" href="/admin/login/">Zur Admin-Anmeldung</a></p>
+    {% else %}
+    <p><a class="c-admin-link" href="/">Zur Startseite</a></p>
+    {% endif %}
 </section>
 {% endblock %}

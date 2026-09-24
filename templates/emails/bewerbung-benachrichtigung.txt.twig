@@ -7,7 +7,18 @@ Unterlagen:         PDF, {{ (bewerbung.datei_groesse / 1024 / 1024)|number_forma
 Eingang:            {{ datum(eingang) }}, {{ eingang|date('H:i', 'Europe/Berlin') }} Uhr
 Kennung:            {{ bewerbung.uuid }}
 
+{% if datei_modus|default(false) %}
+ANGABEN ZUR BEARBEITUNG
+Name:               {{ bewerbung.name }}
+E-Mail:             {{ bewerbung.email }}
+Telefon:            {{ bewerbung.telefon ?: 'keine Angabe' }}
+Nachricht:
+{{ bewerbung.nachricht ?: 'keine' }}
+
+Die Bewerbungsunterlagen sind als PDF angehängt. Die Webseite hat die Datei nach dem Versand gelöscht. Nur an die mit dem Bewerbungsverfahren befassten Personen weitergeben.
+{% else %}
 Name, Kontaktdaten, Nachricht und die Bewerbungsunterlagen selbst stehen aus Datenschutzgründen nur im Admin-Bereich zum Download bereit.
+{% endif %}
 
 {% include 'emails/_fuss.txt.twig' %}
 {% endautoescape %}

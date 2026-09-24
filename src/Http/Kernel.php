@@ -14,7 +14,10 @@ use Hvm\Http\Middleware\StagingBasicAuth;
 use Hvm\Http\Middleware\Session as SessionMiddleware;
 use Hvm\Http\Middleware\TrailingSlash;
 use Hvm\Security\SpamGuard;
+use Hvm\Service\FileOutbox;
 use Hvm\Service\InlineOutbox;
+use Hvm\Service\MailService;
+use Hvm\Service\WebhookService;
 use Hvm\Support\Config;
 use Hvm\Support\Container;
 use Hvm\Support\Db;
@@ -113,7 +116,7 @@ final class Kernel
             array_values((array) $config->get('app.csrf_exempt', []))
         ));
         $c->set(Router::class, static fn (): Router => Router::fromArray(
-            $config->array('routes'),
+            self::routesFor($config),
             (string) $config->get('app.env', 'production')
         ));
         $c->set(View::class, static fn (Container $c): View => new View(
@@ -124,12 +127,47 @@ final class Kernel
             $base . '/storage/cache/twig',
             $base . '/public/assets/build/manifest.json'
         ));
-        $c->set(PDO::class, static fn (): PDO => Db::fromConfig($config));
+        // Verbindung erst bei Bedarf. Im Dateimodus nie: ein versehentlicher Zugriff fällt sofort auf.
+        $c->set(PDO::class, static function () use ($config): PDO {
+            if ($config->get('app.storage_mode', 'datei') === 'datei') {
+                throw new \LogicException('STORAGE_MODE=datei: Die Webseite verwendet keine Datenbank.');
+            }
+
+            return Db::fromConfig($config);
+        });
+        $c->set(FileOutbox::class, static fn (Container $c): FileOutbox => new FileOutbox(
+            $base . '/storage/outbox',
+            SpamGuard::deriveKey($config, 'outbox-datei'),
+            $c->get(MailService::class),
+            $c->get(WebhookService::class),
+            $c->get(Log::class),
+            $base,
+            SpamGuard::deriveKey($config, 'bewerbung-upload'),
+            is_numeric($days = $config->get('app.lead_retention_days')) ? (int) $days : null,
+        ));
         $c->set(InlineOutbox::class, static fn (Container $c): InlineOutbox => new InlineOutbox(
             $c,
             $config,
             $c->get(Log::class),
             $base . '/storage/cache'
+        ));
+    }
+
+    /**
+     * Routen je Speichermodus: ohne Datenbank gibt es keinen Admin-Bereich, /admin/ und alle Unterseiten liefern 404.
+     *
+     * @return array<int|string, mixed>
+     */
+    public static function routesFor(Config $config): array
+    {
+        $routes = $config->array('routes');
+        if ($config->get('app.storage_mode', 'datei') !== 'datei') {
+            return $routes;
+        }
+
+        return array_values(array_filter(
+            $routes,
+            static fn (mixed $route): bool => !(is_array($route) && is_string($route[1] ?? null) && ($route[1] === '/admin' || str_starts_with($route[1], '/admin/')))
         ));
     }
 

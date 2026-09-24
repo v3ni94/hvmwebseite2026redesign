@@ -17,7 +17,7 @@ require $root . '/vendor/autoload.php';
 
 [, $email, $password, $ip, $start] = $argv + [null, '', '', '', '0'];
 
-$kernel = Kernel::create($root, ['APP_ENV' => 'development', 'SESSION_DRIVER' => 'array']);
+$kernel = Kernel::create($root, ['APP_ENV' => 'development', 'SESSION_DRIVER' => 'array', 'STORAGE_MODE' => 'datenbank']);
 $auth = $kernel->container()->get(AdminAuth::class);
 // Verbindung vorab aufbauen, damit alle Prozesse möglichst gleichzeitig prüfen
 $kernel->container()->get(PDO::class)->query('SELECT 1');

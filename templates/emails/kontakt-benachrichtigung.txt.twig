@@ -7,7 +7,19 @@ Quelle:    {{ anfrage.source ?: 'unbekannt' }}
 Eingang:   {{ datum(eingang) }}, {{ eingang|date('H:i', 'Europe/Berlin') }} Uhr
 Kennung:   {{ anfrage.uuid }}
 
+{% if datei_modus|default(false) %}
+ANGABEN ZUR BEARBEITUNG
+Name:      {{ anfrage.name }}
+E-Mail:    {{ anfrage.email }}
+Telefon:   {{ anfrage.telefon ?: 'keine Angabe' }}
+Region:    {{ anfrage.region ?: 'keine Angabe' }}
+Nachricht:
+{{ anfrage.nachricht ?: 'keine' }}
+
+Die Webseite speichert diese Anfrage nicht. Sie wurde zusätzlich an die Unternehmensdatenbank (n8n) übermittelt. Diese E-Mail nicht weiterleiten und nach Übernahme in die Bearbeitung löschen.
+{% else %}
 Name, Kontaktdaten und Nachricht stehen aus Datenschutzgründen nur im Admin-Bereich.
+{% endif %}
 
 {% include 'emails/_fuss.txt.twig' %}
 {% endautoescape %}

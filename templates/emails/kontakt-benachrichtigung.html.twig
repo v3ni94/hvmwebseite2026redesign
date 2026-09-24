@@ -1,6 +1,6 @@
 {#
-  Interne Benachrichtigung an LEAD_NOTIFY_TO. Enthält bewusst keine Namen, Kontaktdaten oder Nachricht,
-  auch nicht im Betreff (ContactService::notifySubject).
+  Interne Benachrichtigung an LEAD_NOTIFY_TO. Datenbankmodus: keine Namen, Kontaktdaten oder Nachricht. Dateimodus (datei_modus): die für die
+  Bearbeitung nötigen Angaben im Inhalt, nie im Betreff (ContactService::notifySubject).
 #}
 {% extends 'emails/layout.html.twig' %}
 
@@ -21,5 +21,25 @@
     </tr>
     {% endfor %}
 </table>
+{% if datei_modus|default(false) %}
+<p style="margin:24px 0 8px 0;font-size:13px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;">Angaben zur Bearbeitung</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-size:15px;">
+    {% set details = [
+        ['Name', anfrage.name],
+        ['E-Mail', anfrage.email],
+        ['Telefon', anfrage.telefon ?: 'keine Angabe'],
+        ['Region', anfrage.region ?: 'keine Angabe'],
+        ['Nachricht', anfrage.nachricht ?: 'keine'],
+    ] %}
+    {% for z in details %}
+    <tr>
+        <td style="padding:8px 12px 8px 0;border-bottom:1px solid #D7D8DA;width:42%;font-weight:600;vertical-align:top;">{{ z[0] }}</td>
+        <td style="padding:8px 0;border-bottom:1px solid #D7D8DA;vertical-align:top;">{{ z[1]|nl2br }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p style="margin:16px 0 0 0;font-size:13px;">Die Webseite speichert diese Anfrage nicht. Sie wurde zusätzlich an die Unternehmensdatenbank (n8n) übermittelt. Diese E-Mail nicht weiterleiten und nach Übernahme in die Bearbeitung löschen.</p>
+{% else %}
 <p style="margin:16px 0 0 0;font-size:13px;">Name, Kontaktdaten und Nachricht stehen aus Datenschutzgründen nur im Admin-Bereich.</p>
+{% endif %}
 {% endblock %}

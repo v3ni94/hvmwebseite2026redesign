@@ -112,6 +112,7 @@ abstract class IntegrationTestCase extends TestCase
             'DB_USER' => $db['user'],
             'DB_PASSWORD' => $db['password'],
             'DB_TEST_NAME' => $db['name'],
+            'STORAGE_MODE' => 'datenbank',
         ], $extra);
     }
 
@@ -182,6 +183,7 @@ abstract class IntegrationTestCase extends TestCase
             'APP_URL' => 'https://www.muellerhv.de',
             'APP_KEY' => self::APP_KEY,
             'SESSION_DRIVER' => 'array',
+            'STORAGE_MODE' => 'datenbank',
             'DB_HOST' => $db['host'],
             'DB_PORT' => (string) $db['port'],
             'DB_SOCKET' => $db['socket'],
