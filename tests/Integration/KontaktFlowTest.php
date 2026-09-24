@@ -138,6 +138,8 @@ final class KontaktFlowTest extends FormularIntegrationTestCase
 
     public function testRateLimitOnStoredRequestsPerIp(): void
     {
+        // Mitten im festen 10-Minuten-Fenster des Rate Limiters, sonst kann ein Fensterwechsel den Zähler zurücksetzen
+        \Hvm\Support\Clock::freeze('2026-09-23 10:05:00');
         $kernel = $this->kernel();
         $ip = '198.51.100.21';
         $spam = $kernel->container()->get(SpamGuard::class);

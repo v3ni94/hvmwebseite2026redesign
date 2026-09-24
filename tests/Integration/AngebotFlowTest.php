@@ -162,6 +162,8 @@ final class AngebotFlowTest extends IntegrationTestCase
 
     public function testRateLimitPerIpReturns429(): void
     {
+        // Mitten im festen 10-Minuten-Fenster des Rate Limiters, sonst kann ein Fensterwechsel den Zähler zurücksetzen
+        \Hvm\Support\Clock::freeze('2026-09-23 10:05:00');
         Clock::freeze('2026-09-23 10:01:00');
         $kernel = $this->kernel();
         $csrf = $this->csrf($kernel);

@@ -136,3 +136,51 @@ Details und Entscheidungen in `docs/seo-geo.md`. Lighthouse 12 mit produktionsna
 - Strukturierte Daten: `php bin/check-structured-data.php` ohne Fehler (staging 76 Seiten, production 23 Seiten).
 - CLS `/angebot/` mobil von 0,062 auf 0,005 (Stepper-Platz vorab reserviert).
 - Neue Tests: `tests/Unit/Controller/SeoControllerTest.php` (robots.txt mit KI-Crawlern und Schalter, llms.txt, Sitemap), `tests/Unit/Controller/FaktenControllerTest.php`, `tests/Unit/Seo/SeoMetaTest.php` (Titel- und Beschreibungslängen, Kurzfassung).
+
+## 12. Nachtrag 24.09.2026: Code-Review und technische Verbesserungen
+
+### 12.1 Befunde aus dem Code-Review (je mit Nachweis und Test)
+
+| Nr. | Befund | Nachweis vor der Korrektur | Korrektur | Test |
+|---|---|---|---|---|
+| R1 | Anker der Artikelüberschriften mit Umlaut am Wortanfang falsch: „Übergabe der Unterlagen“ ergab `#bergabe-der-unterlagen` (`strtolower` wandelt Ä, Ö, Ü nicht um) | `curl /wissen/verwalterwechsel-weg/`: `id="bergabe-der-unterlagen"`, ebenso `bertragung-auf-dienstleister` | `mb_strtolower` in `src/Content/MarkdownRenderer.php` | `tests/Unit/Content/MarkdownRendererTest.php` |
+| R2 | Angebotsformular: Prüfung mit UTC, Formular mit deutscher Zeit. Am Monatsersten zwischen 0 und 2 Uhr lehnte der Server den im Formular angebotenen spätesten Beginn ab (ebenso Baujahr zum Jahreswechsel) | Test mit `Clock::freeze('2026-09-30 22:30:00')`: Formular `max="2031-10"`, Absenden mit `2031-10` ergab Fehler am Feld | `AngebotController::submit()` prüft mit `Clock::local()` | `AngebotControllerTest::testMonthBoundsFollowGermanTimeAtMonthChange` |
+| R3 | `IpRange::matches()`: nicht numerische Präfixlänge (`172.30.90.0/abc`, `/`, `/ 24`) wurde zu `/0` und traf jede Adresse. Ein Tippfehler in `TRUSTED_PROXIES` hätte jede `X-Forwarded-For`-Angabe vertrauenswürdig gemacht, in `ADMIN_IP_ALLOWLIST` die Beschränkung aufgehoben | Test: `matches('203.0.113.5', '172.30.90.0/abc')` lieferte true | nur Ziffern als Präfix (`ctype_digit`) | `IpRangeTest::testInvalidPrefixLengthNeverMatches` |
+| R4 | `bin/migrate.php` ohne Sperre: zwei gleichzeitige Läufe scheiterten mit „Table ... already exists“ | drei Durchläufe mit zwei parallelen Prozessen auf leerer Datenbank, jeweils ein Lauf mit Exitcode 1 | `GET_LOCK` je Datenbank, 120 s Wartezeit | `MigrationsTest::testConcurrentMigrationRunsAreSerialized` |
+| R5 | Live-Suche Wissen: Trefferliste unsichtbar. Das Template setzt `u-visually-hidden` auf den Ergebnisbereich, die Suche blendete die Abschnitte aus und zeigte die Treffer in einem 1 x 1 px großen Bereich | Playwright: Bereich 1 x 1 px, Abschnitte ausgeblendet | `resources/js/search.js` entfernt die Klasse beim Start | `tests/e2e/robustheit.spec.js` „Trefferliste ist sichtbar“ |
+| R6 | Live-Suche: Escape leerte das Feld, die noch geplante Suche (150 ms) lief danach trotzdem und blendete alte Treffer wieder ein; parallele Eingaben während des Ladens luden den Index mehrfach und konnten veraltete Treffer anzeigen | Playwright: nach Escape Feld leer, Abschnitte ausgeblendet, Treffer sichtbar | Timer bei Escape verwerfen, ein gemeinsamer Ladevorgang, Ergebnis nur für den aktuellen Feldwert | `robustheit.spec.js` „Escape verwirft eine noch geplante Suche“ |
+| R7 | Angebotsformular: Sendesperre (`data-gesendet`) wurde bei Rückkehr aus dem Back-Forward-Cache nicht aufgehoben, das Formular blieb blockiert (Admin-Formulare hatten die Freigabe bereits) | Playwright mit `pageshow` (`persisted: true`): Sperre blieb gesetzt | `pageshow`-Handler in `resources/js/angebot.js` | `robustheit.spec.js` „Back-Forward-Cache“ |
+| R8 | Docker-Image ohne Open-Graph-Bilder und ohne Suchindex: das Dockerfile führte nur `build-assets.php` aus, `public/og` steht in `.dockerignore`, beide Ergebnisse sind nicht im Repository. Produktion hätte `/og/*.png` und `/assets/search-index.json` mit 404 beantwortet | Vergleich `composer.json` (Skript build) mit `docker/php/Dockerfile` | Dockerfile führt alle drei Build-Schritte aus | `DockerComposeTest::testImageRunsCompleteAssetBuild` |
+| R9 | Nginx beantwortete alles unter `/.well-known/` ohne Datei mit 404 (`try_files $uri =404`), eine dynamische `security.txt` wäre nie bei PHP angekommen | `docker/nginx/default.conf` | `try_files $uri @php` | `DockerComposeTest::testNginxServesPrecompressedAssetsAndDynamicWellKnown` |
+| R10 | Mobiles Menü: Fokus lief per Tab vom Schließen-Button in den verdeckten Seiteninhalt | Playwright: erster Menüpunkt nach dem Öffnen nicht fokussiert, Tab verließ das Menü | Fokus auf ersten Menüpunkt, Fokusfalle, Hintergrund `inert`, Escape gibt Fokus an den Button zurück (`resources/js/modules/kopfzeile.js`) | `tests/e2e/menue-mobil.spec.js` |
+| R11 | Instabile Tests der Rate Limits: feste 10-Minuten-Fenster, beim Fensterwechsel während des Tests fehlte der erwartete Status 429 | Lauf endete um 08:40:00 UTC mit Fehler in `KontaktFlowTest:150`, Wiederholung grün | Tests frieren die Zeit mitten im Fenster ein | `KontaktFlowTest`, `AngebotFlowTest`, `BewerbungFlowTest` |
+
+Geprüft ohne Befund: Router, Request (Pfad-Normalisierung, Client-IP), CSRF, Sitzung, Sicherheitsheader, Weiterleitungen, Validierung (ungültiges UTF-8, Arrays statt Zeichenketten), Outbox-Claim, Löschlauf, CSV-Export (Formelinjektion), Admin-Filter (Zeitzonen), Upload-Prüfung, Mailversand. Stichproben mit fehlerhaften Eingaben (`%ff`, Arrays in Query und POST) lieferten 200, 303, 403 oder 422, nie 500.
+
+Hinweis zur Arbeitsweise: Ein Teil dieser Änderungen ist während der Arbeit durch einen parallel arbeitenden Agenten im Commit `eae5a1d` („Zwischenstand, Technikauftrag läuft“) mit eingecheckt worden.
+
+### 12.2 Neue Funktionen
+
+- TOTP-Wiederherstellungscodes: zehn Einmalcodes je Konto, nur als HMAC gespeichert, `bin/admin-user.php create` und `recovery-codes`, bei der Anmeldung anstelle des TOTP-Codes, Verbrauch mit Zeitpunkt und IP-Hash in der Datenbank und im Log, Hinweis auf verbleibende Codes (Tests: `AdminAuthTest`, `AdminFlowTest`).
+- `/.well-known/security.txt` nach RFC 9116 (`SeoControllerTest::testSecurityTxtFollowsRfc9116`).
+- `/health` für den Docker-Healthcheck (`HealthControllerTest`, `tests/Integration/HealthTest.php`).
+- Build mit `.gz`-Varianten und atomarem Tausch des Build-Verzeichnisses (`PrecompressTest`), Nginx mit `gzip_static`, `text/markdown` in `gzip_types`, `llms.txt` mit Markdown-Typ, Cache-Control für `/og/` und `/assets/img/`.
+- `bin/deploy-post.sh` (`tests/Integration/DeployPostTest.php`), dokumentiert in `docs/betrieb.md` 1.5.
+- CI-Job „Abhängigkeiten“ (`composer audit`, ab medium blockierend; `npm audit --omit=dev --audit-level=moderate`), `.github/dependabot.yml`.
+- Formulare: Fehlertext Telefon ohne Beispielnummer („Bitte geben Sie eine gültige Telefonnummer mit Vorwahl an.“), `config/pii-whitelist.php` ohne Telefonnummern.
+- Druckansicht `resources/css/90-druck.css` mit `resources/js/modules/druck.js` (FAQ vor dem Druck geöffnet).
+
+### 12.3 Prüfwerte
+
+| Prüfung | Ergebnis |
+|---|---|
+| `php bin/lint-dashes.php` | keine Gedankenstriche (294 Dateien) |
+| `composer build` | ok, 17 Dateien mit `.gz`, 23 OG-Bilder, Suchindex 119 Einträge |
+| `vendor/bin/phpunit` | 467 Tests, alle grün |
+| `npx playwright test` | 172 Tests grün (Desktop und mobil) |
+| `php bin/check-pii.php` (lokal, development) | 29 Seiten, 0 Befunde |
+| `php bin/check-headers.php` (lokal) | 24 Adressen, 0 Befunde |
+| `php bin/check-structured-data.php` (staging und production) | keine Fehler |
+| `composer audit`, `npm audit --omit=dev` | keine Hinweise |
+
+Nicht lokal prüfbar (kein Nginx, kein Docker): `nginx -t` und die Auslieferung vorkomprimierter Dateien, siehe `docs/offene-punkte.md` C17.

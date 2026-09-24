@@ -95,6 +95,11 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | C13 | Redirect `/datenschutzerklaerung/` auf `/datenschutz/` als „vermutet“ markiert, Status verifizieren | `docs/redirects.md` | nein |
 | C14 | Vier Wochen 404-Monitoring nach Livegang einplanen und durchführen | `docs/redirects.md`, MP Abschnitt 13 Phase 7 | nein |
 | C15 | erledigt (23.09.2026): CI-Workflow `.github/workflows/ci.yml` (PHP 8.3 mit Lint, Gedankenstrich-Linter und PHPUnit gegen MariaDB 10.11, Playwright unter Node 22, Platzhalter-Bericht nicht blockierend, PII-Prüfung blockierend). Beim ersten Lauf auf GitHub Ergebnis prüfen | diese Sitzung | nein |
+| C16 | erledigt (24.09.2026): TOTP-Wiederherstellungscodes (Migration `0011_admin_recovery_codes.sql`, `bin/admin-user.php recovery-codes`), `/.well-known/security.txt`, `/health` als Docker-Healthcheck, vorkomprimierte Assets (`gzip_static`), `bin/deploy-post.sh`, Audit-Job und Dependabot in der CI, Druckansicht (`resources/css/90-druck.css`). Offen: nach dem ersten Deployment `bin/admin-user.php recovery-codes` für bestehende Konten ausführen und Codes offline verwahren | `docs/betrieb.md` Abschnitte 1.5 bis 1.7, `docs/pruefbericht.md` Abschnitt 12 | ja |
+| C17 | Nginx-Konfiguration nach den Änderungen (`gzip_static`, `/.well-known/` über PHP, `/llms.txt`, `/assets/img/`) auf Staging mit `nginx -t` und `curl -I` (Content-Encoding, Cache-Control) prüfen; lokal ohne Nginx und Docker nicht ausführbar | `docker/nginx/default.conf` | ja |
+| C18 | Externes Monitoring für `/health` einrichten und auf das Feld `datenbank` auswerten (die Antwort ist auch bei Datenbankausfall 200) | `docs/betrieb.md` Abschnitt 4 | nein |
+| C19 | Label `abhaengigkeiten` im GitHub-Repository anlegen (von `.github/dependabot.yml` verwendet); Ergebnis des ersten Audit-Jobs prüfen | `.github/dependabot.yml`, `.github/workflows/ci.yml` | nein |
+| C20 | Die Wissensübersicht blendet ohne JavaScript die Live-Trefferliste per `u-visually-hidden` aus; `resources/js/search.js` entfernt die Klasse jetzt. Sauberer wäre, die Klasse im Template `templates/pages/wissen.html.twig` wegzulassen (Bereich ist ohnehin `hidden`) | `templates/pages/wissen.html.twig` Zeile 39 | nein |
 
 ## D. Inhalte
 

@@ -1,6 +1,8 @@
 /*
  * Kopfzeile: kompakter Zustand beim Scrollen, Untermenüs als Disclosure (aria-expanded),
  * mobile Navigation mit aria-expanded. Escape schließt und gibt den Fokus an den Auslöser zurück.
+ * Geöffnetes mobiles Menü: Fokus auf dem ersten Menüpunkt, Tab und Umschalt+Tab bleiben zyklisch im Menü
+ * (Menüpunkte und Schließen-Button), der übrige Seiteninhalt ist per inert gesperrt.
  */
 const DESKTOP = '(min-width: 72em)';
 
@@ -64,6 +66,33 @@ export function initKopfzeile() {
     const nav = header.querySelector('[data-nav]');
     const label = menueKnopf?.querySelector('[data-menue-label]');
     const menueOffen = () => menueKnopf?.getAttribute('aria-expanded') === 'true';
+    let gesperrt = [];
+    const sichtbar = (element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden';
+    const fokussierbar = () => {
+        const imMenue = nav
+            ? Array.from(nav.querySelectorAll('a[href], button:not([disabled])')).filter(sichtbar)
+            : [];
+        return menueKnopf ? [...imMenue, menueKnopf] : imMenue;
+    };
+    const sperreHintergrund = (sperren) => {
+        gesperrt.forEach((element) => { element.inert = false; });
+        gesperrt = [];
+        if (!sperren) {
+            return;
+        }
+        // Alles außerhalb der Kopfzeile sowie Kopfzeilen-Elemente außerhalb von Menü und Button
+        const ausnahmen = new Set([header, nav, menueKnopf]);
+        const sperrbar = [
+            ...Array.from(document.body.children).filter((element) => !element.contains(header)),
+            ...Array.from(header.querySelectorAll('.c-header__pill > *')).filter((element) => !ausnahmen.has(element)),
+        ];
+        sperrbar.forEach((element) => {
+            if (!element.inert) {
+                element.inert = true;
+                gesperrt.push(element);
+            }
+        });
+    };
     const setzeMenue = (offen) => {
         if (!menueKnopf || !nav) {
             return;
@@ -74,7 +103,14 @@ export function initKopfzeile() {
         if (label) {
             label.textContent = offen ? 'Schließen' : 'Menü';
         }
+        sperreHintergrund(offen);
         aktualisieren();
+        if (offen) {
+            const erster = fokussierbar()[0];
+            if (erster && erster !== menueKnopf) {
+                erster.focus();
+            }
+        }
     };
     if (menueKnopf && nav) {
         menueKnopf.hidden = false;
@@ -85,6 +121,30 @@ export function initKopfzeile() {
             }
         });
     }
+
+    // Fokusfalle im geöffneten mobilen Menü
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Tab' || !menueOffen()) {
+            return;
+        }
+        const ziele = fokussierbar();
+        if (ziele.length === 0) {
+            return;
+        }
+        const erstes = ziele[0];
+        const letztes = ziele[ziele.length - 1];
+        const aktiv = document.activeElement;
+        if (!ziele.includes(aktiv)) {
+            event.preventDefault();
+            (event.shiftKey ? letztes : erstes).focus();
+        } else if (event.shiftKey && aktiv === erstes) {
+            event.preventDefault();
+            letztes.focus();
+        } else if (!event.shiftKey && aktiv === letztes) {
+            event.preventDefault();
+            erstes.focus();
+        }
+    });
 
     document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') {

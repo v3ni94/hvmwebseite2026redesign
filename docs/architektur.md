@@ -53,7 +53,7 @@ Weitere Pakete nur nach Eintrag mit Begründung in `docs/entscheidungen.md`.
 /content/faq         FAQ als YAML je Zielgruppe
 /config              app.php, unternehmen.php, kennzahlen.php, standorte.php, redirects.php, routes.php, navigation.php, freigaben.php, kundenstimmen.php, seiten.php (Meta je Seite)
 /migrations          NNNN_beschreibung.sql, fortlaufend, nie nachträglich ändern
-/bin                 migrate.php, worker.php, build-assets.php, build-search-index.php, build-og-images.php, check-pii.php, lint-dashes.php, check-placeholders.php, import-legacy-leads.php, admin-user.php, retention.php, legacy-mirror.sh
+/bin                 migrate.php, deploy-post.sh, worker.php, build-assets.php, build-search-index.php, build-og-images.php, check-pii.php, lint-dashes.php, check-placeholders.php, import-legacy-leads.php, admin-user.php, retention.php, legacy-mirror.sh
 /tests               Unit (PHPUnit), Integration (MariaDB-Testdatenbank), e2e (Playwright)
 /docker              php/Dockerfile, php/php-production.ini, nginx/default.conf, nginx/security-headers.conf
 /docs                Bestandsaufnahme, Architektur, Entscheidungen, offene Punkte, Redirects, Bildinventar, Phasenberichte

@@ -36,7 +36,7 @@
             <a href="/wissen/?zielgruppe={{ zg }}{{ suchbegriff ? '&q=' ~ suchbegriff|url_encode }}"{% if filterAktiv == zg %} aria-current="page"{% endif %} class="c-wissen-filter__link" data-zielgruppe="{{ zg }}">{{ zielgruppeLabels[zg] }}</a>
             {% endfor %}
         </nav>
-        <div class="c-wissen-live u-visually-hidden" data-wissen-live aria-live="polite" hidden></div>
+        <div class="c-wissen-live" data-wissen-live aria-live="polite" hidden></div>
     </div>
 </section>
 

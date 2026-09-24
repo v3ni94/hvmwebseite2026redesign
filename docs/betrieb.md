@@ -26,14 +26,18 @@ Produktion und Staging laufen als getrennte Compose-Projekte mit je eigener `.en
    ```
    `<neuer-tag>` ist eindeutig und nachvollziehbar, zum Beispiel der Git-Commit-Hash oder ein
    Datum. Kein `latest` im produktiven Einsatz, damit ein Rollback ein konkretes Image trifft.
-4. Migrationen ausführen:
+4. Nacharbeiten im laufenden PHP-Container mit `bin/deploy-post.sh` (Abschnitt 1.5):
    ```sh
-   docker compose run --rm php php bin/migrate.php
+   docker compose exec php sh bin/deploy-post.sh --ohne-build --url=http://nginx
    ```
+   Das Skript führt die Migrationen aus, leert den Twig-Cache und prüft `/health`.
    Migrationen sind ausschließlich vorwärtsgerichtet (`docs/entscheidungen.md`). Ein Rollback
-   der Anwendung setzt keine Migration zurück, siehe Abschnitt 2.
-5. Asset-Build ist Teil des Image-Baus (`php bin/build-assets.php` im Dockerfile). Ein
-   separater Schritt ist im Normalbetrieb nicht nötig.
+   der Anwendung setzt keine Migration zurück, siehe Abschnitt 2. Gleichzeitige Migrationsläufe
+   sind über eine Datenbanksperre (`GET_LOCK`) serialisiert.
+5. Der Build ist Teil des Image-Baus (Dockerfile, gleiche Schritte wie `composer build`:
+   `bin/build-assets.php` mit `.gz`-Varianten, `bin/build-og-images.php`,
+   `bin/build-search-index.php`). Der Nginx-Container hat eine eigene Kopie von `public/`,
+   ein Build im laufenden PHP-Container erreicht ihn nicht; deshalb dort `--ohne-build`.
 6. Worker (`bin/worker.php`, Outbox für Mail und Webhook) mit eigenem Profil starten, sobald
    die Datei vorhanden ist:
    ```sh
@@ -102,6 +106,51 @@ wird über einen Dienstnamen ohne Punkt (etwa `http://n8n:5678/...`) oder eine p
 angesprochen, erlaubt `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true` dort auch `http://`. Eine unzulässige
 Adresse versendet nichts, der Outbox-Eintrag bleibt mit dem Hinweis „Wartet auf Konfiguration:
 N8N_WEBHOOK_URL muss in Produktion https verwenden“ zurückgestellt (ohne URL und ohne Leaddaten).
+
+### 1.5 Nacharbeiten: bin/deploy-post.sh
+
+```sh
+bin/deploy-post.sh [--ohne-build] [--url=https://www.muellerhv.de]
+```
+
+1. `php bin/migrate.php` (Datenbank aus `DB_*`)
+2. Twig-Cache leeren (`storage/cache/twig`)
+3. Build wie `composer build` (entfällt mit `--ohne-build`, Docker siehe Abschnitt 1.1)
+4. Rauchtest `GET <url>/health`: bricht mit Exitcode 1 ab, wenn die Datenbank laut Antwort nicht
+   erreichbar ist
+
+Ohne Docker (zum Beispiel lokale oder klassische Installation) läuft das Skript ohne Optionen
+und baut die Assets mit. Der Asset-Build ist atomar: ein laufender Server liefert bis zum Tausch
+die bisherigen Dateien aus.
+
+### 1.6 Auslieferung statischer Dateien
+
+- `gzip_static on` in `docker/nginx/default.conf`: Zu CSS, JS, JSON und SVG (Build,
+  `public/assets/img`, Suchindex) erzeugt der Build `.gz`-Dateien, Nginx liefert sie ohne
+  Kompression je Anfrage aus. `.br` entsteht nur, wenn die PHP-Erweiterung `brotli` geladen ist
+  (derzeit nicht), und würde zusätzlich das Nginx-Modul `brotli_static` voraussetzen.
+- Dynamische Antworten (HTML, `sitemap.xml`, `llms.txt` als `text/markdown`, JSON) komprimiert
+  Nginx über `gzip_types`, Traefik zusätzlich über die Middleware `compress`.
+- Cache-Control: `/assets/build/` ein Jahr `immutable` (Hash im Namen), `/assets/img/` 30 Tage
+  mit `stale-while-revalidate`, `/og/` ein Tag mit `stale-while-revalidate`, übrige `/assets/`
+  sieben Tage.
+- `/.well-known/security.txt` erzeugt die Anwendung (RFC 9116, Kontakt `info@muellerhv.de`,
+  `Expires` knapp ein Jahr ab Anfrage, `Preferred-Languages: de`, `Canonical`). Statische Dateien
+  unter `/.well-known/` (etwa ACME) haben Vorrang.
+
+### 1.7 Admin-Konten und Wiederherstellungscodes
+
+- `php bin/admin-user.php create <email>` legt ein Konto an und gibt TOTP-Geheimnis und zehn
+  Wiederherstellungscodes einmalig aus.
+- `php bin/admin-user.php recovery-codes <email>` erzeugt zehn neue Codes, alle bisherigen
+  werden ungültig. `list` zeigt die Zahl unbenutzter Codes je Konto.
+- Ein Code ersetzt bei der Anmeldung einmalig den TOTP-Code (Format `XXXXX-XXXXX`, Groß- und
+  Kleinschreibung sowie Leerzeichen egal). Gespeichert ist nur ein HMAC (Schlüssel aus
+  `APP_KEY`), der Verbrauch steht mit Zeitpunkt und IP-Hash in `admin_recovery_codes` und im Log
+  (`Admin-Anmeldung mit Wiederherstellungscode`). Nach der Anmeldung zeigt der Admin-Bereich die
+  Zahl der verbleibenden Codes, ab drei oder weniger mit Hinweis auf Neuerzeugung.
+- Codes offline verwahren (zum Beispiel Passwort-Tresor der Geschäftsführung), nie per E-Mail
+  oder Chat. Ein Wechsel des `APP_KEY` macht TOTP-Geheimnisse und Codes unbrauchbar.
 
 ## 2. Rollback
 
@@ -186,10 +235,13 @@ dauerhaft laufender Backup-Container nicht gewünscht ist.
 
 ## 4. Monitoring
 
-- **Healthcheck**: Der Dienst `nginx` prüft `/robots.txt` (`docker-compose.yml`,
-  `healthcheck`), das genügt für „Container antwortet“. Ein fachlicher Healthcheck-Endpunkt
-  (zum Beispiel `/gesund/` mit Datenbankprüfung) ist im Code noch nicht vorhanden,
-  placeholder('Healthcheck-Endpunkt mit Fachteam abstimmen und implementieren').
+- **Healthcheck**: `GET /health` liefert `{"status":"ok","datenbank":"ja"}` bzw.
+  `{"status":"eingeschraenkt","datenbank":"nein"}`, ohne Versions- oder Pfadangaben,
+  `Cache-Control: no-store`. Der Dienst `nginx` nutzt den Endpunkt als Docker-Healthcheck
+  (`docker-compose.yml`) und prüft damit Nginx und PHP-FPM. Die Antwort ist auch bei
+  Datenbankausfall 200: Traefik nimmt ungesunde Container aus dem Routing, die Inhaltsseiten
+  funktionieren aber ohne Datenbank. Externes Monitoring wertet daher das Feld `datenbank` aus.
+  Der Verbindungsaufbau bricht nach zwei Sekunden ab.
 - **Logs**: `storage/logs` (Volume `storage_logs`), Format und Redaktion laut
   `docs/architektur.md` (`Log::redact()` entfernt E-Mail-Adressen und Telefonnummern vor dem
   Schreiben). Log-Rotation über den Host oder einen Log-Dienst,
@@ -205,6 +257,12 @@ dauerhaft laufender Backup-Container nicht gewünscht ist.
 - **Backup-Überwachung**: Erfolg oder Fehlschlag von `bin/backup-db.sh` auswerten (Exitcode,
   Log-Ausgabe des Backup-Dienstes). placeholder('Benachrichtigung bei fehlgeschlagener
   Sicherung einrichten, z. B. E-Mail oder Monitoring-Dienst').
+
+- **Abhängigkeiten**: Die CI prüft mit `composer audit` und `npm audit --omit=dev` in einem
+  eigenen Job. Hinweise mit Schweregrad low erscheinen als Warnung, ab medium schlägt der Job
+  fehl. Dependabot (`.github/dependabot.yml`) schlägt wöchentlich (montags) Aktualisierungen für
+  Composer, npm und GitHub Actions vor; `@playwright/test` nur als Patch, da Chromium lokal auf
+  1.56.1 abgestimmt ist.
 
 ## 5. Livegang-Checkliste (MP Phase 7)
 
@@ -249,7 +307,7 @@ dauerhaft laufender Backup-Container nicht gewünscht ist.
 ## Offene Punkte
 
 - placeholder('Staging-Subdomain festlegen')
-- placeholder('Healthcheck-Endpunkt mit Fachteam abstimmen und implementieren')
+- placeholder('Externes Monitoring für /health (Feld datenbank) einrichten')
 - placeholder('Log-Aufbewahrung und -Rotation festlegen')
 - placeholder('Aufbewahrungsort der Sicherungen außerhalb des Servers festlegen')
 - placeholder('Benachrichtigung bei fehlgeschlagener Sicherung einrichten')

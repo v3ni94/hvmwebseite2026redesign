@@ -13,7 +13,7 @@ final class MigrationsTest extends IntegrationTestCase
 {
     private const TABELLEN = [
         'admin_users', 'price_tiers', 'leads', 'lead_events', 'contact_requests',
-        'job_applications', 'outbox', 'rate_limits', 'admin_login_attempts',
+        'job_applications', 'outbox', 'rate_limits', 'admin_login_attempts', 'admin_recovery_codes',
     ];
 
     public function testMigrationsRunOnEmptyDatabase(): void
