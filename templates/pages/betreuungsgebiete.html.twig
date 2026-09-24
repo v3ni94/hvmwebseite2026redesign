@@ -1,15 +1,10 @@
 {#
-  Betreuungsgebiete: Hauptsitz Monheim am Rhein, Betreuung in mehreren Regionen. Klare Kennzeichnung
-  je Region eigene Präsenz oder Partnerbetreuung, Status aus config/standorte.php. Karte ohne Google
-  und ohne externe Anfragen (statisches Inline-SVG, siehe partials/karte-deutschland.html.twig).
-  Grundlage: MP Abschnitt 5, 3.7, 8; Bestandsaufnahme 3.7; config/standorte.php.
-
-  Bekannter offener Punkt (siehe Bericht): config/standorte.php wird hier als Twig-Array *dupliziert*,
-  weil src/View/View.php aktuell keine Twig-Variable "standorte" bereitstellt (anders als firma,
-  kennzahlen, nav). Empfehlung an die Architektur: in View.php ergänzen
-  "$this->twig->addGlobal('standorte', $config->array('standorte'));", analog zu Entscheidung 8 in
-  docs/designsystem.md (kundenstimmen). Danach kann diese Liste durch {{ standorte }} ersetzt werden.
-  Keine Anschriften oder Telefonnummern der Regionen: nur der Hauptsitz ist verifiziert (firma.anschrift).
+  Betreuungsgebiete (Controller: Hvm\Controller\StadtController::index()): alle 42 PLZ-Bereiche aus
+  config/staedte.php nach Bundesland gruppiert, mit PLZ-Bereich und Link zur Stadtseite (Link nur, wenn die
+  Stadtseite in der Umgebung erreichbar ist). Karte ohne Google und ohne externe Anfragen (Inline-SVG,
+  partials/karte-deutschland.html.twig), Hauptsitz hervorgehoben; die gruppierte Liste ist die Textalternative.
+  Keine Anschriften je Stadt: offen, ob die Absenderadressen eigene Büros sind (docs/offene-punkte.md A6).
+  Variablen: gruppen (Liste {bundesland, staedte}), orte (alle Städte für die Karte), anzahl.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -18,29 +13,13 @@
 {% import 'components/cta-band.html.twig' as cta %}
 {% import 'pages/_bausteine.html.twig' as hvm %}
 
-{% set standorte = [
-    {slug: 'monheim-am-rhein', name: 'Monheim am Rhein', status: 'eigene_praesenz', hauptsitz: true, karte: [50.3, 271.5]},
-    {slug: 'berlin', name: 'Berlin', status: null, hauptsitz: false, karte: [329.8, 172.8]},
-    {slug: 'muenchen', name: 'München', status: null, hauptsitz: false, karte: [251.6, 467.6]},
-    {slug: 'hameln', name: 'Hameln', status: null, hauptsitz: false, karte: [156.1, 201.9]},
-    {slug: 'koeln-bonn', name: 'Köln / Bonn', status: null, hauptsitz: false, karte: [53.4, 282.4]},
-    {slug: 'duesseldorf', name: 'Düsseldorf', status: null, hauptsitz: false, karte: [45.4, 262.5]},
-    {slug: 'hamburg', name: 'Hamburg', status: null, hauptsitz: false, karte: [183.5, 99.2]},
-    {slug: 'hannover', name: 'Hannover', status: null, hauptsitz: false, karte: [172.3, 182.9]},
-    {slug: 'frankfurt', name: 'Frankfurt', status: null, hauptsitz: false, karte: [127.2, 338.1]},
-    {slug: 'essen', name: 'Essen', status: null, hauptsitz: false, karte: [55.6, 246.9]},
-    {slug: 'kassel', name: 'Kassel', status: null, hauptsitz: false, karte: [161.4, 256.7]},
-    {slug: 'konstanz', name: 'Konstanz', status: null, hauptsitz: false, karte: [148.5, 498.0]},
-] %}
-
 {% block hero %}
 <section class="c-seitenkopf">
     {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Regionen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Sie suchen eine Hausverwaltung in {{ firma.anschrift.ort }} oder in der Region? Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Ob und in welcher Form wir Ihr Objekt betreuen können, klären wir anhand von Lage, Art und Größe im Einzelfall.</p>
-        <p class="c-seitenkopf__text">Die Übersicht nennt weitere Regionen. Die Betreuungsform, eigene Präsenz oder Partner vor Ort, geben wir je Region erst nach Prüfung an. {{ placeholder('Regionen und Betreuungsform bestätigen') }}</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH betreut Immobilien bundesweit in {{ anzahl }} Postleitzahlbereichen. Hauptsitz ist {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Wählen Sie die Region Ihres Objekts nach Bundesland oder Postleitzahl.</p>
         {{ hvm.hero_aktionen({label: 'Anfrage für Ihr Objekt', url: cta_url('/angebot/')}) }}
     </div>
 </section>
@@ -53,39 +32,60 @@
         {{ sh.section_head({
             eyebrow: 'Karte',
             titel: 'Regionen im *Überblick*',
-            text: 'Die Karte zeigt die ungefähre Lage der Regionen, keine Objekt- oder Büroadressen. Angaben zur Betreuungsform stehen in der Liste darunter.',
+            text: 'Die Karte zeigt die ungefähre Lage der Städte, nach denen die Postleitzahlbereiche benannt sind. Es handelt sich nicht um Objekt- oder Büroadressen. Alle Angaben stehen als Text in der Liste nach Bundesländern.',
             id: 'karte-titel',
+            geteilt: true,
         }) }}
-        {% include 'partials/karte-deutschland.html.twig' with {orte: standorte, id: 'karte-titel'} only %}
+        {% include 'partials/karte-deutschland.html.twig' with {orte: orte} only %}
     </div>
 </section>
 
-<section class="l-section l-section--flaeche" aria-labelledby="hauptsitz-titel">
+<section class="l-section l-section--flaeche" aria-labelledby="gebiete-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Nach Bundesland',
+            titel: 'Alle *Betreuungsgebiete*',
+            text: 'Jeder Bereich ist nach einer Stadt benannt und umfasst die genannten Postleitzahlen, auch über Landesgrenzen hinweg. Die Zuordnung zum Bundesland richtet sich nach der namensgebenden Stadt.',
+            id: 'gebiete-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-gebiete">
+            {% for gruppe in gruppen %}
+            <section class="c-gebiete__gruppe" aria-labelledby="land-{{ loop.index }}">
+                <h3 class="c-gebiete__land" id="land-{{ loop.index }}">{{ gruppe.bundesland }}</h3>
+                <ul class="c-gebiete__liste" role="list">
+                    {% for s in gruppe.staedte %}
+                    <li class="c-gebiete__eintrag{{ s.hauptsitz ? ' c-gebiete__eintrag--hauptsitz' }}">
+                        <span class="c-gebiete__name">
+                            {%- if s.url %}<a href="{{ s.url }}">Hausverwaltung {{ s.name }}</a>{% else %}{{ s.name }}{% endif -%}
+                            {% if s.hauptsitz %} <span class="c-gebiete__marke">Hauptsitz</span>{% endif %}
+                        </span>
+                        <span class="c-gebiete__plz">PLZ {{ s.plz_von }} bis {{ s.plz_bis }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="l-section" aria-labelledby="hauptsitz-titel">
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Hauptsitz',
-            titel: 'Eigene Präsenz in *' ~ firma.anschrift.ort ~ '*',
-            text: firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '.',
+            titel: 'Sitz in *' ~ firma.anschrift.ort ~ '*',
+            text: firma.name ~ ', ' ~ firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Anfragen aus allen Betreuungsgebieten bearbeiten wir zentral, Besuche nach vorheriger Terminabstimmung.',
             id: 'hauptsitz-titel',
-        }) }}
-    </div>
-</section>
-
-<section class="l-section" aria-labelledby="regionen-hinweis-titel">
-    <div class="l-container">
-        {{ sh.section_head({
-            eyebrow: 'Einordnung',
-            titel: 'Eigene Präsenz oder *Partnerbetreuung*',
-            text: 'Für die übrigen Regionen wird die Betreuungsform, eigene Präsenz oder Partnerbetreuung vor Ort, derzeit abgestimmt und in der Liste oben ergänzt. Anschriften und Telefonnummern einzelner Regionen veröffentlichen wir erst nach Prüfung.',
-            id: 'regionen-hinweis-titel',
+            aktion: {label: 'Kontakt und Anfahrt', url: '/kontakt/'},
         }) }}
     </div>
 </section>
 
 {{ cta.cta_band({
     titel: 'Anfrage mit *Region*',
-    text: 'Wählen Sie oben Ihre Region und stellen Sie eine Anfrage, wir ordnen sie dem passenden Ansprechpartner zu.',
-    primaer: {label: 'Anfrage mit Region', url: cta_url('/angebot/')},
+    text: 'Nennen Sie uns Lage, Art und Größe Ihres Objekts, wir ordnen die Anfrage dem passenden Betreuungsgebiet zu.',
+    primaer: {label: 'Anfrage stellen', url: cta_url('/angebot/')},
     sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
     id: 'cta-titel',
 }) }}

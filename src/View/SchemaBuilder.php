@@ -63,8 +63,7 @@ final class SchemaBuilder
                 'url' => $page['canonical'],
                 'inLanguage' => 'de-DE',
                 'provider' => ['@id' => $this->organizationId()],
-                // areaServed nur mit bestätigten Orten (config/standorte.php, verifiziert true): Hauptsitz
-                // Monheim am Rhein sowie weitere Regionen erst nach Bestätigung durch die Geschäftsführung.
+                // areaServed: Hauptsitz und Deutschland (Betreuungsgebiete bundesweit, config/staedte.php).
                 'areaServed' => $this->confirmedAreaServed(),
                 'mainEntityOfPage' => $page['canonical'],
             ]);
@@ -185,21 +184,23 @@ final class SchemaBuilder
     }
 
     /**
-     * Bestätigte Orte aus config/standorte.php: Hauptsitz sowie Regionen mit status 'eigene_praesenz'
-     * oder 'partner' und verifiziert true. Nicht bestätigte Regionen werden nie aufgenommen.
+     * Einsatzgebiet laut config/staedte.php: der Hauptsitz als City und, sobald Betreuungsgebiete
+     * hinterlegt sind, Deutschland als Country (42 PLZ-Bereiche decken 00001 bis 99999 ab, Angabe der
+     * Geschäftsführung vom 24.09.2026). Einzelne Städte stehen im Service-Schema der jeweiligen Stadtseite.
      *
      * @return list<array<string, mixed>>
      */
     private function confirmedAreaServed(): array
     {
         $orte = [];
-        foreach ($this->config->array('standorte') as $standort) {
-            $status = $standort['status'] ?? null;
-            $verifiziert = $standort['verifiziert'] ?? false;
-            if ($verifiziert !== true || !in_array($status, ['eigene_praesenz', 'partner'], true)) {
-                continue;
+        $staedte = $this->config->array('staedte');
+        foreach ($staedte as $stadt) {
+            if (is_array($stadt) && ($stadt['hauptsitz'] ?? false) === true) {
+                $orte[] = ['@type' => 'City', 'name' => (string) ($stadt['name'] ?? '')];
             }
-            $orte[] = ['@type' => 'City', 'name' => (string) ($standort['name'] ?? '')];
+        }
+        if (count($staedte) > 1) {
+            $orte[] = ['@type' => 'Country', 'name' => 'Deutschland'];
         }
 
         return $orte;

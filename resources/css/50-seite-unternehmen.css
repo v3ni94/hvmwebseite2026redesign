@@ -15,6 +15,11 @@
         font-size: var(--fs-lead);
         font-weight: var(--fw-halbfett);
     }
+    .c-notfall-anruf__hinweis {
+        margin-top: var(--abstand-3);
+        font-size: var(--fs-text);
+        font-weight: var(--fw-halbfett);
+    }
     .c-notfall-anruf__platzhalter {
         margin-bottom: var(--abstand-3);
         font-size: var(--fs-text);

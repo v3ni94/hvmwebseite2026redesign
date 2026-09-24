@@ -40,16 +40,49 @@ final class LegacyRedirectsTest extends TestCase
 
     public function testQueryStringIsKept(): void
     {
-        self::assertSame('/betreuungsgebiete/?utm_source=test', $this->call('/monheim/?utm_source=test')->header('Location'));
+        self::assertSame('/hausverwaltung-monheim-am-rhein/?utm_source=test', $this->call('/monheim/?utm_source=test')->header('Location'));
     }
 
-    public function testLocationPagesRedirectToBetreuungsgebiete(): void
+    public function testAlteStandortseitenFuehrenZurPassendenStadtseite(): void
     {
-        foreach (['/monheim/', '/muenchen/', '/bernau-bei-berlin/', '/konstanz/', '/koeln-bonn/', '/erkelenz/'] as $path) {
-            $response = $this->call($path);
-            self::assertSame(301, $response->status(), $path);
-            self::assertSame('/betreuungsgebiete/', $response->header('Location'), $path);
+        $erwartet = [
+            '/muenchen/' => '/hausverwaltung-muenchen/',
+            '/konstanz/' => '/hausverwaltung-konstanz/',
+            '/monheim/' => '/hausverwaltung-monheim-am-rhein/',
+            '/bernau-bei-berlin/' => '/hausverwaltung-berlin/',
+            '/berlin/' => '/hausverwaltung-berlin/',
+            '/hameln/' => '/hausverwaltung-hannover/',
+            '/koeln/' => '/hausverwaltung-koeln/',
+            '/koeln-bonn/' => '/hausverwaltung-koeln/',
+            '/duesseldorf/' => '/hausverwaltung-duesseldorf/',
+            '/hamburg/' => '/hausverwaltung-hamburg/',
+            '/hannover/' => '/hausverwaltung-hannover/',
+            '/frankfurt/' => '/hausverwaltung-frankfurt-am-main/',
+            '/essen/' => '/hausverwaltung-essen/',
+            '/kassel/' => '/hausverwaltung-kassel/',
+            '/erkelenz/' => '/hausverwaltung-erkelenz/',
+        ];
+        foreach ($erwartet as $alt => $neu) {
+            $response = $this->call($alt);
+            self::assertSame(301, $response->status(), $alt);
+            self::assertSame($neu, $response->header('Location'), $alt);
         }
+    }
+
+    public function testZieleDerStadtweiterleitungenSindStaedteAusDerKonfiguration(): void
+    {
+        $slugs = array_column(require self::basePath() . '/config/staedte.php', 'slug');
+        foreach (require self::basePath() . '/config/redirects.php' as $regel) {
+            if (is_string($regel['nach'] ?? null) && str_starts_with($regel['nach'], '/hausverwaltung-')) {
+                $slug = substr($regel['nach'], strlen('/hausverwaltung-'), -1);
+                self::assertContains($slug, $slugs, $regel['von']);
+            }
+        }
+    }
+
+    public function testStadtseitenSelbstWerdenNichtUmgeleitet(): void
+    {
+        self::assertSame('weiter', $this->call('/hausverwaltung-koeln/')->body());
     }
 
     public function testPrefixRedirect(): void

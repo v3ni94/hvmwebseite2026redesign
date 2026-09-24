@@ -1,5 +1,5 @@
 
-# Technische Nachzeichnung, nicht freigegeben. Vor Livegang Freigabe durch die Geschäftsführung erforderlich. Originalvektordatei beim früheren Dienstleister anfordern.
+# Technische Nachzeichnung, freigegeben durch die Geschäftsführung am 24.09.2026 (docs/auftraggeber-angaben.md). Originalvektordatei beim früheren Dienstleister weiterhin anfordern.
 
 Stand: 23.09.2026. Grundlage: `docs/Logo_HVM.jpg` (offizielles Logo, 1320 x 1143 px), MP Abschnitt 3.4 und 3.8, `docs/architektur.md` Abschnitt 7.
 
@@ -59,7 +59,7 @@ Die Wortmarke wurde zusätzlich über die Schwelle der Binarisierung vor der Vek
 
 ## 5. Offene Punkte
 
-- **Originalvektordatei beim früheren Dienstleister anfordern.** Diese Nachzeichnung ersetzt keine Vektor-Originaldatei und darf nicht ohne Freigabe der Geschäftsführung live gehen (siehe Titelzeile).
+- **Freigabe erteilt (24.09.2026).** Die Geschäftsführung hat die Nachzeichnung freigegeben, sie darf live gehen. Die Originalvektordatei beim früheren Dienstleister anzufordern bleibt empfehlenswert, ist aber nicht blockierend.
 - Die gemessene, CI-fremde Fläche `#B0B1B3` (Abschnitt 2) sollte vor einer Freigabe fachlich geklärt werden (bewusste Gestaltung vs. Artefakt).
 - Bei sehr kleinen Darstellungsgrößen (Favicon, 16 bis 24 px) verliert `--hvm-hellgrau` (M-Fläche) auf hellem Grund sichtbar an Kontrast; dies folgt aus der ohnehin in MP 3.2 dokumentierten Kontrastregel („Anthrazit #87888A auf Weiß nur ab 24 px oder dekorativ") und ist keine Fehlmessung, sollte aber bei der Freigabe der Favicon-Variante berücksichtigt werden.
 - Keine Negativvariante erstellt (wie in MP 3.8 gefordert, erst nach Freigabe).

@@ -1,0 +1,146 @@
+{#
+  Stadtseite /hausverwaltung-{slug}/ (Controller: Hvm\Controller\StadtController::show()).
+  seite: Hvm\Content\StadtSeite (Text aus content/staedte/{slug}.md), stadt/nachbarn/hauptsitz: Arrays aus
+  config/staedte.php (url nur, wenn die Stadtseite in der Umgebung erreichbar ist).
+  Keine Anschrift, kein Büro und keine Ansprechpartner je Stadt: offen, ob die Absenderadressen der
+  Verwaltungssoftware eigene Büros sind (docs/offene-punkte.md A6). Kontakt ausschließlich über den Hauptsitz.
+#}
+{% extends 'layouts/base.html.twig' %}
+
+{% import 'components/eyebrow.html.twig' as e %}
+{% import 'components/section-head.html.twig' as sh %}
+{% import 'components/card.html.twig' as c %}
+{% import 'components/faq.html.twig' as faq %}
+{% import 'components/button.html.twig' as b %}
+{% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
+
+{% set angebot_url = cta_url('/angebot/', {region: stadt.name}) %}
+
+{% block hero %}
+<section class="c-seitenkopf">
+    {% include 'partials/hausumriss.html.twig' with {klasse: 'c-seitenkopf__umriss', zeichnen: true} only %}
+    <div class="l-container c-seitenkopf__inhalt">
+        {{ e.eyebrow('Betreuungsgebiet ' ~ stadt.name) }}
+        <h1>{{ page.heading|trennen }}</h1>
+        {% if seite.einleitungHtml %}
+        <div class="c-seitenkopf__text c-stadt-einleitung">{{ seite.einleitungHtml|raw }}</div>
+        {% endif %}
+        {% if not seite.freigegeben %}
+        <p>{{ placeholder('Entwurf, nicht freigegeben') }}</p>
+        {% endif %}
+        {{ hvm.hero_aktionen({label: 'Angebot für ' ~ stadt.name, url: angebot_url}) }}
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<section class="l-section l-section--kompakt" aria-labelledby="plz-titel">
+    <div class="l-container c-stadt-plz">
+        <div class="c-stadt-plz__bereich">
+            <h2 class="c-stadt-plz__titel" id="plz-titel">Betreute Postleitzahlen <span class="c-stadt-plz__zahlen">{{ stadt.plz_von }} bis {{ stadt.plz_bis }}</span></h2>
+            <p>Diese Seite gilt für Objekte mit Postleitzahlen von {{ stadt.plz_von }} bis {{ stadt.plz_bis }}. Der Bereich ist nach {{ stadt.name }} ({{ stadt.bundesland }}) benannt und kann über Stadt- und Landesgrenzen hinausreichen.</p>
+        </div>
+        {% if stadt.bestand_orte|length > 0 %}
+        <div class="c-stadt-plz__bestand">
+            <p class="c-stadt-plz__label">Bereits von uns verwaltet in der Region:</p>
+            <ul class="c-stadt-bestand" role="list">
+                {% for ort in stadt.bestand_orte %}<li>{{ ort }}</li>{% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if seite.inhaltHtml %}
+<section class="l-section l-section--kompakt" aria-label="Hausverwaltung {{ stadt.name }}">
+    <div class="l-container">
+        <div class="c-prosa c-stadt-inhalt">
+            {{ seite.inhaltHtml|trennen_html }}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="l-section l-section--flaeche" aria-labelledby="leistungen-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Leistungen',
+            titel: 'Leistungen der *Hausverwaltung Müller*',
+            text: 'Für Eigentümer, Gemeinschaften und Vermieter im Postleitzahlbereich ' ~ stadt.plz_von ~ ' bis ' ~ stadt.plz_bis ~ '.',
+            id: 'leistungen-titel',
+            geteilt: true,
+        }) }}
+        <div class="c-karten c-karten--4">
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'WEG-Verwaltung', url: '/weg-verwaltung/', fuss: 'Mehr erfahren', text: 'Verwaltung des gemeinschaftlichen Eigentums für Wohnungseigentümergemeinschaften.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Mietverwaltung', url: '/mietverwaltung/', fuss: 'Mehr erfahren', text: 'Kaufmännische und technische Verwaltung vermieteter Häuser.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'SE-Verwaltung', url: '/se-verwaltung/', fuss: 'Mehr erfahren', text: 'Verwaltung einzelner vermieteter Eigentumswohnungen.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verwalterwechsel', url: '/verwalterwechsel/', fuss: 'Ablauf ansehen', text: 'Wechsel der Verwaltung, geordnet und nachvollziehbar.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Vermietung', url: '/vermietung/', fuss: 'Mehr erfahren', text: 'Vermietung im Auftrag der Eigentümer.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Verkauf', url: '/verkauf/', fuss: 'Mehr erfahren', text: 'Begleitung beim Verkauf von Immobilien.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Wertgutachten', url: '/wertgutachten/', fuss: 'Mehr erfahren', text: 'Marktwerteinschätzung und Wertgutachten.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', titel: 'Asset Management', url: '/asset-management/', fuss: 'Mehr erfahren', text: 'Strategie für Wohnimmobilien.'}) }}
+        </div>
+    </div>
+</section>
+
+{{ hvm.vertrauen({id: 'vertrauen-titel'}) }}
+
+{% if seite.faq|length > 0 %}
+<section class="l-section l-section--flaeche" aria-labelledby="faq-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Häufige Fragen',
+            titel: 'Fragen aus *' ~ stadt.name ~ '*',
+            id: 'faq-titel',
+        }) }}
+        {{ faq.faq(seite.faq) }}
+    </div>
+</section>
+{% endif %}
+
+<section class="l-section" aria-labelledby="kontakt-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Kontakt',
+            titel: 'So erreichen *Sie uns*',
+            text: 'Anfragen aus ' ~ stadt.name ~ ' und Umgebung bearbeiten wir zentral. Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.',
+            id: 'kontakt-titel',
+            geteilt: true,
+        }) }}
+        {% set buerozeiten %}Bürozeiten: {% if firma.buerozeiten %}{{ firma.buerozeiten }} {% endif %}{{ placeholder('Wochentage der Bürozeiten bestätigen') }}{% endset %}
+        <div class="c-karten">
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Telefon', titel: firma.telefon ?: 'Telefon', icon: 'telefon', url: firma.telefon ? tel_href(firma.telefon) : '/kontakt/', fuss: firma.telefon ? 'Anrufen' : 'Zum Kontakt', text: 'Für Anfragen zur Verwaltung und für laufende Anliegen.', zusatz: buerozeiten}) }}
+            {{ c.card({klasse: 'c-karte--kompakt c-karte--umbruch', eyebrow: 'E-Mail', titel: firma.email, icon: 'kontakt', url: 'mailto:' ~ firma.email, fuss: 'E-Mail schreiben', text: 'Schriftliche Anfragen, gern mit Angaben zu Ihrem Objekt.'}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Hauptsitz', titel: firma.anschrift.ort, icon: 'haus', url: '/kontakt/', fuss: 'Kontakt und Anfahrt', text: firma.name ~ ', ' ~ firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Besuche nach vorheriger Terminabstimmung.'}) }}
+        </div>
+    </div>
+</section>
+
+<section class="l-section l-section--flaeche" aria-labelledby="nachbarn-titel">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Betreuungsgebiete',
+            titel: 'Weitere Regionen in der *Nähe*',
+            id: 'nachbarn-titel',
+            aktion: {label: 'Alle Betreuungsgebiete', url: '/betreuungsgebiete/'},
+        }) }}
+        {% if nachbarn|length > 0 %}
+        <div class="c-karten">
+            {% for n in nachbarn %}
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: n.bundesland, titel: 'Hausverwaltung ' ~ n.name, url: n.url, fuss: 'Zur Seite', text: 'Postleitzahlen ' ~ n.plz_von ~ ' bis ' ~ n.plz_bis ~ '.'}) }}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{{ cta.cta_band({
+    titel: 'Angebot für Ihr Objekt in *' ~ stadt.name ~ '*',
+    text: 'Unverbindlich und nur mit den Angaben, die für ein Angebot erforderlich sind.',
+    primaer: {label: 'Angebot anfordern', url: angebot_url},
+    sekundaer: {label: 'Kontakt aufnehmen', url: '/kontakt/'},
+    id: 'cta-titel',
+}) }}
+{% endblock %}

@@ -262,7 +262,11 @@
     .c-footer__gruppe { padding-top: var(--abstand-4); border-top: 1px solid var(--linie-auf-dunkel); min-width: 0; }
     @media (min-width: 64em) {
         .c-footer__marke { grid-column: span 4; }
-        .c-footer__nav { grid-column: 5 / span 8; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .c-footer__nav { grid-column: 5 / span 8; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    /* Fünf Gruppen (Leistungen, Unternehmen, Betreuungsgebiete, Service, Rechtliches) in einer Zeile ab 90 em */
+    @media (min-width: 90em) {
+        .c-footer__nav { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     }
     /* Logo auf dunklem Grund nur auf heller Schutzfläche (keine Negativvariante ohne Freigabe) */
     .c-footer__logo-flaeche {

@@ -76,5 +76,5 @@ return [
     'ai_crawlers' => Env::bool('AI_CRAWLERS', true),
 
     // Klassen, die Hvm\Support\SitemapProvider implementieren (z. B. Wissensartikel)
-    'sitemap_providers' => [\Hvm\Content\WissenSitemapProvider::class],
+    'sitemap_providers' => [\Hvm\Content\WissenSitemapProvider::class, \Hvm\Content\StadtSitemapProvider::class],
 ];

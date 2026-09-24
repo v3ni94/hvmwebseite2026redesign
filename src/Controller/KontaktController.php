@@ -285,7 +285,8 @@ final class KontaktController
     }
 
     /**
-     * Betreuungsgebiet aus der Vorbelegung: bekannter Standort (Slug oder Name) oder schlichter Ortsname.
+     * Betreuungsgebiet aus der Vorbelegung: Stadt aus config/staedte.php (Slug oder Name, etwa von den
+     * Stadtseiten /angebot/?region=Köln) oder schlichter Ortsname.
      */
     private function region(?string $value): ?string
     {
@@ -296,12 +297,12 @@ final class KontaktController
         if ($value === '' || mb_strlen($value) > 60) {
             return null;
         }
-        foreach ((array) $this->config->get('standorte', []) as $standort) {
-            if (!is_array($standort)) {
+        foreach ((array) $this->config->get('staedte', []) as $stadt) {
+            if (!is_array($stadt)) {
                 continue;
             }
-            if (($standort['slug'] ?? null) === $value || mb_strtolower((string) ($standort['name'] ?? '')) === mb_strtolower($value)) {
-                return (string) $standort['name'];
+            if (($stadt['slug'] ?? null) === $value || mb_strtolower((string) ($stadt['name'] ?? '')) === mb_strtolower($value)) {
+                return (string) $stadt['name'];
             }
         }
 

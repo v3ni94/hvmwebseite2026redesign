@@ -51,10 +51,16 @@ return [
             'links' => [
                 ['label' => 'Über uns', 'url' => '/ueber-uns/'],
                 ['label' => 'Zahlen und Fakten', 'url' => '/fakten/'],
-                ['label' => 'Betreuungsgebiete', 'url' => '/betreuungsgebiete/'],
                 ['label' => 'Referenzen', 'url' => '/referenzen/'],
                 ['label' => 'Karriere', 'url' => '/karriere/'],
                 ['label' => 'Wissen und FAQ', 'url' => '/wissen/'],
+            ],
+        ],
+        [
+            // Übersicht statt aller 42 Stadtseiten (config/staedte.php), die Stadtseiten verlinkt die Übersicht
+            'titel' => 'Betreuungsgebiete',
+            'links' => [
+                ['label' => 'Alle Betreuungsgebiete', 'url' => '/betreuungsgebiete/'],
             ],
         ],
         [

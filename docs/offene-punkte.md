@@ -1,6 +1,6 @@
 # Offene Punkte vor Livegang
 
-Stand: 23.09.2026. Vollständige, deduplizierte Liste aller Platzhalter und offenen Entscheidungen aus `php bin/check-placeholders.php --report` (`docs/platzhalter-report.md`), `docs/recht-offene-fragen.md`, `docs/redirects.md`, `docs/logo/nachzeichnung-pruefung.md`, MP Abschnitt 15, `docs/phase0.md` sowie den Prüfberichten dieser und vorangegangener Sitzungen. Gruppiert nach Zuständigkeit. Mehrfach an unterschiedlichen Stellen auftretende Punkte sind zu einer Zeile zusammengefasst, alle Fundstellen sind genannt.
+Stand: 24.09.2026. Vollständige, deduplizierte Liste aller Platzhalter und offenen Entscheidungen aus `php bin/check-placeholders.php --report` (`docs/platzhalter-report.md`), `docs/recht-offene-fragen.md`, `docs/redirects.md`, `docs/logo/nachzeichnung-pruefung.md`, MP Abschnitt 15, `docs/phase0.md` sowie den Prüfberichten dieser und vorangegangener Sitzungen. Gruppiert nach Zuständigkeit. Mehrfach an unterschiedlichen Stellen auftretende Punkte sind zu einer Zeile zusammengefasst, alle Fundstellen sind genannt.
 
 Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder Funktion nicht live gehen. **nein** = kann nachgezogen werden, ohne den Livegang zu verhindern.
 
@@ -8,12 +8,12 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 
 | Nr. | Punkt | Fundstelle | Blockierend |
 |---|---|---|---|
-| A1 | Notfallnummer für den 24/7-Notdienst bestätigen | `config/unternehmen.php:27`, `content/faq/mieter.yaml:17`, `content/wissen/eigentuemerportal.md:72`, `content/wissen/erreichbarkeit.md:46`, `content/wissen/notfall-was-tun.md:82`, `docs/auftraggeber-angaben.md` | ja |
-| A2 | Portal-URL des Eigentümerportals bestätigen | `config/unternehmen.php:33`, `content/wissen/eigentuemerportal.md:22`, `content/wissen/erreichbarkeit.md:40`, `docs/auftraggeber-angaben.md` | ja |
+| A1 | erledigt (24.09.2026): Notfallnummer 02431 9550300 (zentrale Nummer, außerhalb der Bürozeiten in der Leitung bleiben) in `config/unternehmen.php` (`notfall_telefon`, `notfall_hinweis`), Notfall- und Serviceseite, Leistungsseiten, Artikel `notfall-was-tun`, `erreichbarkeit`, `eigentuemerportal`, FAQ Mieter | `docs/auftraggeber-angaben.md` | nein |
+| A2 | erledigt (24.09.2026): Portal-URL https://portal.muellerhv.de in `config/unternehmen.php` (`portal_url`), Serviceseite, Artikel `eigentuemerportal`, `erreichbarkeit` | `docs/auftraggeber-angaben.md` | nein |
 | A3 | USt-IdNr. ergänzen, falls vorhanden | `config/unternehmen.php:30`, `docs/recht-offene-fragen.md` I4 | nein |
 | A4 | Aufbewahrungsfrist für Anfragen ohne Vertragsschluss festlegen (`LEAD_RETENTION_DAYS`), Löschlauf `bin/retention.php` laut Architektur geplant, noch nicht vorhanden | `config/app.php:57`, `docs/architektur.md` Abschnitt 5, `docs/recht-offene-fragen.md` D13 | ja |
 | A5 | Empfängeradresse für Lead-Benachrichtigungen (`LEAD_NOTIFY_TO`) festlegen | `config/app.php:48`, `docs/architektur.md` Abschnitt 5 | ja |
-| A6 | Regionen und Betreuungsform je Region festlegen (eigene Präsenz oder Partnerbetreuung) | `config/standorte.php:9` | ja |
+| A6 | Teilweise erledigt (24.09.2026): Betreuungsgebiete bundesweit nach 42 PLZ-Bereichen bestätigt, umgesetzt in `config/staedte.php` und den Stadtseiten `/hausverwaltung-<stadt>/` (ersetzt `config/standorte.php`). Offen: ob die Absenderadressen der Verwaltungssoftware eigene Büros, Partnerbüros oder Postanschriften sind; bis zur Klärung werden keine Anschriften je Stadt und kein LocalBusiness je Stadt veröffentlicht. Stadttexte (`content/staedte/*.md`) einzeln freigeben (`freigabe: ja`) | `config/staedte.php`, `content/staedte/`, `docs/auftraggeber-angaben.md` | ja (je Stadtseite, Seite ohne Freigabe liefert in Produktion 404) |
 | A7 | Stellenangebote für die Karriereseite ergänzen | `config/stellen.php:7` | nein |
 | A8 | Intervall der Objektbegehungen und feste Ansprechperson je Objekt festlegen | Bericht „content“ dieser Sitzung, MP Abschnitt 6/7 | nein |
 | A9 | Klären, ob Objekte außerhalb des Bestands vermittelt/verkauft werden | Bericht „content“ dieser Sitzung | nein |
@@ -25,13 +25,13 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | A15 | Statusanzeige für Nutzer im Eigentümerportal bestätigen | `content/wissen/eigentuemerportal.md:43` | nein |
 | A16 | Datenschutzhinweise zum Eigentümerportal ergänzen | `content/wissen/eigentuemerportal.md:66` | ja (hängt mit Datenschutzerklärung zusammen, siehe B-Liste) |
 | A17 | Zugang für Mieter zum Portal/Funktionen bestätigen | `content/faq/mieter.yaml:37`, `content/wissen/eigentuemerportal.md:49`, `content/wissen/erreichbarkeit.md:38`, `content/wissen/schadensmeldung.md:57` | nein |
-| A18 | Sprechzeiten ergänzen | `content/faq/mieter.yaml:25`, `content/wissen/erreichbarkeit.md:28` | ja |
-| A19 | Ablauf für persönliche Termine bestätigen | `content/wissen/erreichbarkeit.md:54` | nein |
+| A18 | Teilweise erledigt (24.09.2026): Bürozeiten 8 bis 16 Uhr (`firma.buerozeiten`) auf Kontakt, Service, Stadtseiten, Artikel `erreichbarkeit`, FAQ Mieter. Offen: Wochentage der Bürozeiten bestätigen (Platzhalter „[Wochentage der Bürozeiten bestätigen]“); Öffnungszeiten in strukturierten Daten erst danach | `templates/pages/kontakt.html.twig`, `templates/pages/service.html.twig`, `templates/pages/stadt.html.twig`, `content/faq/mieter.yaml`, `content/wissen/erreichbarkeit.md` | ja |
+| A19 | erledigt (24.09.2026): Bürobesuche nur nach vorheriger Terminabstimmung (bestätigt), Artikel `erreichbarkeit` angepasst | `content/wissen/erreichbarkeit.md` | nein |
 | A20 | Leistungsumfang der Betriebskostenabrechnung bestätigen | `content/wissen/betriebskostenabrechnung.md:82` | nein |
 | A21 | Vertragslaufzeiten und Kündigungsfristen der HVM bestätigen | `content/wissen/vertragslaufzeit-verwaltervertrag.md:77` | ja |
 | A22 | Aktuelle Mitgliedschaften (VZIV, IVD) bestätigen | `content/wissen/zertifizierter-verwalter.md:74`, `docs/recht-offene-fragen.md` I9 | nein |
 | A23 | Angabe zur Zertifizierung nach § 26a WEG der betreuenden Mitarbeiter bestätigen | `content/wissen/zertifizierter-verwalter.md:74` | nein |
-| A24 | Freigabe der Logo-Nachzeichnung (Original ist kein Vektor-Freigegebenes, Ersatzlösung nicht ohne Freigabe live) und Originalvektordatei beim früheren Dienstleister anfordern | `docs/logo/nachzeichnung-pruefung.md` Titelzeile, Abschnitt 5 | ja |
+| A24 | erledigt (24.09.2026): Logo-Nachzeichnung durch die Geschäftsführung freigegeben. Empfehlung bleibt, die Originalvektordatei beim früheren Dienstleister anzufordern (nicht blockierend) | `docs/logo/nachzeichnung-pruefung.md` Titelzeile, Abschnitt 5 | nein |
 | A25 | Fachlich klären, ob die gemessene, CI-fremde Fläche `#B0B1B3` in der Logo-Nachzeichnung bewusste Gestaltung oder Kompressionsartefakt ist | `docs/logo/nachzeichnung-pruefung.md` Abschnitt 2, 5 | nein |
 | A26 | Datenquelle für Immobilienangebote (`/ff/immobilien/`) klären, danach Redirect von 302 auf 301 umstellen | `docs/redirects.md` | nein |
 | A27 | Vollständige URL-Liste der Altseite besorgen (Mirror aus Entwicklungsumgebung nicht möglich), vermutete Redirect-Einträge bestätigen oder entfernen | `docs/redirects.md`, `docs/phase0.md` | nein |
@@ -43,6 +43,9 @@ Spalte „Blockierend“: **ja** = ohne Klärung darf die betroffene Seite oder 
 | A33 | Freigabe der Datenschutzerklärung insgesamt (nach DSB) | `docs/recht-offene-fragen.md` D19 | ja |
 | A34 | Technischer Teil erledigt (23.09.2026): `WebhookService` lässt in Produktion nur https zu, http nur für interne Hosts (Dienstname ohne Punkt, private IP) mit `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=true`, sonst wartet der Outbox-Eintrag mit Fehlermeldung ohne URL (`tests/Unit/Service/WebhookServiceTest.php`, `tests/Integration/OutboxWorkerTest.php`). Offen: n8n-Adresse bestätigen und `N8N_WEBHOOK_ALLOW_HTTP_INTERNAL` passend setzen | Bericht „sec“ dieser Sitzung, `docs/betrieb.md` Abschnitt 1.4 | ja |
 | A35 | Vorgehen bei APP_KEY-Umstellung (jetzt mindestens 32 Byte, base64:...) mit bestehenden Umgebungen abstimmen; kürzere oder nicht dekodierbare Schlüssel gelten als fehlend, Produktion startet dann nicht, ein bestehender kürzerer Schlüssel macht damit verschlüsselte TOTP-Geheimnisse und Uploads unlesbar. Lokale `.env` ist gültig | Bericht „sec“ dieser Sitzung, `docs/architektur.md` Abschnitt 5 | ja |
+| A36 | erledigt (24.09.2026): Formulierungen Verwalterwechsel (HVM übernimmt nach Beschluss die Abstimmung zur Übergabe mit dem bisherigen Verwalter, fehlende Unterlagen werden festgehalten und nachgefordert) und Termin (Bürobesuche nur nach vorheriger Terminabstimmung) bestätigt | `templates/pages/verwalterwechsel.html.twig`, `templates/pages/start.html.twig`, `templates/pages/kontakt.html.twig`, `docs/auftraggeber-angaben.md` | nein |
+| A37 | erledigt (24.09.2026): Wertgutachten erstellen eigens ausgebildete Mitarbeiter, teilweise externe Sachverständige (ersetzt „[Sachverständige benennen]“), keine Zertifizierung behauptet | `templates/pages/wertgutachten.html.twig`, `content/wissen/wertermittlung-verfahren.md` | nein |
+| A38 | erledigt (24.09.2026): Staging-Subdomain `neu.muellerhv.de` | `docs/betrieb.md` Abschnitt 1.2, `.env.example` | nein |
 
 ## B. Anwalt / Datenschutzbeauftragter
 

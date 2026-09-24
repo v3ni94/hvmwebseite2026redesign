@@ -48,7 +48,8 @@ Produktion und Staging laufen als getrennte Compose-Projekte mit je eigener `.en
 
 ### 1.2 Staging
 
-Staging läuft unter placeholder('Staging-Subdomain festlegen, z. B. neu.muellerhv.de') mit
+Staging läuft unter `neu.muellerhv.de` (bestätigt 24.09.2026, `APP_HOST=neu.muellerhv.de`,
+`APP_URL=https://neu.muellerhv.de`, `SHOW_DRAFTS=true`) mit
 HTTP Basic Auth und `X-Robots-Tag: noindex, nofollow`, umgesetzt über die
 Traefik-Middleware-Kette in `docker-compose.yml` (`TRAEFIK_MIDDLEWARES`,
 `STAGING_BASIC_AUTH`, `STAGING_ROBOTS_TAG`). Eigenes Compose-Projekt:
@@ -306,7 +307,7 @@ dauerhaft laufender Backup-Container nicht gewünscht ist.
 
 ## Offene Punkte
 
-- placeholder('Staging-Subdomain festlegen')
+- erledigt (24.09.2026): Staging-Subdomain `neu.muellerhv.de`
 - placeholder('Externes Monitoring für /health (Feld datenbank) einrichten')
 - placeholder('Log-Aufbewahrung und -Rotation festlegen')
 - placeholder('Aufbewahrungsort der Sicherungen außerhalb des Servers festlegen')

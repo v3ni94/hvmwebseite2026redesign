@@ -14,7 +14,7 @@ fragen:
     artikel: erreichbarkeit
     freigabe: nein
   - frage: "Was ist ein Notfall?"
-    antwort: "Ein Notfall liegt vor, wenn Menschen gefährdet sind oder ein erheblicher Schaden droht, der nicht bis zum nächsten Werktag warten kann, etwa ein Wasserrohrbruch oder ein Heizungsausfall im Winter. Bei Gefahr für Menschen wählen Sie immer zuerst den Notruf 112. Der Notdienst der Hausverwaltung Müller GmbH ist rund um die Uhr erreichbar: [Notfallnummer ergänzen]."
+    antwort: "Ein Notfall liegt vor, wenn Menschen gefährdet sind oder ein erheblicher Schaden droht, der nicht bis zum nächsten Werktag warten kann, etwa ein Wasserrohrbruch oder ein Heizungsausfall im Winter. Bei Gefahr für Menschen wählen Sie immer zuerst den Notruf 112. Der Notdienst der Hausverwaltung Müller GmbH ist rund um die Uhr unter 02431 9550300 erreichbar. Außerhalb der Bürozeiten bleiben Sie bitte in der Leitung, Sie werden mit dem Notdienst verbunden."
     artikel: notfall-was-tun
     freigabe: nein
   - frage: "Was tue ich bei Gasgeruch?"
@@ -22,7 +22,7 @@ fragen:
     artikel: notfall-was-tun
     freigabe: nein
   - frage: "Wie erreiche ich die Hausverwaltung Müller GmbH?"
-    antwort: "Telefonisch unter 02431 9550300, per E-Mail an info@muellerhv.de und, soweit Sie einen Zugang haben, über das Portal mit Ticketsystem. Für Notfälle steht ein Notdienst rund um die Uhr zur Verfügung. Telefonische Sprechzeiten: [Sprechzeiten ergänzen]."
+    antwort: "Telefonisch unter 02431 9550300, per E-Mail an info@muellerhv.de und, soweit Sie einen Zugang haben, über das Portal mit Ticketsystem. Für Notfälle steht ein Notdienst rund um die Uhr zur Verfügung. Bürozeiten: 8 bis 16 Uhr [Wochentage der Bürozeiten bestätigen]."
     artikel: erreichbarkeit
     freigabe: nein
   - frage: "Bis wann muss ich Einwände gegen meine Nebenkostenabrechnung erheben?"

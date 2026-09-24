@@ -32,9 +32,8 @@ final class SchemaBuilderTest extends TestCase
                     ['kurz' => 'VZIV', 'name' => 'Verein Zertifizierter ImmobilienVerwalter e. V.'],
                 ],
             ],
-            'standorte' => [
-                ['slug' => 'monheim-am-rhein', 'name' => 'Monheim am Rhein', 'status' => 'eigene_praesenz', 'hauptsitz' => true, 'verifiziert' => true],
-                ['slug' => 'berlin', 'name' => 'Berlin', 'status' => null, 'hauptsitz' => false, 'verifiziert' => false],
+            'staedte' => [
+                ['slug' => 'monheim-am-rhein', 'name' => 'Monheim am Rhein', 'hauptsitz' => true],
             ],
         ]);
         foreach ($overrides as $key => $value) {
@@ -65,7 +64,7 @@ final class SchemaBuilderTest extends TestCase
 
         self::assertSame(['Organization', 'RealEstateAgent'], $organisation['@type']);
         self::assertSame('2020-03-04', $organisation['foundingDate']);
-        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein']], $organisation['areaServed'], 'nur bestätigte Orte');
+        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein']], $organisation['areaServed'], 'nur der Hauptsitz, solange keine weiteren Betreuungsgebiete hinterlegt sind');
         self::assertSame('Verein Zertifizierter ImmobilienVerwalter e. V.', $organisation['memberOf'][0]['name']);
         self::assertSame('VZIV', $organisation['memberOf'][0]['alternateName']);
         self::assertArrayNotHasKey('sameAs', $organisation, 'keine bekannten Profile, sameAs muss fehlen');
@@ -117,18 +116,18 @@ final class SchemaBuilderTest extends TestCase
         self::assertSame('required name=search_term_string', $website['potentialAction']['query-input']);
     }
 
-    public function testServiceMitBestaetigterRegionSetztAreaServed(): void
+    public function testMitBetreuungsgebietenIstDeutschlandEinsatzgebiet(): void
     {
         $config = $this->config();
-        $standorte = $config->get('standorte');
-        $standorte[1]['status'] = 'eigene_praesenz';
-        $standorte[1]['verifiziert'] = true;
-        $config->set('standorte', $standorte);
+        $config->set('staedte', [
+            ['slug' => 'monheim-am-rhein', 'name' => 'Monheim am Rhein', 'hauptsitz' => true],
+            ['slug' => 'berlin', 'name' => 'Berlin', 'hauptsitz' => false],
+        ]);
 
         $service = self::finde((new SchemaBuilder($config))->forPage($this->seite(), 'Service'), 'Service');
 
         self::assertNotNull($service);
-        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein'], ['@type' => 'City', 'name' => 'Berlin']], $service['areaServed']);
+        self::assertSame([['@type' => 'City', 'name' => 'Monheim am Rhein'], ['@type' => 'Country', 'name' => 'Deutschland']], $service['areaServed']);
     }
 
     public function testStartseiteEnthaeltOrganisationUndWebsite(): void

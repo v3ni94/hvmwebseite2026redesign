@@ -1,8 +1,9 @@
 {#
   Service für Mieter und Eigentümer: Portal, Schadensmeldung, Notfall, Formulare, Erreichbarkeit.
   Grundlage: MP Abschnitt 1 (Ziel 3), 2, 5, 8; docs/auftraggeber-angaben.md (Eigentümerportal mit
-  Ticketsystem bestätigt, Portal-URL offen). Kern-CTA laut docs/architektur.md Abschnitt 9: Portal
-  öffnen, ohne Portal-URL ehrlich auf Kontakt umgelenkt (analog templates/partials/mobile-bar.html.twig).
+  Ticketsystem bestätigt, Portal-URL, Notfallnummer und Bürozeiten bestätigt am 24.09.2026, Wochentage
+  der Bürozeiten offen). Kern-CTA laut docs/architektur.md Abschnitt 9: Portal öffnen, ohne Portal-URL
+  ehrlich auf Kontakt umgelenkt (analog templates/partials/mobile-bar.html.twig).
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -41,7 +42,7 @@
             id: 'kanaele-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
-        {% set notfall_zusatz %}Rund um die Uhr erreichbar, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        {% set notfall_zusatz %}Rund um die Uhr erreichbar unter {% if firma.notfall_telefon %}{{ firma.notfall_telefon }}. {{ firma.notfall_hinweis }}{% else %}{{ placeholder(firma.notfall_telefon_platzhalter) }}{% endif %}{% endset %}
         <div class="c-karten c-karten--4">
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal', icon: 'portal', url: firma.portal_url ?: '/kontakt/', fuss: firma.portal_url ? 'Zum Portal' : 'Zum Kontakt', text: 'Unterlagen einsehen und Anliegen über das Ticketsystem übermitteln.', zusatz: portal_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Schadensmeldung', icon: 'schaden', url: firma.portal_url ?: '/kontakt/', fuss: firma.portal_url ? 'Schaden im Portal melden' : 'Schaden per Kontakt melden', text: 'Schäden in der Wohnung oder am Gemeinschaftseigentum bevorzugt über das Ticketsystem im Portal melden, andernfalls über das Kontaktformular.'}) }}
@@ -69,7 +70,10 @@
             titel: 'Erreichbarkeit der *Hausverwaltung*',
             id: 'erreichbarkeit-titel',
         }) }}
-        <p class="c-prosa">Bürozeiten {{ placeholder('Bürozeiten ergänzen') }}. Telefonisch erreichen Sie uns unter {{ firma.telefon ? firma.telefon : placeholder(firma.telefon_platzhalter) }}, schriftlich über <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder das <a href="/kontakt/">Kontaktformular</a>.</p>
+        <p class="c-prosa">Bürozeiten: {% if firma.buerozeiten %}{{ firma.buerozeiten }} {% endif %}{{ placeholder('Wochentage der Bürozeiten bestätigen') }}. Telefonisch erreichen Sie uns unter {{ firma.telefon ? firma.telefon : placeholder(firma.telefon_platzhalter) }}, schriftlich über <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder das <a href="/kontakt/">Kontaktformular</a>.{% if firma.portal_url %} Anliegen und Schadensmeldungen übermitteln Sie über das <a href="{{ firma.portal_url }}">Portal</a>.{% endif %}</p>
+        {% if firma.notfall_telefon %}
+        <p class="c-prosa">Notdienst rund um die Uhr: <a href="{{ tel_href(firma.notfall_telefon) }}">{{ firma.notfall_telefon }}</a>. {{ firma.notfall_hinweis }}</p>
+        {% endif %}
     </div>
 </section>
 

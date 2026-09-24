@@ -66,9 +66,11 @@ final class SupportTest extends TestCase
         self::assertSame('https://portal.muellerhv.de', $config->get('unternehmen.portal_url')); // bestätigt 24.09.2026
         self::assertSame('HRB 104762', $config->get('unternehmen.hrb'));
         self::assertSame([], $config->get('kundenstimmen'));
-        foreach ($config->array('standorte') as $standort) {
-            self::assertArrayNotHasKey('telefon', $standort);
-            self::assertNotSame('erkelenz', $standort['slug']);
+        self::assertSame('8 bis 16 Uhr', $config->get('unternehmen.buerozeiten')); // bestätigt 24.09.2026
+        self::assertCount(42, $config->array('staedte'));
+        foreach ($config->array('staedte') as $stadt) {
+            // keine Anschriften oder Kontaktdaten je Stadt (offen, ob die Absenderadressen eigene Büros sind)
+            self::assertSame([], array_intersect(array_keys($stadt), ['telefon', 'anschrift', 'strasse', 'email', 'altseite_anschrift']), $stadt['slug']);
         }
         foreach ($config->array('freigaben') as $freigabe) {
             self::assertSame('entwurf', $freigabe['status']);

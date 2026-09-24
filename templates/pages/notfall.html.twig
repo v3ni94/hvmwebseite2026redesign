@@ -1,6 +1,6 @@
 {#
   Notfall: 24/7-Notdienst (bestätigt laut docs/auftraggeber-angaben.md), Nummer über
-  firma.notfall_telefon (noch offen). Klare Trennung Notfall / kein Notfall, Sicherheitshinweise
+  firma.notfall_telefon und firma.notfall_hinweis (bestätigt 24.09.2026). Klare Trennung Notfall / kein Notfall, Sicherheitshinweise
   bei Gasgeruch. Grundlage: MP Abschnitt 1 (Ziel 3), 2, 5, 8. Sehr klare, gut scanbare Gestaltung,
   große Anruf-Schaltfläche (resources/css/50-seite-unternehmen.css, Klasse c-notfall-anruf).
 #}
@@ -23,6 +23,7 @@
         <div class="c-notfall-anruf" data-einblenden>
             {% if firma.notfall_telefon %}
             {{ b.button('Notdienst anrufen: ' ~ firma.notfall_telefon, tel_href(firma.notfall_telefon), {variante: 'primaer', icon: 'telefon', breit: true, klasse: 'c-notfall-anruf__knopf'}) }}
+            {% if firma.notfall_hinweis %}<p class="c-notfall-anruf__hinweis">{{ firma.notfall_hinweis }}</p>{% endif %}
             {% else %}
             <p class="c-notfall-anruf__platzhalter">{{ placeholder(firma.notfall_telefon_platzhalter) }}</p>
             {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'primaer', icon: 'pfeil', breit: true, klasse: 'c-notfall-anruf__knopf'}) }}

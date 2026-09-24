@@ -119,7 +119,7 @@
             id: 'mehrwerte-titel',
         }) }}
         {% set portal_zusatz %}{% if firma.portal_url %}Zugang über das Portal der Hausverwaltung.{% else %}{{ placeholder(firma.portal_url_platzhalter) }}{% endif %}{% endset %}
-        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Geschäftszeiten, Nummer {{ placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
+        {% set notfall_zusatz %}Erreichbarkeit außerhalb der Bürozeiten, Nummer {{ firma.notfall_telefon ?: placeholder(firma.notfall_telefon_platzhalter) }}{% endset %}
         <div class="c-karten c-karten--4">
             {{ c.card({klasse: 'c-karte--kompakt', titel: 'Eigentümerportal mit Ticketsystem', icon: 'portal', url: firma.portal_url ?: '/service/', fuss: 'Zum Portal', text: 'Anliegen und Unterlagen online einsehen und übermitteln.', zusatz: portal_zusatz}) }}
             {{ c.card({klasse: 'c-karte--kompakt', titel: '24/7-Notdienst', icon: 'notfall', url: '/notfall/', fuss: 'Zur Notfallseite', text: 'Rund um die Uhr erreichbar bei einem Notfall im Objekt.', zusatz: notfall_zusatz}) }}

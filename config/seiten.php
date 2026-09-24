@@ -119,11 +119,21 @@ return [
     'betreuungsgebiete' => [
         'pfad' => '/betreuungsgebiete/',
         'titel' => 'Betreuungsgebiete',
-        'seitentitel' => 'Betreuungsgebiete | Hausverwaltung Müller, Monheim am Rhein',
-        'beschreibung' => 'Hauptsitz der Hausverwaltung Müller GmbH ist Monheim am Rhein. Hinweise für Eigentümer aus der Region und Übersicht der Regionen mit Angabe der Betreuungsform.',
+        'seitentitel' => 'Betreuungsgebiete | Hausverwaltung Müller GmbH',
+        'beschreibung' => 'Die Hausverwaltung Müller GmbH betreut Immobilien bundesweit in 42 Postleitzahlbereichen. Übersicht der Städte nach Bundesland, Hauptsitz Monheim am Rhein.',
         'eltern' => null,
-        'schema' => 'WebPage',
+        'schema' => 'CollectionPage',
         'sitemap' => true,
+    ],
+    'stadt' => [
+        // Dynamische Seite (Route /hausverwaltung-{slug}/, config/routes/staedte.php). Titel, Beschreibung,
+        // Freigabe und Schema kommen je Stadt aus StadtController (content/staedte/{slug}.md).
+        'pfad' => '/betreuungsgebiete/',
+        'titel' => 'Stadtseite',
+        'eltern' => 'betreuungsgebiete',
+        'schema' => 'none',
+        'sitemap' => false,
+        'og' => false,
     ],
     'referenzen' => [
         'pfad' => '/referenzen/',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hvm\Controller;
 
+use Hvm\Content\StadtRepository;
 use Hvm\Content\WissenRepository;
 use Hvm\Http\Request;
 use Hvm\Http\Response;
@@ -37,6 +38,7 @@ final class SeoController
         private readonly Router $router,
         private readonly Container $container,
         private readonly WissenRepository $wissen,
+        private readonly StadtRepository $staedte,
     ) {
     }
 
@@ -190,6 +192,10 @@ final class SeoController
             $kontakt = 'Telefon ' . $firma['telefon'] . ', ' . $kontakt;
         }
         $md[] = '- Kontakt: ' . $kontakt;
+        $anzahlGebiete = count($this->staedte->staedte());
+        if ($anzahlGebiete > 0) {
+            $md[] = sprintf('- Betreuungsgebiete: bundesweit in %d Postleitzahlbereichen, Verwaltung vom Hauptsitz in %s aus', $anzahlGebiete, $ort);
+        }
         $md[] = '';
         $md[] = 'Alle Angaben mit Stand-Datum stehen auf der Seite [Die HVM in Zahlen und Fakten](' . $base . '/fakten/). Die Wissensartikel sind allgemeine Informationen und keine Rechtsberatung.';
 
@@ -207,6 +213,7 @@ final class SeoController
             }
             if ($titel === 'Optional') {
                 $md = [...$md, '', '## Wissen', ...$this->artikelZeilen()];
+                $md = [...$md, '', '## Betreuungsgebiete', ...$this->gebietsZeilen()];
             }
             $md = [...$md, '', '## ' . $titel, ...$zeilen];
         }
@@ -228,6 +235,38 @@ final class SeoController
         }
         if ($zeilen === []) {
             $zeilen[] = '- [Wissen und FAQ](' . $this->baseUrl() . '/wissen/): Übersicht der veröffentlichten Beiträge und häufigen Fragen';
+        }
+
+        return $zeilen;
+    }
+
+    /**
+     * Betreuungsgebiete: Übersicht, freigegebene Stadtseiten als Links (nie Entwürfe), alle PLZ-Bereiche als Text.
+     *
+     * @return list<string>
+     */
+    private function gebietsZeilen(): array
+    {
+        $base = $this->baseUrl();
+        $zeilen = ['- [Betreuungsgebiete](' . $base . '/betreuungsgebiete/): Übersicht aller Postleitzahlbereiche nach Bundesland mit Karte'];
+        foreach ($this->staedte->freigegebeneSeiten() as $seite) {
+            $zeilen[] = sprintf(
+                '- [Hausverwaltung %s](%s%s): Postleitzahlen %s bis %s, %s',
+                $seite->stadt->name,
+                $base,
+                $seite->stadt->pfad(),
+                $seite->stadt->plzVon,
+                $seite->stadt->plzBis,
+                $seite->beschreibung
+            );
+        }
+        $bereiche = array_map(
+            static fn ($s): string => sprintf('%s (%s bis %s)', $s->name, $s->plzVon, $s->plzBis),
+            $this->staedte->staedte()
+        );
+        if ($bereiche !== []) {
+            $zeilen[] = '';
+            $zeilen[] = 'Postleitzahlbereiche: ' . implode(', ', $bereiche) . '.';
         }
 
         return $zeilen;

@@ -79,7 +79,7 @@ Dokumentieren Sie den Schaden mit Fotos, sobald das gefahrlos möglich ist. Das 
 
 Für Notfälle in den von ihr verwalteten Objekten unterhält die Hausverwaltung Müller GmbH einen Notdienst, der rund um die Uhr erreichbar ist.
 
-**Notdienst:** [Notfallnummer ergänzen]
+**Notdienst:** 02431 9550300. Außerhalb der Bürozeiten bleiben Sie bitte in der Leitung, Sie werden mit dem Notdienst verbunden.
 
 Bitte nennen Sie am Telefon Ihren Namen, die Anschrift mit Lage der Wohnung, eine Rückrufnummer und eine kurze Beschreibung des Schadens.
 

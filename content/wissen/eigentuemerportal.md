@@ -19,7 +19,7 @@ faq:
 
 Die Hausverwaltung Müller GmbH stellt ein Eigentümerportal mit Ticketsystem bereit. Es bündelt Anliegen an die Verwaltung an einer Stelle und macht ihren Bearbeitungsstand nachvollziehbar. Dieser Beitrag erklärt, wofür das Portal gedacht ist, wie das Ticketsystem funktioniert und was beim Zugang zu beachten ist.
 
-Zugang zum Portal: [Portal-URL ergänzen]
+Zugang zum Portal: [portal.muellerhv.de](https://portal.muellerhv.de)
 
 ## Wofür das Portal gedacht ist
 
@@ -69,7 +69,7 @@ Bitte übermitteln Sie im Portal nur die Angaben, die für Ihr Anliegen erforder
 
 ## Was nicht über das Portal läuft
 
-- **Notfälle:** Ein Wasserrohrbruch, Gasgeruch oder ein Heizungsausfall im Winter werden immer telefonisch gemeldet. Bei Gefahr für Menschen wählen Sie den Notruf 112. Der Notdienst der Hausverwaltung Müller GmbH ist rund um die Uhr erreichbar: [Notfallnummer ergänzen]. Einzelheiten im Beitrag [Notfall im Haus](/wissen/notfall-was-tun/).
+- **Notfälle:** Ein Wasserrohrbruch, Gasgeruch oder ein Heizungsausfall im Winter werden immer telefonisch gemeldet. Bei Gefahr für Menschen wählen Sie den Notruf 112. Der Notdienst der Hausverwaltung Müller GmbH ist rund um die Uhr unter 02431 9550300 erreichbar, außerhalb der Bürozeiten bleiben Sie bitte in der Leitung. Einzelheiten im Beitrag [Notfall im Haus](/wissen/notfall-was-tun/).
 - **Formgebundene Erklärungen:** Erklärungen mit rechtlicher Wirkung, etwa eine Kündigung, unterliegen gesetzlichen oder vertraglichen Formvorgaben. Eine Kündigung eines Wohnraummietvertrags bedarf zum Beispiel der Schriftform. Ein Ticket im Portal ersetzt diese Form nicht.
 
 ## Hinweis

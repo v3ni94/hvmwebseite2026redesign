@@ -32,53 +32,140 @@
         fill: var(--hvm-orange);
     }
 
-    .c-karte-de__liste {
+    .c-karte-de__legende {
         display: grid;
-        gap: 0;
+        gap: var(--abstand-4);
+        align-content: start;
+        border-top: 1px solid var(--hvm-hellgrau);
+        padding-top: var(--abstand-5);
+    }
+    .c-karte-de__zahl { font-size: var(--fs-lead); font-weight: var(--fw-leicht); }
+    .c-karte-de__zahl strong {
+        display: block;
+        font-size: var(--fs-kennzahl);
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -0.03em;
+    }
+    .c-karte-de__schluessel {
+        display: grid;
+        gap: var(--abstand-2);
         list-style: none;
         padding: 0;
         margin: 0;
-        border-top: 1px solid var(--hvm-hellgrau);
     }
-    .c-karte-de__eintrag {
+    .c-karte-de__schluessel li { display: flex; gap: var(--abstand-3); align-items: center; }
+    .c-karte-de__symbol {
+        flex: 0 0 auto;
+        inline-size: 0.875rem;
+        block-size: 0.875rem;
+        border-radius: 50%;
+        background: var(--hvm-mittelgrau);
+        box-shadow: 0 0 0 2px var(--hvm-weiss), 0 0 0 3px var(--kontur);
+    }
+    .c-karte-de__symbol--hauptsitz { background: var(--hvm-orange); inline-size: 1.125rem; block-size: 1.125rem; }
+    .c-karte-de__hinweis { font-size: var(--fs-klein); }
+
+    /* Übersicht Betreuungsgebiete: Gruppen je Bundesland */
+    .c-gebiete {
+        display: grid;
+        gap: var(--spalten-abstand);
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+        align-items: start;
+    }
+    .c-gebiete__gruppe {
+        background: var(--hvm-weiss);
+        border-radius: var(--radius-karte);
+        box-shadow: var(--schatten-karte);
+        padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+    }
+    .c-gebiete__land {
+        font-size: var(--fs-h4);
+        font-weight: var(--fw-halbfett);
+        padding-bottom: var(--abstand-3);
+        border-bottom: 3px solid var(--hvm-orange);
+        margin-bottom: var(--abstand-2);
+    }
+    .c-gebiete__liste { list-style: none; padding: 0; margin: 0; }
+    .c-gebiete__eintrag {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
         column-gap: var(--abstand-4);
         row-gap: var(--abstand-1);
-        align-items: baseline;
-        justify-content: space-between;
         padding-block: var(--abstand-3);
         border-bottom: 1px solid var(--hvm-hellgrau);
     }
-    .c-karte-de__eintrag--hauptsitz { font-weight: var(--fw-halbfett); }
-    .c-karte-de__name {
-        font-size: var(--fs-text);
-    }
-    .c-karte-de__marke {
-        margin-left: var(--abstand-2);
-        font-size: var(--fs-klein);
-        font-weight: var(--fw-halbfett);
-        color: var(--hvm-ink);
-        background: var(--hvm-orange);
-        padding: 0.05em 0.5em;
-        white-space: nowrap;
-    }
-    .c-karte-de__status {
-        flex: 0 0 auto;
-        margin-left: auto;
-        font-size: var(--fs-klein);
-        /* Ink mit reduzierter Deckkraft (wie Platzhaltertext in Feldern, docs/designsystem.md 5.2),
-           nicht Anthrazit: dessen Kontrast auf Weiß (3,55) ist unter 24 px nicht ausreichend. */
-        color: color-mix(in srgb, var(--hvm-ink) 62%, transparent);
-        text-align: right;
-        max-width: 100%;
-    }
-    .c-karte-de__aktion {
-        flex-basis: 100%;
-        font-size: var(--fs-klein);
-    }
-    .c-karte-de__aktion a {
+    .c-gebiete__eintrag:last-child { border-bottom: 0; }
+    .c-gebiete__eintrag--hauptsitz .c-gebiete__name { font-weight: var(--fw-halbfett); }
+    .c-gebiete__name a {
         text-decoration-color: var(--hvm-orange);
         text-decoration-thickness: 2px;
+        text-underline-offset: 0.2em;
     }
+    .c-gebiete__marke {
+        display: inline-block;
+        margin-left: var(--abstand-1);
+        font-size: var(--fs-label);
+        font-weight: var(--fw-halbfett);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--hvm-ink);
+        background: var(--hvm-orange);
+        border-radius: var(--radius-pill);
+        padding: 0.15em 0.6em;
+        vertical-align: 0.15em;
+    }
+    .c-gebiete__plz {
+        font-size: var(--fs-klein);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+    }
+
+    /* Stadtseiten /hausverwaltung-{slug}/ */
+    .page-stadt .c-seitenkopf h1 { max-width: 24ch; font-size: min(var(--fs-h2), 8cqi); line-height: 1.05; }
+    .c-stadt-einleitung > * + * { margin-top: 0.8em; }
+    .c-stadt-einleitung a { text-decoration-color: var(--hvm-ink); text-decoration-thickness: 1px; }
+    .c-stadt-plz {
+        display: grid;
+        gap: var(--abstand-6);
+        align-items: start;
+    }
+    @media (min-width: 64em) {
+        .c-stadt-plz { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--spalten-abstand); }
+    }
+    .c-stadt-plz__bereich > * + * { margin-top: var(--abstand-4); }
+    .c-stadt-plz__bereich p { max-width: var(--zeilenlaenge); }
+    .c-stadt-plz__titel { font-size: var(--fs-h3); font-weight: var(--fw-normal); }
+    .c-stadt-plz__zahlen {
+        display: block;
+        margin-top: var(--abstand-2);
+        font-size: clamp(2.5rem, 1.75rem + 3.333vw, 4.75rem);
+        font-weight: 200;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
+    }
+    .c-stadt-plz__bestand {
+        background: var(--hvm-orange);
+        color: var(--hvm-ink);
+        border-radius: var(--radius-karte);
+        padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+    }
+    .c-stadt-plz__label { font-weight: var(--fw-halbfett); }
+    .c-stadt-bestand {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--abstand-2);
+        list-style: none;
+        padding: 0;
+        margin: var(--abstand-4) 0 0;
+    }
+    .c-stadt-bestand li {
+        background: var(--hvm-weiss);
+        border-radius: var(--radius-pill);
+        padding: 0.35em 0.9em;
+        font-weight: var(--fw-mittel);
+    }
+    .c-stadt-inhalt h2:first-child { margin-top: 0; }
 }

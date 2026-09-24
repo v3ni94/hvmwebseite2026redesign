@@ -10,7 +10,7 @@ leistung: /service/
 cta: service
 faq:
   - frage: "Wie erreiche ich die Hausverwaltung Müller GmbH?"
-    antwort: "Telefonisch unter 02431 9550300, per E-Mail an info@muellerhv.de und, soweit Sie einen Zugang haben, über das Portal mit Ticketsystem. In Notfällen außerhalb der Geschäftszeiten ist der Notdienst rund um die Uhr erreichbar."
+    antwort: "Telefonisch unter 02431 9550300, per E-Mail an info@muellerhv.de und, soweit Sie einen Zugang haben, über das Portal mit Ticketsystem. In Notfällen ist der Notdienst rund um die Uhr unter 02431 9550300 erreichbar. Außerhalb der Bürozeiten bleiben Sie bitte in der Leitung, Sie werden mit dem Notdienst verbunden."
   - frage: "Warum kann mir die Verwaltung keine Auskunft über andere Bewohner geben?"
     antwort: "Die Verwaltung ist an den Datenschutz gebunden. Angaben zu anderen Mietern oder Eigentümern gibt sie nur weiter, wenn dafür eine rechtliche Grundlage besteht. Bei Konflikten mit Nachbarn kann sie, soweit sie für das Objekt zuständig ist, auf eine Klärung hinwirken, gibt aber keine persönlichen Daten heraus."
   - frage: "Welcher Weg ist für eine Schadensmeldung am besten?"
@@ -25,7 +25,7 @@ Wer ein Anliegen an die Hausverwaltung hat, möchte schnell den richtigen Anspre
 
 Die Zentrale der Hausverwaltung Müller GmbH erreichen Sie unter **02431 9550300**.
 
-Telefonische Sprechzeiten: [Sprechzeiten ergänzen]
+Bürozeiten: 8 bis 16 Uhr [Wochentage der Bürozeiten bestätigen]
 
 Das Telefon eignet sich für Rückfragen und kurze Abstimmungen. Für Schadensmeldungen und Anliegen, die Unterlagen oder Fotos erfordern, ist ein schriftlicher Weg meist schneller, weil keine Informationen verloren gehen.
 
@@ -37,13 +37,13 @@ Per E-Mail erreichen Sie die Verwaltung unter **info@muellerhv.de**. Bitte nenne
 
 Die Hausverwaltung Müller GmbH stellt ein Eigentümerportal mit Ticketsystem bereit. Ob auch Mieter Zugang erhalten: [Zugang für Mieter bestätigen]. Anliegen werden dort als Vorgang erfasst und lassen sich nachverfolgen. Einzelheiten im Beitrag [Das Portal für Eigentümer und Mieter](/wissen/eigentuemerportal/).
 
-Zugang zum Portal: [Portal-URL ergänzen]
+Zugang zum Portal: [portal.muellerhv.de](https://portal.muellerhv.de)
 
 ### Notdienst
 
 Für Notfälle, etwa einen Wasserrohrbruch oder einen Heizungsausfall im Winter, ist ein Notdienst rund um die Uhr erreichbar.
 
-Notdienst: [Notfallnummer ergänzen]
+Notdienst: **02431 9550300**. Außerhalb der Bürozeiten bleiben Sie bitte in der Leitung, Sie werden mit dem Notdienst verbunden.
 
 Was als Notfall gilt, erklärt der Beitrag [Notfall im Haus](/wissen/notfall-was-tun/).
 
@@ -51,7 +51,7 @@ Was als Notfall gilt, erklärt der Beitrag [Notfall im Haus](/wissen/notfall-was
 
 Hausverwaltung Müller GmbH, Rheinpromenade 13, 40789 Monheim am Rhein
 
-Persönliche Termine vor Ort: [Ablauf für persönliche Termine bestätigen]
+Persönliche Termine im Büro sind nur nach vorheriger Terminabstimmung möglich.
 
 ## Wer ist Ihr Ansprechpartner?
 

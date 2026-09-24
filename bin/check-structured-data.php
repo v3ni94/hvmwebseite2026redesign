@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /*
- * Prüft die strukturierten Daten (JSON-LD) und Kern-Metaangaben aller öffentlichen Seiten und
- * Wissensartikel ohne laufenden Server über den Kernel (docs/seo-geo.md Abschnitt 3).
+ * Prüft die strukturierten Daten (JSON-LD) und Kern-Metaangaben aller öffentlichen Seiten,
+ * Wissensartikel und Stadtseiten ohne laufenden Server über den Kernel (docs/seo-geo.md Abschnitt 3).
  *
  * Aufruf: php bin/check-structured-data.php [--env=staging] [--verbose]
  *   --env=production prüft nur freigegebene Artikel, staging (Standard) mit SHOW_DRAFTS alle Artikel.
@@ -60,12 +60,16 @@ foreach ($seiten as $meta) {
 foreach (glob($root . '/content/wissen/*.md') ?: [] as $datei) {
     $pfade[] = '/wissen/' . basename($datei, '.md') . '/';
 }
+// Stadtseiten (config/staedte.php, content/staedte/*.md)
+foreach (glob($root . '/content/staedte/*.md') ?: [] as $datei) {
+    $pfade[] = '/hausverwaltung-' . basename($datei, '.md') . '/';
+}
 
 $fehler = [];
 $statistik = ['seiten' => 0, 'bloecke' => 0, 'typen' => []];
 foreach ($pfade as $pfad) {
     $response = Kernel::create($root, $kernelEnv)->handle(Request::create('GET', $pfad));
-    if ($response->status() === 404 && str_starts_with($pfad, '/wissen/') && $env === 'production') {
+    if ($response->status() === 404 && (str_starts_with($pfad, '/wissen/') || str_starts_with($pfad, '/hausverwaltung-')) && $env === 'production') {
         continue; // Entwurf, in Produktion nicht erreichbar
     }
     if ($response->status() !== 200) {

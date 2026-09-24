@@ -1,10 +1,9 @@
 {#
   Wertgutachten: Leistung, Anlässe und Ablauf. Grundlage: MP Abschnitt 5, 3.7, 8;
   Bestandsaufnahme 3.6 (Altseite nicht abrufbar, Inhalt vollständig neu). Klare Trennung zwischen
-  kaufmännischer Marktwerteinschätzung und einem Gutachten durch qualifizierte Sachverständige.
-  Keine gerichtsfesten Gutachten versprechen. Marktwerteinschätzung durch die HVM und Gutachten durch
-  qualifizierte Sachverständige laut docs/auftraggeber-angaben.md bestätigt, Benennung der Sachverständigen
-  bleibt als placeholder('Sachverständige benennen') offen.
+  kaufmännischer Marktwerteinschätzung und einem Wertgutachten. Keine gerichtsfesten Gutachten versprechen,
+  keine Zertifizierung behaupten. Laut docs/auftraggeber-angaben.md (24.09.2026) erstellen Wertgutachten
+  eigens ausgebildete Mitarbeiter, teilweise externe Sachverständige.
 #}
 {% extends 'layouts/base.html.twig' %}
 
@@ -23,7 +22,7 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH ermittelt den Wert Ihrer Immobilie: als kaufmännische Marktwerteinschätzung oder, je nach Anlass, als Gutachten durch qualifizierte Sachverständige.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH ermittelt den Wert Ihrer Immobilie: als kaufmännische Marktwerteinschätzung oder, je nach Anlass, als Wertgutachten durch eigens ausgebildete Mitarbeiter, teilweise durch externe Sachverständige.</p>
         {{ hvm.hero_aktionen({label: 'Wertermittlung anfragen', url: cta_url('/kontakt/', {anliegen: 'gutachten'})}) }}
     </div>
 </section>
@@ -59,7 +58,7 @@
             titel: 'Marktwerteinschätzung oder *Gutachten*',
             id: 'abgrenzung-titel',
         }) }}
-        {% set abgrenzung_text %}Die Hausverwaltung Müller GmbH gibt auf Grundlage von Lage, Zustand und vergleichbaren Objekten eine kaufmännische Marktwerteinschätzung ab. Diese ersetzt kein Verkehrswertgutachten und ist nicht gerichtsfest. Wird ein förmliches Gutachten benötigt, etwa gegenüber Gericht, Finanzamt oder Bank, vermitteln wir an qualifizierte Sachverständige {{ placeholder('Sachverständige benennen') }}. Die Erstellung eines solchen Gutachtens liegt außerhalb der eigenen Leistung.{% endset %}
+        {% set abgrenzung_text %}Die Hausverwaltung Müller GmbH gibt auf Grundlage von Lage, Zustand und vergleichbaren Objekten eine kaufmännische Marktwerteinschätzung ab. Diese ersetzt kein Verkehrswertgutachten und ist nicht gerichtsfest. Wertgutachten erstellen eigens ausgebildete Mitarbeiter, teilweise externe Sachverständige. Welche Form der Bewertung für Ihren Anlass geeignet ist, etwa gegenüber Gericht, Finanzamt oder Bank, stimmen wir vorab mit Ihnen ab.{% endset %}
         {{ n.hinweis('Zwei unterschiedliche Leistungen', abgrenzung_text) }}
     </div>
 </section>
@@ -106,7 +105,7 @@
             id: 'faq-titel',
         }) }}
         {{ faq.faq([
-            {frage: 'Ist die Marktwerteinschätzung gerichtsfest?', antwort: 'Nein. Für gerichtliche oder behördliche Zwecke ist in der Regel ein Gutachten qualifizierter Sachverständiger erforderlich, siehe Abgrenzung oben.'},
+            {frage: 'Ist die Marktwerteinschätzung gerichtsfest?', antwort: 'Nein. Für gerichtliche oder behördliche Zwecke ist in der Regel ein förmliches Gutachten erforderlich. Welche Anforderungen im Einzelfall gelten, stimmen wir vorab mit Ihnen ab, siehe Abgrenzung oben.'},
             {frage: 'Was kostet eine Wertermittlung?', antwort: 'Die Vergütung richtet sich nach Objekt und Anlass. Sie erhalten eine Auskunft auf Anfrage.'},
             {frage: 'Wie lange dauert die Einschätzung?', antwort: 'Die Dauer hängt von Objekt und Terminfindung ab und wird bei der Anfrage abgestimmt.'},
         ]) }}

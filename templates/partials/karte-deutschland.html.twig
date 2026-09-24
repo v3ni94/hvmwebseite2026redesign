@@ -3,42 +3,29 @@
   Umriss aus Natural-Earth-Daten (Public Domain, https://www.naturalearthdata.com/), bezogen über das
   npm-Paket world-atlas (countries-50m, ISO 3166-1 numerisch 276 = Deutschland), mit topojson-simplify
   vereinfacht und über eine einfache Mercator-Projektion auf das Viewport 0 0 400 520 projiziert.
-  Skript und Zwischenergebnisse im Scratch-Ordner der Aufgabe (nicht Teil des Repositories).
-  Städtepunkte aus config/standorte.php (Feld karte: [x, y], dieselbe Projektion), Hauptsitz hervorgehoben.
+  Städtepunkte aus config/staedte.php, Position karte: [x, y] aus Hvm\Content\Stadt::karte() (dieselbe
+  Projektion), Hauptsitz hervorgehoben.
 
-  Parameter: orte (Liste wie config/standorte.php), id (Anker-ID für aria-labelledby der Karte).
-  {% include 'partials/karte-deutschland.html.twig' with {orte: standorte, id: 'karte-titel'} only %}
+  Parameter: orte (Liste mit name, karte, hauptsitz).
+  {% include 'partials/karte-deutschland.html.twig' with {orte: orte} only %}
 
-  Die Karte selbst ist dekorativ (aria-hidden): die eigentliche Information steht in der sichtbaren
-  Liste direkt darunter (Textalternative), die dieselben Daten als Text und als Link ausgibt.
+  Die Karte selbst ist dekorativ (aria-hidden): Die Textalternative ist die Liste der Betreuungsgebiete nach
+  Bundesland auf derselben Seite (templates/pages/betreuungsgebiete.html.twig) mit denselben Daten.
 #}
-{%- import 'components/eyebrow.html.twig' as e -%}
 <div class="c-karte-de">
     <svg class="c-karte-de__svg" viewBox="0 0 400 520" aria-hidden="true" focusable="false">
         <path class="c-karte-de__umriss" d="M163.331,506.686L124.423,491.215L81.502,502.273L103.735,413.319L43.675,401.046L27,381.862L17.273,337.464L11.869,295.032L10.017,225.671L43.984,215.43L63.592,118.589L67.297,89.813L119.174,101.857L139.863,72.037L126.739,0L172.595,5.822L227.251,38.855L243.771,70.646L294.258,32.328L343.51,55.428L366.361,86.291L360.803,147.468L381.8,172.165L389.983,287.728L371.147,285.014L289.009,322.1L296.574,381.289L347.37,426.788L304.448,465.975L313.095,509.551L278.51,494.315L197.144,520ZM342.893,38.599L342.893,38.599L342.893,38.599ZM364.354,70.266L364.508,76.08L364.354,70.266ZM238.83,36.041L238.83,36.041L238.83,36.041ZM111.145,8.663L111.145,8.663L111.145,8.663ZM123.188,14.21L123.188,14.21L123.188,14.21Z" stroke-linejoin="round"/>
-        {% for ort in orte %}
-        {% if ort.karte is defined %}
-        <circle class="c-karte-de__punkt{{ ort.hauptsitz|default(false) ? ' c-karte-de__punkt--hauptsitz' }}" cx="{{ ort.karte[0] }}" cy="{{ ort.karte[1] }}" r="{{ ort.hauptsitz|default(false) ? 9 : 6 }}"/>
-        {% endif %}
+        {#- Hauptsitz zuletzt zeichnen, damit er über benachbarten Punkten liegt -#}
+        {% for ort in orte|filter(o => not o.hauptsitz|default(false))|merge(orte|filter(o => o.hauptsitz|default(false))) %}
+        <circle class="c-karte-de__punkt{{ ort.hauptsitz|default(false) ? ' c-karte-de__punkt--hauptsitz' }}" cx="{{ ort.karte[0] }}" cy="{{ ort.karte[1] }}" r="{{ ort.hauptsitz|default(false) ? 8 : 5 }}"/>
         {% endfor %}
     </svg>
-    <ul class="c-karte-de__liste" role="list"{% if id|default('') %} aria-labelledby="{{ id }}"{% endif %}>
-        {% for ort in orte %}
-        <li class="c-karte-de__eintrag{{ ort.hauptsitz|default(false) ? ' c-karte-de__eintrag--hauptsitz' }}">
-            <p class="c-karte-de__name">
-                {{ ort.name }}
-                {% if ort.hauptsitz|default(false) %}<span class="c-karte-de__marke">Hauptsitz</span>{% endif %}
-            </p>
-            <p class="c-karte-de__status">
-                {% if ort.status == 'eigene_praesenz' %}Eigene Präsenz
-                {% elseif ort.status == 'partner' %}Partnerbetreuung
-                {% else %}{{ placeholder('Status eigene Präsenz oder Partnerbetreuung klären') }}
-                {% endif %}
-            </p>
-            {% if not ort.hauptsitz|default(false) %}
-            <p class="c-karte-de__aktion"><a href="{{ cta_url('/angebot/', {region: ort.slug}) }}">Anfrage für {{ ort.name }}</a></p>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="c-karte-de__legende">
+        <p class="c-karte-de__zahl"><strong>{{ orte|length }}</strong> Postleitzahlbereiche</p>
+        <ul class="c-karte-de__schluessel" role="list">
+            <li><span class="c-karte-de__symbol c-karte-de__symbol--hauptsitz" aria-hidden="true"></span>Hauptsitz {% for ort in orte|filter(o => o.hauptsitz|default(false)) %}{{ ort.name }}{% endfor %}</li>
+            <li><span class="c-karte-de__symbol" aria-hidden="true"></span>Stadt, nach der ein Postleitzahlbereich benannt ist</li>
+        </ul>
+        <p class="c-karte-de__hinweis">Ungefähre Lage der Stadtzentren, keine Büro- oder Objektadressen.</p>
+    </div>
 </div>
