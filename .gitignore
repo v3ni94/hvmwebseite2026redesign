@@ -9,6 +9,11 @@
 /public/assets/build/
 /public/og/
 /public/assets/search-index.json
+/public/assets/search-index.json.gz
+/public/assets/search-index.json.br
+# Vorkomprimierte Varianten aus bin/build-assets.php (gzip_static)
+/public/assets/img/**/*.gz
+/public/assets/img/**/*.br
 /tests/e2e/results/
 /playwright-report/
 /test-results/

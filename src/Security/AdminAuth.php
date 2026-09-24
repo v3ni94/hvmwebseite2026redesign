@@ -21,6 +21,7 @@ use PDO;
  * - Unbekannte Konten, deaktivierte Konten und falsche Passwörter ergeben dieselbe Antwort, die
  *   Passwortprüfung läuft auch für unbekannte Konten (konstante Laufzeit, soweit praktikabel).
  * - TOTP: Toleranz ein Zeitschritt, ein akzeptierter Code wird atomar verbraucht (totp_last_step).
+ *   Alternativ ein Wiederherstellungscode (Hvm\Security\RecoveryCodes), ebenfalls atomar verbraucht und protokolliert.
  * - Sitzung: neue Sitzungs-ID nach Passwort und nach TOTP, Leerlauf-Timeout (SESSION_IDLE_TIMEOUT),
  *   absolute Höchstdauer (ADMIN_SESSION_MAX_LIFETIME, Standard 8 Stunden).
  *
@@ -219,9 +220,10 @@ final class AdminAuth
     }
 
     /**
-     * Zweiter Schritt: TOTP-Code.
+     * Zweiter Schritt: TOTP-Code oder Wiederherstellungscode.
+     * Nach Anmeldung mit Wiederherstellungscode enthält das Ergebnis zusätzlich 'verbleibend' (unbenutzte Codes).
      *
-     * @return array{status: 'ok'|'invalid'|'expired'|'locked', retry_after: int}
+     * @return array{status: 'ok'|'invalid'|'expired'|'locked', retry_after: int, verbleibend?: int}
      */
     public function attemptTotp(string $code, string $ip): array
     {
@@ -245,7 +247,7 @@ final class AdminAuth
     /**
      * @param array{id: int, at: int, tries: int} $pending
      * @param array<string, mixed>                $user
-     * @return array{status: 'ok'|'invalid'|'expired'|'locked', retry_after: int}
+     * @return array{status: 'ok'|'invalid'|'expired'|'locked', retry_after: int, verbleibend?: int}
      */
     private function totpStep(string $code, array $pending, array $user, string $emailHash, string $ipHash): array
     {
@@ -257,13 +259,19 @@ final class AdminAuth
         }
 
         $step = null;
-        try {
-            $secret = self::decryptSecret($this->config, (string) $user['totp_secret']);
-            $last = $user['totp_last_step'] === null ? null : (int) $user['totp_last_step'];
-            $step = Totp::verify($secret, $code, Clock::now()->getTimestamp(), $last);
-            sodium_memzero($secret);
-        } catch (\RuntimeException $e) {
-            $this->log->error('Admin-Anmeldung: TOTP-Geheimnis nicht entschlüsselbar', ['admin_user_id' => (int) $user['id'], 'fehler' => $e->getMessage()]);
+        $recovery = false;
+        if (RecoveryCodes::looksLikeCode($code)) {
+            // Atomar verbraucht, Zeitpunkt und IP-Hash stehen in admin_recovery_codes
+            $recovery = (new RecoveryCodes($this->pdo, $this->config))->consume((int) $user['id'], $code, $ipHash);
+        } else {
+            try {
+                $secret = self::decryptSecret($this->config, (string) $user['totp_secret']);
+                $last = $user['totp_last_step'] === null ? null : (int) $user['totp_last_step'];
+                $step = Totp::verify($secret, $code, Clock::now()->getTimestamp(), $last);
+                sodium_memzero($secret);
+            } catch (\RuntimeException $e) {
+                $this->log->error('Admin-Anmeldung: TOTP-Geheimnis nicht entschlüsselbar', ['admin_user_id' => (int) $user['id'], 'fehler' => $e->getMessage()]);
+            }
         }
 
         if ($step !== null) {
@@ -275,7 +283,7 @@ final class AdminAuth
             }
         }
 
-        if ($step === null) {
+        if ($step === null && !$recovery) {
             $this->recordFailure($emailHash, $ipHash, (int) $user['id']);
             $pending['tries']++;
             if ($pending['tries'] >= self::PENDING_MAX_TRIES) {
@@ -303,6 +311,13 @@ final class AdminAuth
             'last_activity' => $now->getTimestamp(),
         ]);
         $this->current = false;
+
+        if ($recovery) {
+            $remaining = (new RecoveryCodes($this->pdo, $this->config))->remaining((int) $user['id']);
+            $this->log->warning('Admin-Anmeldung mit Wiederherstellungscode', ['admin_user_id' => (int) $user['id'], 'verbleibend' => $remaining]);
+
+            return ['status' => 'ok', 'retry_after' => 0, 'verbleibend' => $remaining];
+        }
         $this->log->info('Admin-Anmeldung erfolgreich', ['admin_user_id' => (int) $user['id']]);
 
         return ['status' => 'ok', 'retry_after' => 0];

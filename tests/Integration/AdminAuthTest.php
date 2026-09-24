@@ -6,6 +6,7 @@ namespace Hvm\Tests\Integration;
 
 use Hvm\Http\Session;
 use Hvm\Security\AdminAuth;
+use Hvm\Security\RecoveryCodes;
 use Hvm\Security\Totp;
 use Hvm\Support\Clock;
 
@@ -255,5 +256,90 @@ final class AdminAuthTest extends AdminTestCase
         self::assertFalse($auth->ipAllowed('198.51.100.1'));
         self::assertFalse($auth->ipAllowed('2001:db9::1'));
         self::assertTrue($this->auth($this->kernel(['ADMIN_IP_ALLOWLIST' => null]))->ipAllowed('198.51.100.1'));
+    }
+
+    public function testRecoveryCodeReplacesTotpOnceAndIsLogged(): void
+    {
+        Clock::freeze('2026-09-23 10:00:10');
+        $kernel = $this->kernel();
+        $admin = $this->createAdmin($kernel);
+        $codes = new RecoveryCodes($this->db(), $kernel->config());
+        $plain = $codes->regenerate($admin['id']);
+        self::assertCount(RecoveryCodes::COUNT, $plain);
+        self::assertCount(RecoveryCodes::COUNT, array_unique($plain));
+        foreach ($plain as $code) {
+            self::assertMatchesRegularExpression('/^[23456789ABCDEFGHJKMNPQRSTVWXYZ]{5}-[23456789ABCDEFGHJKMNPQRSTVWXYZ]{5}$/', $code);
+        }
+        // Nur Hashes in der Datenbank
+        $stored = $this->db()->query('SELECT code_hash FROM admin_recovery_codes')->fetchAll(\PDO::FETCH_COLUMN);
+        self::assertCount(10, $stored);
+        foreach ($plain as $code) {
+            self::assertNotContains(str_replace('-', '', $code), $stored);
+            self::assertNotContains($code, $stored);
+        }
+
+        $auth = $this->auth($kernel);
+        self::assertSame('ok', $auth->attemptPassword('admin@example.org', self::PASSWORD, self::IP)['status']);
+        // Kleinbuchstaben und Leerzeichen werden toleriert
+        $result = $auth->attemptTotp(' ' . strtolower(str_replace('-', ' ', $plain[3])) . ' ', self::IP);
+        self::assertSame(['status' => 'ok', 'retry_after' => 0, 'verbleibend' => 9], $result);
+        self::assertSame($admin['id'], $auth->user()['id'] ?? null);
+        self::assertSame(9, $codes->remaining($admin['id']));
+
+        $used = $this->row('SELECT used_at, used_ip_hash FROM admin_recovery_codes WHERE used_at IS NOT NULL');
+        self::assertSame('2026-09-23 10:00:10', $used['used_at']);
+        self::assertSame($auth->ipHash(self::IP), $used['used_ip_hash']);
+        self::assertNull($this->row('SELECT totp_last_step FROM admin_users WHERE id = ?', [$admin['id']])['totp_last_step']);
+        $log = (string) @file_get_contents(self::basePath() . '/storage/logs/app.log');
+        self::assertStringContainsString('Admin-Anmeldung mit Wiederherstellungscode {"admin_user_id":' . $admin['id'] . ',"verbleibend":9}', $log);
+
+        // Derselbe Code ein zweites Mal: abgelehnt und als Fehlversuch gezählt
+        $auth->logout();
+        Clock::freeze('2026-09-23 10:05:00');
+        self::assertSame('ok', $auth->attemptPassword('admin@example.org', self::PASSWORD, self::IP)['status']);
+        self::assertSame('invalid', $auth->attemptTotp($plain[3], self::IP)['status']);
+        self::assertSame(1, $this->countRows('admin_login_attempts', 'success = 0'));
+        self::assertSame('ok', $auth->attemptTotp($plain[4], self::IP)['status']);
+        self::assertSame(8, $codes->remaining($admin['id']));
+    }
+
+    public function testRegeneratingInvalidatesOldCodesAndCodesAreBoundToAccount(): void
+    {
+        Clock::freeze('2026-09-23 10:00:10');
+        $kernel = $this->kernel();
+        $admin = $this->createAdmin($kernel);
+        $other = $this->createAdmin($kernel, 'zweit@example.org');
+        $codes = new RecoveryCodes($this->db(), $kernel->config());
+        $old = $codes->regenerate($admin['id']);
+        $foreign = $codes->regenerate($other['id']);
+        $new = $codes->regenerate($admin['id']);
+
+        self::assertFalse($codes->consume($admin['id'], $old[0], 'x'), 'alter Code ungültig');
+        self::assertFalse($codes->consume($admin['id'], $foreign[0], 'x'), 'Code eines anderen Kontos');
+        self::assertFalse($codes->consume($admin['id'], '123456', 'x'), 'TOTP-Format ist kein Wiederherstellungscode');
+        self::assertTrue($codes->consume($admin['id'], $new[0], 'x'));
+        self::assertSame(20, $this->countRows('admin_recovery_codes'));
+    }
+
+    public function testAdminUserScriptCreatesAndRegeneratesRecoveryCodes(): void
+    {
+        [$code, $output] = self::runPhp('bin/admin-user.php', ['create', 'skript@example.org'], ['APP_KEY' => self::APP_KEY], "Fiktive-Passphrase-2026-Neu\n");
+        self::assertSame(0, $code, $output);
+        self::assertSame(1, preg_match_all('/Wiederherstellungscodes/', $output));
+        self::assertSame(10, preg_match_all('/^\s+\d+\. [A-Z0-9]{5}-[A-Z0-9]{5}$/m', $output));
+        $id = (int) $this->row('SELECT id FROM admin_users WHERE email = ?', ['skript@example.org'])['id'];
+        self::assertSame(10, $this->countRows('admin_recovery_codes', 'admin_user_id = ?', [$id]));
+        preg_match('/^\s+1\. ([A-Z0-9]{5}-[A-Z0-9]{5})$/m', $output, $first);
+
+        [$code, $output] = self::runPhp('bin/admin-user.php', ['recovery-codes', 'skript@example.org'], ['APP_KEY' => self::APP_KEY]);
+        self::assertSame(0, $code, $output);
+        self::assertStringContainsString('Alle bisherigen Codes sind ungültig', $output);
+        self::assertSame(10, preg_match_all('/^\s+\d+\. [A-Z0-9]{5}-[A-Z0-9]{5}$/m', $output));
+        self::assertSame(10, $this->countRows('admin_recovery_codes', 'admin_user_id = ?', [$id]));
+        self::assertFalse((new RecoveryCodes($this->db(), $this->kernel()->config()))->consume($id, $first[1], 'x'));
+
+        [$code, $output] = self::runPhp('bin/admin-user.php', ['list'], ['APP_KEY' => self::APP_KEY]);
+        self::assertSame(0, $code, $output);
+        self::assertMatchesRegularExpression('/skript@example\.org\s+ja\s+10\s+aktiv/', $output);
     }
 }

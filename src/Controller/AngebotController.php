@@ -100,7 +100,8 @@ final class AngebotController
         }
 
         $spam = $this->spam->check($post, self::FORM, ['nachricht'], ['vorname', 'nachname', 'ort', 'strasse']);
-        $result = (new AngebotValidator())->validate($post, Clock::now());
+        // Deutsche Kalenderzeit wie in render(), sonst weichen Monats- und Jahresgrenzen um Mitternacht ab
+        $result = (new AngebotValidator())->validate($post, Clock::local());
 
         if ($spam['status'] === 'spam') {
             if ($result['valid']) {

@@ -155,4 +155,27 @@ final class AngebotControllerTest extends TestCase
         self::assertStringContainsString('[Antwortzeit festlegen]', $response->body());
         self::assertStringContainsString('Besichtigung und Angebot', $response->body());
     }
+
+    /**
+     * Monatswechsel: 30.09.2026 22:30 UTC ist in Deutschland bereits der 01.10.2026. Formular (max) und
+     * Prüfung müssen denselben Kalendermonat zugrunde legen, sonst wird der angebotene Höchstwert abgelehnt.
+     */
+    public function testMonthBoundsFollowGermanTimeAtMonthChange(): void
+    {
+        \Hvm\Support\Clock::freeze('2026-09-30 22:30:00');
+        try {
+            $kernel = $this->app();
+            $form = $kernel->handle(Request::create('GET', '/angebot/'))->body();
+            self::assertStringContainsString('max="2031-10"', $form);
+
+            $response = $this->post($kernel, [
+                'art' => 'weg', 'plz' => '40789', 'ort' => 'Monheim am Rhein', 'wohneinheiten' => '4', 'beginn' => '2031-10',
+                'nachname' => 'Beispiel', 'email' => 'test@example.org', 'datenschutz' => '1',
+            ]);
+            self::assertStringNotContainsString('feld-beginn-fehler', $response->body());
+            self::assertSame(503, $response->status(), 'gültig, scheitert nur an der fehlenden Datenbank');
+        } finally {
+            \Hvm\Support\Clock::unfreeze();
+        }
+    }
 }

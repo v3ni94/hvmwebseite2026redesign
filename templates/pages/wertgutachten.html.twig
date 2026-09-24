@@ -15,6 +15,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -22,12 +23,15 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Wertermittlung für Immobilien: eine kaufmännische Einschätzung durch die Hausverwaltung Müller GmbH oder, je nach Anlass, ein Gutachten durch qualifizierte Sachverständige.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH ermittelt den Wert Ihrer Immobilie: als kaufmännische Marktwerteinschätzung oder, je nach Anlass, als Gutachten durch qualifizierte Sachverständige.</p>
+        {{ hvm.hero_aktionen({label: 'Wertermittlung anfragen', url: cta_url('/kontakt/', {anliegen: 'gutachten'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende']}) }}
 
 <section class="l-section l-section--kompakt" aria-labelledby="anlaesse-titel">
     <div class="l-container">
@@ -73,6 +77,7 @@
             {titel: 'Auswertung', text: 'Einordnung anhand von Lage, Zustand und vergleichbaren Objekten.'},
             {titel: 'Übergabe der Einschätzung', text: 'Sie erhalten die Marktwerteinschätzung in schriftlicher Form.'},
         ]) }}
+        {{ hvm.zwischen_cta('Sie benötigen eine Einschätzung des Werts? Schildern Sie uns Objekt und Anlass, wir schlagen das passende Vorgehen vor.', {label: 'Wertermittlung anfragen', url: cta_url('/kontakt/', {anliegen: 'gutachten'})}, {label: 'Zum Verkauf', url: '/verkauf/'}) }}
     </div>
 </section>
 
@@ -107,6 +112,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit() }}
 
 {{ cta.cta_band({
     titel: '*Gutachten* anfragen',

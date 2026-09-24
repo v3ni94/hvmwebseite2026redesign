@@ -1,0 +1,33 @@
+# Wöchentliche Aktualisierungsvorschläge für Abhängigkeiten (docs/betrieb.md Abschnitt 5).
+# Pull Requests laufen durch die CI (PHPUnit, Playwright, Audit) und werden erst nach Prüfung zusammengeführt.
+version: 2
+updates:
+  - package-ecosystem: composer
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 5
+    labels: ["abhaengigkeiten"]
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 5
+    labels: ["abhaengigkeiten"]
+    ignore:
+      # Chromium der lokalen Umgebung ist auf @playwright/test 1.56.1 abgestimmt (docs/architektur.md Abschnitt 1)
+      - dependency-name: "@playwright/test"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Berlin
+    labels: ["abhaengigkeiten"]

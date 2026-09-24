@@ -111,12 +111,12 @@
 
     /* Seitenkopf für Inhaltsseiten: kompakter, gleiche Sprache wie der Hero */
     .c-seitenkopf { padding-bottom: clamp(3rem, 2.25rem + 3.333vw, 5rem); }
-    .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; gap: var(--abstand-5); justify-items: start; container-type: inline-size; }
+    .c-seitenkopf__inhalt { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--abstand-5); justify-items: start; container-type: inline-size; }
     .c-seitenkopf__inhalt > * { max-width: 100%; }
     .c-seitenkopf h1 { max-width: 18ch; font-size: min(var(--fs-h1), 9.2cqi); line-height: 1.0; }
     .c-seitenkopf__umriss { position: absolute; width: clamp(26rem, 52vw, 56rem); right: -10%; top: 10%; height: auto; }
     .c-seitenkopf .c-suche { width: 100%; }
-    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; }
+    .c-seitenkopf__text { font-size: var(--fs-lead); font-weight: var(--fw-leicht); line-height: 1.5; max-width: 40rem; overflow-wrap: break-word; }
     .c-seitenkopf__text strong { font-weight: var(--fw-halbfett); }
     @media (min-width: 64em) {
         .c-seitenkopf__inhalt { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); column-gap: var(--spalten-abstand); }
@@ -125,7 +125,9 @@
     }
 
     /* Startseite */
-    .c-start-faq { display: grid; gap: var(--abstand-7) var(--spalten-abstand); }
+    .c-start-faq { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--abstand-7) var(--spalten-abstand); }
+    /* Beitragskarten unter FAQ und Kopf über die volle Breite, sonst stehen sie in der schmalen Kopfspalte */
+    .c-start-faq > .c-karten { grid-column: 1 / -1; margin-top: 0; }
     @media (min-width: 64em) {
         .c-start-faq { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
         .c-start-faq .c-section-head { position: sticky; top: calc(var(--header-h-kompakt) + var(--abstand-6)); align-self: start; }

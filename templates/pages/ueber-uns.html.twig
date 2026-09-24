@@ -12,6 +12,7 @@
 {% import 'components/kennzahlen.html.twig' as kz %}
 {% import 'components/placeholder.html.twig' as ph %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -110,6 +111,8 @@
         </div>
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({text: 'Unser Hauptsitz liegt an der ' ~ firma.anschrift.strasse ~ ' in ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ ', im Kreis Mettmann am Rhein zwischen Düsseldorf und Köln. Anfahrt und Kontaktformular finden Sie auf der Kontaktseite.'}) }}
 
 {{ cta.cta_band({
     titel: 'Fragen an die *Hausverwaltung Müller GmbH*',

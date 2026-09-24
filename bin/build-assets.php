@@ -13,13 +13,21 @@ declare(strict_types=1);
  *      alle Dateien sind per Hash versioniert und dürfen dauerhaft gecacht werden.
  *      Einstiege: app.js, angebot.js, admin.js (fehlende werden als leeres Modul erzeugt).
  * Manifest: public/assets/build/manifest.json, z. B. {"app.css": "app.1a2b3c4d5e.css", "app.js": "js/9f8e7d6c5b/app.js"}.
+ * Kompression: zu CSS, JS, JSON und SVG (Build und public/assets/img) entstehen .gz-Dateien für gzip_static
+ *      in Nginx, .br nur bei geladener PHP-Erweiterung brotli (Hvm\Support\Precompress).
+ * Atomar: gebaut wird in ein temporäres Verzeichnis, das erst am Ende das bisherige ersetzt. Ein laufender
+ *      Server liefert damit bis zum Tausch die alten Assets aus, ein abgebrochener Build lässt sie unberührt.
  *
  * Aufruf: php bin/build-assets.php [--quiet]
  */
 
+use Hvm\Support\Precompress;
+
 $root = dirname(__DIR__);
+require $root . '/vendor/autoload.php';
 $quiet = in_array('--quiet', $argv, true);
-$out = $root . '/public/assets/build';
+$final = $root . '/public/assets/build';
+$out = $final . '.neu-' . getmypid();
 $cssDir = $root . '/resources/css';
 $jsDir = $root . '/resources/js';
 $entries = ['app', 'angebot', 'admin'];
@@ -118,7 +126,10 @@ function listJs(string $dir): array
     return $files;
 }
 
-removeDirectory($out);
+// Reste abgebrochener Läufe entfernen
+foreach (glob($final . '.{neu,alt}-*', GLOB_BRACE | GLOB_ONLYDIR) ?: [] as $rest) {
+    removeDirectory($rest);
+}
 if (!mkdir($out, 0775, true) && !is_dir($out)) {
     fwrite(STDERR, "Build-Verzeichnis kann nicht angelegt werden.\n");
     exit(1);
@@ -192,5 +203,26 @@ foreach ($entries as $entry) {
 $say(sprintf('JS: %d Dateien, Verzeichnis js/%s', count($jsFiles), $jsHash));
 
 file_put_contents($out . '/manifest.json', json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
+
+$komprimiert = Precompress::directory($out, Precompress::EXTENSIONS, ['manifest.json']);
+$komprimiert = array_merge($komprimiert, Precompress::directory($root . '/public/assets/img', ['svg']));
+$say(sprintf('Kompression: %d Dateien (gzip%s)', count($komprimiert), function_exists('brotli_compress') ? ', brotli' : ''));
+
+// Tausch: altes Verzeichnis beiseite, neues an seine Stelle, altes entfernen
+$alt = $final . '.alt-' . getmypid();
+if (is_dir($final) && !rename($final, $alt)) {
+    removeDirectory($out);
+    fwrite(STDERR, "Bisheriges Build-Verzeichnis kann nicht ersetzt werden.\n");
+    exit(1);
+}
+if (!rename($out, $final)) {
+    if (is_dir($alt)) {
+        rename($alt, $final);
+    }
+    removeDirectory($out);
+    fwrite(STDERR, "Neues Build-Verzeichnis kann nicht aktiviert werden.\n");
+    exit(1);
+}
+removeDirectory($alt);
 $say('Manifest: public/assets/build/manifest.json');
 exit(0);

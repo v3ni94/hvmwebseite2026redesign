@@ -13,8 +13,9 @@ final class Db
 {
     /**
      * @param array{host?: string|null, port?: int|string|null, name?: string|null, user?: string|null, password?: string|null, socket?: string|null} $settings
+     * @param array<int, mixed> $options zusätzliche PDO-Optionen (überschreiben keine der Pflichtoptionen)
      */
-    public static function connect(array $settings): PDO
+    public static function connect(array $settings, array $options = []): PDO
     {
         $name = (string) ($settings['name'] ?? '');
         if ($name === '') {
@@ -38,17 +39,20 @@ final class Db
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_STRINGIFY_FETCHES => false,
-        ]);
+        ] + $options);
         $pdo->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci, time_zone = '+00:00', sql_mode = 'STRICT_ALL_TABLES,NO_ZERO_DATE,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'");
 
         return $pdo;
     }
 
-    public static function fromConfig(Config $config, string $connection = 'db'): PDO
+    /**
+     * @param array<int, mixed> $options zusätzliche PDO-Optionen, z. B. PDO::ATTR_TIMEOUT für den Healthcheck
+     */
+    public static function fromConfig(Config $config, string $connection = 'db', array $options = []): PDO
     {
         /** @var array{host?: string|null, port?: int|string|null, name?: string|null, user?: string|null, password?: string|null, socket?: string|null} $settings */
         $settings = $config->array('app.' . $connection);
 
-        return self::connect($settings);
+        return self::connect($settings, $options);
     }
 }

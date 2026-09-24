@@ -14,7 +14,7 @@
     </fieldset>
     <div class="c-formular__reihe c-formular__reihe--2">
         {{ af.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', pflicht: true, autocomplete: 'email', maxlaenge: 254, wert: form.werte.email|default(''), fehler: form.fehler.email|default(''), fehlertext: 'Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@example.org.'}) }}
-        {{ af.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', maxlaenge: 30, wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.'}) }}
+        {{ af.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', maxlaenge: 30, wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer mit Vorwahl an.'}) }}
     </div>
     {{ f.auswahl({name: 'rolle', label: 'Ihre Rolle', optional: true, leer: 'Bitte wählen', optionen: form.rollen, wert: form.werte.rolle|default(null), fehler: form.fehler.rolle|default('')}) }}
     {{ f.textfeld({name: 'nachricht', label: 'Nachricht', optional: true, zeilen: 5, maxlaenge: form.max.nachricht, wert: form.werte.nachricht|default(''), hinweis: 'Zum Beispiel Besonderheiten des Objekts oder Fragen an uns.', fehler: form.fehler.nachricht|default('')}) }}

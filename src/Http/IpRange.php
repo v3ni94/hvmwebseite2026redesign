@@ -38,8 +38,12 @@ final class IpRange
         }
 
         $maxBits = strlen($ipBin) * 8;
+        // Präfixlänge nur aus Ziffern: (int) 'abc' ergäbe 0, also /0 und damit jede Adresse
+        if ($bits !== null && !ctype_digit($bits)) {
+            return false;
+        }
         $bits = $bits === null ? $maxBits : (int) $bits;
-        if ($bits < 0 || $bits > $maxBits) {
+        if ($bits > $maxBits) {
             return false;
         }
 

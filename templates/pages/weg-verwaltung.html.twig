@@ -1,5 +1,5 @@
 {#
-  WEG-Verwaltung: Leistungsumfang, Abgrenzung und Ablauf für Wohnungseigentümergemeinschaften und Beiräte.
+  WEG-Verwaltung: Leistungsumfang, Abgrenzung und Ablauf für Wohnungs­eigentümer­gemeinschaften und Beiräte.
   Grundlage: docs/quellen/masterprompt-relaunch-muellerhv-de.md Abschnitt 3.5, 5, 8; docs/architektur.md Abschnitt 9.
   Rechtsstand: WEMoG. Alle Texte sind Entwürfe, keine Rechtsberatung, Normen bewusst allgemein formuliert.
 #}
@@ -12,6 +12,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -19,17 +20,20 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Verwaltung des gemeinschaftlichen Eigentums als <strong>Organ der Gemeinschaft der Wohnungseigentümer</strong>: Beschlüsse umsetzen, Wirtschaftsplan und Jahresabrechnung erstellen, Eigentümerversammlungen durchführen und Erhaltungsmaßnahmen steuern.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH aus {{ firma.anschrift.ort }} verwaltet das gemeinschaftliche Eigentum von <strong>Wohnungs&shy;eigentümer&shy;gemeinschaften</strong>: Eigentümer&shy;versammlung, Wirtschaftsplan und Jahresabrechnung, Umsetzung der Beschlüsse und Erhaltung. Sie erhalten ein schriftliches Angebot mit dem Entwurf des Verwaltervertrags.</p>
+        {{ hvm.hero_aktionen({label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'weg'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
 
+{{ hvm.vertrauen() }}
+
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
         {{ sh.section_head({
-            titel: 'Für *Wohnungseigentümergemeinschaften* und Beiräte',
+            titel: 'Für *Wohnungs­eigentümer­gemeinschaften* und Beiräte',
             text: 'Die WEG-Verwaltung richtet sich an Gemeinschaften der Wohnungseigentümer, unabhängig von der Anzahl der Einheiten. Beauftragt wird die Hausverwaltung Müller GmbH durch Beschluss der Eigentümerversammlung, Ansprechpartner sind in der Regel der Verwaltungsbeirat und die einzelnen Eigentümer.',
             id: 'fuer-wen-titel',
         }) }}
@@ -75,6 +79,7 @@
             {% endset %}
             {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
         </div>
+        {{ hvm.zwischen_cta('Passt der Leistungsumfang zu Ihrer Gemeinschaft? Sie erhalten ein schriftliches Angebot mit Vertragsentwurf, ohne Aufnahmegebühr.', {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'weg'})}, {label: 'Verwalterwechsel ansehen', url: '/verwalterwechsel/'}) }}
     </div>
 </section>
 
@@ -159,6 +164,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: 'Angebot für Ihre *Eigentümergemeinschaft* anfordern',

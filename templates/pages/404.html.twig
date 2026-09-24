@@ -1,11 +1,13 @@
 {#
-  404: Suche und Kern-CTAs (docs/architektur.md Abschnitt 3). Kein Canonical, keine strukturierten Daten.
+  404: Suche im Wissensbereich, die fünf wichtigsten Einstiege und Kontakt (docs/architektur.md Abschnitt 3).
+  Kein Canonical, keine strukturierten Daten.
 #}
 {% extends 'layouts/base.html.twig' %}
 
 {% import 'components/eyebrow.html.twig' as e %}
 {% import 'components/form-fields.html.twig' as f %}
 {% import 'components/button.html.twig' as b %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -16,20 +18,22 @@
         <p class="c-fehlerseite__code" aria-hidden="true">404</p>
         {{ e.eyebrow('Fehler 404') }}
         <h1>Seite nicht gefunden</h1>
-        <p class="c-seitenkopf__text">Die angeforderte Seite gibt es nicht oder nicht mehr. Die folgenden Wege führen weiter.</p>
-        {{ f.suche({name: 'q', id: 'suche-404', label: 'Wissen und FAQ durchsuchen', platzhalter: 'Wissen und FAQ durchsuchen'}) }}
+        <p class="c-seitenkopf__text">Die angeforderte Seite gibt es nicht oder nicht mehr. Durchsuchen Sie den Wissensbereich oder wählen Sie einen der Einstiege unten.</p>
+        {{ f.suche({name: 'q', id: 'suche-404', label: 'Wissen und FAQ durchsuchen', platzhalter: 'z. B. Verwalterwechsel, Hausgeld, Schaden melden'}) }}
     </div>
 </section>
 <section class="l-section l-section--kompakt u-mt-0" aria-labelledby="wege-titel">
     <div class="l-container">
-        <h2 class="u-visually-hidden" id="wege-titel">Weiterführende Seiten</h2>
+        <h2 class="c-vertrauen__titel" id="wege-titel">Die wichtigsten Einstiege</h2>
         <ul class="c-fehlerseite__wege" role="list">
-            <li><a href="/angebot/">Angebot anfordern {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
+            <li><a href="/angebot/">Angebot für Ihre Immobilie anfordern {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
             <li><a href="/verwalterwechsel/">Verwalter wechseln {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
+            <li><a href="/weg-verwaltung/">WEG-Verwaltung {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
+            <li><a href="/mietverwaltung/">Mietverwaltung {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
             <li><a href="/service/">Service für Mieter und Eigentümer {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
-            <li><a href="/kontakt/">Kontakt {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
-            <li><a href="/">Zur Startseite {% include 'partials/icon.html.twig' with {name: 'pfeil'} only %}</a></li>
         </ul>
+        <p class="u-mt-6">{{ b.textlink('Zur Startseite', '/') }}</p>
     </div>
 </section>
+{{ hvm.erreichbarkeit({flaeche: true, text: 'Sie haben nicht gefunden, was Sie suchen? Rufen Sie uns an oder schreiben Sie uns, wir helfen weiter.'}) }}
 {% endblock %}

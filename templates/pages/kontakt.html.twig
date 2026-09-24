@@ -9,6 +9,7 @@
 {% import 'components/section-head.html.twig' as sh %}
 {% import 'components/card.html.twig' as c %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -16,7 +17,8 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Kontakt') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Hauptsitz {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Schreiben Sie uns über das Kontaktformular oder nutzen Sie die Angaben unten.</p>
+        <p class="c-seitenkopf__text">Sie erreichen die Hausverwaltung Müller GmbH {% if firma.telefon %}telefonisch unter {{ firma.telefon }}, {% endif %}per E-Mail an {{ firma.email }} oder über das Kontaktformular. Hauptsitz ist {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}.</p>
+        {{ hvm.hero_aktionen({label: 'Nachricht senden', url: '#kontaktformular'}) }}
     </div>
 </section>
 {% endblock %}
@@ -46,14 +48,17 @@
             <h2 class="c-section-head__titel u-mt-6">Bürozeiten</h2>
             <p class="c-prosa">{{ placeholder('Bürozeiten ergänzen') }}</p>
 
-            <h2 class="c-section-head__titel u-mt-6">Anfahrt</h2>
+            <h2 class="c-section-head__titel u-mt-6" id="anfahrt-titel">Anfahrt</h2>
             <p class="c-prosa">
-                Der Hauptsitz liegt in {{ firma.anschrift.ort }}, Anschrift {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}.
+                Der Hauptsitz der {{ firma.name }} liegt an der {{ firma.anschrift.strasse }} in {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. {{ firma.anschrift.ort }} liegt im Kreis Mettmann am rechten Rheinufer zwischen Düsseldorf und Köln.
+            </p>
+            <p class="c-prosa">
+                Für die Routenplanung geben Sie die Anschrift {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }} ein. Für einen persönlichen Termin stimmen Sie sich bitte vorab telefonisch oder per E-Mail mit uns ab.
                 <a href="https://www.openstreetmap.org/search?query={{ (firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort)|url_encode }}" rel="noopener" target="_blank">Route auf OpenStreetMap ansehen<span class="u-visually-hidden"> (öffnet in neuem Tab)</span></a>
             </p>
         </div>
 
-        <div class="l-span-8 c-kontakt-formular">
+        <div class="l-span-8 c-kontakt-formular" id="kontaktformular">
             <h2 class="c-section-head__titel u-visually-hidden">Kontaktformular</h2>
             {% include 'partials/forms/kontakt-form.html.twig' ignore missing %}
         </div>

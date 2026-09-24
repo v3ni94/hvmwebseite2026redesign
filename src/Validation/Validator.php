@@ -133,7 +133,7 @@ final class Validator
             return null;
         }
         if (!preg_match('#^\+?[0-9 ()/\-]+$#', $value) || preg_match_all('/\d/', $value) < 6) {
-            return $this->fail($field, 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.');
+            return $this->fail($field, 'Bitte geben Sie eine gültige Telefonnummer mit Vorwahl an.');
         }
 
         return $value;

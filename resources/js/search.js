@@ -69,7 +69,12 @@ export function initSuche() {
         return;
     }
 
+    // Das Template blendet den Bereich ohne JavaScript per u-visually-hidden aus. Mit JavaScript ist er die
+    // sichtbare Trefferliste (die Trefferzahl bleibt über ein eigenes unsichtbares Element vorlesbar).
+    live.classList.remove('u-visually-hidden');
+
     let index = null;
+    let laden = null;
     let ladefehler = false;
     let zeitgeber = null;
 
@@ -89,12 +94,16 @@ export function initSuche() {
             return;
         }
         if (index === null && !ladefehler) {
-            try {
-                index = await ladeIndex();
-            } catch {
-                ladefehler = true;
-                index = [];
-            }
+            // Ein Ladevorgang für alle Eingaben, die während des Ladens eintreffen
+            laden ??= ladeIndex().then(
+                (daten) => { index = daten; },
+                () => { ladefehler = true; index = []; },
+            );
+            await laden;
+        }
+        // Eingabe hat sich während des Ladens geändert oder wurde mit Escape geleert: veraltetes Ergebnis verwerfen
+        if (feld.value.trim() !== wert) {
+            return;
         }
         zeigeAbschnitte(false);
         const gefunden = (index ?? []).filter((eintrag) => treffer(eintrag, begriffe));
@@ -115,6 +124,8 @@ export function initSuche() {
 
     feld.addEventListener('keydown', (ereignis) => {
         if (ereignis.key === 'Escape' && feld.value !== '') {
+            // Noch geplante Suche verwerfen, sonst erscheinen die Treffer nach dem Leeren erneut
+            window.clearTimeout(zeitgeber);
             feld.value = '';
             zeigeAbschnitte(true);
             live.innerHTML = '';

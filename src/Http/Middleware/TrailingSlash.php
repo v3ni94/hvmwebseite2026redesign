@@ -9,14 +9,22 @@ use Hvm\Http\Response;
 
 /**
  * HTML-Seiten enden auf "/". GET- und HEAD-Anfragen ohne Schrägstrich werden per 301 umgeleitet.
- * Ausgenommen sind Pfade, deren letztes Segment eine Dateiendung hat (z. B. /sitemap.xml).
+ * Ausgenommen sind Pfade, deren letztes Segment eine Dateiendung hat (z. B. /sitemap.xml),
+ * sowie ausdrücklich genannte Maschinenpfade (z. B. /health).
  */
 final class TrailingSlash implements Middleware
 {
+    /**
+     * @param list<string> $exact Pfade ohne Weiterleitung
+     */
+    public function __construct(private readonly array $exact = [])
+    {
+    }
+
     public function process(Request $request, callable $next): Response
     {
         $path = $request->path();
-        if (!in_array($request->method(), ['GET', 'HEAD'], true) || str_ends_with($path, '/')) {
+        if (!in_array($request->method(), ['GET', 'HEAD'], true) || str_ends_with($path, '/') || in_array($path, $this->exact, true)) {
             return $next($request);
         }
 

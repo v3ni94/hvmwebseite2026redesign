@@ -118,12 +118,20 @@ abstract class IntegrationTestCase extends TestCase
     /**
      * @return array{0: int, 1: string} Exitcode und Ausgabe
      */
-    protected static function runPhp(string $script, array $args = [], array $env = []): array
+    protected static function runPhp(string $script, array $args = [], array $env = [], ?string $stdin = null): array
     {
         $command = array_merge([PHP_BINARY, self::basePath() . '/' . $script], $args);
-        $process = proc_open($command, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, self::basePath(), self::processEnv($env));
+        $spec = [1 => ['pipe', 'w'], 2 => ['pipe', 'w']];
+        if ($stdin !== null) {
+            $spec[0] = ['pipe', 'r'];
+        }
+        $process = proc_open($command, $spec, $pipes, self::basePath(), self::processEnv($env));
         if (!is_resource($process)) {
             return [1, 'Prozess nicht gestartet'];
+        }
+        if ($stdin !== null) {
+            fwrite($pipes[0], $stdin);
+            fclose($pipes[0]);
         }
         $output = stream_get_contents($pipes[1]) . stream_get_contents($pipes[2]);
         fclose($pipes[1]);
@@ -134,7 +142,8 @@ abstract class IntegrationTestCase extends TestCase
 
     protected static function ensureSchema(): void
     {
-        $exists = self::$pdo?->query("SHOW TABLES LIKE 'leads'")->fetchColumn();
+        // Tabelle der jüngsten Migration: fehlt sie, laufen die offenen Migrationen nach
+        $exists = self::$pdo?->query("SHOW TABLES LIKE 'admin_recovery_codes'")->fetchColumn();
         if ($exists === false || $exists === null) {
             [$code, $output] = self::runPhp('bin/migrate.php', ['--database=test']);
             if ($code !== 0) {

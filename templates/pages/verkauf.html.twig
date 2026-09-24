@@ -12,6 +12,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -19,12 +20,15 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Verkauf Ihrer Immobilie mit Begleitung durch die Hausverwaltung Müller GmbH: Einschätzung des Marktwerts, Zusammenstellung der Unterlagen, Vermarktung und Besichtigungen bis zur Begleitung zum Notartermin.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH begleitet Eigentümer beim Verkauf ihrer Wohnung oder ihres Hauses: Marktwerteinschätzung, Unterlagen zusammenstellen und Energieausweis prüfen, Vermarktung, Besichtigungen und Begleitung bis zum Notartermin.</p>
+        {{ hvm.hero_aktionen({label: 'Verkauf anfragen', url: cta_url('/kontakt/', {anliegen: 'verkauf'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende']}) }}
 
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
@@ -55,6 +59,7 @@
             {titel: 'Käuferprüfung', text: 'Prüfung der Kaufinteressenten vor Aufnahme der Vertragsverhandlung.'},
             {titel: 'Begleitung bis zum Notartermin', text: 'Abstimmung mit Notariat und Beteiligten bis zur Beurkundung des Kaufvertrags.'},
         ]) }}
+        {{ hvm.zwischen_cta('Sie denken über einen Verkauf nach? Am Anfang steht eine kaufmännische Einschätzung des Marktwerts.', {label: 'Verkauf anfragen', url: cta_url('/kontakt/', {anliegen: 'verkauf'})}, {label: 'Zum Wertgutachten', url: '/wertgutachten/'}) }}
     </div>
 </section>
 
@@ -104,6 +109,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: '*Bewertung* anfragen',

@@ -142,6 +142,44 @@ jobs:
             tests/e2e/results/
           retention-days: 7
 
+  audit:
+    name: Abhängigkeiten (composer audit, npm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          tools: composer:v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Blockiert bei Sicherheitshinweisen ab Schweregrad medium (auch ohne Angabe), Low nur als Hinweis.
+      - name: composer audit
+        run: |
+          set +e
+          composer audit --locked --no-interaction --format=json > composer-audit.json
+          set -e
+          cat composer-audit.json
+          blockierend=$(jq '[.advisories | if type == "object" then .[] else . end | .[]? | select((.severity // "unbekannt") != "low")] | length' composer-audit.json)
+          niedrig=$(jq '[.advisories | if type == "object" then .[] else . end | .[]? | select(.severity == "low")] | length' composer-audit.json)
+          if [ "$niedrig" -gt 0 ]; then
+            echo "::warning::composer audit: $niedrig Hinweis(e) mit Schweregrad low"
+          fi
+          if [ "$blockierend" -gt 0 ]; then
+            echo "::error::composer audit: $blockierend Hinweis(e) ab Schweregrad medium"
+            exit 1
+          fi
+
+      # Nur Laufzeitabhängigkeiten (derzeit keine, Node dient ausschließlich Prüfwerkzeugen).
+      - name: npm audit (ohne dev)
+        run: npm audit --omit=dev --audit-level=moderate
+
   pruefungen:
     name: Platzhalter und PII
     runs-on: ubuntu-latest

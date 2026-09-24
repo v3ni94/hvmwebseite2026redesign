@@ -89,6 +89,9 @@ final class AuthController
         }
         $code = mb_substr((string) $request->postValue('code', ''), 0, 20);
         $result = $this->gate->auth()->attemptTotp($code, $this->gate->clientIp($request));
+        if ($result['status'] === 'ok' && isset($result['verbleibend'])) {
+            $this->gate->flash('info', self::recoveryNotice($result['verbleibend']));
+        }
 
         return match ($result['status']) {
             'ok' => AdminGate::secure(Response::redirect('/admin/', 303)),
@@ -108,6 +111,19 @@ final class AuthController
         $this->gate->flash('info', 'Sie wurden abgemeldet.');
 
         return AdminGate::secure(Response::redirect(AdminGate::LOGIN_PATH, 303));
+    }
+
+    public static function recoveryNotice(int $remaining): string
+    {
+        $text = sprintf(
+            'Sie haben sich mit einem Wiederherstellungscode angemeldet. Verbleibende Codes: %d.',
+            $remaining
+        );
+        if ($remaining <= 3) {
+            $text .= ' Bitte neue Codes erzeugen lassen (bin/admin-user.php recovery-codes).';
+        }
+
+        return $text;
     }
 
     public static function lockMessage(int $seconds): string

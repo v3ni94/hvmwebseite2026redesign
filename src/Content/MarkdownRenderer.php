@@ -73,7 +73,7 @@ final class MarkdownRenderer
      */
     public static function slug(string $text): string
     {
-        $text = strtolower($text);
+        $text = mb_strtolower($text, 'UTF-8');
         $text = strtr($text, ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
         $text = (string) preg_replace('/[^a-z0-9]+/', '-', $text);
         $text = trim($text, '-');

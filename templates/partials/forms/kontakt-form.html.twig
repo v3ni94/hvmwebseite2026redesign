@@ -54,7 +54,7 @@
         {{ f.eingabe({name: 'name', label: 'Name', optional: true, autocomplete: 'name', wert: form.werte.name|default(''), fehler: form.fehler.name|default('')}) }}
         {{ f.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', pflicht: true, autocomplete: 'email', wert: form.werte.email|default(''), fehler: form.fehler.email|default(''), fehlertext: 'Bitte geben Sie eine gültige E-Mail-Adresse an, zum Beispiel name@example.org.'}) }}
     </div>
-    {{ f.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer an, zum Beispiel 0211 123456.'}) }}
+    {{ f.eingabe({name: 'telefon', label: 'Telefon', optional: true, typ: 'tel', autocomplete: 'tel', wert: form.werte.telefon|default(''), hinweis: 'Für Rückfragen, wenn Ihnen ein Anruf lieber ist.', fehler: form.fehler.telefon|default(''), fehlertext: 'Bitte geben Sie eine gültige Telefonnummer mit Vorwahl an.'}) }}
     {{ f.textfeld({name: 'nachricht', label: 'Nachricht', pflicht: true, zeilen: 6, maxlaenge: form.max.nachricht, wert: form.werte.nachricht|default(''), fehler: form.fehler.nachricht|default('')}) }}
 
     <div class="c-kontakt__datenschutz">

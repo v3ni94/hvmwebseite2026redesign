@@ -115,6 +115,25 @@ final class AdminFlowTest extends AdminTestCase
         self::assertStringContainsString('Zu viele Anmeldeversuche', $response->body());
     }
 
+    public function testLoginWithRecoveryCodeShowsRemainingCodes(): void
+    {
+        $kernel = $this->kernel();
+        $admin = $this->createAdmin($kernel);
+        $codes = (new \Hvm\Security\RecoveryCodes($this->db(), $kernel->config()))->regenerate($admin['id']);
+        $page = $this->request($kernel, 'GET', '/admin/login/');
+        $this->request($kernel, 'POST', '/admin/login/', ['_csrf' => $this->csrf($page), 'email' => 'admin@example.org', 'passwort' => self::PASSWORD]);
+        $codePage = $this->request($kernel, 'GET', '/admin/login/code/');
+        self::assertStringContainsString('Wiederherstellungscode', $codePage->body());
+        self::assertStringNotContainsString('pattern="[0-9]{6}"', $codePage->body(), 'Feld muss auch Wiederherstellungscodes annehmen');
+
+        $response = $this->request($kernel, 'POST', '/admin/login/code/', ['_csrf' => $this->csrf($codePage), 'code' => $codes[0]]);
+        self::assertSame(303, $response->status());
+        self::assertSame('/admin/', $response->header('Location'));
+        $dashboard = $this->request($kernel, 'GET', '/admin/');
+        self::assertSame(200, $dashboard->status());
+        self::assertStringContainsString('mit einem Wiederherstellungscode angemeldet. Verbleibende Codes: 9.', $dashboard->body());
+    }
+
     public function testFullAdminWorkflow(): void
     {
         $kernel = $this->kernel();

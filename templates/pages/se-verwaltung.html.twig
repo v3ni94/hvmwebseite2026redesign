@@ -13,6 +13,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -20,18 +21,21 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Betreuung der einzelnen vermieteten Eigentumswohnung für <strong>Kapitalanleger</strong>: Mietverhältnis, Betriebskostenabrechnung und die Schnittstelle zur WEG-Verwaltung des Objekts.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH betreut für <strong>Kapitalanleger</strong> die einzelne vermietete Eigentumswohnung: Mietverhältnis, Mieteingang, Betriebskostenabrechnung gegenüber dem Mieter und die Abstimmung mit der WEG-Verwaltung des Objekts.</p>
+        {{ hvm.hero_aktionen({label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'se'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
 
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende', 'notdienst', 'portal', 'aufnahmegebuehr']}) }}
+
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
         {{ sh.section_head({
             titel: 'Für *Kapitalanleger* mit vermieteter Eigentumswohnung',
-            text: 'Die SE-Verwaltung richtet sich an Eigentümer einer einzelnen, vermieteten Wohnung innerhalb einer Wohnungseigentümergemeinschaft. Sie betrifft nur das Sondereigentum, also die einzelne Wohnung samt Mietverhältnis, nicht die Verwaltung des Gemeinschaftseigentums.',
+            text: 'Die SE-Verwaltung richtet sich an Eigentümer einer einzelnen, vermieteten Wohnung innerhalb einer Wohnungs­eigentümer­gemeinschaft. Sie betrifft nur das Sondereigentum, also die einzelne Wohnung samt Mietverhältnis, nicht die Verwaltung des Gemeinschaftseigentums.',
             id: 'fuer-wen-titel',
         }) }}
     </div>
@@ -84,6 +88,7 @@
             {% endset %}
             {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
         </div>
+        {{ hvm.zwischen_cta('Sie vermieten eine Eigentumswohnung und möchten die Betreuung abgeben? Sie erhalten ein schriftliches Angebot für Ihre Wohnung.', {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'se'})}, {label: 'Zur WEG-Verwaltung', url: '/weg-verwaltung/'}) }}
     </div>
 </section>
 
@@ -176,6 +181,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: 'Angebot für Ihre *Eigentumswohnung* anfordern',

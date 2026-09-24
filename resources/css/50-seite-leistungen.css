@@ -47,4 +47,80 @@
 
     /* Abstand vor einer zweiten Kartenreihe innerhalb derselben Sektion */
     .c-karten--abstand { margin-top: var(--abstand-6); }
+
+    /*
+     * Vertrauensleiste (templates/pages/_bausteine.html.twig, Makro vertrauen): nur bestätigte Fakten,
+     * Kacheln in Weiß mit Kontur, Orangekeil als dekorativer Marker (nie als Text). Titel als technisches Label.
+     */
+    .c-vertrauen__titel {
+        margin-bottom: var(--abstand-5);
+        font-size: var(--fs-label);
+        font-weight: var(--fw-halbfett);
+        letter-spacing: var(--tracking-label);
+        text-transform: uppercase;
+        line-height: 1.5;
+    }
+    .c-vertrauensleiste {
+        display: grid;
+        gap: var(--abstand-3);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        max-width: none;
+    }
+    .c-vertrauensleiste li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--abstand-3);
+        padding: var(--abstand-4) var(--abstand-5);
+        background: var(--hvm-weiss);
+        border-radius: var(--radius-feld);
+        box-shadow: var(--schatten-karte);
+        font-size: var(--fs-text);
+        line-height: 1.4;
+        max-width: none;
+    }
+    .c-vertrauensleiste li::before {
+        content: "";
+        flex: none;
+        width: 0.875rem;
+        height: calc(0.875rem / var(--hvm-keil-verhaeltnis));
+        margin-top: 0.3em;
+        background: var(--hvm-orange);
+        clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+    .c-vertrauensleiste strong { font-weight: var(--fw-halbfett); }
+    .c-vertrauensleiste abbr { text-decoration: none; }
+    .c-vertrauensleiste__stand { display: block; font-size: var(--fs-klein); }
+
+    /* Zweiter CTA nach dem Leistungsteil: weiße Fläche mit Kontur, Text links, Aktionen rechts */
+    .c-zwischen-cta {
+        display: grid;
+        gap: var(--abstand-5);
+        align-items: center;
+        margin-top: var(--abstand-7);
+        padding: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+        background: var(--hvm-weiss);
+        border-radius: var(--radius-karte);
+        box-shadow: var(--schatten-karte);
+    }
+    .c-zwischen-cta__text {
+        font-size: var(--fs-lead);
+        font-weight: var(--fw-leicht);
+        line-height: 1.4;
+        max-width: 38rem;
+    }
+    @media (min-width: 64em) {
+        .c-zwischen-cta { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--spalten-abstand); }
+    }
+
+    /* E-Mail-Adresse als Kartentitel darf an beliebiger Stelle umbrechen */
+    .c-karte--umbruch .c-karte__titel { overflow-wrap: anywhere; }
+
+    /* Mobil zweispaltig und kompakt, damit die Leiste nicht den ganzen Bildschirm füllt */
+    @media (max-width: 39.99em) {
+        .c-vertrauensleiste { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--abstand-2); }
+        .c-vertrauensleiste li { gap: var(--abstand-2); padding: var(--abstand-3); font-size: var(--fs-klein); hyphens: manual; }
+    }
 }

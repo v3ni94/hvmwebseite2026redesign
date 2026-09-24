@@ -9,11 +9,12 @@ use Hvm\Http\Request;
 use Hvm\Http\Response;
 use Hvm\Http\Router;
 use Hvm\Support\Config;
+use Hvm\Support\Clock;
 use Hvm\Support\Container;
 use Hvm\Support\SitemapProvider;
 
 /**
- * sitemap.xml, robots.txt und llms.txt (docs/seo-geo.md).
+ * sitemap.xml, robots.txt, llms.txt (docs/seo-geo.md) und security.txt (RFC 9116).
  *
  * Die Sitemap enthält alle öffentlichen Seiten aus config/seiten.php ('sitemap' => true), deren Pfad in der
  * aktuellen Umgebung als GET-Route registriert ist, sowie Adressen aus registrierten SitemapProvider-Klassen
@@ -240,6 +241,23 @@ final class SeoController
     private function freigegebeneArtikel(): array
     {
         return array_values(array_filter($this->wissen->veroeffentlichte(), static fn ($a): bool => $a->freigegeben));
+    }
+
+    /**
+     * /.well-known/security.txt nach RFC 9116. Expires liegt knapp unter einem Jahr in der Zukunft
+     * (Tagesbeginn UTC in einem Jahr), wird also bei jeder Anfrage fortgeschrieben und läuft nie ab.
+     */
+    public function securityTxt(Request $request, array $params = []): Response
+    {
+        $expires = Clock::now()->modify('+1 year')->setTime(0, 0);
+        $zeilen = [
+            'Contact: mailto:' . (string) $this->config->get('unternehmen.email', 'info@muellerhv.de'),
+            'Expires: ' . $expires->format('Y-m-d\TH:i:s\Z'),
+            'Preferred-Languages: de',
+            'Canonical: ' . $this->baseUrl() . '/.well-known/security.txt',
+        ];
+
+        return Response::text(implode("\n", $zeilen) . "\n")->withHeader('Cache-Control', 'public, max-age=86400');
     }
 
     private function baseUrl(): string

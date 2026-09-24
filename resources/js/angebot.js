@@ -130,6 +130,20 @@ function initAngebot(form) {
         form.setAttribute('aria-busy', 'true');
     });
 
+    // Rückkehr aus dem Back-Forward-Cache: Sendesperre aufheben, sonst bleibt das Formular blockiert
+    window.addEventListener('pageshow', (event) => {
+        if (!event.persisted) {
+            return;
+        }
+        delete form.dataset.gesendet;
+        form.removeAttribute('aria-busy');
+        const knopf = form.querySelector('[data-absenden]');
+        if (knopf) {
+            knopf.removeAttribute('aria-disabled');
+            knopf.classList.remove('is-deaktiviert');
+        }
+    });
+
     window.addEventListener('popstate', (event) => {
         const ziel = event.state && Number(event.state.angebotSchritt);
         if (!ziel) {

@@ -15,6 +15,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -22,12 +23,15 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Strategische Steuerung von Wohnimmobilien für <strong>Kapitalanleger, Family Offices und Eigentümer mehrerer Objekte</strong>: Bestandsanalyse, Objektstrategie, Investitionsplanung und ein Berichtswesen mit klaren Kennzahlen.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH unterstützt <strong>Kapitalanleger, Family Offices und Eigentümer mehrerer Objekte</strong> bei der strategischen Steuerung ihrer Wohnimmobilien: Bestandsanalyse, Objektstrategie, Investitionsplanung und ein Berichtswesen mit klaren Kennzahlen.</p>
+        {{ hvm.hero_aktionen({label: 'Anfrage senden', url: cta_url('/kontakt/', {anliegen: 'verwaltung'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende']}) }}
 
 <section class="l-section l-section--kompakt" aria-labelledby="entwurf-titel">
     <div class="l-container">
@@ -115,6 +119,7 @@
             {% endset %}
             {{ c.card({titel: 'Schnittstellen', ton: 'w', nummer: '06', zusatz: schnittstellen}) }}
         </div>
+        {{ hvm.zwischen_cta('Sie möchten Ihren Bestand strukturiert steuern? Schildern Sie uns Objekte und Ziele, wir melden uns mit einer ersten Rückmeldung.', {label: 'Anfrage senden', url: cta_url('/kontakt/', {anliegen: 'verwaltung'})}, {label: 'Zur Mietverwaltung', url: '/mietverwaltung/'}) }}
     </div>
 </section>
 
@@ -187,6 +192,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit() }}
 
 {{ cta.cta_band({
     titel: 'Gespräch zu Ihrem *Bestand*',

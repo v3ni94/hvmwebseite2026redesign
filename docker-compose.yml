@@ -59,7 +59,8 @@ services:
       - backend
       - traefik
     healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/robots.txt"]
+      # /health prüft Nginx und PHP-FPM, meldet die Datenbank nur im JSON (siehe HealthController)
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/health"]
       interval: 30s
       timeout: 5s
       retries: 3

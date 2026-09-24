@@ -10,6 +10,7 @@ import { initKinetik } from './modules/kinetik.js';
 import { initParallaxe } from './modules/parallaxe.js';
 import { initSuche } from './search.js';
 import { initLesefortschritt } from './lesefortschritt.js';
+import { initDruck } from './modules/druck.js';
 
 document.documentElement.classList.add('js');
 
@@ -21,3 +22,4 @@ initKinetik();
 initParallaxe();
 initSuche();
 initLesefortschritt();
+initDruck();

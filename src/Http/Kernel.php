@@ -188,7 +188,7 @@ final class Kernel
             ),
             $security,
             new LegacyRedirects(array_values($this->config->array('redirects'))),
-            new TrailingSlash(),
+            new TrailingSlash(['/health']),
             new SessionMiddleware(
                 $c->get(Session::class),
                 array_values((array) $this->config->get('app.session.paths', []))

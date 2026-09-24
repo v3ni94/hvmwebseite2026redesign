@@ -12,6 +12,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -19,12 +20,15 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Vermietung Ihrer Immobilie in Ihrem Auftrag: von der Vermarktung bis zur Übergabe an die neuen Mieterinnen und Mieter. Die Hausverwaltung Müller GmbH übernimmt die einzelnen Schritte in Abstimmung mit Ihnen.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH vermietet Ihre Wohnung oder Gewerbeeinheit in Ihrem Auftrag: Exposé und Vermarktung, Besichtigungen, Mieterauswahl mit Bonitätsprüfung, Mietvertrag und Übergabe mit Protokoll.</p>
+        {{ hvm.hero_aktionen({label: 'Vermietung anfragen', url: cta_url('/kontakt/', {anliegen: 'vermietung'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende']}) }}
 
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
@@ -54,6 +58,7 @@
             {titel: 'Mietvertrag', text: 'Erstellung und Abschluss des Mietvertrags mit den ausgewählten Mieterinnen und Mietern.'},
             {titel: 'Übergabe mit Protokoll', text: 'Übergabe der Mieteinheit, dokumentiert in einem Übergabeprotokoll.'},
         ]) }}
+        {{ hvm.zwischen_cta('Ihre Wohnung wird frei oder steht leer? Schildern Sie uns die Einheit, wir melden uns mit dem weiteren Vorgehen.', {label: 'Vermietung anfragen', url: cta_url('/kontakt/', {anliegen: 'vermietung'})}, {label: 'Zur Mietverwaltung', url: '/mietverwaltung/'}) }}
     </div>
 </section>
 
@@ -101,6 +106,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: '*Vermietung* beauftragen',

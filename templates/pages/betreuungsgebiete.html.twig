@@ -16,6 +16,7 @@
 {% import 'components/eyebrow.html.twig' as e %}
 {% import 'components/section-head.html.twig' as sh %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% set standorte = [
     {slug: 'monheim-am-rhein', name: 'Monheim am Rhein', status: 'eigene_praesenz', hauptsitz: true, karte: [50.3, 271.5]},
@@ -38,7 +39,9 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Regionen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.ort }}. Die Übersicht nennt weitere Regionen, jeweils mit Angabe, ob die Betreuung über eine eigene Präsenz oder über Partner erfolgt. {{ placeholder('Regionen und Betreuungsform bestätigen') }}</p>
+        <p class="c-seitenkopf__text">Sie suchen eine Hausverwaltung in {{ firma.anschrift.ort }} oder in der Region? Hauptsitz der Hausverwaltung Müller GmbH ist {{ firma.anschrift.strasse }}, {{ firma.anschrift.plz }} {{ firma.anschrift.ort }}. Ob und in welcher Form wir Ihr Objekt betreuen können, klären wir anhand von Lage, Art und Größe im Einzelfall.</p>
+        <p class="c-seitenkopf__text">Die Übersicht nennt weitere Regionen. Die Betreuungsform, eigene Präsenz oder Partner vor Ort, geben wir je Region erst nach Prüfung an. {{ placeholder('Regionen und Betreuungsform bestätigen') }}</p>
+        {{ hvm.hero_aktionen({label: 'Anfrage für Ihr Objekt', url: cta_url('/angebot/')}) }}
     </div>
 </section>
 {% endblock %}

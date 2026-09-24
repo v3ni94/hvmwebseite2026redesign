@@ -38,7 +38,11 @@ RUN composer install --no-dev --no-scripts --no-autoloader --no-interaction --no
 COPY . .
 RUN set -eux; \
     composer dump-autoload --no-dev --optimize --classmap-authoritative; \
+    # wie "composer build": Assets (mit .gz), Open-Graph-Bilder, Suchindex. public/og und der Suchindex
+    # sind nicht im Repository und fehlten sonst im Image.
     php bin/build-assets.php --quiet; \
+    php bin/build-og-images.php --quiet; \
+    php bin/build-search-index.php; \
     rm -f .env; \
     mkdir -p storage/logs storage/cache/twig storage/uploads storage/ratelimit; \
     chown -R www-data:www-data storage

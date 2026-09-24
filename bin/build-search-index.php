@@ -90,6 +90,7 @@ file_put_contents(
     (string) json_encode($eintraege, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
 );
 
+\Hvm\Support\Precompress::file($zielpfad);
 fwrite(STDOUT, sprintf("Suchindex geschrieben: %s (%d Einträge)\n", $zielpfad, count($eintraege)));
 
 $fehlerGesamt = $wissen->fehlermeldungen() + $faq->fehlermeldungen();

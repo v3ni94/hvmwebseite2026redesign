@@ -1,0 +1,99 @@
+{#
+  Wiederverwendbare Seitenbausteine für Leistungsseiten, Startseite und Fehlerseite (Conversion-Review 24.09.2026).
+  Keine eigene Route: Die Datei wird nur per import eingebunden, PageController rendert ausschließlich Routen aus config/routes.php.
+  {% import 'pages/_bausteine.html.twig' as hvm %}
+
+  hvm.vertrauen({punkte: ['seit', 'bestand', ...], titel, flaeche})
+    Vertrauensleiste ausschließlich mit bestätigten Fakten (docs/auftraggeber-angaben.md, config/unternehmen.php,
+    config/kennzahlen.php). Schlüssel: seit, bestand, verbaende, notdienst, portal, aufnahmegebuehr, vertragsentwurf, online.
+    Keine Aufnahmegebühr, Vertragsentwurf und Online-Teilnahme betreffen die Verwaltung und gehören nicht auf
+    Vermietung, Verkauf oder Wertgutachten.
+  hvm.hero_aktionen(primaer, {klasse})
+    Primär-CTA im ersten Bildschirm, daneben der Anruf als zweite Aktion (nur mit bestätigter Telefonnummer).
+  hvm.zwischen_cta(text, primaer, sekundaer)
+    Zweiter CTA nach dem Leistungsteil, ohne eigene Überschrift.
+  hvm.erreichbarkeit({flaeche, id, text})
+    Abschnitt „So erreichen Sie uns“ mit Telefon, E-Mail und Hauptsitz.
+#}
+
+{% macro vertrauen(optionen) %}
+{%- set o = optionen|default({}) -%}
+{%- set punkte = o.punkte|default(['seit', 'bestand', 'verbaende', 'notdienst', 'portal', 'aufnahmegebuehr', 'vertragsentwurf', 'online']) -%}
+{%- set id = o.id|default('vertrauen-titel') -%}
+<section class="l-section l-section--kompakt c-vertrauen{{ o.flaeche|default(false) ? ' l-section--flaeche' }}" aria-labelledby="{{ id }}">
+    <div class="l-container">
+        <h2 class="c-vertrauen__titel" id="{{ id }}">{{ o.titel|default('Auf einen Blick') }}</h2>
+        <ul class="c-vertrauensleiste" role="list">
+            {% for p in punkte %}
+            {% if p == 'seit' %}
+            <li><span>Hausverwaltung <strong>{{ firma.gruendung_text }}</strong></span></li>
+            {% elseif p == 'bestand' %}
+            <li><span><strong>{{ kennzahlen.einheiten|number_format(0, ',', '.') }} Einheiten</strong> in {{ kennzahlen.objekte }} Objekten <span class="c-vertrauensleiste__stand">Stand {{ datum(kennzahlen.stichtag) }}</span></span></li>
+            {% elseif p == 'verbaende' %}
+            <li><span>Mitglied im {% for m in firma.mitgliedschaften %}<strong>{% if m.name != m.kurz %}<abbr title="{{ m.name }}">{{ m.kurz }}</abbr>{% else %}{{ m.kurz }}{% endif %}</strong>{% if not loop.last %} und im {% endif %}{% endfor %}</span></li>
+            {% elseif p == 'notdienst' %}
+            <li><span><strong>24/7-Notdienst</strong> für Notfälle im Objekt</span></li>
+            {% elseif p == 'portal' %}
+            <li><span><strong>Eigentümer&shy;portal</strong> mit Ticketsystem</span></li>
+            {% elseif p == 'aufnahmegebuehr' %}
+            <li><span><strong>Keine Aufnahme&shy;gebühr</strong></span></li>
+            {% elseif p == 'vertragsentwurf' %}
+            <li><span><strong>Vertragsentwurf</strong> mit dem Angebot</span></li>
+            {% elseif p == 'online' %}
+            <li><span><strong>Online-Teilnahme</strong> an Eigentümer&shy;versammlungen</span></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endmacro %}
+
+{% macro hero_aktionen(primaer, optionen) %}
+{%- import 'components/button.html.twig' as b -%}
+{%- set o = optionen|default({}) -%}
+<div class="c-aktionen{{ o.klasse|default('') ? ' ' ~ o.klasse }}">
+    {{ b.button(primaer.label, primaer.url, {variante: 'primaer', icon: 'pfeil'}) }}
+    {% if firma.telefon %}
+    {{ b.button('Anrufen: ' ~ firma.telefon, tel_href(firma.telefon), {variante: 'sekundaer', icon: 'telefon'}) }}
+    {% else %}
+    {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'sekundaer'}) }}
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro zwischen_cta(text, primaer, sekundaer) %}
+{%- import 'components/button.html.twig' as b -%}
+<div class="c-zwischen-cta" data-einblenden>
+    <p class="c-zwischen-cta__text">{{ text }}</p>
+    <div class="c-aktionen">
+        {{ b.button(primaer.label, primaer.url, {variante: 'primaer', icon: 'pfeil'}) }}
+        {% if sekundaer|default(null) %}{{ b.button(sekundaer.label, sekundaer.url, {variante: 'sekundaer'}) }}{% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro erreichbarkeit(optionen) %}
+{%- import 'components/section-head.html.twig' as sh -%}
+{%- import 'components/card.html.twig' as c -%}
+{%- set o = optionen|default({}) -%}
+{%- set id = o.id|default('erreichbarkeit-titel') -%}
+{%- set anschrift = firma.anschrift.strasse ~ ', ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort -%}
+<section class="l-section{{ o.flaeche|default(false) ? ' l-section--flaeche' }}" aria-labelledby="{{ id }}">
+    <div class="l-container">
+        {{ sh.section_head({
+            eyebrow: 'Kontakt',
+            titel: 'So erreichen *Sie uns*',
+            text: o.text|default('Rufen Sie uns an oder schreiben Sie uns. Für ein Angebot helfen uns Angaben zu Art, Lage und Größe Ihres Objekts.'),
+            id: id,
+            ebene: o.ebene|default(2),
+            geteilt: true,
+        }) }}
+        {% set telefon_zusatz %}{% if not firma.telefon %}{{ placeholder(firma.telefon_platzhalter) }}{% endif %}{% endset %}
+        <div class="c-karten">
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Telefon', titel: firma.telefon ?: 'Telefon', icon: 'telefon', url: firma.telefon ? tel_href(firma.telefon) : '/kontakt/', fuss: firma.telefon ? 'Anrufen' : 'Zum Kontakt', text: 'Für Anfragen zur Verwaltung und für laufende Anliegen.', zusatz: firma.telefon ? '' : telefon_zusatz, ebene: o.ebene|default(2) + 1}) }}
+            {{ c.card({klasse: 'c-karte--kompakt c-karte--umbruch', eyebrow: 'E-Mail', titel: firma.email, icon: 'kontakt', url: 'mailto:' ~ firma.email, fuss: 'E-Mail schreiben', text: 'Schriftliche Anfragen, gern mit Angaben zu Ihrem Objekt.', ebene: o.ebene|default(2) + 1}) }}
+            {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Hauptsitz', titel: firma.anschrift.ort, icon: 'haus', url: '/kontakt/#anfahrt-titel', fuss: 'Anfahrt und Kontaktformular', text: firma.name ~ ', ' ~ anschrift ~ '.', ebene: o.ebene|default(2) + 1}) }}
+        </div>
+    </div>
+</section>
+{% endmacro %}

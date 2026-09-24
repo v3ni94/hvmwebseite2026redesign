@@ -17,6 +17,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/cta-band.html.twig' as cta %}
 {% import 'components/placeholder.html.twig' as ph %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-hero c-hero--mit-keil c-hero--mit-kennzahlen">
@@ -30,7 +31,7 @@
                 {#- h1 und Fortsetzung ohne Leerraum dazwischen, damit das Komma direkt anschließt -#}
                 <h1>Hausverwaltung für Eigentümer und Investoren</h1><p>, <strong>strukturiert</strong> und nachvollziehbar.</p>
             </hgroup>
-            <p class="c-hero__lead u-auftritt u-auftritt--3">WEG-Verwaltung, Mietverwaltung und Sondereigentumsverwaltung aus {{ firma.anschrift.ort }}, {{ firma.gruendung_text }}. Dazu Vermietung, Verkauf und Wertgutachten.</p>
+            <p class="c-hero__lead u-auftritt u-auftritt--3">Die Hausverwaltung Müller GmbH verwaltet Wohnungs&shy;eigentümer&shy;gemeinschaften, Mietobjekte und vermietete Eigentumswohnungen, {{ firma.gruendung_text }} und mit Sitz in {{ firma.anschrift.ort }}. Dazu Vermietung, Verkauf und Wertgutachten.</p>
             <div class="c-aktionen u-auftritt u-auftritt--4">
                 {{ b.button(nav.cta.label, nav.cta.url, {variante: 'primaer', icon: 'pfeil'}) }}
                 {{ b.button(nav.cta_sekundaer.label, nav.cta_sekundaer.url, {variante: 'sekundaer'}) }}
@@ -65,7 +66,7 @@
         }) }}
         {{ bento.bento([
             {titel: 'WEG-Verwaltung', url: '/weg-verwaltung/', ton: 'h', breite: 7, hoch: true, gross: true,
-             text: 'Verwaltung des gemeinschaftlichen Eigentums für Wohnungseigentümergemeinschaften: Eigentümerversammlung, Wirtschaftsplan, Jahresabrechnung, Erhaltung und Umsetzung der Beschlüsse.'},
+             text: 'Verwaltung des gemeinschaftlichen Eigentums für Wohnungs­eigentümer­gemeinschaften: Eigentümerversammlung, Wirtschaftsplan, Jahresabrechnung, Erhaltung und Umsetzung der Beschlüsse.'},
             {titel: 'Mietverwaltung', url: '/mietverwaltung/', ton: 'v', breite: 5,
              text: 'Betreuung von Mietobjekten für Vermieter und Investoren: Mietverhältnisse, Mieteingang, Betriebskostenabrechnung und Instandhaltung.'},
             {titel: 'SE-Verwaltung', url: '/se-verwaltung/', ton: 'm', breite: 5,
@@ -79,8 +80,13 @@
             {titel: 'Wertgutachten', url: '/wertgutachten/', ton: 'w', breite: 5,
              text: 'Wertermittlung für Immobilien, zum Beispiel vor einem Verkauf, im Erbfall oder bei einer Vermögensaufteilung.'},
         ]) }}
+        {% set anruf = firma.telefon ? {label: 'Anrufen: ' ~ firma.telefon, url: tel_href(firma.telefon)} : {label: 'Kontakt aufnehmen', url: '/kontakt/'} %}
+        {{ hvm.zwischen_cta('Sie sind nicht sicher, welche Leistung passt? Schildern Sie uns Ihr Objekt, wir ordnen Ihre Anfrage zu und melden uns mit dem weiteren Vorgehen.', {label: nav.cta.label, url: cta_url(nav.cta.url)}, anruf) }}
     </div>
 </section>
+
+{# Vertrauensleiste: Kennzahlen stehen bereits im Hero, hier die bestätigten Merkmale #}
+{{ hvm.vertrauen({punkte: ['notdienst', 'portal', 'aufnahmegebuehr', 'vertragsentwurf', 'online'], titel: 'Das erhalten Sie bei uns'}) }}
 
 {# Prozess: So läuft der Verwalterwechsel, mit orangem Farbstreifen als Sektionsübergang #}
 <section class="l-section l-section--flaeche l-section--streifen" aria-labelledby="wechsel-titel">
@@ -174,6 +180,8 @@
         </div>
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({text: 'Unser Hauptsitz liegt an der ' ~ firma.anschrift.strasse ~ ' in ' ~ firma.anschrift.plz ~ ' ' ~ firma.anschrift.ort ~ '. Rufen Sie uns an oder schreiben Sie uns. Für einen persönlichen Termin stimmen Sie sich bitte vorab mit uns ab.'}) }}
 
 {{ cta.cta_band({
     titel: 'Angebot für Ihre *Immobilie* anfordern',

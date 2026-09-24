@@ -1,0 +1,130 @@
+/*
+ * Druckansicht (Wissensartikel, Rechtsseiten und alle übrigen Inhaltsseiten).
+ *
+ * - Ausgeblendet: Kopfzeile mit Navigation, mobile Leiste, Fortschrittsbalken, Entwurfsband, CTA-Bänder,
+ *   Brotkrumen, Inhaltsverzeichnis, dekorative Elemente, Fußnavigation.
+ * - Kennlinie bleibt als Band oben auf der ersten Seite (body::before, gleiche Geometrie wie .c-kennlinie).
+ * - Links im Fließtext erhalten ihre Adresse in Klammern, interne Pfade mit www.muellerhv.de.
+ * - Seitenumbrüche: keine Überschrift allein am Seitenende, Hinweise, FAQ-Einträge und Tabellen am Stück.
+ * - FAQ-Antworten (details) werden gedruckt: resources/js/app.js öffnet sie vor dem Druck.
+ */
+@layer overrides {
+    @media print {
+        @page {
+            margin: 16mm 16mm 18mm;
+        }
+
+        html {
+            font-size: 11pt;
+        }
+
+        body {
+            background: #FFFFFF;
+            color: var(--hvm-ink);
+        }
+
+        /* Kennlinie oben, Hintergrund muss ausdrücklich gedruckt werden */
+        body::before {
+            --kl-h: 3mm;
+            content: "";
+            display: block;
+            height: var(--kl-h);
+            margin-block-end: 6mm;
+            background-image: linear-gradient(131.99deg,
+                var(--hvm-anthrazit) 0 calc(40% - var(--kl-h) * 0.2676),
+                var(--hvm-mittelgrau) 0 calc(60% - var(--kl-h) * 0.4014),
+                var(--hvm-orange) 0 calc(67.5% - var(--kl-h) * 0.4516),
+                var(--hvm-hellgrau) 0);
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .u-skip-link,
+        .c-header,
+        .c-nav,
+        .c-mobilbar,
+        .c-fortschritt,
+        .c-entwurf,
+        .c-cta-band,
+        .c-keil,
+        .c-breadcrumbs,
+        .c-inhaltsverzeichnis,
+        .c-hausumriss,
+        .c-footer__nav,
+        .c-footer__kennlinie,
+        .c-aktionen,
+        [aria-labelledby="verwandte-titel"],
+        [data-wissen-live],
+        form {
+            display: none !important;
+        }
+
+        /* Einspaltig über die volle Breite, ohne Flächen und Schatten */
+        .l-container {
+            max-width: none;
+            padding-inline: 0;
+        }
+        .l-grid {
+            display: block;
+        }
+        .l-section,
+        .l-section--flaeche,
+        .c-seitenkopf {
+            padding-block: 0 4mm;
+            background: none;
+            color: inherit;
+        }
+        * {
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        /* Links mit Adresse */
+        .c-prosa a[href^="http"]::after,
+        .c-recht a[href^="http"]::after,
+        .c-faq__antwort a[href^="http"]::after {
+            content: " (" attr(href) ")";
+            font-size: 0.85em;
+            word-break: break-all;
+        }
+        .c-prosa a[href^="/"]::after,
+        .c-recht a[href^="/"]::after,
+        .c-faq__antwort a[href^="/"]::after {
+            content: " (www.muellerhv.de" attr(href) ")";
+            font-size: 0.85em;
+            word-break: break-all;
+        }
+        a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        /* Seitenumbrüche */
+        h1, h2, h3, h4 {
+            break-after: avoid;
+            page-break-after: avoid;
+        }
+        p, li {
+            orphans: 3;
+            widows: 3;
+        }
+        .c-hinweis,
+        .c-faq__eintrag,
+        .c-angaben,
+        table,
+        figure,
+        blockquote,
+        pre {
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        details > summary {
+            list-style: none;
+        }
+        details::details-content {
+            content-visibility: visible;
+            display: block;
+        }
+    }
+}

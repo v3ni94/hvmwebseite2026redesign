@@ -101,6 +101,16 @@ try {
     exit(1);
 }
 
+// Gleichzeitige Läufe (z. B. Deploy-Skript und manueller Aufruf) serialisieren: ohne Sperre lesen beide
+// denselben Stand aus schema_migrations und scheitern an bereits angelegten Tabellen.
+$lockName = 'hvm_migrate_' . substr(hash('sha256', (string) $pdo->query('SELECT DATABASE()')->fetchColumn()), 0, 40);
+$lock = $pdo->prepare('SELECT GET_LOCK(?, ?)');
+$lock->execute([$lockName, 120]);
+if ((int) $lock->fetchColumn() !== 1) {
+    fwrite(STDERR, "Ein anderer Migrationslauf ist aktiv, Abbruch nach 120 Sekunden Wartezeit.\n");
+    exit(1);
+}
+
 $pdo->exec('CREATE TABLE IF NOT EXISTS schema_migrations (
     version VARCHAR(191) NOT NULL PRIMARY KEY,
     applied_at DATETIME NOT NULL

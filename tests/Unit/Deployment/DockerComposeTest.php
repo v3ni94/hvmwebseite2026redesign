@@ -53,4 +53,37 @@ final class DockerComposeTest extends TestCase
         }
         self::assertSame('false', $env['N8N_WEBHOOK_ALLOW_HTTP_INTERNAL'] ?? null);
     }
+
+    /**
+     * Das Image muss denselben Build ausführen wie "composer build". public/og und der Suchindex sind nicht
+     * im Repository (und public/og steht in .dockerignore), fehlen sie im Build, liefert Produktion 404.
+     */
+    public function testImageRunsCompleteAssetBuild(): void
+    {
+        $root = dirname(__DIR__, 3);
+        $dockerfile = (string) file_get_contents($root . '/docker/php/Dockerfile');
+        $composer = json_decode((string) file_get_contents($root . '/composer.json'), true);
+        foreach ((array) $composer['scripts']['build'] as $step) {
+            self::assertMatchesRegularExpression('#' . preg_quote((string) $step, '#') . '\b#', $dockerfile, $step . ' fehlt im Dockerfile');
+        }
+    }
+
+    public function testNginxServesPrecompressedAssetsAndDynamicWellKnown(): void
+    {
+        $conf = (string) file_get_contents(dirname(__DIR__, 3) . '/docker/nginx/default.conf');
+        self::assertMatchesRegularExpression('/^\s*gzip_static on;/m', $conf);
+        self::assertMatchesRegularExpression('/gzip_types[^;]*text\/markdown/', $conf);
+        self::assertMatchesRegularExpression('/gzip_types[^;]*application\/json/', $conf);
+        // security.txt kommt aus PHP: .well-known darf nicht mit =404 enden
+        self::assertMatchesRegularExpression('#location \^~ /\.well-known/ \{\s*try_files \$uri @php;#', $conf);
+        self::assertMatchesRegularExpression('#location = /llms\.txt \{\s*types \{ \}\s*default_type "text/markdown#', $conf);
+        self::assertMatchesRegularExpression('#location \^~ /og/ \{[^}]*Cache-Control#', $conf);
+        self::assertMatchesRegularExpression('#location \^~ /assets/img/ \{[^}]*Cache-Control#', $conf);
+    }
+
+    public function testNginxHealthcheckUsesHealthEndpoint(): void
+    {
+        $test = implode(' ', (array) self::compose()['services']['nginx']['healthcheck']['test']);
+        self::assertStringContainsString('http://127.0.0.1/health', $test);
+    }
 }

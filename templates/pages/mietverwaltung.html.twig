@@ -12,6 +12,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-seitenkopf">
@@ -19,12 +20,15 @@
     <div class="l-container c-seitenkopf__inhalt">
         {{ e.eyebrow('Leistungen') }}
         <h1>{{ page.heading|trennen }}</h1>
-        <p class="c-seitenkopf__text">Laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten für <strong>Vermieter und Investoren</strong>: Mietvertragsmanagement, Mietinkasso, Betriebskostenabrechnung und Instandhaltung.</p>
+        <p class="c-seitenkopf__text">Die Hausverwaltung Müller GmbH aus {{ firma.anschrift.ort }} übernimmt für <strong>Vermieter und Investoren</strong> die laufende Verwaltung vermieteter Wohn- und Gewerbeeinheiten: Mietverträge, Mieteingang und Mahnwesen, Betriebskostenabrechnung, Mieterhöhungen und Instandhaltung.</p>
+        {{ hvm.hero_aktionen({label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'miet'})}) }}
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
+
+{{ hvm.vertrauen({punkte: ['seit', 'bestand', 'verbaende', 'notdienst', 'portal', 'aufnahmegebuehr']}) }}
 
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
@@ -75,6 +79,7 @@
             {% endset %}
             {{ c.card({titel: 'Organisatorisch', ton: 'w', nummer: '03', zusatz: organisatorisch}) }}
         </div>
+        {{ hvm.zwischen_cta('Sie möchten die Verwaltung Ihrer Mietobjekte abgeben? Schildern Sie uns Objekt und Anzahl der Einheiten, Sie erhalten ein schriftliches Angebot.', {label: 'Angebot anfordern', url: cta_url('/angebot/', {art: 'miet'})}, {label: 'Zur Vermietung', url: '/vermietung/'}) }}
     </div>
 </section>
 
@@ -157,6 +162,8 @@
         ]) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: 'Angebot für Ihre *Mietimmobilie* anfordern',

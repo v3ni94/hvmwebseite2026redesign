@@ -30,4 +30,15 @@ final class IpRangeTest extends TestCase
     {
         self::assertSame('kein-ip', IpRange::clientKey('kein-ip'));
     }
+
+    public function testInvalidPrefixLengthNeverMatches(): void
+    {
+        // Tippfehler in TRUSTED_PROXIES oder ADMIN_IP_ALLOWLIST dürfen nicht zu /0 (alle Adressen) werden
+        self::assertFalse(IpRange::matches('203.0.113.5', '172.30.90.0/abc'));
+        self::assertFalse(IpRange::matches('203.0.113.5', '172.30.90.0/'));
+        self::assertFalse(IpRange::matches('203.0.113.5', '172.30.90.0/ 24'));
+        self::assertFalse(IpRange::matches('203.0.113.5', '172.30.90.0/-1'));
+        self::assertTrue(IpRange::matches('172.30.90.7', '172.30.90.0/24'));
+        self::assertTrue(IpRange::matches('203.0.113.5', '0.0.0.0/0'), 'ausdrückliches /0 bleibt möglich');
+    }
 }

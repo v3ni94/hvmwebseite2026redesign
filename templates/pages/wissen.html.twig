@@ -40,10 +40,18 @@
     </div>
 </section>
 
+{# Ein Satz je Zielgruppe, damit Suchende die passende Rubrik sofort erkennen #}
+{% set rubrikText = {
+    'weg-beirat': 'Für Wohnungseigentümer und Verwaltungsbeiräte: Eigentümerversammlung, Beschlüsse, Hausgeld, Jahresabrechnung und Verwalterwechsel.',
+    'vermieter-investoren': 'Für Vermieter und Kapitalanleger: Mietverwaltung, Betriebskosten, Mieterhöhung, Mieterauswahl und Instandhaltung des Bestands.',
+    'verkauf-bewertung': 'Für Eigentümer, die verkaufen oder den Wert ihrer Immobilie einschätzen lassen möchten: Ablauf, Unterlagen und Wertermittlung.',
+    'mieter': 'Für Mieterinnen und Mieter: Schadensmeldung, Notfall, Nebenkostenabrechnung, Wohnungsübergabe und Auszug.',
+    'kosten-vertrag': 'Für alle, die Angebote vergleichen: Vergütung, Leistungsumfang, Laufzeit und Inhalte des Verwaltervertrags.',
+} %}
 {% for abschnitt in abschnitte %}
 <section class="l-section{{ loop.first ? '' : ' l-section--flaeche' }}" aria-labelledby="wissen-{{ abschnitt.zielgruppe }}-titel" data-wissen-abschnitt data-zielgruppe="{{ abschnitt.zielgruppe }}">
     <div class="l-container">
-        {{ sh.section_head({eyebrow: 'Zielgruppe', titel: abschnitt.titel, id: 'wissen-' ~ abschnitt.zielgruppe ~ '-titel'}) }}
+        {{ sh.section_head({eyebrow: 'Zielgruppe', titel: abschnitt.titel, text: rubrikText[abschnitt.zielgruppe]|default(''), id: 'wissen-' ~ abschnitt.zielgruppe ~ '-titel', geteilt: true}) }}
 
         {% if abschnitt.artikel|length > 0 %}
         <div class="c-karten c-karten--4">

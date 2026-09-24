@@ -14,6 +14,7 @@
 {% import 'components/faq.html.twig' as faq %}
 {% import 'components/notice.html.twig' as n %}
 {% import 'components/cta-band.html.twig' as cta %}
+{% import 'pages/_bausteine.html.twig' as hvm %}
 
 {% block hero %}
 <section class="c-hero c-hero--mit-keil">
@@ -26,11 +27,8 @@
             <hgroup class="c-display c-hero__titel u-auftritt u-auftritt--2" data-kinetisch>
                 <h1>Verwalterwechsel</h1><p> für Ihre <strong>Eigentümer&shy;gemeinschaft</strong>, geordnet und nachvollziehbar.</p>
             </hgroup>
-            <p class="c-hero__lead u-auftritt u-auftritt--3">Vom Beschluss der Eigentümerversammlung bis zur Übergabe der Unterlagen: ein klarer Ablauf, der sich an Ihrer Beschlusslage und der Vertragslaufzeit Ihres bisherigen Verwalters orientiert.</p>
-            <div class="c-aktionen u-auftritt u-auftritt--4">
-                {{ b.button('Wechsel anfragen', cta_url('/angebot/', {anlass: 'wechsel'}), {variante: 'primaer', icon: 'pfeil'}) }}
-                {{ b.button('Kontakt aufnehmen', '/kontakt/', {variante: 'sekundaer'}) }}
-            </div>
+            <p class="c-hero__lead u-auftritt u-auftritt--3">Die Hausverwaltung Müller GmbH übernimmt die Verwaltung Ihrer Wohnungs&shy;eigentümer&shy;gemeinschaft und begleitet den Wechsel vom Beschluss der Eigentümer&shy;versammlung bis zur Übergabe der Unterlagen. Sie erhalten ein Angebot mit Vertragsentwurf, eine Aufnahmegebühr fällt nicht an.</p>
+            {{ hvm.hero_aktionen({label: 'Wechsel anfragen', url: cta_url('/angebot/', {anlass: 'wechsel'})}, {klasse: 'u-auftritt u-auftritt--4'}) }}
         </div>
     </div>
     <span class="c-keil c-keil-uebergang" aria-hidden="true"></span>
@@ -39,11 +37,13 @@
 
 {% block content %}
 
+{{ hvm.vertrauen() }}
+
 <section class="l-section l-section--kompakt" aria-labelledby="fuer-wen-titel">
     <div class="l-container">
         {{ sh.section_head({
             titel: 'Für *Eigentümergemeinschaften* und Beiräte',
-            text: 'Diese Seite richtet sich an Wohnungseigentümergemeinschaften und ihre Beiräte, die einen Wechsel der Verwaltung prüfen oder bereits vorbereiten. Der Ablauf gilt unabhängig davon, aus welchem Grund gewechselt wird.',
+            text: 'Diese Seite richtet sich an Wohnungs­eigentümer­gemeinschaften und ihre Beiräte, die einen Wechsel der Verwaltung prüfen oder bereits vorbereiten. Der Ablauf gilt unabhängig davon, aus welchem Grund gewechselt wird.',
             id: 'fuer-wen-titel',
         }) }}
     </div>
@@ -65,6 +65,7 @@
             {titel: 'Übergabe der Unterlagen und Konten', text: 'Der bisherige Verwalter übergibt Unterlagen, Beschluss-Sammlung und Konten. Wir dokumentieren die Übergabe.'},
             {titel: 'Start der Verwaltung und Information der Eigentümer', text: 'Die laufende Verwaltung beginnt, Eigentümer und Dienstleister werden informiert.'},
         ]) }}
+        {{ hvm.zwischen_cta('Ihre Gemeinschaft prüft einen Wechsel? Sie erhalten ein schriftliches Angebot mit Vertragsentwurf als Grundlage für Beirat und Eigentümerversammlung.', {label: 'Wechsel anfragen', url: cta_url('/angebot/', {anlass: 'wechsel'})}, {label: 'Checkliste ansehen', url: '#checkliste-titel'}) }}
     </div>
 </section>
 
@@ -142,16 +143,23 @@
     <div class="l-container">
         {{ sh.section_head({
             eyebrow: 'Häufige Fragen',
-            titel: 'Kurz *erklärt*',
+            titel: 'Bedenken vor dem *Wechsel*',
+            text: 'Die Fragen, die Beiräte und Eigentümer vor einem Verwalterwechsel am häufigsten stellen. Die Antworten sind allgemein gehalten und ersetzen keine Rechtsberatung im Einzelfall.',
             id: 'faq-titel',
+            geteilt: true,
         }) }}
         {{ faq.faq([
-            {frage: 'Können wir den Verwalter jederzeit wechseln?', antwort: 'Grundsätzlich ja. Seit der WEG-Reform zum 01.12.2020 kann die Eigentümerversammlung den Verwalter jederzeit durch Beschluss abberufen, ein wichtiger Grund ist nicht erforderlich. Der Verwaltervertrag endet spätestens sechs Monate nach der Abberufung. Ob bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab.'},
-            {frage: 'Was passiert mit laufenden Verträgen des bisherigen Verwalters?', antwort: 'Verträge mit Dienstleistern werden im Rahmen der Übergabe gesichtet. Ob sie fortgeführt, angepasst oder neu vergeben werden, entscheidet die Gemeinschaft.'},
-            {frage: 'Wie lange dauert die Übergabe?', antwort: 'Das hängt von Umfang und Vollständigkeit der Unterlagen sowie der Mitwirkung des bisherigen Verwalters ab. Eine pauschale Angabe ist deshalb nicht möglich.'},
-        ]) }}
+            {frage: 'Wie viel Aufwand hat der Verwaltungsbeirat mit dem Wechsel?', antwort: 'Der Beirat stellt die Eckdaten des Objekts zusammen, vergleicht Angebote und bereitet mit der Einladung zur Eigentümerversammlung den Beschluss vor. Von der Hausverwaltung Müller GmbH erhalten Sie dafür ein schriftliches Angebot und den Entwurf des Verwaltervertrags. Nach dem Beschluss übernehmen wir die Abstimmung mit dem bisherigen Verwalter zur Übergabe.'},
+            {frage: 'Wir haben noch einen laufenden Verwaltervertrag. Ist ein Wechsel trotzdem möglich?', antwort: 'Grundsätzlich ja. Seit der WEG-Reform zum 01.12.2020 kann die Eigentümerversammlung den Verwalter jederzeit durch Beschluss abberufen, ein wichtiger Grund ist nicht erforderlich. Der Verwaltervertrag endet spätestens sechs Monate nach der Abberufung. Ob bis dahin Vergütung geschuldet ist, hängt vom Vertrag und vom Einzelfall ab. Alternativ lässt sich der Wechsel auf das Ende der Bestellungszeit planen. Lassen Sie die Regelungen Ihres Vertrags im Zweifel anwaltlich prüfen.'},
+            {frage: 'Wie kommen die Unterlagen vom bisherigen Verwalter zur neuen Verwaltung?', antwort: 'Die Unterlagen gehören der Gemeinschaft der Wohnungseigentümer, der bisherige Verwalter hat sie nach dem Ende seiner Tätigkeit herauszugeben. Die Hausverwaltung Müller GmbH stimmt die Übergabe mit ihm ab, sichtet die Unterlagen anhand der Checkliste und dokumentiert die Übergabe. Fehlende Unterlagen werden festgehalten und nachgefordert.'},
+            {frage: 'Wie viel Zeit sollten wir für den Wechsel einplanen?', antwort: 'Eine pauschale Angabe ist nicht möglich. Maßgeblich sind der Termin der nächsten Eigentümerversammlung, die Einberufungsfrist nach Gesetz und Gemeinschaftsordnung, die Bestellungszeit und der Vertrag des bisherigen Verwalters sowie Umfang und Vollständigkeit der Unterlagen. Es empfiehlt sich, Angebote frühzeitig vor der Versammlung einzuholen, in der über den Wechsel beschlossen werden soll.'},
+            {frage: 'Was passiert mit laufenden Verträgen des bisherigen Verwalters?', antwort: 'Verträge mit Dienstleistern schließt der Verwalter in der Regel im Namen der Gemeinschaft, sie bestehen deshalb beim Wechsel fort. Sie werden im Rahmen der Übergabe gesichtet. Ob sie fortgeführt, angepasst oder neu vergeben werden, entscheidet die Gemeinschaft.'},
+            {frage: 'Fallen für den Wechsel zusätzliche Kosten an?', antwort: 'Die Hausverwaltung Müller GmbH erhebt keine Aufnahmegebühr. Die Vergütung für die laufende Verwaltung ergibt sich aus dem Angebot und dem Verwaltervertrag, den Sie mit dem Angebot als Entwurf erhalten.'},
+        ], {offen: 1}) }}
     </div>
 </section>
+
+{{ hvm.erreichbarkeit({flaeche: true}) }}
 
 {{ cta.cta_band({
     titel: 'Verwalterwechsel für Ihre *Gemeinschaft* anfragen',

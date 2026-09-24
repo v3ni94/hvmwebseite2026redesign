@@ -104,4 +104,25 @@ final class SeoControllerTest extends TestCase
             self::assertSame("User-agent: *\nDisallow: /\n", $body, $env);
         }
     }
+
+    public function testSecurityTxtFollowsRfc9116(): void
+    {
+        \Hvm\Support\Clock::freeze('2026-09-24 15:30:00');
+        try {
+            $response = $this->get('/.well-known/security.txt', 'production');
+        } finally {
+            \Hvm\Support\Clock::unfreeze();
+        }
+        self::assertSame(200, $response->status());
+        self::assertSame('text/plain; charset=utf-8', $response->header('Content-Type'));
+        self::assertSame(
+            "Contact: mailto:info@muellerhv.de\n"
+            . "Expires: 2027-09-24T00:00:00Z\n"
+            . "Preferred-Languages: de\n"
+            . "Canonical: " . self::BASE_URL . "/.well-known/security.txt\n",
+            $response->body()
+        );
+        // Expires liegt in der Zukunft und höchstens ein Jahr voraus (RFC 9116 Abschnitt 2.5.5)
+        self::assertLessThanOrEqual(365 * 86400, strtotime('2027-09-24T00:00:00Z') - strtotime('2026-09-24T15:30:00Z'));
+    }
 }

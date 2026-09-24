@@ -7,20 +7,24 @@ declare(strict_types=1);
  *
  * Aufruf:
  *   php bin/admin-user.php create <email>          Passwort interaktiv (verdeckt) oder per STDIN (erste Zeile),
- *                                                  erzeugt ein TOTP-Geheimnis und gibt otpauth-URI und Geheimnis einmalig aus
- *   php bin/admin-user.php reset-totp <email>      neues TOTP-Geheimnis, einmalige Ausgabe
+ *                                                  erzeugt ein TOTP-Geheimnis und zehn Wiederherstellungscodes und gibt
+ *                                                  otpauth-URI, Geheimnis und Codes einmalig aus
+ *   php bin/admin-user.php reset-totp <email>      neues TOTP-Geheimnis, einmalige Ausgabe (Wiederherstellungscodes bleiben gültig)
+ *   php bin/admin-user.php recovery-codes <email>  zehn neue Wiederherstellungscodes, alle bisherigen werden ungültig
  *   php bin/admin-user.php set-password <email>    neues Passwort (interaktiv oder per STDIN)
  *   php bin/admin-user.php disable <email>         Konto deaktivieren (Anmeldung und laufende Sitzungen enden)
  *   php bin/admin-user.php enable <email>          Konto wieder aktivieren
  *   php bin/admin-user.php list                    Konten ohne Geheimnisse anzeigen
  *
  * Voraussetzung: APP_KEY ist gesetzt (Verschlüsselung des TOTP-Geheimnisses) und die Migrationen sind ausgeführt.
- * Das Geheimnis wird nur im Terminal angezeigt, nie protokolliert.
+ * Geheimnis und Wiederherstellungscodes werden nur im Terminal angezeigt, nie protokolliert. Die Codes sind
+ * nur als HMAC gespeichert (Hvm\Security\RecoveryCodes) und lassen sich später nicht erneut anzeigen.
  */
 
 use Hvm\Http\Kernel;
 use Hvm\Security\AdminAuth;
 use Hvm\Security\Password;
+use Hvm\Security\RecoveryCodes;
 use Hvm\Security\SpamGuard;
 use Hvm\Security\Totp;
 use Hvm\Support\Clock;
@@ -40,8 +44,8 @@ $fail = static function (string $message, int $code = 1): never {
     exit($code);
 };
 
-if (!in_array($command, ['create', 'reset-totp', 'set-password', 'disable', 'enable', 'list'], true)) {
-    $fail("Aufruf: php bin/admin-user.php create|reset-totp|set-password|disable|enable <email>\n       php bin/admin-user.php list", 2);
+if (!in_array($command, ['create', 'reset-totp', 'recovery-codes', 'set-password', 'disable', 'enable', 'list'], true)) {
+    $fail("Aufruf: php bin/admin-user.php create|reset-totp|recovery-codes|set-password|disable|enable <email>\n       php bin/admin-user.php list", 2);
 }
 if ($command !== 'list' && ($email === '' || filter_var($email, FILTER_VALIDATE_EMAIL) === false || strlen($email) > 254)) {
     $fail('Bitte eine gültige E-Mail-Adresse angeben.', 2);
@@ -104,6 +108,14 @@ $printSecret = static function (string $secret, string $email): void {
     fwrite(STDOUT, 'Die URI kann lokal in einen QR-Code umgewandelt werden. Nicht per E-Mail oder Chat weitergeben.' . PHP_EOL);
 };
 
+$printRecoveryCodes = static function (array $codes): void {
+    fwrite(STDOUT, PHP_EOL . 'Wiederherstellungscodes (je einmal verwendbar, nur jetzt sichtbar, offline sicher verwahren):' . PHP_EOL);
+    foreach ($codes as $i => $code) {
+        fwrite(STDOUT, sprintf('  %2d. %s', $i + 1, $code) . PHP_EOL);
+    }
+    fwrite(STDOUT, 'Ein Code ersetzt bei der Anmeldung den Code aus der Authenticator-App.' . PHP_EOL);
+};
+
 $now = Clock::now()->format('Y-m-d H:i:s');
 
 switch ($command) {
@@ -120,9 +132,22 @@ switch ($command) {
             'INSERT INTO admin_users (email, password_hash, totp_secret, totp_enabled, created_at, password_changed_at) VALUES (?, ?, ?, 1, ?, ?)'
         )->execute([$email, Password::hash($password), AdminAuth::encryptSecret($config, $secret), $now, $now]);
         $id = (int) $pdo->lastInsertId();
+        $codes = (new RecoveryCodes($pdo, $config))->regenerate($id);
         $log->info('Admin-Benutzer angelegt', ['admin_user_id' => $id]);
         fwrite(STDOUT, sprintf('Konto %d angelegt.', $id) . PHP_EOL);
         $printSecret($secret, $email);
+        $printRecoveryCodes($codes);
+        break;
+
+    case 'recovery-codes':
+        if (!SpamGuard::hasAppKey($config)) {
+            $fail('APP_KEY fehlt. Ohne APP_KEY können keine Wiederherstellungscodes erzeugt werden.');
+        }
+        $user = $findUser($email) ?? $fail('Konto nicht gefunden.');
+        $codes = (new RecoveryCodes($pdo, $config))->regenerate((int) $user['id']);
+        $log->info('Admin-Benutzer: Wiederherstellungscodes neu erzeugt', ['admin_user_id' => (int) $user['id'], 'anzahl' => count($codes)]);
+        fwrite(STDOUT, 'Neue Wiederherstellungscodes erzeugt. Alle bisherigen Codes sind ungültig.' . PHP_EOL);
+        $printRecoveryCodes($codes);
         break;
 
     case 'reset-totp':
@@ -162,8 +187,11 @@ switch ($command) {
         break;
 
     case 'list':
-        $rows = $pdo->query('SELECT id, email, totp_enabled, locked_until, disabled_at, last_login_at, created_at FROM admin_users ORDER BY id')
-            ->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $pdo->query(
+            'SELECT u.id, u.email, u.totp_enabled, u.locked_until, u.disabled_at, u.last_login_at, u.created_at,
+                    (SELECT COUNT(*) FROM admin_recovery_codes r WHERE r.admin_user_id = u.id AND r.used_at IS NULL) AS codes
+             FROM admin_users u ORDER BY u.id'
+        )->fetchAll(PDO::FETCH_ASSOC);
         if ($rows === []) {
             fwrite(STDOUT, 'Keine Admin-Benutzer vorhanden.' . PHP_EOL);
             break;
@@ -175,14 +203,15 @@ switch ($command) {
 
             return (new DateTimeImmutable($utc, new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Europe/Berlin'))->format('d.m.Y H:i');
         };
-        fwrite(STDOUT, sprintf("%-4s %-40s %-5s %-11s %-16s %-16s\n", 'ID', 'E-Mail', 'TOTP', 'Status', 'Letzte Anmeldung', 'Angelegt'));
+        fwrite(STDOUT, sprintf("%-4s %-40s %-5s %-6s %-11s %-16s %-16s\n", 'ID', 'E-Mail', 'TOTP', 'Codes', 'Status', 'Letzte Anmeldung', 'Angelegt'));
         foreach ($rows as $row) {
             $status = $row['disabled_at'] !== null ? 'deaktiviert' : ($row['locked_until'] !== null && $row['locked_until'] > $now ? 'gesperrt' : 'aktiv');
             fwrite(STDOUT, sprintf(
-                "%-4d %-40s %-5s %-11s %-16s %-16s\n",
+                "%-4d %-40s %-5s %-6d %-11s %-16s %-16s\n",
                 (int) $row['id'],
                 (string) $row['email'],
                 (int) $row['totp_enabled'] === 1 ? 'ja' : 'nein',
+                (int) $row['codes'],
                 $status,
                 $fmt($row['last_login_at']),
                 $fmt($row['created_at'])

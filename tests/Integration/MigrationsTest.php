@@ -40,6 +40,40 @@ final class MigrationsTest extends IntegrationTestCase
         }
     }
 
+    /**
+     * Zwei gleichzeitige Läufe (Deploy-Skript und manueller Aufruf) dürfen sich nicht gegenseitig stören.
+     * Ohne Sperre scheiterte einer mit "Table ... already exists".
+     */
+    public function testConcurrentMigrationRunsAreSerialized(): void
+    {
+        $pdo = $this->db();
+        $pdo->exec('SET FOREIGN_KEY_CHECKS = 0');
+        foreach ($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table) {
+            $pdo->exec('DROP TABLE `' . str_replace('`', '', (string) $table) . '`');
+        }
+        $pdo->exec('SET FOREIGN_KEY_CHECKS = 1');
+
+        $processes = [];
+        for ($i = 0; $i < 2; $i++) {
+            $process = proc_open(
+                [PHP_BINARY, self::basePath() . '/bin/migrate.php', '--database=test'],
+                [1 => ['pipe', 'w'], 2 => ['pipe', 'w']],
+                $pipes,
+                self::basePath(),
+                self::processEnv()
+            );
+            self::assertIsResource($process);
+            $processes[] = [$process, $pipes];
+        }
+        foreach ($processes as [$process, $pipes]) {
+            $output = stream_get_contents($pipes[1]) . stream_get_contents($pipes[2]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            self::assertSame(0, proc_close($process), (string) $output);
+        }
+        self::assertContains('leads', $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN));
+    }
+
     public function testTablesUseInnoDbAndUtf8mb4UnicodeCi(): void
     {
         $stmt = $this->db()->prepare('SELECT TABLE_NAME, ENGINE, TABLE_COLLATION FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE()');

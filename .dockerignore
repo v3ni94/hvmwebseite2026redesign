@@ -9,6 +9,7 @@ storage/*
 !storage/.gitkeep
 public/assets/build
 public/og
+public/assets/search-index.json*
 tests/e2e/results
 playwright-report
 test-results
