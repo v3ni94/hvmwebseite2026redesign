@@ -185,7 +185,7 @@ Die SE-Verwaltung richtet sich an Eigentümer einzelner Wohn- oder Gewerbeeinhei
 ### 3.3 Sonderleistungen
 
 - Mietersuche und Neuvermietung (Leistungsumfang wie Mietverwaltung), Vergütung nur bei erfolgreicher Vermittlung
-- Vorbereitung und Durchführung von Mieterhöhungen (nach Aufwand)
+- Vorbereitung und Durchführung von Mieterhöhungen (nach Aufwand; laut Angabe der Geschäftsführung vom 24.09.2026 meist Sonderleistung, nicht in der Grundvergütung; Website: „in der Regel als Sonderleistung nach Aufwand“)
 - Größere Bau- und Erhaltungsmaßnahmen oberhalb der Wertgrenze (nach Zeitaufwand)
 - Außergewöhnliche Schadensfälle (nach Aufwand)
 - Sonderarbeiten außerhalb der üblichen Verwaltertätigkeit (nach Zeitaufwand)

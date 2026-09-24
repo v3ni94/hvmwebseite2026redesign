@@ -3,7 +3,7 @@ titel: "Mietverwaltung oder SE-Verwaltung: was passt?"
 slug: mietverwaltung-oder-se-verwaltung
 zielgruppe: vermieter-investoren
 beschreibung: "Mietverwaltung und Sondereigentumsverwaltung im Vergleich: für welche Immobilie welche Verwaltungsform passt und worauf Eigentümer bei der Auswahl achten."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /se-verwaltung/
@@ -49,6 +49,8 @@ Die Sondereigentumsverwaltung betreut eine oder mehrere vermietete Eigentumswohn
 - Instandhaltung im Sondereigentum, etwa Bodenbeläge, Innentüren oder Sanitärobjekte,
 - Weiterleitung von Schäden am Gemeinschaftseigentum an den WEG-Verwalter,
 - Auswertung von Einladungen, Beschlüssen und Abrechnungen der Gemeinschaft.
+
+Mieterhöhungen sind in der SE-Verwaltung der Hausverwaltung Müller GmbH in der Regel eine Sonderleistung nach Aufwand. Maßgeblich ist der individuelle Verwaltervertrag.
 
 Einzelheiten im Beitrag [Sondereigentumsverwaltung für Kapitalanleger](/wissen/sondereigentumsverwaltung/).
 

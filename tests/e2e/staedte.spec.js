@@ -65,7 +65,7 @@ test('Stadtseite: Angebots-CTA belegt die Region vor', async ({ page }) => {
   await expect(page.locator('.c-angebot__region')).toContainText('Köln');
 });
 
-test('Sitemap enthält keine Stadtseiten ohne lokalen Bezug', async ({ request, baseURL }) => {
+test('Sitemap enthält keine nicht indexierbaren Stadtseiten', async ({ request, baseURL }) => {
   // Der Testserver ist keine Produktion und liefert überall noindex; hier nur die Erreichbarkeit der Sitemap prüfen.
   const antwort = await request.get(`${baseURL}/sitemap.xml`);
   expect(antwort.status()).toBe(200);

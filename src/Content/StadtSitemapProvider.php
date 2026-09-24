@@ -8,8 +8,8 @@ use Hvm\Support\SitemapProvider;
 
 /**
  * Trägt die indexierbaren Stadtseiten (/hausverwaltung-{slug}/) in die XML-Sitemap ein: freigegeben und mit
- * lokalem Bezug (config/staedte.php indexierbar). Entwürfe werden nie aufgenommen, auch wenn sie wegen
- * SHOW_DRAFTS sichtbar sind (wie Wissensartikel), Städte ohne lokalen Bezug ebenfalls nicht (noindex).
+ * Schalter indexierbar (config/staedte.php). Entwürfe werden nie aufgenommen, auch wenn sie wegen
+ * SHOW_DRAFTS sichtbar sind (wie Wissensartikel), nicht indexierbare Städte ebenfalls nicht (noindex).
  */
 final class StadtSitemapProvider implements SitemapProvider
 {

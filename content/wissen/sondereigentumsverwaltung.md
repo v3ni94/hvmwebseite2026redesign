@@ -3,7 +3,7 @@ titel: "Sondereigentumsverwaltung für Kapitalanleger"
 slug: sondereigentumsverwaltung
 zielgruppe: vermieter-investoren
 beschreibung: "Was die Sondereigentumsverwaltung für vermietete Eigentumswohnungen leistet und wie sie sich von der WEG-Verwaltung unterscheidet."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /se-verwaltung/
@@ -43,6 +43,8 @@ Der Umfang richtet sich nach dem Vertrag. Üblich sind:
 - **Mieterwechsel:** Abnahme, Kautionsabrechnung und auf Wunsch Neuvermietung.
 - **Schnittstelle zur WEG:** Weiterleitung von Schäden am Gemeinschaftseigentum an den WEG-Verwalter, Auswertung von Einladungen, Beschlüssen und Abrechnungen.
 - **Berichtswesen:** Abrechnung gegenüber dem Eigentümer mit Übersicht über Einnahmen, Hausgeld und sonstige Ausgaben.
+
+Mieterhöhungen gehören bei der Hausverwaltung Müller GmbH in der SE-Verwaltung in der Regel nicht zur Grundvergütung, sondern werden als Sonderleistung nach Aufwand vereinbart. Maßgeblich ist der individuelle Verwaltervertrag.
 
 ## Von der Jahresabrechnung zur Betriebskostenabrechnung
 

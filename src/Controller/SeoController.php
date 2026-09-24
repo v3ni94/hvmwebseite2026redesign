@@ -241,8 +241,8 @@ final class SeoController
     }
 
     /**
-     * Betreuungsgebiete: Übersicht und indexierbare Stadtseiten (freigegeben und mit lokalem Bezug laut
-     * config/staedte.php) als Links. Entwürfe und Städte ohne lokalen Bezug erscheinen nicht.
+     * Betreuungsgebiete: Übersicht und indexierbare Stadtseiten (freigegeben und indexierbar laut
+     * config/staedte.php) als Links. Entwürfe und nicht indexierbare Städte erscheinen nicht.
      *
      * @return list<string>
      */

@@ -75,7 +75,7 @@ final class StadtController
             'description' => $seite->beschreibung,
             // Stadtseiten ohne eigenes Bild: Open-Graph-Bild der Übersicht Betreuungsgebiete
             'og_image' => rtrim((string) $this->config->get('app.url', ''), '/') . '/og/betreuungsgebiete.png',
-            // indexierbar nur mit Freigabe und lokalem Bezug (config/staedte.php), Canonical bleibt auf sich selbst
+            // indexierbar nur mit Freigabe und Schalter indexierbar (config/staedte.php), Canonical bleibt auf sich selbst
             'robots' => $seite->indexierbar() ? PageMeta::ROBOTS_INDEX : 'noindex, follow',
         ]);
         $page['heading'] = $seite->titel;

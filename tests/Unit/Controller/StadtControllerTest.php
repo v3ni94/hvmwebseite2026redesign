@@ -133,7 +133,9 @@ final class StadtControllerTest extends TestCase
 
     public function testHauptsitzseiteNenntDasBueroAmHauptsitz(): void
     {
-        $html = $this->app('production', [], self::basePath() . '/content/staedte')->handle(Request::create('GET', '/hausverwaltung-monheim-am-rhein/'))->body();
+        $response = $this->app('staging', ['SHOW_DRAFTS' => 'true'], self::basePath() . '/content/staedte')->handle(Request::create('GET', '/hausverwaltung-monheim-am-rhein/'));
+        self::assertSame(200, $response->status());
+        $html = $response->body();
 
         self::assertStringContainsString('Büro am Hauptsitz der Hausverwaltung Müller GmbH: Rheinpromenade 13, 40789 Monheim am Rhein. Termine nach Absprache.', $html);
         self::assertStringNotContainsString('Betreuung durch Mitarbeiter der', $html);

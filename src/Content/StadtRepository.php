@@ -152,7 +152,7 @@ final class StadtRepository
     }
 
     /**
-     * Freigegebene Seiten mit lokalem Bezug (config/staedte.php indexierbar): sitemap.xml und llms.txt.
+     * Freigegebene indexierbare Seiten (config/staedte.php indexierbar): sitemap.xml und llms.txt.
      *
      * @return list<StadtSeite>
      */

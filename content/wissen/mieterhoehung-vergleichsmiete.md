@@ -3,7 +3,7 @@ titel: "Mieterhöhung bis zur ortsüblichen Vergleichsmiete"
 slug: mieterhoehung-vergleichsmiete
 zielgruppe: vermieter-investoren
 beschreibung: "Voraussetzungen, Begründung und Ablauf einer Mieterhöhung nach § 558 BGB: Wartefrist, Kappungsgrenze, Mietspiegel, Zustimmung des Mieters."
-stand: 2026-09-23
+stand: 2026-09-24
 autor: "Hausverwaltung Müller GmbH"
 freigabe: nein
 leistung: /mietverwaltung/
@@ -78,4 +78,4 @@ Eine Mieterhöhung ist nicht nur eine rechtliche, sondern auch eine kaufmännisc
 
 ## Hinweis
 
-Die Wirksamkeit eines Erhöhungsverlangens hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Vorbereitung von Mieterhöhungen gehört zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/).
+Die Wirksamkeit eines Erhöhungsverlangens hängt vom Einzelfall ab. Bei Zweifeln empfiehlt sich die Beratung durch einen Rechtsanwalt. Die Vorbereitung von Mieterhöhungen gehört zu den Aufgaben einer Mietverwaltung der Hausverwaltung Müller GmbH. Informationen finden Sie auf der Seite [Mietverwaltung](/mietverwaltung/). In der [SE-Verwaltung](/se-verwaltung/) ist die Mieterhöhung in der Regel eine Sonderleistung nach Aufwand.
