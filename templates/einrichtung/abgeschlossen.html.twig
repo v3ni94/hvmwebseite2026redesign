@@ -1,0 +1,12 @@
+{% extends 'layouts/admin.html.twig' %}
+{% block title %}Einrichtung abgeschlossen | {{ firma.name }}{% endblock %}
+{% block body_class %}c-admin--anmeldung{% endblock %}
+
+{% block content %}
+<section class="c-admin-anmeldung" aria-labelledby="titel-abgeschlossen">
+    <h1 id="titel-abgeschlossen" class="c-admin-titel">Einrichtung abgeschlossen</h1>
+    <p>Die Datei <code>storage/setup.lock</code> wurde geschrieben. Die Einrichtungsseite ist ab sofort nicht mehr erreichbar.</p>
+    <p>Empfehlung: <code>SETUP_TOKEN</code> aus der <code>.env</code> entfernen. Für eine erneute Einrichtung <code>storage/setup.lock</code> per SFTP löschen und einen neuen Token setzen.</p>
+    <p><a class="c-admin-link" href="/admin/login/">Zur Admin-Anmeldung</a></p>
+</section>
+{% endblock %}

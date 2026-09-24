@@ -10,6 +10,7 @@ Verbindliche Grundlagen stehen in `docs/`:
 - `docs/bestandsaufnahme-muellerhv-de.md`: Ist-Zustand der Altseite
 - `docs/phase0.md`: Voraussetzung Datenleck Altseite
 - `docs/quellen/`: Auftragsgrundlagen (Masterprompt)
+- `docs/deploy-sftp.md`: Deployment per SFTP ohne Kommandozeile (Webhosting, Release-Paket, Web-Einrichtung)
 - `docs/betrieb.md`: Deployment, Rollback, Backup, Wiederherstellung, Monitoring,
   Livegang-Checkliste (verbindlich, ergänzt die Abschnitte Deployment und Betrieb unten)
 - `docs/bildinventar.md`: Bildinventar mit Lizenzstatus
@@ -100,6 +101,8 @@ Der Worker (`bin/worker.php`, Outbox für Mail und Webhook) wird mit `docker com
 Vor jedem Deployment: `composer test`, `composer lint`, auf Staging `php bin/check-pii.php --base-url=...` und `php bin/check-headers.php --base-url=...`.
 
 Ausführliche Anleitung mit Staging-Betrieb, Rauchtest und Livegang-Checkliste: `docs/betrieb.md`.
+
+Webhosting nur mit SFTP (kein SSH, kein Docker, z. B. Apache mit PHP-FPM): `bin/build-release.sh` erzeugt ein fertiges Paket mit `vendor`, Build, `.htaccess`-Dateien und einer `.env` mit frischen Schlüsseln (nie ins Repository). Inbetriebnahme über die Web-Einrichtung `/_einrichtung/` (Diagnose, Migrationen, erster Admin), Mail ohne Cronjob mit `OUTBOX_MODE=inline`, Staging-Schutz über `STAGING_BASIC_AUTH`. Anleitung: `docs/deploy-sftp.md`.
 
 ## Rollback
 

@@ -11,6 +11,11 @@ Zielumgebung: Docker Compose (PHP-FPM und Nginx aus einem Dockerfile, siehe
 Produktion und Staging laufen als getrennte Compose-Projekte mit je eigener `.env` und eigenem
 `COMPOSE_PROJECT_NAME`.
 
+Steht nur Webhosting mit SFTP zur Verfügung (kein SSH, kein Docker, z. B. Staging
+`neu.muellerhv.de` bei IONOS mit Apache und PHP-FPM), gilt stattdessen `docs/deploy-sftp.md`:
+Release-Paket aus `bin/build-release.sh`, Web-Einrichtung `/_einrichtung/`, `OUTBOX_MODE=inline`
+und Staging-Schutz über `STAGING_BASIC_AUTH` in der Anwendung.
+
 ### 1.1 Ablauf
 
 1. Auf dem Zielserver `.env` aus `.env.example` pflegen: `APP_ENV`, `APP_URL`, `APP_HOST`,

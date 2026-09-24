@@ -54,6 +54,16 @@ return [
         'allow_http_internal' => Env::bool('N8N_WEBHOOK_ALLOW_HTTP_INTERNAL', false),
     ],
 
+    // Outbox (Mail, Webhook): worker = eigener Dienst bzw. Cronjob mit bin/worker.php (Standard),
+    // inline = die Anwendung verarbeitet nach dem Senden der Antwort bis zu 5 fällige Einträge (Webhosting ohne Cronjob)
+    'outbox_mode' => in_array(Env::string('OUTBOX_MODE', 'worker'), ['inline', 'worker'], true) ? Env::string('OUTBOX_MODE', 'worker') : 'worker',
+
+    // Web-Einrichtung /_einrichtung/ (docs/deploy-sftp.md): nur mit SETUP_TOKEN (mindestens 32 Zeichen) und solange
+    // storage/setup.lock fehlt
+    'setup_token' => Env::get('SETUP_TOKEN'),
+    // Staging-Schutz in der Anwendung: benutzer:password_hash (bcrypt oder Argon2), nur bei APP_ENV=staging
+    'staging_basic_auth' => Env::get('STAGING_BASIC_AUTH'),
+
     'trusted_proxies' => Env::list('TRUSTED_PROXIES'),
     'admin_ip_allowlist' => Env::list('ADMIN_IP_ALLOWLIST'),
     // [Aufbewahrungsfrist festlegen], null = Löschlauf deaktiviert
@@ -66,7 +76,7 @@ return [
         // native (PHP-Sitzung) oder array (nur Speicher, für Tests)
         'driver' => Env::string('SESSION_DRIVER', 'native'),
         // Pfadpräfixe, auf denen die Sitzung immer startet (Formulare, Admin)
-        'paths' => ['/angebot/', '/kontakt/', '/karriere/bewerbung/', '/admin/'],
+        'paths' => ['/angebot/', '/kontakt/', '/karriere/bewerbung/', '/admin/', '/_einrichtung/'],
     ],
     // Pfadpräfixe ohne CSRF-Prüfung, nur für signierte Maschinenschnittstellen
     'csrf_exempt' => [],

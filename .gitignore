@@ -4,6 +4,8 @@
 /.env.*
 !/.env.example
 /legacy/
+# Release-Pakete aus bin/build-release.sh (enthalten .env mit Schlüsseln)
+/build/
 /storage/*
 !/storage/.gitkeep
 /public/assets/build/

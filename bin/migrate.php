@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
  * Führt migrations/NNNN_name.sql in Reihenfolge aus und protokolliert sie in schema_migrations.
- * Mehrere Anweisungen je Datei sind erlaubt (Trennung per Semikolon, Zeichenketten und Kommentare werden beachtet).
+ * Die Logik steckt in Hvm\Support\Migrator (auch genutzt von der Web-Einrichtung /_einrichtung/).
  *
  * Aufruf:
  *   php bin/migrate.php                  Entwicklungs- bzw. Produktionsdatenbank (DB_*)
@@ -16,6 +16,12 @@ declare(strict_types=1);
 use Hvm\Support\Config;
 use Hvm\Support\Db;
 use Hvm\Support\Env;
+use Hvm\Support\Migrator;
+
+if (PHP_SAPI !== 'cli') {
+    http_response_code(404);
+    exit;
+}
 
 $root = dirname(__DIR__);
 require $root . '/vendor/autoload.php';
@@ -29,71 +35,6 @@ Env::load($root . '/.env');
 date_default_timezone_set('UTC');
 $config = Config::fromDirectory($root . '/config');
 
-/**
- * Zerlegt SQL in einzelne Anweisungen.
- *
- * @return list<string>
- */
-function splitSql(string $sql): array
-{
-    $statements = [];
-    $current = '';
-    $length = strlen($sql);
-    $quote = null;
-
-    for ($i = 0; $i < $length; $i++) {
-        $char = $sql[$i];
-        $next = $sql[$i + 1] ?? '';
-
-        if ($quote !== null) {
-            $current .= $char;
-            if ($char === '\\' && $quote !== '`') {
-                $current .= $next;
-                $i++;
-            } elseif ($char === $quote) {
-                if ($next === $quote) {
-                    $current .= $next;
-                    $i++;
-                } else {
-                    $quote = null;
-                }
-            }
-            continue;
-        }
-
-        if ($char === "'" || $char === '"' || $char === '`') {
-            $quote = $char;
-            $current .= $char;
-            continue;
-        }
-        if (($char === '-' && $next === '-' && in_array($sql[$i + 2] ?? ' ', [' ', "\t", "\n", "\r"], true)) || $char === '#') {
-            $end = strpos($sql, "\n", $i);
-            $i = $end === false ? $length : $end;
-            $current .= "\n";
-            continue;
-        }
-        if ($char === '/' && $next === '*') {
-            $end = strpos($sql, '*/', $i + 2);
-            $i = $end === false ? $length : $end + 1;
-            $current .= ' ';
-            continue;
-        }
-        if ($char === ';') {
-            if (trim($current) !== '') {
-                $statements[] = trim($current);
-            }
-            $current = '';
-            continue;
-        }
-        $current .= $char;
-    }
-    if (trim($current) !== '') {
-        $statements[] = trim($current);
-    }
-
-    return $statements;
-}
-
 try {
     $pdo = Db::fromConfig($config, $connection);
 } catch (Throwable $e) {
@@ -101,50 +42,28 @@ try {
     exit(1);
 }
 
-// Gleichzeitige Läufe (z. B. Deploy-Skript und manueller Aufruf) serialisieren: ohne Sperre lesen beide
-// denselben Stand aus schema_migrations und scheitern an bereits angelegten Tabellen.
-$lockName = 'hvm_migrate_' . substr(hash('sha256', (string) $pdo->query('SELECT DATABASE()')->fetchColumn()), 0, 40);
-$lock = $pdo->prepare('SELECT GET_LOCK(?, ?)');
-$lock->execute([$lockName, 120]);
-if ((int) $lock->fetchColumn() !== 1) {
-    fwrite(STDERR, "Ein anderer Migrationslauf ist aktiv, Abbruch nach 120 Sekunden Wartezeit.\n");
-    exit(1);
-}
-
-$pdo->exec('CREATE TABLE IF NOT EXISTS schema_migrations (
-    version VARCHAR(191) NOT NULL PRIMARY KEY,
-    applied_at DATETIME NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci');
-
-$applied = $pdo->query('SELECT version FROM schema_migrations')->fetchAll(PDO::FETCH_COLUMN);
-$files = is_dir($dir) ? (glob(rtrim($dir, '/') . '/*.sql') ?: []) : [];
-sort($files, SORT_STRING);
-
-$pending = array_values(array_filter($files, static fn (string $f): bool => !in_array(basename($f, '.sql'), $applied, true)));
+$migrator = new Migrator($pdo, $dir);
+$pending = $migrator->pending();
 if ($pending === []) {
-    fwrite(STDOUT, sprintf("Keine offenen Migrationen (%s, %d bereits ausgeführt).\n", $connection, count($applied)));
+    fwrite(STDOUT, sprintf("Keine offenen Migrationen (%s, %d bereits ausgeführt).\n", $connection, count($migrator->applied())));
     exit(0);
 }
 
-foreach ($pending as $file) {
-    $version = basename($file, '.sql');
-    if ($statusOnly) {
+if ($statusOnly) {
+    foreach ($pending as $version) {
         fwrite(STDOUT, "offen: $version\n");
-        continue;
     }
-    fwrite(STDOUT, "Migration $version ... ");
-    try {
-        foreach (splitSql((string) file_get_contents($file)) as $statement) {
-            $pdo->exec($statement);
-        }
-        $insert = $pdo->prepare('INSERT INTO schema_migrations (version, applied_at) VALUES (?, UTC_TIMESTAMP())');
-        $insert->execute([$version]);
-    } catch (Throwable $e) {
-        fwrite(STDOUT, "Fehler\n");
-        fwrite(STDERR, $e->getMessage() . PHP_EOL);
+    exit(0);
+}
+
+$result = $migrator->migrate(static function (string $line): void {
+    fwrite(STDOUT, $line . PHP_EOL);
+});
+if (!$result['ok']) {
+    fwrite(STDERR, (string) $result['fehler'] . PHP_EOL);
+    if ($result['version'] !== null) {
         fwrite(STDERR, "Abbruch. DDL-Anweisungen sind in MariaDB nicht transaktional, bereits ausgeführte Anweisungen dieser Datei prüfen.\n");
-        exit(1);
     }
-    fwrite(STDOUT, "ok\n");
+    exit(1);
 }
 exit(0);

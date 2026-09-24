@@ -27,7 +27,7 @@ try {
     $kernel = Hvm\Http\Kernel::fromGlobals(dirname(__DIR__));
 } catch (Throwable $e) {
     // Startfehler (fehlende .env, ungültiger APP_KEY, fehlende Abhängigkeiten): Details nur ins Server-Log.
-    error_log('HVM Startfehler: ' . get_class($e) . ': ' . $e->getMessage() . ' (Diagnose: php bin/diagnose.php)');
+    error_log('HVM Startfehler: ' . get_class($e) . ': ' . $e->getMessage() . ' (Diagnose: php bin/diagnose.php bzw. /_einrichtung/)');
     http_response_code(503);
     header('Content-Type: text/html; charset=utf-8');
     header('Retry-After: 300');
@@ -39,3 +39,5 @@ try {
 }
 
 $kernel->handle()->send();
+// Nacharbeit nach dem Senden (OUTBOX_MODE=inline: Mail und Webhook ohne Cronjob)
+$kernel->terminate();

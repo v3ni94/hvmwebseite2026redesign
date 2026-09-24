@@ -1,0 +1,21 @@
+/*
+ * Web-Einrichtung /_einrichtung/ (docs/deploy-sftp.md). Nutzt die Admin-Komponenten, nur CI-Tokens.
+ */
+@layer components {
+    .c-einrichtung .c-admin-inhalt { max-width: 60rem; }
+    .c-einrichtung__liste, .c-einrichtung__protokoll { list-style: none; margin: 0; padding: 0; max-width: none; }
+    .c-einrichtung__pruefung {
+        display: grid; grid-template-columns: 5.5rem 1fr; gap: var(--abstand-3);
+        padding: var(--abstand-2) 0; border-bottom: 1px solid var(--hvm-umriss); overflow-wrap: anywhere;
+    }
+    .c-einrichtung__marke {
+        align-self: start; padding: 0.125rem var(--abstand-2); border: 1px solid var(--hvm-ink);
+        font-size: 0.8125rem; font-weight: var(--fw-halbfett); text-align: center; background: var(--hvm-weiss);
+    }
+    .c-einrichtung__pruefung--fehler .c-einrichtung__marke { background: var(--hvm-orange); border-color: var(--hvm-orange); }
+    .c-einrichtung__pruefung--hinweis .c-einrichtung__marke { border-style: dashed; }
+    .c-einrichtung__code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; word-break: break-all; }
+    .c-einrichtung__codes { display: grid; gap: var(--abstand-2); grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); max-width: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .c-einrichtung__geheim { border-top: 4px solid var(--hvm-orange); }
+    .c-einrichtung .c-admin-karte + .c-admin-karte { margin-top: var(--abstand-5); }
+}

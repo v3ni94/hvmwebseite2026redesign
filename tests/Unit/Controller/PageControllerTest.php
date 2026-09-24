@@ -20,9 +20,11 @@ final class PageControllerTest extends TestCase
         $gesehen = [];
         foreach ($routes as $route) {
             $pfad = $route[1];
-            // Feature-Routen ersetzen Stubs (doppelte Pfade), Platzhalter und Admin (Login-Weiterleitung) gesondert getestet.
+            // Feature-Routen ersetzen Stubs (doppelte Pfade), Platzhalter, Admin (Login-Weiterleitung) und
+            // Einrichtung (404 ohne SETUP_TOKEN, EinrichtungControllerTest) gesondert getestet.
             if (!in_array('GET', (array) $route[0], true) || !str_ends_with($pfad, '/')
-                || str_contains($pfad, '{') || str_starts_with($pfad, '/admin/') || isset($gesehen[$pfad])) {
+                || str_contains($pfad, '{') || str_starts_with($pfad, '/admin/') || str_starts_with($pfad, '/_einrichtung/')
+                || isset($gesehen[$pfad])) {
                 continue;
             }
             $gesehen[$pfad] = true;

@@ -1,0 +1,25 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+{#
+  Web-Einrichtung, Anmeldung mit SETUP_TOKEN (src/Controller/EinrichtungController.php, docs/deploy-sftp.md).
+#}
+{% block title %}Einrichtung | {{ firma.name }}{% endblock %}
+{% block body_class %}c-admin--anmeldung{% endblock %}
+
+{% block content %}
+<section class="c-admin-anmeldung" aria-labelledby="titel-einrichtung">
+    <h1 id="titel-einrichtung" class="c-admin-titel">Einrichtung</h1>
+    <p class="c-admin-anmeldung__text">Einmalige Inbetriebnahme ohne Kommandozeile. Den Einrichtungs-Token finden Sie in der Datei <code>.env</code> unter <code>SETUP_TOKEN</code>.</p>
+
+    {% if fehler %}
+    <div class="c-admin-meldung c-admin-meldung--fehler" role="alert" id="einrichtung-fehler"><p>{{ fehler }}</p></div>
+    {% endif %}
+
+    <form class="c-admin-formular" method="post" action="/_einrichtung/" novalidate{% if fehler %} aria-describedby="einrichtung-fehler"{% endif %}>
+        {{ csrf_field() }}
+        <input type="hidden" name="aktion" value="anmelden">
+        {{ f.eingabe({name: 'token', label: 'Einrichtungs-Token', typ: 'password', pflicht: true, autocomplete: 'off'}) }}
+        <button class="c-button c-button--primaer" type="submit">Anmelden</button>
+    </form>
+</section>
+{% endblock %}

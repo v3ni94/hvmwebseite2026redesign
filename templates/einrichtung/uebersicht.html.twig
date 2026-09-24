@@ -1,0 +1,134 @@
+{% extends 'layouts/admin.html.twig' %}
+{% import 'components/form-fields.html.twig' as f %}
+{#
+  Web-Einrichtung (src/Controller/EinrichtungController.php, docs/deploy-sftp.md).
+  Geheimnis, otpauth-URI und Wiederherstellungscodes erscheinen nur in der Antwort auf die Admin-Anlage.
+#}
+{% block title %}Einrichtung | {{ firma.name }}{% endblock %}
+{% block body_class %}c-einrichtung{% endblock %}
+
+{% block content %}
+<div class="c-admin-abschnitt">
+    <div class="c-admin-kopfzeile">
+        <h1 class="c-admin-titel">Einrichtung</h1>
+        <form method="post" action="/_einrichtung/">
+            {{ csrf_field() }}
+            <input type="hidden" name="aktion" value="abmelden">
+            <button class="c-button c-button--sekundaer c-button--klein" type="submit">Abmelden</button>
+        </form>
+    </div>
+
+    {% if fehler %}
+    <div class="c-admin-meldung c-admin-meldung--fehler" role="alert"><p>{{ fehler }}</p></div>
+    {% endif %}
+    {% if meldung %}
+    <div class="c-admin-meldung c-admin-meldung--erfolg" role="status"><p>{{ meldung }}</p></div>
+    {% endif %}
+
+    {% if neues_konto %}
+    <section class="c-admin-karte c-einrichtung__geheim" aria-labelledby="titel-konto">
+        <h2 id="titel-konto" class="c-admin-untertitel">Neues Admin-Konto: nur jetzt sichtbar</h2>
+        <p>Konto <strong>{{ neues_konto.email }}</strong> ist angelegt. Die folgenden Angaben werden nicht gespeichert und nicht erneut angezeigt. Nicht per E-Mail oder Chat weitergeben.</p>
+        <h3 class="c-admin-kleintitel">1. Authenticator-App einrichten</h3>
+        <p>In der App (z. B. eine TOTP-fähige Authenticator-App) ein Konto manuell hinzufügen und das Geheimnis eingeben, zeitbasiert, 6 Stellen, 30 Sekunden. Alternativ die otpauth-URI in der App bzw. einem lokalen QR-Code-Programm verwenden.</p>
+        <dl class="c-admin-daten">
+            <div class="c-admin-daten__zeile"><dt>Geheimnis</dt><dd><code class="c-einrichtung__code">{{ neues_konto.geheimnis }}</code></dd></div>
+            <div class="c-admin-daten__zeile"><dt>otpauth-URI</dt><dd><code class="c-einrichtung__code">{{ neues_konto.uri }}</code></dd></div>
+        </dl>
+        <h3 class="c-admin-kleintitel">2. Wiederherstellungscodes sicher ablegen</h3>
+        <p>Jeder Code ist einmal verwendbar und ersetzt bei der Anmeldung den Code aus der App. Offline verwahren (Ausdruck im Tresor oder Passwortmanager).</p>
+        <ol class="c-einrichtung__codes">
+            {% for code in neues_konto.codes %}<li><code>{{ code }}</code></li>{% endfor %}
+        </ol>
+    </section>
+    {% endif %}
+
+    {% if hash_zeile %}
+    <section class="c-admin-karte" aria-labelledby="titel-hash-ergebnis">
+        <h2 id="titel-hash-ergebnis" class="c-admin-untertitel">Zeile für die .env</h2>
+        <p><code class="c-einrichtung__code">{{ hash_zeile }}</code></p>
+        <p class="c-admin-hinweistext">In <code>.env</code> eintragen (einfache Anführungszeichen beibehalten) und die Datei per SFTP hochladen. Der Schutz greift nur bei <code>APP_ENV=staging</code>.</p>
+    </section>
+    {% endif %}
+
+    <section class="c-admin-karte" aria-labelledby="titel-diagnose">
+        <h2 id="titel-diagnose" class="c-admin-untertitel">1. Diagnose</h2>
+        <p>{% if diagnose_fehler == 0 %}Keine Fehler gefunden.{% else %}{{ diagnose_fehler }} Problem(e) gefunden.{% endif %} Es werden keine Geheimnisse angezeigt, nur ob Werte gesetzt und gültig sind.</p>
+        <ul class="c-einrichtung__liste" role="list">
+            {% for e in diagnose %}
+            <li class="c-einrichtung__pruefung c-einrichtung__pruefung--{{ e.status }}">
+                <span class="c-einrichtung__marke">{{ {ok: 'OK', fehler: 'Fehler', hinweis: 'Hinweis'}[e.status] }}</span>
+                <span>{{ e.text }}{% if e.loesung %}<br><span class="c-admin-klein">Lösung: {{ e.loesung }}</span>{% endif %}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="c-admin-karte" aria-labelledby="titel-migrationen">
+        <h2 id="titel-migrationen" class="c-admin-untertitel">2. Datenbank-Migrationen</h2>
+        {% if not datenbank %}
+        <p>Keine Datenbankverbindung. Zugangsdaten aus dem Hosting-Panel in <code>.env</code> eintragen (DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD) und die Datei erneut hochladen.</p>
+        {% elseif migrationen_offen is null %}
+        <p>Migrationsstand nicht lesbar. Rechte des Datenbankbenutzers prüfen.</p>
+        {% elseif migrationen_offen|length == 0 %}
+        <p>Alle Migrationen sind ausgeführt.</p>
+        {% else %}
+        <p>{{ migrationen_offen|length }} offene Migration(en): {{ migrationen_offen|join(', ') }}</p>
+        {% endif %}
+        {% if migration_zeilen %}
+        <ul class="c-einrichtung__protokoll" role="list">{% for z in migration_zeilen %}<li><code>{{ z }}</code></li>{% endfor %}</ul>
+        {% endif %}
+        {% if datenbank and migrationen_offen is not null and migrationen_offen|length > 0 %}
+        <form method="post" action="/_einrichtung/">
+            {{ csrf_field() }}
+            <input type="hidden" name="aktion" value="migrieren">
+            <button class="c-button c-button--primaer" type="submit">Migrationen ausführen</button>
+        </form>
+        {% endif %}
+    </section>
+
+    <section class="c-admin-karte" aria-labelledby="titel-admin">
+        <h2 id="titel-admin" class="c-admin-untertitel">3. Erster Admin</h2>
+        {% if admin_anzahl is null %}
+        <p>Verfügbar, sobald die Datenbank erreichbar ist und alle Migrationen ausgeführt sind.</p>
+        {% elseif admin_anzahl > 0 %}
+        <p>Es existiert bereits ein Admin-Konto ({{ admin_anzahl }}). Weitere Konten werden nicht über die Einrichtung angelegt.</p>
+        {% elseif not app_key %}
+        <p>APP_KEY fehlt oder ist ungültig. Ohne APP_KEY kann das TOTP-Geheimnis nicht verschlüsselt werden.</p>
+        {% else %}
+        <p class="c-admin-hinweistext">Passwort mit mindestens 12 Zeichen, ohne Bestandteile der E-Mail-Adresse. Nach dem Anlegen erscheinen TOTP-Geheimnis und Wiederherstellungscodes einmalig.</p>
+        <form class="c-admin-formular" method="post" action="/_einrichtung/" novalidate>
+            {{ csrf_field() }}
+            <input type="hidden" name="aktion" value="admin">
+            {{ f.eingabe({name: 'email', label: 'E-Mail-Adresse', typ: 'email', wert: admin_email, pflicht: true, autocomplete: 'username'}) }}
+            {{ f.eingabe({name: 'passwort', label: 'Passwort', typ: 'password', pflicht: true, autocomplete: 'new-password'}) }}
+            {{ f.eingabe({name: 'passwort_wiederholung', label: 'Passwort wiederholen', typ: 'password', pflicht: true, autocomplete: 'new-password'}) }}
+            <button class="c-button c-button--primaer" type="submit">Admin anlegen</button>
+        </form>
+        {% endif %}
+    </section>
+
+    <section class="c-admin-karte" aria-labelledby="titel-hash">
+        <h2 id="titel-hash" class="c-admin-untertitel">4. Hash-Hilfe für den Staging-Schutz (optional)</h2>
+        <p class="c-admin-hinweistext">Erzeugt die Zeile <code>STAGING_BASIC_AUTH</code> für die <code>.env</code>. Danach fragt der Browser auf der gesamten Staging-Seite nach Benutzer und Passwort (außer <code>/health</code>).</p>
+        <form class="c-admin-formular" method="post" action="/_einrichtung/" novalidate>
+            {{ csrf_field() }}
+            <input type="hidden" name="aktion" value="hash">
+            {{ f.eingabe({name: 'benutzer', label: 'Benutzername', wert: hash_benutzer, pflicht: true, autocomplete: 'off'}) }}
+            {{ f.eingabe({name: 'passwort', id: 'feld-hash-passwort', label: 'Passwort (mindestens 12 Zeichen)', typ: 'password', pflicht: true, autocomplete: 'new-password'}) }}
+            <button class="c-button c-button--sekundaer" type="submit">Hash erzeugen</button>
+        </form>
+    </section>
+
+    <section class="c-admin-karte" aria-labelledby="titel-abschluss">
+        <h2 id="titel-abschluss" class="c-admin-untertitel">5. Einrichtung abschließen</h2>
+        <p class="c-admin-hinweistext">Schreibt <code>storage/setup.lock</code>. Danach ist diese Seite nicht mehr erreichbar (404).</p>
+        <form class="c-admin-formular" method="post" action="/_einrichtung/">
+            {{ csrf_field() }}
+            <input type="hidden" name="aktion" value="abschliessen">
+            {{ f.checkbox({name: 'bestaetigung', wert: 'ja', label: 'Admin-Zugang, Authenticator-App und Wiederherstellungscodes sind gesichert.'}) }}
+            <button class="c-button c-button--primaer" type="submit">Einrichtung abschließen</button>
+        </form>
+    </section>
+</div>
+{% endblock %}

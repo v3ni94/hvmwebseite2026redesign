@@ -1,0 +1,46 @@
+# Notlösung für Apache 2.4, wenn die Document Root NICHT auf den Ordner public/ gesetzt werden kann
+# (docs/deploy-sftp.md). Empfohlen bleibt: Document Root = public/, dann ist diese Datei wirkungslos.
+#
+# Leitet alle Anfragen intern nach public/ um (dort übernimmt public/.htaccess) und sperrt Quellcode,
+# Konfiguration, Abhängigkeiten, Speicher und versteckte Dateien hart mit 404.
+# Ohne mod_rewrite wird alles gesperrt (sicher statt offen).
+
+Options -Indexes
+<IfModule mod_dir.c>
+    DirectoryIndex disabled
+</IfModule>
+
+# Versteckte Dateien (.env, .htaccess, .git) und bekannte Projektdateien nie ausliefern
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+<FilesMatch "^(composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml(\.dist)?|playwright\.config\.js|docker-compose\.ya?ml|README\.md|LIESMICH-SFTP\.txt|.*\.(sql|sh|log|md|dist|lock|ini|bak|zip))$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Authorization-Header für PHP-FPM durchreichen (Staging-Schutz, siehe public/.htaccess)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Versteckte Pfade, ausgenommen /.well-known/
+    RewriteRule "(^|/)\.(?!well-known(/|$))" - [R=404,L]
+
+    # Interne Ordner des Projekts
+    RewriteRule "^(src|config|vendor|storage|templates|content|migrations|bin|tests|docs|resources|legacy|node_modules|docker|build)(/|$)" - [R=404,L]
+
+    # Alles andere nach public/ (dort gelten Front Controller und Header aus public/.htaccess)
+    RewriteRule "^(?!public/)(.*)$" "public/$1" [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>
+
+# Zusätzlich ohne mod_rewrite-Abhängigkeit: interne Ordner mit mod_alias sperren
+<IfModule mod_alias.c>
+    RedirectMatch 404 "^/(src|config|vendor|storage|templates|content|migrations|bin|tests|docs|resources|legacy|node_modules|docker|build)(/|$)"
+    RedirectMatch 404 "/\.(?!well-known(/|$))"
+</IfModule>

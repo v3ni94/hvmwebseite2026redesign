@@ -1,0 +1,116 @@
+# Apache 2.4 (z. B. Webhosting mit PHP-FPM), Document Root = dieser Ordner public/.
+# Anleitung: docs/deploy-sftp.md. Nginx nutzt stattdessen docker/nginx/default.conf.
+# Alle modulabhängigen Direktiven sind mit IfModule abgesichert.
+
+# Hinweis: Erlaubt das Hosting keine Options-Direktive (AllowOverride ohne Options), antwortet Apache
+# mit 500. Dann die folgende Zeile auskommentieren (docs/deploy-sftp.md, Fehlerbilder).
+Options -Indexes -MultiViews
+AddDefaultCharset utf-8
+<IfModule mod_dir.c>
+    DirectoryIndex index.php
+</IfModule>
+
+# Nur der Front Controller darf als PHP ausgeführt werden
+<FilesMatch "\.(php|phtml|phar|inc)$">
+    Require all denied
+</FilesMatch>
+<Files "index.php">
+    Require all granted
+</Files>
+
+# Versteckte Dateien (.htaccess, .user.ini, .env, .git) nie ausliefern
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Authorization-Header an PHP durchreichen. PHP-FPM bzw. CGI erhält ihn sonst nicht,
+    # und der Staging-Schutz (STAGING_BASIC_AUTH) könnte keine Anmeldung prüfen.
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Direkter Aufruf von /public/... (Document Root auf dem Projektordner, Wurzel-.htaccess): keine Doppel-URLs
+    RewriteCond %{THE_REQUEST} "^\S+\s/+public(/|\?|\s)" [NC]
+    RewriteRule ^ - [R=404,L]
+
+    # Versteckte Pfade sperren, ausgenommen /.well-known/ (Zertifikate, security.txt)
+    RewriteRule "(^|/)\.(?!well-known(/|$))" - [R=404,L]
+
+    # Vorkomprimierte Dateien (bin/build-assets.php erzeugt datei.css.gz) ausliefern, wenn der Browser gzip
+    # versteht. Nur mit mod_headers, sonst fehlte der Header Content-Encoding.
+    <IfModule mod_headers.c>
+        RewriteCond %{HTTP:Accept-Encoding} gzip
+        RewriteCond %{REQUEST_FILENAME}.gz -f
+        RewriteRule "^(.+\.(?:css|js|json|svg))$" "$1.gz" [E=no-gzip:1,L]
+    </IfModule>
+
+    # Front Controller: vorhandene Dateien direkt, alles andere an index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Ohne mod_rewrite: unbekannte Pfade an den Front Controller (mod_dir)
+<IfModule !mod_rewrite.c>
+    <IfModule mod_dir.c>
+        FallbackResource /index.php
+    </IfModule>
+</IfModule>
+
+# .gz-Varianten nicht ein zweites Mal komprimieren (nach der internen Umleitung heißt die
+# Rewrite-Variable REDIRECT_no-gzip, daher zusätzlich über die Dateiendung)
+<IfModule mod_setenvif.c>
+    SetEnvIfNoCase Request_URI "\.gz$" no-gzip=1
+</IfModule>
+
+# Dynamische Antworten (HTML) und Texte ohne .gz-Variante komprimieren, falls verfügbar
+<IfModule mod_deflate.c>
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+    </IfModule>
+</IfModule>
+
+# Richtige Typen und Kodierung für die .gz-Varianten
+<FilesMatch "\.css\.gz$">
+    ForceType "text/css; charset=utf-8"
+</FilesMatch>
+<FilesMatch "\.js\.gz$">
+    ForceType "text/javascript; charset=utf-8"
+</FilesMatch>
+<FilesMatch "\.json\.gz$">
+    ForceType "application/json; charset=utf-8"
+</FilesMatch>
+<FilesMatch "\.svg\.gz$">
+    ForceType "image/svg+xml"
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|json|svg)\.gz$">
+        Header set Content-Encoding gzip
+        Header append Vary Accept-Encoding
+    </FilesMatch>
+
+    # Statische Dateien: kein MIME-Sniffing, keine Einbettung fremder Seiten (PHP setzt eigene Header)
+    <FilesMatch "\.(css|js|mjs|json|svg|png|jpe?g|gif|webp|avif|ico|txt|xml|gz|woff2?|pdf)$">
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    </FilesMatch>
+
+    # Gehashte Build-Dateien ändern sich nie: ein Jahr, immutable
+    <If "%{REQUEST_URI} =~ m#(^|/)assets/build/#">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </If>
+    # Übrige Bilder und Icons: eine Woche
+    <If "%{REQUEST_URI} =~ m#(^|/)(assets/img|og)/#">
+        Header set Cache-Control "public, max-age=604800"
+    </If>
+</IfModule>
+
+<IfModule mod_mime.c>
+    AddType text/javascript .js .mjs
+    AddType image/svg+xml .svg
+    AddType image/avif .avif
+    AddType image/webp .webp
+    AddType application/manifest+json .webmanifest
+</IfModule>

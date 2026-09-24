@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 use Hvm\Http\Kernel;
 use Hvm\Security\AdminAuth;
+use Hvm\Security\AdminProvisioning;
 use Hvm\Security\Password;
 use Hvm\Security\RecoveryCodes;
 use Hvm\Security\SpamGuard;
@@ -34,7 +35,7 @@ use Hvm\Support\Log;
 $root = dirname(__DIR__);
 require $root . '/vendor/autoload.php';
 
-const ISSUER = 'Hausverwaltung Müller';
+const ISSUER = AdminProvisioning::ISSUER;
 
 $command = $argv[1] ?? '';
 $email = AdminAuth::normalizeEmail((string) ($argv[2] ?? ''));
@@ -127,16 +128,11 @@ switch ($command) {
             $fail('Ein Konto mit dieser E-Mail-Adresse existiert bereits.');
         }
         $password = $readPassword();
-        $secret = Totp::generateSecret();
-        $pdo->prepare(
-            'INSERT INTO admin_users (email, password_hash, totp_secret, totp_enabled, created_at, password_changed_at) VALUES (?, ?, ?, 1, ?, ?)'
-        )->execute([$email, Password::hash($password), AdminAuth::encryptSecret($config, $secret), $now, $now]);
-        $id = (int) $pdo->lastInsertId();
-        $codes = (new RecoveryCodes($pdo, $config))->regenerate($id);
-        $log->info('Admin-Benutzer angelegt', ['admin_user_id' => $id]);
-        fwrite(STDOUT, sprintf('Konto %d angelegt.', $id) . PHP_EOL);
-        $printSecret($secret, $email);
-        $printRecoveryCodes($codes);
+        $konto = (new AdminProvisioning($pdo, $config))->create($email, $password);
+        $log->info('Admin-Benutzer angelegt', ['admin_user_id' => $konto['id']]);
+        fwrite(STDOUT, sprintf('Konto %d angelegt.', $konto['id']) . PHP_EOL);
+        $printSecret($konto['secret'], $email);
+        $printRecoveryCodes($konto['codes']);
         break;
 
     case 'recovery-codes':

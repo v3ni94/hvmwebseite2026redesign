@@ -67,7 +67,7 @@ Weitere Pakete nur nach Eintrag mit Begründung in `docs/entscheidungen.md`.
 - Front Controller `public/index.php` lädt `vendor/autoload.php` und ruft `Hvm\Http\Kernel::fromGlobals()->handle()->send()`.
 - Routen in `config/routes.php` als Liste: `['GET', '/weg-verwaltung/', [PageController::class, 'show'], ['page' => 'weg-verwaltung']]`. Platzhalter `{slug}` mit Regex `[a-z0-9-]+`.
 - Trailing Slash ist Pflicht für HTML-Seiten. Anfragen ohne Slash werden per 301 umgeleitet (Ausnahme: Dateien mit Endung wie `/sitemap.xml`).
-- Middleware-Kette in dieser Reihenfolge: ErrorHandler → SecurityHeaders (inkl. CSP-Nonce) → LegacyRedirects (`config/redirects.php`) → TrailingSlash → Session (nur für Formulare und Admin) → Csrf (POST) → Router.
+- Middleware-Kette in dieser Reihenfolge: ErrorHandler → SecurityHeaders (inkl. CSP-Nonce) → StagingBasicAuth (nur `APP_ENV=staging` mit `STAGING_BASIC_AUTH`, Webhosting ohne Traefik, `docs/deploy-sftp.md`) → LegacyRedirects (`config/redirects.php`) → TrailingSlash → Session (nur für Formulare und Admin) → Csrf (POST) → Router.
 - Antworten immer über `Hvm\Http\Response` (Status, Header, Body). Keine direkte Ausgabe mit `echo` außerhalb von `Response::send()`.
 - Fehlerseiten: 404 mit Suche und Kern-CTAs (`templates/pages/404.html.twig`), 500 generisch ohne Details. In Produktion niemals Stacktraces, `display_errors=Off` wird bei `APP_ENV=production` im Code erzwungen (`ini_set`) und in `docker/php/php-production.ini` gesetzt.
 - Logging nach `storage/logs/app.log` über `Hvm\Support\Log`. Log-Einträge enthalten nie E-Mail, Telefon, Namen oder Anschriften. Leads werden nur mit `uuid` referenziert.
@@ -102,6 +102,9 @@ N8N_WEBHOOK_ALLOW_HTTP_INTERNAL=false  # Produktion: nur https, true erlaubt htt
 ADMIN_IP_ALLOWLIST=           # leer = keine IP-Beschränkung, sonst CIDR-Liste
 SESSION_IDLE_TIMEOUT=1800
 LEAD_RETENTION_DAYS=          # [Aufbewahrungsfrist festlegen], leer = Löschlauf deaktiviert
+OUTBOX_MODE=worker            # worker (Dienst bzw. Cronjob) oder inline (Webhosting ohne Cronjob, docs/deploy-sftp.md)
+SETUP_TOKEN=                  # Web-Einrichtung /_einrichtung/, mindestens 32 Zeichen, leer = gesperrt
+STAGING_BASIC_AUTH=           # benutzer:hash (bcrypt/Argon2 prüft die Anwendung, apr1 prüft Traefik)
 ```
 
 Fachliche Stammdaten liegen in PHP-Konfigurationsdateien (`config/*.php`, geben Arrays zurück):
