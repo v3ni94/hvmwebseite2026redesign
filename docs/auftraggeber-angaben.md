@@ -20,3 +20,12 @@ Verbindliche Angaben der Geschäftsführung, die Platzhalter aus dem Masterpromp
 | 23.09.2026 | Online-Teilnahme an Eigentümerversammlungen bzw. virtuelle Versammlungen werden angeboten | bestätigt | Artikel online-eigentuemerversammlung |
 | 23.09.2026 | Leistungsverzeichnis Grund- und Sonderleistungen existiert | bestätigt. Inhalt bzw. Dokument noch nicht übergeben, Verweis bleibt Platzhalter | Artikel sonderleistungen-verwaltung |
 | 23.09.2026 | Entwurf des Verwaltervertrags wird mit dem Angebot übersandt | bestätigt | Artikel verwaltervertrag-inhalte |
+| 24.09.2026 | Notfallnummer | 02431 9550300 (zentrale Nummer), außerhalb der Sprechzeiten in der Leitung bleiben | config/unternehmen.php, Notfallseite |
+| 24.09.2026 | Portal-URL | portal.muellerhv.de | config/unternehmen.php |
+| 24.09.2026 | Bürozeiten | 8 bis 16 Uhr (Wochentage nicht genannt, offen) | config/unternehmen.php |
+| 24.09.2026 | Betreuungsgebiete | bundesweit nach 42 PLZ-Bereichen laut Absenderadressen-Tabelle der Verwaltungssoftware; je Stadt eine eigene Landingpage mit eigenständigem Inhalt gewünscht. Ob die Absenderadressen eigene Büros, Partnerbüros oder Postanschriften sind, ist offen, sie werden daher nicht als Standort veröffentlicht | config/staedte.php, Stadtseiten |
+| 24.09.2026 | Wertgutachten | Erstellung durch eigens ausgebildetes Personal, teilweise durch externe Sachverständige | Seite Wertgutachten, Artikel |
+| 24.09.2026 | Logo-Nachzeichnung (SVG) | freigegeben | public/assets/img/logo, docs/logo |
+| 24.09.2026 | Impressum und Datenschutz | Rückmeldung Anwalt: „sieht sehr gut aus“. Inhaltliche Platzhalter (u. a. Erlaubnis § 34c GewO und Behörde, Berufshaftpflicht, Verbraucherschlichtung, Datenschutzbeauftragter, AVV) sind noch zu füllen | Pflichtseiten |
+| 24.09.2026 | Verwalterwechsel: HVM übernimmt nach Beschluss die Abstimmung zur Übergabe mit dem bisherigen Verwalter, fehlende Unterlagen werden festgehalten und nachgefordert; Bürobesuche nur nach vorheriger Terminabstimmung | bestätigt („ja ist korrekt“) | Verwalterwechsel, Start, Kontakt |
+| 24.09.2026 | Staging-Subdomain | neu.muellerhv.de | .env.example, docs/betrieb.md |

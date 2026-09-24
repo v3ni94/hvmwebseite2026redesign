@@ -61,9 +61,9 @@ final class SupportTest extends TestCase
     {
         $config = Config::fromDirectory(dirname(__DIR__, 3) . '/config');
         self::assertSame('02431 9550300', $config->get('unternehmen.telefon')); // bestätigt 23.09.2026
-        self::assertNull($config->get('unternehmen.notfall_telefon'));
+        self::assertSame('02431 9550300', $config->get('unternehmen.notfall_telefon')); // bestätigt 24.09.2026
         self::assertNull($config->get('unternehmen.ust_id'));
-        self::assertNull($config->get('unternehmen.portal_url'));
+        self::assertSame('https://portal.muellerhv.de', $config->get('unternehmen.portal_url')); // bestätigt 24.09.2026
         self::assertSame('HRB 104762', $config->get('unternehmen.hrb'));
         self::assertSame([], $config->get('kundenstimmen'));
         foreach ($config->array('standorte') as $standort) {

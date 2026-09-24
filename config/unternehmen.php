@@ -25,13 +25,16 @@ return [
     'telefon' => '02431 9550300', // bestätigt durch GF am 23.09.2026
     'telefon_platzhalter' => 'zentrale Telefonnummer bestätigen',
     // [Notfallnummer bestätigen]
-    'notfall_telefon' => null,
+    // bestätigt 24.09.2026: gleiche Nummer, außerhalb der Bürozeiten in der Leitung bleiben
+    'notfall_telefon' => '02431 9550300',
+    'notfall_hinweis' => 'Außerhalb der Bürozeiten bleiben Sie bitte in der Leitung, Sie werden mit dem Notdienst verbunden.',
     'notfall_telefon_platzhalter' => 'Notfallnummer bestätigen',
     // [USt-IdNr. ergänzen, falls vorhanden]. Niemals eine Steuernummer veröffentlichen.
     'ust_id' => null,
     'ust_id_platzhalter' => 'USt-IdNr. ergänzen, falls vorhanden',
     // [Portal-Adresse bestätigen]
-    'portal_url' => null,
+    'portal_url' => 'https://portal.muellerhv.de', // bestätigt 24.09.2026
+    'buerozeiten' => '8 bis 16 Uhr', // bestätigt 24.09.2026, Wochentage noch offen
     'portal_url_platzhalter' => 'Portal-Adresse bestätigen',
 
     'mitgliedschaften' => [

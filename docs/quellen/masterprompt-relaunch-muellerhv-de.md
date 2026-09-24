@@ -113,7 +113,7 @@ Das Logo besteht aus H, V, M in abgestuften Grautönen, einem orangefarbenen Dia
 - Templating: serverseitig gerendertes HTML, progressive Enhancement. JavaScript nur wo nötig, ohne schweres Framework. Alpine.js oder Vanilla JS zulässig.
 - CSS: eigene Design-Tokens in CSS Custom Properties, moderne Features (Container Queries, `:has()`, Cascade Layers, `clamp()`). Kein Bootstrap. Tailwind nur nach Rückfrage.
 - Datenbank: MariaDB, eigene Datenbank und eigener Benutzer mit minimalen Rechten, Migrationen versioniert als SQL-Dateien.
-- Deployment: Docker Compose (PHP-FPM plus Nginx oder FrankenPHP) hinter dem bestehenden Traefik auf dem IONOS Dedicated Server. Staging unter `[Staging-Subdomain festlegen, z. B. neu.muellerhv.de]`, mit HTTP Basic Auth und `noindex`.
+- Deployment: Docker Compose (PHP-FPM plus Nginx oder FrankenPHP) hinter dem bestehenden Traefik auf dem IONOS Dedicated Server. Staging unter `neu.muellerhv.de`, mit HTTP Basic Auth und `noindex`.
 - Konfiguration über `.env`, niemals Zugangsdaten im Repository.
 - Git-Repository mit sauberer Commit-Historie, README mit Setup, Deployment und Rollback.
 
