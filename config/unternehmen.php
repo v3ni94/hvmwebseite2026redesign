@@ -34,7 +34,11 @@ return [
     'ust_id_platzhalter' => 'USt-IdNr. ergänzen, falls vorhanden',
     // [Portal-Adresse bestätigen]
     'portal_url' => 'https://portal.muellerhv.de', // bestätigt 24.09.2026
-    'buerozeiten' => '8 bis 16 Uhr', // bestätigt 24.09.2026, Wochentage noch offen
+    'buerozeiten' => 'Montag bis Freitag, 8 bis 16 Uhr', // bestätigt 24.09.2026 (Wochentage nachgereicht)
+    // Strukturierte Daten (openingHoursSpecification), gleiche Angabe wie buerozeiten
+    'oeffnungszeiten' => [
+        ['tage' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], 'von' => '08:00', 'bis' => '16:00'],
+    ],
     'portal_url_platzhalter' => 'Portal-Adresse bestätigen',
 
     'mitgliedschaften' => [

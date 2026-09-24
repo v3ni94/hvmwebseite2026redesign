@@ -35,7 +35,7 @@ Ein Rohrbruch richtet sich nicht nach Bürozeiten. Über die zentrale Nummer ist
 
 ## Vermietete Wohnungen aus der Ferne betreuen
 
-Wer eine Wohnung in Konstanz vermietet und selbst woanders lebt, überträgt die Aufgaben rund um das Mietverhältnis am besten vollständig: Mieterkontakt, Nebenkostenabrechnung, Kaution, Übergaben und Mieterhöhungen. Das leistet die [SE-Verwaltung](/se-verwaltung/). Für ganze Häuser gibt es die [Mietverwaltung](/mietverwaltung/). Eigentümer mit Wohnsitz im Ausland sollten steuerliche Fragen zur Vermietung mit einem Steuerberater klären.
+Wer eine Wohnung in Konstanz vermietet und selbst woanders lebt, überträgt die Aufgaben rund um das Mietverhältnis sinnvollerweise vollständig: Mieterkontakt, Nebenkostenabrechnung, Kaution, Übergaben und Mieterhöhungen. Das leistet die [SE-Verwaltung](/se-verwaltung/). Für ganze Häuser gibt es die [Mietverwaltung](/mietverwaltung/). Eigentümer mit Wohnsitz im Ausland sollten steuerliche Fragen zur Vermietung mit einem Steuerberater klären.
 
 ## Die Gemeinschaft im Blick behalten
 

@@ -70,7 +70,7 @@
             titel: 'Erreichbarkeit der *Hausverwaltung*',
             id: 'erreichbarkeit-titel',
         }) }}
-        <p class="c-prosa">Bürozeiten: {% if firma.buerozeiten %}{{ firma.buerozeiten }} {% endif %}{{ placeholder('Wochentage der Bürozeiten bestätigen') }}. Telefonisch erreichen Sie uns unter {{ firma.telefon ? firma.telefon : placeholder(firma.telefon_platzhalter) }}, schriftlich über <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder das <a href="/kontakt/">Kontaktformular</a>.{% if firma.portal_url %} Anliegen und Schadensmeldungen übermitteln Sie über das <a href="{{ firma.portal_url }}">Portal</a>.{% endif %}</p>
+        <p class="c-prosa">Bürozeiten: {{ firma.buerozeiten ?: placeholder('Bürozeiten ergänzen') }}. Telefonisch erreichen Sie uns unter {{ firma.telefon ? firma.telefon : placeholder(firma.telefon_platzhalter) }}, schriftlich über <a href="mailto:{{ firma.email }}">{{ firma.email }}</a> oder das <a href="/kontakt/">Kontaktformular</a>.{% if firma.portal_url %} Anliegen und Schadensmeldungen übermitteln Sie über das <a href="{{ firma.portal_url }}">Portal</a>.{% endif %}</p>
         {% if firma.notfall_telefon %}
         <p class="c-prosa">Notdienst rund um die Uhr: <a href="{{ tel_href(firma.notfall_telefon) }}">{{ firma.notfall_telefon }}</a>. {{ firma.notfall_hinweis }}</p>
         {% endif %}

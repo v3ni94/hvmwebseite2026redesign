@@ -109,7 +109,7 @@
             id: 'kontakt-titel',
             geteilt: true,
         }) }}
-        {% set buerozeiten %}Bürozeiten: {% if firma.buerozeiten %}{{ firma.buerozeiten }} {% endif %}{{ placeholder('Wochentage der Bürozeiten bestätigen') }}{% endset %}
+        {% set buerozeiten %}Bürozeiten: {{ firma.buerozeiten ?: placeholder('Bürozeiten ergänzen') }}{% endset %}
         <div class="c-karten">
             {{ c.card({klasse: 'c-karte--kompakt', eyebrow: 'Telefon', titel: firma.telefon ?: 'Telefon', icon: 'telefon', url: firma.telefon ? tel_href(firma.telefon) : '/kontakt/', fuss: firma.telefon ? 'Anrufen' : 'Zum Kontakt', text: 'Für Anfragen zur Verwaltung und für laufende Anliegen.', zusatz: buerozeiten}) }}
             {{ c.card({klasse: 'c-karte--kompakt c-karte--umbruch', eyebrow: 'E-Mail', titel: firma.email, icon: 'kontakt', url: 'mailto:' ~ firma.email, fuss: 'E-Mail schreiben', text: 'Schriftliche Anfragen, gern mit Angaben zu Ihrem Objekt.'}) }}

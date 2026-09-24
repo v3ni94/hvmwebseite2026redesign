@@ -72,6 +72,7 @@ final class SchemaBuilderTest extends TestCase
         self::assertSame('info@muellerhv.de', $organisation['email']);
         self::assertSame('+49 2431 9550300', $organisation['telephone']);
         self::assertArrayNotHasKey('vatID', $organisation, 'ust_id ist null und darf nicht erfunden werden');
+        self::assertArrayNotHasKey('openingHoursSpecification', $organisation, 'ohne oeffnungszeiten keine Öffnungszeiten');
         self::assertSame('Rheinpromenade 13', $organisation['address']['streetAddress']);
     }
 
@@ -114,6 +115,32 @@ final class SchemaBuilderTest extends TestCase
         self::assertSame('SearchAction', $website['potentialAction']['@type']);
         self::assertSame('https://www.muellerhv.de/wissen/?q={search_term_string}', $website['potentialAction']['target']['urlTemplate']);
         self::assertSame('required name=search_term_string', $website['potentialAction']['query-input']);
+    }
+
+    public function testOeffnungszeitenAusDerKonfiguration(): void
+    {
+        $config = $this->config();
+        $config->set('unternehmen.oeffnungszeiten', [['tage' => ['Monday', 'Friday'], 'von' => '08:00', 'bis' => '16:00']]);
+
+        $organisation = (new SchemaBuilder($config))->organization();
+
+        self::assertSame([[
+            '@type' => 'OpeningHoursSpecification',
+            'dayOfWeek' => ['Monday', 'Friday'],
+            'opens' => '08:00',
+            'closes' => '16:00',
+        ]], $organisation['openingHoursSpecification']);
+    }
+
+    public function testEchteStammdatenEnthaltenBuerozeitenMontagBisFreitag(): void
+    {
+        $config = \Hvm\Support\Config::fromDirectory(self::basePath() . '/config');
+        $config->set('app.url', 'https://www.muellerhv.de');
+        $organisation = (new SchemaBuilder($config))->organization();
+
+        self::assertSame(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], $organisation['openingHoursSpecification'][0]['dayOfWeek']);
+        self::assertSame('08:00', $organisation['openingHoursSpecification'][0]['opens']);
+        self::assertSame('16:00', $organisation['openingHoursSpecification'][0]['closes']);
     }
 
     public function testMitBetreuungsgebietenIstDeutschlandEinsatzgebiet(): void

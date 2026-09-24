@@ -25,7 +25,7 @@ Wer ein Anliegen an die Hausverwaltung hat, möchte schnell den richtigen Anspre
 
 Die Zentrale der Hausverwaltung Müller GmbH erreichen Sie unter **02431 9550300**.
 
-Bürozeiten: 8 bis 16 Uhr [Wochentage der Bürozeiten bestätigen]
+Bürozeiten: Montag bis Freitag, 8 bis 16 Uhr
 
 Das Telefon eignet sich für Rückfragen und kurze Abstimmungen. Für Schadensmeldungen und Anliegen, die Unterlagen oder Fotos erfordern, ist ein schriftlicher Weg meist schneller, weil keine Informationen verloren gehen.
 

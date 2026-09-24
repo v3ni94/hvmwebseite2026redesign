@@ -46,7 +46,7 @@
             </p>
 
             <h2 class="c-section-head__titel u-mt-6">Bürozeiten</h2>
-            <p class="c-prosa">{% if firma.buerozeiten %}{{ firma.buerozeiten }} {% endif %}{{ placeholder('Wochentage der Bürozeiten bestätigen') }}</p>
+            <p class="c-prosa">{{ firma.buerozeiten ?: placeholder('Bürozeiten ergänzen') }}</p>
 
             <h2 class="c-section-head__titel u-mt-6" id="anfahrt-titel">Anfahrt</h2>
             <p class="c-prosa">

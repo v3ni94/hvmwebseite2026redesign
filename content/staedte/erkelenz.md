@@ -31,7 +31,7 @@ Wer ein Mehrfamilienhaus oder mehrere Wohnungen vermietet, verwaltet oft neben d
 
 ## Abrechnung ohne Rückstau
 
-Ein häufiger Grund für den Wunsch nach einer Verwaltung ist die Nebenkostenabrechnung, die sich von Jahr zu Jahr verschiebt. Rechtlich hat der Vermieter für die Abrechnung eine Frist, deren Versäumen Nachforderungen in der Regel ausschließt. Wir organisieren die Abrechnung so, dass Belege, Zählerstände und Verbrauchswerte des Messdienstes rechtzeitig vorliegen. Über die Rahmenverträge der HVM lassen sich Messdienst, Strom, Gas, Versicherung und Hausmeisterdienste bei Bedarf bündeln, eine Verpflichtung dazu besteht nicht.
+Ein typischer Anlass für den Wunsch nach einer Verwaltung ist die Nebenkostenabrechnung, die sich von Jahr zu Jahr verschiebt. Rechtlich hat der Vermieter für die Abrechnung eine Frist, deren Versäumen Nachforderungen in der Regel ausschließt. Wir organisieren die Abrechnung so, dass Belege, Zählerstände und Verbrauchswerte des Messdienstes rechtzeitig vorliegen. Über die Rahmenverträge der HVM lassen sich Messdienst, Strom, Gas, Versicherung und Hausmeisterdienste bei Bedarf bündeln, eine Verpflichtung dazu besteht nicht.
 
 ## Eigentumswohnungen in Gemeinschaften
 

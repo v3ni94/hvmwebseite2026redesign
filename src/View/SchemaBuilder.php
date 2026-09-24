@@ -150,6 +150,16 @@ final class SchemaBuilder
                 array_filter((array) ($firma['leistungen'] ?? []), static fn ($l): bool => is_array($l) && isset($l['name']))
             )),
             'areaServed' => $this->confirmedAreaServed(),
+            // Bürozeiten laut config/unternehmen.php 'oeffnungszeiten' (bestätigt 24.09.2026), sonst weggelassen
+            'openingHoursSpecification' => array_values(array_map(
+                static fn (array $o): array => [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => array_values(array_map('strval', (array) ($o['tage'] ?? []))),
+                    'opens' => (string) ($o['von'] ?? ''),
+                    'closes' => (string) ($o['bis'] ?? ''),
+                ],
+                array_filter((array) ($firma['oeffnungszeiten'] ?? []), static fn ($o): bool => is_array($o) && isset($o['tage'], $o['von'], $o['bis']))
+            )),
             // sameAs nur mit bekannten, eigenen Profilen (optional config/unternehmen.php 'same_as'), sonst weggelassen
             'sameAs' => array_values(array_filter((array) ($firma['same_as'] ?? []), 'is_string')),
         ];
